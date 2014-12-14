@@ -1,0 +1,159 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathabx}
+\usepackage{calc}
+\usepackage{fullpage}
+
+\usepackage{dsfont} % includes bb 1
+\newcommand*\1{\mathds{1}}
+\usepackage[brazil]{babel}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{corollary}[theorem]{Corolário}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{proposition}[theorem]{Proposição}
+\newtheorem{definition}[theorem]{Definição}
+\newtheorem{notation}[theorem]{Notação}
+
+
+\def\d{\mathrm{d}}
+
+
+\begin{document}
+
+\title{Probabilidade I}
+\author{Segunda prova}
+
+\maketitle
+
+\noindent Observa\c{c}\~oes:
+\begin{itemize}
+\item A prova ter\'a dura\c{c}\~ao de $ 4 $ horas.
+\item Quest\~oes dever\~ao ser respondidas de maneira ma\-te\-ma\-ti\-ca\-men\-te rigorosa e clara.
+\item Todos os resultados provados em aula (exceto exerc\'icios) poder\~ao ser utilizados, salvo quando a quest\~ao pedir que algum destes seja provado. Nesse caso, todos os resultados anteriores poder\~ao ser utilizados.
+\item Caso uma quest\~ao seja composta de v\'arios itens, cada um poder\'a ser resolvido independentemente, supondo a validade dos anteriores.
+\end{itemize}
+
+\vspace{4mm}
+\noindent 1) Considere em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ as projeções canônicas $X_1$ e $X_2$.
+Calcule, em cada um dos exemplos abaixo, a probabilidade condicional regular $P[X_1 \in \cdot|X_2 = x_2]$, justificando sua resposta,
+\begin{enumerate}
+\item Quando $P$ é a medida uniforme em $T = \{(x,y) \in [0,1]^2; x \leq y\}$ (ou seja, a medida de Lebesgue em $\mathbb{R}^2$ restrita a $T$ e normalizada para ser uma probabilidade).
+\item Quando $P$ é a medida $U_{S^1}$ (uniforme em $S^1$).
+
+  
+\end{enumerate}
+
+
+
+\vspace{4mm}
+
+\medskip
+
+
+\noindent 2) Sejam $Z_1, Z_2, \dots$ variáveis aleatórias i.i.d. em $\mathcal{L}^1(P)$ com $E(Z_1) = 0$.
+\begin{enumerate}[\quad a)]
+\item Defina $X_0 = 0$ e
+  \begin{equation}
+    X_n = \sum_{i = 1}^n Z_i, \text{ para $n \geq 1$.}
+  \end{equation}
+  Mostre que $E(X_{n + 1} | Z_1, \dots, Z_n) = X_n$.
+\item Supondo agora que $Z_1 \in \mathcal{L}^2(P)$ e $E(Z) = 0$, defina $Y_0 = 0$ e
+  \begin{equation}
+    Y_n = \Big( \sum_{i = 1}^n Z_i \Big)^2 - n E(Z_1^2)
+  \end{equation}
+  Mostre que $E(Y_{n + 1} | Z_1, \dots, Z_n) = Y_n$.
+\end{enumerate}
+
+\newpage
+
+\noindent 3) Considere as medidas
+\begin{equation}
+  \mu_a = \frac{\delta_{-1} + \delta_1}{2}, \qquad \text{e} \qquad \mu_b = \mathcal{N}(0, 1).
+\end{equation}
+e $K:\mathbb{R} \times \mathcal{B}(\mathbb{R}) \to [0,1]$ dada por
+  \begin{equation}
+    K(x, A) =
+    \begin{cases}
+      \mu_a (A - x), & \text{ se $x < 0$,}\\
+      \mu_b (A - x), & \text{ se $x \geq 0$,}
+    \end{cases}
+  \end{equation}
+Mostre que
+\begin{enumerate}[\quad a)]
+\item $K$ define um núcleo de transição entre $\mathbb{R}$ em $\mathbb{R}$.
+\item Se $X_1, X_2, \dots$ for uma cadeia de Markov em $\mathbb{R}$ com núcleo de transição $K$, então calcule
+  \begin{enumerate}[\qquad i)]
+  \item $E(X_i)$, para todo $i \geq 1$ e
+  \item $\text{Var}(X_i)$, para todo $i \geq 1$.
+%    \begin{equation}
+%      \frac{\sum_{i = 1}^n X_i}{\sqrt{n}} \Rightarrow \mathcal{N}(0,1).
+%    \end{equation}
+  \end{enumerate}
+\end{enumerate}
+
+\newpage
+
+\noindent 4) {\bf Extra -} Sejam $X_1, X_2, \dots$ i.i.d. distribuidas como $\text{Exp}(1)$ e defina
+\begin{equation}
+  M_n = \max_{i = 1, \dots, n} X_i.
+\end{equation}
+Mostre que $M_n - \log(n)$ converge fracamente e identifique o limite.
+Observe que não precisamos dividir $M_n - \log(n)$ por nada para obter a convergência.
+
+\medskip
+\medskip
+\medskip
+
+\noindent 4) {\bf Extra -} Sejam $X_1, X_2, \dots$ i.i.d. distribuidas como $\text{Exp}(1)$ e defina
+\begin{equation}
+  M_n = \max_{i = 1, \dots, n} X_i.
+\end{equation}
+Mostre que $M_n - \log(n)$ converge fracamente e identifique o limite.
+Observe que não precisamos dividir $M_n - \log(n)$ por nada para obter a convergência.
+
+\medskip
+\medskip
+\medskip
+
+\noindent 4) {\bf Extra -} Sejam $X_1, X_2, \dots$ i.i.d. distribuidas como $\text{Exp}(1)$ e defina
+\begin{equation}
+  M_n = \max_{i = 1, \dots, n} X_i.
+\end{equation}
+Mostre que $M_n - \log(n)$ converge fracamente e identifique o limite.
+Observe que não precisamos dividir $M_n - \log(n)$ por nada para obter a convergência.
+
+\medskip
+\medskip
+\medskip
+
+\noindent 4) {\bf Extra -} Sejam $X_1, X_2, \dots$ i.i.d. distribuidas como $\text{Exp}(1)$ e defina
+\begin{equation}
+  M_n = \max_{i = 1, \dots, n} X_i.
+\end{equation}
+Mostre que $M_n - \log(n)$ converge fracamente e identifique o limite.
+Observe que não precisamos dividir $M_n - \log(n)$ por nada para obter a convergência.
+
+\medskip
+\medskip
+\medskip
+
+
+\end{document}
+
+
+
+
+
+
+

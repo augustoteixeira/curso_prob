@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathabx}
+\usepackage{calc}
+\usepackage{fullpage}
+
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Poisson}{Poisson}
+\DeclareMathOperator{\Ber}{Ber}
+\DeclareMathOperator{\Geo}{Geo}
+\DeclareMathOperator{\Bin}{Bin}
+\DeclareMathOperator{\Exp}{Exp}
+\DeclareMathOperator{\VT}{VT}
+
+
+\usepackage{dsfont} % includes bb 1
+\newcommand*\1{\mathds{1}}
+\usepackage[brazil]{babel}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{corollary}[theorem]{Corolário}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{proposition}[theorem]{Proposição}
+\newtheorem{definition}[theorem]{Definição}
+\newtheorem{notation}[theorem]{Notação}
+
+
+\def\d{\mathrm{d}}
+
+
+\begin{document}
+
+\title{Probabilidade I}
+\author{Primeira prova}
+
+\maketitle
+
+\noindent Observa\c{c}\~oes:
+\begin{itemize}
+\item A prova ter\'a dura\c{c}\~ao de $ 4 $ horas.
+\item Quest\~oes dever\~ao ser respondidas de maneira ma\-te\-ma\-ti\-ca\-men\-te rigorosa e clara.
+\item Todos os resultados provados em aula (exceto exerc\'icios) poder\~ao ser utilizados, salvo quando a quest\~ao pedir que algum destes seja provado. Nesse caso, todos os resultados anteriores poder\~ao ser utilizados.
+\item Caso uma quest\~ao seja composta de v\'arios itens, cada um poder\'a ser resolvido independentemente, supondo a validade dos anteriores.
+\end{itemize}
+
+\vspace{4mm}
+\noindent 1) Sejam $X$ e $Y$ variáveis aleatórias independentes com distribuição $\Exp(1)$, calcule a distribuição de
+\begin{enumerate}[\quad a)]
+\item $\min\{X,Y\}$ e
+\item $X + Y$.
+\end{enumerate}
+\vspace{4mm}
+
+\noindent 2) Sejam $X_1, \dots, X_n$ variáveis aleatórias absolutamente contínuas com relação à medida de Lebesgue, com densidades $f_{X_i}: \mathbb{R} \to \mathbb{R}_+$.
+Mostre que são equivalentes
+\begin{enumerate}[\quad a)]
+\item $X_1, \dots, X_n$ são independentes e
+\item a distribuição do vetor $(X_1, \dots, X_n)$ é absolutatmente contínua com relação à medida de Lebesgue em $\mathbb{R}^n$ e sua densidade satisfaz
+  \begin{equation}
+    f_{(X_1, \dots, X_n)}(x_1, \dots, x_n) = f_{X_1} (x_1) \dots f_{X_n}(x_n).
+  \end{equation}
+\end{enumerate}
+\medskip
+
+\newpage
+
+\noindent 3) Sejam $X_1, \dots, X_n$ e $Y_1, \dots, Y_n$ variáveis independentes com distribuição $\Ber(p)$.
+Defina agora $Z_{i,j} = X_i Y_j$, para $i, j \in \{1, \dots, n\}$ e
+\begin{enumerate}[\quad a)]
+\item calcule a esperança de $S_n = \tfrac{1}{n^2} \sum_{i=1}^n \sum_{j=1}^n Z_{i,j}$ e
+\item estime $P[|S_n - E(S_n)| > a]$ usando o método do segundo momento. Como esse resultado se compara com o caso em que os $Z_{i,j}$ são i.i.d.?
+\end{enumerate}
+
+\vspace{4mm}
+
+\noindent 4) Sejam $X_1, X_2, \dots$ variáveis aleatórias i.i.d. e defina o primeiro tempo de récorde como
+\begin{equation}
+  R = \inf\{i \geq 2; X_i \geq X_1\}.
+\end{equation}
+Supondo que $X_1$ é absolutamente contínua com respeito à medida de Lebesgue, encontre $E(R)$.
+\medskip
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
