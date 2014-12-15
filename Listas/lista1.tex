@@ -1,0 +1,102 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+%opening
+\title{Probability 1 - 1st List \\ Due Date: April 8th}
+\author{}
+\date{}
+
+
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\Pro}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\B}{\mathcal{B}}
+
+\begin{document}
+
+\maketitle
+
+\section*{Instructions}
+
+Answer each question in a separate sheet of paper, deliver your homework stapled in the same order given in the exercises and 
+remember: if your homework is too desorganized you may be asked to rewrite it.
+
+
+\section*{Notation}
+
+In the Exercises below:
+
+\begin{itemize}
+ \item $X,X_1,\cdots, X_n, \cdots$ will always represent random variables defined in a probability space $(\Omega, \F,\Pro)$ (which is not always explicit)
+ and we write $X_1 \sim_d X_2$ if $\Pro[X_1\in A]=\Pro[X_2\in A]$ for every $A\in \F$.
+ \item Given $X$, the real function $F(t)=F_X(t):=\Pro[X \leq t]$ is the cumullative distribution function of $X$.
+ \item $\N \subset \Z \subset \R$ will represent the respectivily the sets of natural, integers and real numbers and given a topological space $\Omega$, 
+ $\B(\Omega)$ will denote the Borel $\sigma$-field of $\Omega$.
+\end{itemize}
+
+
+
+
+\section*{Exercise 1}
+
+
+Consider the sequence of probability spaces $(\R,\B(R),\mu_n)$, $n\in\N$, and consider for every $I \subset \N$ 
+such that $|I|<\infty$ the probability space $\Gamma_I=(\R^{|I|},\B(\R^{|I|}), \mu_I)$, where $\mu_I$ is the 
+product measure of $\mu_j$ for all $j\in I$.
+\begin{enumerate}
+ \item[(i)] Consider in $\R^n$ the functions $X_{i,n}=X_i(x_1,\cdots,x_n)=x_i$. 
+ Prove that  $X_1,\cdots,X_{|I|}$ are independent when defined in the space $\Gamma_I$.
+ \item[(ii)] Show that for any sequence $\mu_n$ of probabilities in $(\R,\B(\R))$
+ there exists a sequence of independent random variables $\{X_n\}_{n\in\N}$ such that $X_n\sim_d \mu_n$ for every $n\in\N$.
+ \item[(iii)] If $X_1,\cdots,X_j,X_{j+1},\cdots,X_n$ are independent then for any pair of Borel measurable functions 
+ $f_1$ and $f_2$, defined in $\R^j$ and $\R^{n-j}$ respectively, then $Y_1=f(X_1,\cdots,X_j)$ and $Y_2=f_2(X_{j+1},\cdots,X_n)$ are
+ independent random variables.
+ \item[(iv)] Generalize (iii) for any sequence of independent random variables $\{X_n\}_{n\in\N}$ and any sequence of measurable 
+ functions $f_n:\R^{j_n}\rightarrow \R$.
+\end{enumerate}
+
+
+\section*{Exercise 2}
+We say that $X_1$ is stochastically dominated by $X_2$, and denote it by $X_1\leq_dX_2$,  if for every $a \in \R$ we have
+$$\Pro[X_1\geq a]\leq \Pro[X_2 \geq a]$$
+
+Prove that if $X_1 \leq_d X_2$ there exists a pair of random variables $\hat{X}_1$ and $\hat{X}_2$, such that
+
+\begin{itemize}
+\item $\hat{X}_i\sim_d X_i$ for $i=1,2$
+\item $\hat{X_1}\leq \hat{X_2}$ $\Pro$ almost surely.
+\end{itemize}
+
+\section*{Exercise 3}
+Take $\Omega=\{0,1\}^n$ and for every $p\in[0,1]$ consider $\Pro_p$ to be $n$-fold product measure of the probability in 
+$\{0,1\}$ that gives weight $p$ to $1$ and weight $1-p$ to $0$. We say that a set $A \subset \Omega$ is a 
+\textit{increasing set} if 
+\begin{center}
+ $w \leq w'$ and $w \in A$  implies $w' \in A$
+\end{center}
+where $w=(w_1,\cdots,w_n )\leq w'=(w_1',\cdots,w_n')$ if $w_i\leq w_i'$ for $i=1,...,n$. 
+
+Prove that the function $F(p)=\Pro_p(A)$ is non-decreasing in $p$.
+\hspace{.5cm}
+
+\section*{Exercise 4}
+
+Consider the function $G$ defined in the nonnegative real numbers by $G(t)=G_X(t)=\Pro[|X|>t]$. Prove that:
+
+\begin{enumerate}
+ \item[(i)] If $G$ is integrable with respect to the lebesgue measure in $[0,+\infty)$ the $X\in L^1(\Pro)$
+ \item[(ii)] If $t^{p-1}G(t)$ is integrable in the same way as before then $X \in L^p(\Pro)$, for all $p>1$
+ \item[(iii)] If there is $C> 0$ such that $G(t)\leq Ct^{-p}$ the $X \in L^q(\Pro)$, for $1\leq q < p$. 
+ Give and example where the inequality just given is true and $X\notin L^p(\Pro)$.
+ 
+\end{enumerate}
+
+
+
+\end{document}
