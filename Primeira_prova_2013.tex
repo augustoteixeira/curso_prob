@@ -2,29 +2,6 @@
 \usepackage{amssymb,amsmath}
 \usepackage{graphicx}
 \usepackage{enumerate}
-\usepackage{amssymb,amsmath,amsthm}
-\usepackage{graphicx}
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{enumerate}
-\usepackage{color}
-\usepackage{mathabx}
-\usepackage{calc}
-\usepackage{fullpage}
-
-\usepackage{dsfont} % includes bb 1
-\newcommand*\1{\mathds{1}}
-\usepackage[brazil]{babel}
-
-\newtheorem{theorem}{Teorema}[section]
-\newtheorem{corollary}[theorem]{Corolário}
-\newtheorem{lemma}[theorem]{Lema}
-\newtheorem{proposition}[theorem]{Proposição}
-\newtheorem{definition}[theorem]{Definição}
-\newtheorem{notation}[theorem]{Notação}
-
 
 \def\d{\mathrm{d}}
 
@@ -45,122 +22,48 @@
 \end{itemize}
 
 \vspace{4mm}
-\noindent 1) Sejam $X, Y$ vari\'aveis aleat\'orias em um espaço $(\Omega, \mathcal{F}, P)$, independentes e com distribuição $U_{[0,1]}$.
-\begin{enumerate}[\quad a)]
-  \item Calcule $(X+Y) \circ P$.
-  \item Considere $P'(\cdot) = P\big(\cdot | X + Y \leq 1 \big)$ e calcule $X \circ P'$.
-\end{enumerate}
-
-\vspace{4mm}
-
-\noindent 2) Na Nova Caledônia, temos $k$ habitantes.
-Seja $f:\{1, \dots, k\} \to \{0,1\}$ uma função que indica a intenção de voto de cada cidadão.
-Mais precisamente, para cada habitante $i \in \{1, \dots, k\}$, se $f(i) = 0$, então $i$ vota no candidato $0$, enquanto se $f(i) = 1$, o cidadão $i$ vota no candidato $1$.
-Para estimar o número $k_1 = \# f^{-1}(\{1\})$ de pessoas que votam em $1$, nós escolhemos variáveis aleatórias $Y_i$ i.i.d. com distribuição uniforme em $\{1, \dots, k\}$ e queremos estimar
+\noindent 1) Sejam $X, Y$ vari\'aveis aleat\'orias tais que
 \begin{equation}
-  \text{Err}_n(\epsilon) = P \Big[ \Big| \frac{1}{n} \sum_{i=1}^n f(Y_i) - \frac{k_1}{k} \Big| > \epsilon \Big].
+  P[X \leq x, Y \leq y] =
+  \begin{cases}
+    0 & \quad \text{if $x < 0$,}\\
+    (1-e^{-x}) \Big(\frac 12 + \frac 1\pi \tan^{-1} y \Big), & \quad \text{if $x \geq 0$}.
+  \end{cases}
 \end{equation}
-Sabendo que $k$ é par e $k_1 = k/2$, então
 \begin{enumerate}[\quad a)]
-  \item use o método do segundo momento para obter um $n$ tal que $\text{Err}_{n}(0.01) < 0.02$ e
-  \item use o método do momento exponencial para obter um $n$ tal que $\text{Err}_{n}(0.01) < 10^{-12}$.
+  \item Mostre que a distribui\c{c}\~ao conjunta $\mu_{(X,Y)}$ \'e
+  absolutamente cont\'inua com rela\c{c}\~ao \`a medida de Lebesgue em
+  $\mathbb{R}^2$.
+  \item Mostre que $X$ e $Y$ s\~ao independentes.
 \end{enumerate}
 \medskip
 
-\newpage
-
-\noindent 3) Dizemos que uma probabilidade $P$ no espaço produto $\Omega = \bigtimes_{n \geq 1} E$ (com a $\sigma$-álgebra canônica) é fortemente misturadora se, para todo $k \geq 1$, temos
-\begin{equation}
-  \lim_{n \to \infty} \sup \Big\{ \big| P(A \cap B) - P(A) P(B) \big| \; ; \;\; A \in \sigma(X_1, \dots, X_k), B \in \sigma(X_n, X_{n+1}, \dots) \Big\} = 0.
-\end{equation}
-Mostre que nesse caso, a $\sigma$-álgebra dos eventos caudais é trivial.
-
-\vspace{4mm}
-
-\noindent 4) Considere uma rua infinita com casas $i \in \mathbb{Z}$.
-Para todo $i \in \mathbb{Z}$, existia uma rua entre as casas $i$ e $i+1$, mas após uma grande tempestade essas ruas foram danificadas.
-Mais precisamente, para cada $i \in \mathbb{Z}$, temos variáveis aleatórias $X_i$ que são i.i.d. com distribuição $\text{Ber}(p)$, onde $X_i = 1$ indica que o trecho da rua entre as casas $i$ e $i + 1$ foi danificado e não pode ser utilizado.
-Defina, para $i \in \mathbb{Z}$, $R_i$ como sendo o número de casas que continuaram acessíveis à casa $i$ após a tempestade.
-Por exemplo, se $X_{-2}$ e $X_0 = 1$ e $X_{-1} = 0$, temos que a casa $0$ somente pode acessar a casa $-1$, logo $R_0 = 1$.
-Nesse contexto,
+\noindent 2) Seja $K:\mathbb{R}_+ \times \mathbb{B}(\mathbb{R}_+) \to [0,1]$ dada por $K(x,A) = \int_A x \exp\{-x t\} \d t$.
 \begin{enumerate}[\quad a)]
-  \item Calcule a distribuição e a esperança de $R_0$,
-  \item Use o método do segundo momento para estimar a probabilidade
+  \item Prove que $K$ \'e um n\'ucleo de transi\c{c}\~ao.
+  \item Seja $P$ dada por $P = K \star \textnormal{Exp}(1)$. Obtenha $P[X_2 > x_2]$ para todo $x_2 \geq 0$ (lembrando que $X_2$ denota a segunda coordenada no espa\c{c}o produto onde est\'a definida $P$). Compare a probabilidade acima com $K(1,[x_2, \infty))$.
+  \item Mostre que $P[X_1 + X_2 \geq z] = \int_0^z \exp \{-x(z-x+1)\} \d x + \exp\{-z\}$.
+\end{enumerate}
+
+\medskip
+
+\pagebreak
+
+\noindent 3) Marcelo coleciona figurinhas de futebol. O \'album completo conter\'a $N$ figurinhas. No $i$-\'esimo dia, ele compra uma nova carta $X_i \in \{1, \dots, N\}$. A cole\c{c}\~ao $(X_i)_{i \geq 0}$ \'e distribuida de maneira i.i.d. e uniforme nas figurinhas.
+\begin{enumerate}[\quad a)]
+  \item Para $j = 1, \dots, N$, seja $T_j$ o tempo passado at\'e a aquisi\c{c}\~ao da $j$-\'esima nova figurinha, i.e.
     \begin{equation}
-      P \Big[ \Big| \frac{1}{n} \sum_{i=1}^n R_i - E(R_0) \Big| > a \Big].
+      T_1 = 1 \quad \text{ e } \quad T_j = \inf\{i, X_i \not \in \{X_{T_{j'}}; j' < j\}\}.
     \end{equation}
+  Mostre que $T_j$ \'e finito quase certamente, para todo $j \leq N$.
+  \item Calcule a distribui\c{c}\~ao conjunta de $(T_1, T_2 - T_1, \dots, T_N - T_{N-1})$.
+  \item Calcule a esperan\c{c}a de $T_N$ (o dia em que Marcelo completa seu \'album).
 \end{enumerate}
-\medskip
 
-
-\newpage
-
-Solução da quarta questão.
-
-Primeiramente, vamos ver qual é a distribuição de $R_0$.
-Vamos escrever $R_0 = E_0 + D_0$, onde $E_0$ é o número de casas acessíveis à esquerda e $D_0$ à direita.
-Note que $E_0$ e $D_0$ são independentes e identicamente distribuídas, com
+\noindent 4) Sejam $(X_i)_{i \geq 1}$ vari\'aveis i.i.d. com distribui\c{c}\~ao Ber$(p)$, $p \in [0,1]$. Mostre que
 \begin{equation}
-  P[D_0 = l] = P[X_l = 1, X_i = 0 \text{ para $i = 0, \dots, l-1$}] = p (1-p)^l.
+  \lim_{N \to \infty} \frac 1N \sum_{i = 1}^N X_i X_{i+1} = p^2, \text{ em probabilidade.}
 \end{equation}
-Podemos agora calcular
-\begin{equation}
-  P[R_0 = k] = \sum_{l=0}^k P[D_0 = l, E_0 = k-l] = \sum_{l=0}^k p^2 (1-p)^{k} = p^2 k (1-p)^k.
-\end{equation}
-Além disso,
-\begin{equation}
-  E(R_0) = 2 E(D_0) = \sum_{l=0}^\infty l P[D_0 = l] = 2 p \sum_{l=0}^\infty l (1-p)^l = \frac{2(1-p)}{p} =: m.
-\end{equation}
-O que resolve o primeiro ítem.
-
-O grande problema do segundo ítem é que as variáveis $R_i$ não são independentes, veja por exemplo que $P[R_0=0,R_1=2,R_2=0] = 0$.
-Nesse caso, o método do segundo momento deve ser feito com atenção.
-Chamando de $S_n = \sum_{i=1}^n R_i$, temos
-\begin{equation}
-  P \Big[ \Big| \frac{1}{n} S_n - E(R_0) \Big| > a \Big] \leq \frac{\text{Var}(S_n)}{a^2 n^2},
-\end{equation}
-mas a variância da soma não se torna a soma das variâncias.
-De fato
-\begin{equation}
-  \begin{split}
-    \text{Var}(S_n) & = E \Big( \big(\sum_{i=1}^n (R_i - E(R_i)) \big)^2\Big) = \sum_{i=1}^n \sum_{j=1}^n E \Big(\big(R_i - E(R_i)\big) \big(R_j - E(R_j) \big)\Big)\\
-    & = \sum_{i=1}^n \sum_{j=1}^n \text{Cov}(R_i, R_j) = n \text{Var}(R_0) + 2 \sum_{k=1}^{n-1} (n-k) \text{Cov}(R_0, R_k).
-  \end{split}
-\end{equation}
-Aqui já temos metade da estimativa resolvida, mas ainda falta obter uma estimativa explícita.
-
-Então precisamos estimar superiormente $\text{Cov}(R_i, R_j) = \text{Cov}(R_0, R_{j-1})$.
-Podemos calcular essa quantidade explicitamente, mas vamos evitar contas chatas fazendo uma estimativa do tipo
-\begin{equation}
-  \text{Cov}(R_0, R_k) \leq c \exp\{-c' k\}, \text{ para todo $k \geq 1$}.
-\end{equation}
-O que nos daria que
-\begin{equation}
-  \text{Var}(S_n) \leq n \text{Var}(R_0) + 2 \sum_{k=1}^{n-1} (n-k) c \exp\{-c' k\} \leq c'' n.
-\end{equation}
-Donde a probabilidade que queríamos estimar é no máximo ${c}/{a^2 n}$, como no caso independente.
-
-Para obter a prometida cota para a covariância, observe que podemos truncar $D_0$ e $E_k$ para obter independência.
-Definindo
-\begin{equation}
-  \tilde{R_0} = E_0 + ( D_0 \wedge \lfloor k/2 \rfloor ) \text{ e } \tilde{R}_k = D_k + ( E_k \wedge \lfloor k/2 \rfloor ),
-\end{equation}
-temos que $\tilde{R}_0$ e $\tilde{R}_k$ são independentes (pois dependem de elos disjuntos).
-Donde
-\begin{equation}
-  \begin{split}
-    \text{Cov}(R_0, R_k) & = E(R_0 R_k) - m^2 = E(\tilde{R}_0 \tilde{R_k}) + E(R_0 R_k \1{[R_0 \neq \tilde{R}_0] \cup [R_k \neq \tilde{R}_k]}) - m^2\\
-    & \leq E(\tilde{R}_0)^2 - m^2 + E\big( (E_0 + D_0) (E_k + D_k) \1{[R_0 \neq \tilde{R}_0] \cup [R_k \neq \tilde{R}_k]}\big)\\
-    & \leq E\big( (E_0 + k + D_k)^2 \1{[R_0 \neq \tilde{R}_0] \cup [R_k \neq \tilde{R}_k]}\big)\\
-    & = E\big( (E_0 + k + D_k)^2 \big) P\big([R_0 \neq \tilde{R}_0] \cup[R_k \neq \tilde{R}_k]\big)\\
-    & \leq \big( 2 E(E_0^2) + k^2 + 2k E(E_0) + E(E_0)^2 \big) \cdot 2 \cdot P[R_0 \neq \tilde{R}_0]\\
-    & \leq c k^2 (1-p)^{\lfloor k/2 \rfloor} \leq c \exp \{-c' k\}.
-  \end{split}
-\end{equation}
-Finalizando a cota para a covariância.
-
-
-
 \end{document}
 
 
