@@ -22,6 +22,9 @@
 \newtheorem{question}[theorem]{Questão}
 \newtheorem{notation}[theorem]{Notação}
 
+\newtheorem{example}{Exemplo}[section]
+\newtheorem{exercise}[example]{Exercício}
+
 \DeclareMathOperator{\Cov}{Cov}
 \DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator{\Poisson}{Poisson}
@@ -58,10 +61,6 @@
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-\newtheorem{example}{Exemplo}[section]
-\newtheorem{exercise}[example]{Exercício}
-
 \renewcommand*\d{\mathop{}\!\mathrm{d}}
 \newcommand{\red}[1]{\color{red}\textnormal{#1}\color{black}}
 
@@ -95,7 +94,8 @@
 
 Denotaremos sempre por $\Omega$ o nosso espaço amostral (à princípio qualquer conjunto).
 
-\begin{example} \mbox{}
+\begin{example} Espaços amostrais
+  \label{x:espacos_amostrais}
   \begin{enumerate}
   \item $\Omega_1 = \{1, 2, \dots, 6\}$,
   \item $\Omega_2 = [0,1]$,
@@ -114,7 +114,10 @@ Mais precisamente
   \end{enumerate}
 \end{definition}
 
-\begin{example} \mbox{}
+Se $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ (que chamamos de uma classe ou família), denotamos por $\sigma(\mathcal{G})$ a menor $\sigma$-álgebra contendo $\mathcal{G}$.
+Um exemplo importante é dado pela $\sigma$-álgebra de Borel, gerada pelos abertos de uma topologia em $\Omega$.
+
+\begin{example} Típicas $\sigma$-álgebras correspondentes aos espaços amostrais do Exemplo~\ref{x:espacos_amostrais}
   \begin{enumerate}
   \item $\mathcal{F}_1 = \mathcal{P}(\Omega_1)$,
   \item $\mathcal{F}_2 = \mathcal{B}([0,1])$ e
@@ -122,13 +125,9 @@ Mais precisamente
   \end{enumerate}
 \end{example}
 
-No caso acima, dizemos que $(\Omega, \mathcal{F})$ é um \emph{espaço mensurável}.
+No caso acima, dizemos que $(\Omega, \mathcal{F})$ é um \emph{espaço mensurável} e os elementos $A \in \mathcal{F}$ são chamados de \emph{eventos}.
 
-Se $\mathcal{G} \subseteq \mathcal{P}(\Omega)$, denotamos por $\sigma(\mathcal{G})$ a menor $\sigma$-álgebra contendo $\mathcal{G}$.
-
-Elementos $A \in \mathcal{F}$ são chamados de \emph{eventos}.
-
-\begin{example} \mbox{}
+\begin{example} Eventos de $\mathcal{F}_i$ acima
   \begin{enumerate}
   \item $\{\text{$x$ é ímpar}\} \subset \Omega_1$
   \item $[0,1/2] \subset \Omega_2$ e
@@ -154,11 +153,11 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
   Dado $(\Omega, \mathcal{F})$ espaço mensurável, dizemos que $P:\mathcal{F} \to [0,1]$ é uma probabilidade se
   \begin{enumerate}
   \item $P(\Omega) = 1$ e
-  \item sempre que $A_1, A_2, \dots \in \mathcal{F}$ forem disjuntos ($A_i \cap A_j = \varnothing$ se $i \neq j$), temos $P(\cup_i A_i) = \sum_i P(A_i)$.
+  \item sempre que $A_1, A_2, \dots \in \mathcal{F}$ forem disjuntos ($A_i \cap A_j = \varnothing$ se $i \neq j$), temos $$P\big({\mcup\nolimits_i} A_i\big) = {\textstyle\sum_i} P(A_i).$$
   \end{enumerate}
 \end{definition}
 
-\begin{example} \mbox{}
+\begin{example} Probabilidades em dois dos espaços do Exemplo~\ref{x:espacos_amostrais}
   \begin{enumerate}
   \item $P_1(A) = \tfrac{\#A}{6}$ em $(\Omega_1, \mathcal{F}_1)$.
     Ou mais geralmente $P_1'(A) = \sum_{i \in A} p_i$, onde $p_i \geq 0$ e $\sum_i p_i = 1$.
@@ -171,45 +170,44 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
   Valem as afirmativas
   \begin{enumerate}
   \item Se $A \subseteq B$ então $P(A) = P(B) - P(B \setminus A) \leq P(B)$,
-  \item $P(\cup_i A_i) \leq \sum_i P(A_i)$ e
-  \item $P(\cup_{i=1}^n A_i) = \sum_{k = 1}^n (-1)^{k-1} \sum_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k})$.
+  \item $P\big(\smash{\mcup_{i}} A_i\big) \leq \smash{\sum\limits_i} P(A_i)$ e
+  \item $P\big(\mcup_{i \leq n} A_i\big) = \smash{\sum\limits_{k = 1}^n} (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k})$.
   \end{enumerate}
 \end{proposition}
 
-
 \begin{proof}
-  1.
-  Como $A \cap (B \setminus A) = \varnothing$, então
-  \begin{equation}
-    \begin{split}
-      P(A \cup (B \setminus A)) & = P(A \cup (B \setminus A) \cup \varnothing \cup \dots)\\
-      & = P(A) + P(B \setminus A) + 0 + \dots = P(A) + P(B \setminus A).
-    \end{split}
-  \end{equation}
+  1. Como $A \cap (B \setminus A) = \varnothing$, então
+    \begin{equation}
+      \begin{split}
+        P(A \cup (B \setminus A)) & = P(A \cup (B \setminus A) \cup \varnothing \cup \dots)\\
+        & = P(A) + P(B \setminus A) + 0 + \dots = P(A) + P(B \setminus
+        A).
+      \end{split}
+    \end{equation}
 
-  2.
-  $P(A \cup B) = P (A \cup (B \setminus A)) = P(A) + P(B \setminus A) \leq P(A) + P(B)$.
-  Deixamos o caso enumerável como exercício abaixo.
+  2. $P(A \cup B) = P (A \cup (B \setminus A)) = P(A) + P(B \setminus
+    A) \leq P(A) + P(B)$.
+    Deixamos o caso enumerável como exercício abaixo.
 
-  3.
-  Basta mostrar a validade da equação abaixo e depois integrar com respeito a $P$.
-  \begin{equation}
-    \label{e:indicadora_como_produto}
-    \1_A(\omega) = \sum_{k=1}^n (-1)^{k - 1} \sum_{I \subseteq \{1, \dots, n\} \atop |I| = k} \prod_{i \in I} \1_{A_i}(\omega).
-  \end{equation}
-  Para tanto, observe que para todo $\omega \in \Omega$,
-  \begin{equation}
-    (\1_A - \1_{A_1}) \cdot \dots \cdot (\1_A - \1_{A_n})(\omega) = 0.
-  \end{equation}
-  Logo, expandindo o produto acima obtemos
-  \begin{equation}
-    \1_A + \sum_{k = 1}^n \sum_{I \subseteq \{1, \dots, n\} \atop |I| = k} (-1)^k \1_{A_k}(\omega) = 0,
-  \end{equation}
-  que equivale a \eqref{e:indicadora_como_produto}.
+  3. Basta mostrar a validade da equação abaixo e depois integrar com
+    respeito a $P$.
+    \begin{equation}
+      \label{e:indicadora_como_produto}
+      \1_A(\omega) = \sum_{k=1}^n (-1)^{k - 1} \sum_{I \subseteq \{1, \dots, n\} \atop |I| = k} \prod_{i \in I} \1_{A_i}(\omega).
+    \end{equation}
+    Para tanto, observe que para todo $\omega \in \Omega$,
+    \begin{equation}
+      (\1_A - \1_{A_1}) \cdot \dots \cdot (\1_A - \1_{A_n})(\omega) = 0.
+    \end{equation}
+    Logo, expandindo o produto acima obtemos
+    \begin{equation}
+      \1_A + \sum_{k = 1}^n \sum_{I \subseteq \{1, \dots, n\} \atop |I| = k} (-1)^k \1_{A_k}(\omega) = 0,
+    \end{equation}
+    que equivale a \eqref{e:indicadora_como_produto}.
 \end{proof}
 
 \begin{exercise}
-  Mostre que $P(\cup_i A_i) \leq \sum_i P(A_i)$ no caso enumerável.
+  Mostre que $P\big(\mcup\nolimits_i A_i\big) \leq \sum_i P(A_i)$ no caso enumerável.
 \end{exercise}
 
 \begin{proposition}
@@ -225,14 +223,14 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
   1.
   Observe que
   \begin{equation}
-    \cup_{m = 1}^\infty A_n = \cup_{n = 1}^\infty \Big( A_n \setminus (\cup_{i=1}^{n-1} A_i) \Big),
+    \mcup_{m = 1}^\infty A_n = \mcup_{n = 1}^\infty \Big( A_n \setminus (\mcup_{i=1}^{n-1} A_i) \Big),
   \end{equation}
   que são disjuntos.
   Logo
   \begin{equation}
     \begin{split}
-      P(\cup_{n = 1}^\infty A_n) & = \sum_{n = 1}^\infty P\Big( A_n \setminus (\cup_{i=1}^{n-1} A_i) \Big)\\
-      & = \lim_n P(\cup_{i = 1}^n A_i) = \lim_n P(A_n).
+      P\big(\mcup\nolimits_{n = 1}^\infty A_n\big) & = \sum_{n = 1}^\infty P\Big( A_n \setminus \big(\mcup\nolimits_{i=1}^{n-1} A_i \big) \Big)\\
+      & = \lim_n P({\mcup\nolimits_{i = 1}^n} A_i) = \lim_n P(A_n).
     \end{split}
   \end{equation}
 
@@ -244,15 +242,16 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
   Sejam $A_1, A_2, \dots \in \mathcal{F}$ com $\sum_{i = 1}^\infty P(A_i) < \infty$.
   Então
   \begin{equation}
-    P[\text{$A_i$ para infinitos $i$}] := P\big(\cap_{n = 1}^\infty (\cup_{i \geq n} A_i)\big) = 0.
+    P[\text{$A_i$ para infinitos $i$}] := P\big({\mcap\nolimits_{n = 1}^\infty} ({\mcup\nolimits_{i \geq n}} A_i)\big) = 0.
   \end{equation}
 \end{lemma}
 
 \begin{proof}
   Estimamos
   \begin{equation}
-    P\big(\cap_{n = 1}^\infty (\cup_{i \geq n} A_i)\big) = \lim_n P(\cup_{i \geq n} A_i) \leq \lim_n \sum_{i \geq n} P(A_i) = 0.
+    P \Big( {\mcap\nolimits_{n = 1}^\infty} \big({\mcup\nolimits_{i \geq n}} A_i \big) \Big) = \lim_n P \big( {\mcup\nolimits_{i \geq n}} A_i \big) \leq \lim_n {\textstyle\sum\limits_{i \geq n}} P(A_i) = 0.
   \end{equation}
+  O que termina a prova do lemma.
 \end{proof}
 
 \section{Elementos aleatórios}
@@ -260,7 +259,7 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
 Seja $(E,\mathcal{A})$ um espaço mensurável.
 Nesse caso, se $X: \Omega \to E$ é $(\mathcal{F}, \mathcal{A})$-mensurável, dizemos que $X$ é um elemento aleatório em $(\Omega, \mathcal{F})$ tomando valores em $E$, ou um $E$-elemento aleatório.
 
-\begin{example} \mbox{}
+\begin{example} Retomando o Exemplo~\ref{x:espacos_amostrais},
   \begin{enumerate}
   \item $X:\Omega \to \mathbb{R}$ mensurável é dita variável aleatória.
   \item $X:\Omega \to \mathbb{R}^d$ mensurável é dito vetor aleatório ($d$-dimensional).
@@ -284,7 +283,7 @@ Relembrando a nossa notação: $P[X \in A] = P(\{\omega \in \Omega; X(\omega) \i
 \end{proof}
 
 \begin{example}
-  Se $\Omega$ e $E$ são espaços topológicos, então toda função contínua é um elemento aleatório.
+  Se $\Omega$ e $E$ são espaços topológicos dotados das correspondentes $\sigma$-álgebras de Borel, então toda função contínua é um $E$-elemento aleatório.
 \end{example}
 
 \section{Distribuição de elementos aleatórios}
@@ -313,6 +312,9 @@ Note que $X$ e $Y$ nem ao menos precisam pertencer ao mesmo espaço de probabili
 \end{enumerate}
 
 \section{Sistemas $\lambda$-$\pi$}
+
+Uma importante ferramenta para provar fatos teóricos sobre probabilidades é o Teorema de Dynkin que apresentaremos nessa seção.
+Ele trata de classes de eventos que não são necessariamente $\sigma$-álgebras, mas sistemas $\sigma$ ou $\pi$ como definidos abaixo.
 
 \begin{definition}
   Dizemos que uma classe $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\pi$-sistema se for fechado por interseções finitas, isto é: para todos $A, B \in \mathcal{A}$ temos $A \cap B \in \mathcal{A}$.
@@ -550,7 +552,7 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
   \label{p:propried_F}
   $F_P$ (e obviamente $F_X$) satisfazem:
   \begin{enumerate}
-  \item $\lim_{x \to -\infty} F(x) = 0$, $\lim_{x \to \infty} F(x) = 1$,
+  \item $\smash{\lim\limits_{x \to -\infty}} F(x) = 0$, $\smash{\lim\limits_{x \to \infty}} F(x) = 1$,
   \item $F$ é monótona não-decrescente e
   \item $F$ é contínua à direita e possui limite à esquerda.
   \end{enumerate}
@@ -631,7 +633,7 @@ Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
 \end{definition}
 
 \begin{example}
-  Se $\Omega = \{1, \dots, 6\}$ com $P(A) = \#A/6$ então os eventos $A = [\omega é impar]$ e $B = [\omega \geq 5]$ satisfazem
+  Se $\Omega = \{1, \dots, 6\}$ com $P(A) = \#A/6$ então os eventos $A = [\omega \text{ é impar}]$ e $B = [\omega \geq 5]$ satisfazem
   \begin{equation}
     P(A \cap B) = P(\{5\}) = 1/6 = (1/2) (1/3) = P(A) P(B).
   \end{equation}
@@ -693,15 +695,15 @@ Mais precisamente
 \end{proposition}
 
 \begin{corollary}
-  Se $B$ ind de $A$ para todo $B \in \mathcal{B}$, $\pi$-sistema.
-  Então $B$ ind de $A$ para todo $B in \sigma(\mathcal{B})$.
+  Se $B$ é independente de $A$ para todo $B \in \mathcal{B}$, com $\mathcal{B}$ um $\pi$-sistema.
+  Então $B$ é independente de $A$ para todo $B \in \sigma(\mathcal{B})$.
 \end{corollary}
 
 \subsection{Independência de $\sigma$-álgebras}
 
 \begin{definition}
   Dadas $\sigma$-algebras $\mathcal{F}_1, \dots, \mathcal{F}_k \subseteq \mathcal{F}$.
-  Dizemos que elas são independentes se todos $A_1 \in \mathcal{F}_1, \dots, A_k \in \mathcal{F}_k$ o sejam.
+  Dizemos que elas são independentes se todos $A_1 \in \mathcal{F}_1, \dots, A_k \in \mathcal{F}_k$ o são.
   Nessa definição podemos tomar uma coleção infinita.
 \end{definition}
 
@@ -719,7 +721,7 @@ Mais precisamente
 Podemos extender o conceito de independência a elementos aleatórios.
 Isto é
 \begin{definition}
-  Dizemos que $X_1, \dots, X_k$ são elementos aleatórios independentes se as respectivas $\sigma$-álgebras: $\sigma(X_1), \dots, \sigma(X_k)$ o forem.
+  Dizemos que $X_1, \dots, X_k$ são elementos aleatórios independentes se as respectivas $\sigma$-álgebras $\sigma(X_1), \dots, \sigma(X_k)$ o forem.
 \end{definition}
 
 Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma distribuição, escrevemos que $X_i$ são i.i.d. (independentes e identicamente distribuídos).
@@ -777,8 +779,6 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
   \end{equation}
   Terminando a prova do lemma.
 \end{proof}
-
-\newpage
 
 \begin{exercise}
   Seja um espaço produto de medidas $(\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2, \mu_1 \otimes \mu_2)$ e defina a probabilidade $P$ atravéz de
