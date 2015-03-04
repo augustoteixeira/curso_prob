@@ -11,6 +11,8 @@
 \usepackage{ifthen}
 
 \usepackage{ifdraft}
+\usepackage{hyperref}
+\hypersetup{final}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -22,8 +24,6 @@
 \usepackage{dsfont} % includes bb 1
 \newcommand*\1{\mathds{1}}
 \usepackage[brazil]{babel}
-
-\usepackage{hyperref}
 
 \newtheorem{theorem}{Teorema}[section]
 \newtheorem{corollary}[theorem]{Corolário}
@@ -45,7 +45,9 @@
 \DeclareMathOperator{\Exp}{Exp}
 \DeclareMathOperator{\VT}{VT}
 
-\def \distr {\overset{d}{\sim}}
+\def \iid{i.i.d.~}
+
+\def \distr{\overset{d}{\sim}}
 
 \usepackage{etoolbox}
 
@@ -324,6 +326,12 @@ Duas notações importantes nesse contexto são:
 Note que $X$ e $Y$ nem ao menos precisam pertencer ao mesmo espaço de probabilidade para dizermos que são \emph{igualmente distribuídos}, mas precisam ser elementos aleatórios de mesmo tipo (ou seja, possuir o mesmo contradomínio).
 \item Escrevemos $X \distr \mu$, que lê-se \emph{$X$ é distribuída como $\mu$}, onde $\mu$ é uma probabilidade em $E$, caso $X \circ P = \mu$.
 \end{enumerate}
+
+\newpage
+
+\section{Distribuições conjuntas}
+
+\newpage
 
 \section{Sistemas \texorpdfstring{$\lambda$-$\pi$}{lambda-pi}}
 
@@ -739,7 +747,7 @@ Isto é
   Dizemos que $X_1, \dots, X_k$ são elementos aleatórios independentes se as respectivas $\sigma$-álgebras $\sigma(X_1), \dots, \sigma(X_k)$ o forem.
 \end{definition}
 
-Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma distribuição, escrevemos que $X_i$ são i.i.d. (independentes e identicamente distribuídos).
+Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma distribuição, escrevemos que $X_i$ são \iid (independentes e identicamente distribuídos).
 
 \begin{exercise}
   Com a notação do exercício anterior, mostre que as funções $X_i:\Omega_1 \times \Omega_2 \to \Omega_i$ dadas por
@@ -1014,6 +1022,18 @@ onde $|\cdot|$ representa a distância euclideana em $\mathbb{R}^d$.
 
 No nosso modelo, esse grafo pode ser entendido como um cristal periódico onde cada vértice representa uma cavidade do material poroso e os elos são potenciais conexões entre poros vizinhos.
 
+Até agora nosso grafo $G$ é apenas uma rede periódica, mas as coisas começam a ficar interessantes à partir de agora.
+Imaginamos que nosso material poroso está sujeito a variações durante sua formação.
+Isso se reflete no fato que alguns elos de $E$ podem estar abertos ou não aleatoriamente.
+
+Para o nosso modelos, fixamos um $p \in [0,1]$ e definimos uma coleção de variáveis aleatórias $X_e$, para $e \in E$, que sejam \iid e com distribuição $\Ber(p)$.
+Essas variáveis aleatórias induzem um novo subgrafo $(\mathbb{Z}^d, \mathcal{E})$ de $G$ que corresponde a abrir apenas os elos $e$ com $X_e = 1$.
+Mais precisamente
+\begin{equation}
+  \mathcal{E} = \big\{ e \in E; X_e = 1 \big\}.
+\end{equation}
+Podemos ver na Figura~\ref{f:percola} algumas simulações desse grafo aleatório.
+
 \begin{figure}[!h]
   \centering
   \begin{tikzpicture}[scale=.1]
@@ -1033,13 +1053,110 @@ No nosso modelo, esse grafo pode ser entendido como um cristal periódico onde c
       { {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>40}{\draw[thick] (80 + \x, \y) -- (80 + \x, \y + 1);}{}
         {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>40}{\draw[thick] (80 + \x, \y) -- (80 + \x + 1, \y);}{} } }
   \end{tikzpicture}
-  \caption{Uma simulação...}
+  \caption{Três simulações do grafo aleatório $(\mathbb{Z}^d, \mathcal{E})$, para valores de $p = 0,4$ (esquerda), $p = 0,5$ (centro) e $p = 0,6$ (direita). Tente imaginar como seria caminhar nesse grafo como um labirinto.}
+  \label{f:percola}
 \end{figure}
 
+Agora que temos um modelo de meio poroso bem definido, precisamos pensar em quais perguntas nos interessam sobre $\mathcal{G} = (\mathbb{Z}^d, \mathcal{E})$.
+Sendo esse um modelo poara passagem de fluido, as primeiras perguntas que faremos concerne a conectividade de $\mathcal{G}$.
 
+\begin{exercise}
+  Mostre que quase certamente $\mathcal{G}$ é desconexo.
+  Mais precisamente, mostre que existem quase certamente infinitos vércices isolados em $\mathcal{G}$.
+\end{exercise}
 
+Como não podemos esperar que $\mathcal{G}$ seja conexo, podemos nos perguntar algo mais fraco, como por exemplo se a componente conexa da origem $0 \in \mathbb{Z}^d$ em $\mathcal{G}$ é infinita.
 
+Voltando à Figura~\ref{f:percola} vemos que, dependendo do valor de $p \in [0,1]$, pode ser bem difícil ou bem fácil encontrar um caminho longo à partir da origem.
+Isso é uo que estudaremos em mais detalhes no que segue.
 
+Mais precisamente estamos interessados em:
+\begin{equation}
+  A = \big\{\omega \in \Omega; \text{ a componente conexa de $0 \in \mathbb{Z}^d$ em $\mathcal{G}$ é infinita} \big\}.
+\end{equation}
+
+Para estudar $A$, vamos fazer uma aproximação de $A$ por eventos mais simples
+\begin{equation}
+  A_n = \big\{ \omega \in \Omega; \text{ a componente conexa de $0$ sai da caixa $[-n, n]^d$}\},
+\end{equation}
+para $n \geq 1$.
+
+\begin{exercise}
+  Mostre que $A = \cap_n A_n$ e consequentemente que $A$ é de fato um evento (mensurável) e $P(A) = \lim_n P(A_n)$.
+\end{exercise}
+
+Definimos portanto a função $\theta:[0,1] \to [0,1]$ por
+\begin{equation}
+  \theta(p) = P_p(A),
+\end{equation}
+onde $P_p$ denota a probabilidade correspondente ao valor escolhido de $p \in [0,1]$.
+
+\begin{exercise}
+  Mostre que $\theta(p) \leq (1-p)^{2d}$.
+\end{exercise}
+
+Nosso objetivo é entender algumas das propriedades de $\theta$.
+A nossa intuição diz que quanto maior o valor de $p$, mais elos serão abertos em $\mathcal{G}$ e portanto maior será o valor de $\theta$, ou em outras palavras, $\theta$ deve ser monótona não decrescente.
+
+\begin{exercise}
+  Construiremos nosso modelo de uma maneira alternativa num espaço de probabilidade $\mathbb{P}$.
+  Sejam $Y_e$, para $e \in E$, variáveis aleatórias \iid com distribuição $U[0,1]$ e definimos para cada $p \in [0,1]$
+  \begin{equation}
+    X^p_e = \1_{[Y_e \leq p]}.
+  \end{equation}
+  Mostre que para todo $p \in [0,1]$ a distribuição conjunta de $(X_e)_{e \in E}$ sob a lei $P_p$ é a mesma que a de $(X^p_e)_{e \in E}$ sob $\mathbb{P}$.
+  Use isso para concluir que $\theta$ é monótona não decrescente.
+\end{exercise}
+
+Iremos agora mostrar a existência de um regime para o qual a componente conexa da origem não é infinita.
+
+\begin{theorem}
+  Para $p < 1/(2d)$, temos que $\theta(p) = 0$.
+\end{theorem}
+
+Antes da prova, alguns exercícios.
+
+\begin{exercise}
+  Definimos um caminho como sendo uma sequência $x_1$, $\dots$, $x_k$ ($k \in \mathbb{N}$), tal que $\{x_i, x_{i+1}\} \in E$ para todo $i = 1, \dots, k-1$.
+  Tal caminho é dito aberto se $X_{\{x_i, x_{i+1}\}} = 1$ para todo $i \leq k-1$.
+  E dizemos que ele é auto-evitante se $x_i \neq x_j$ para todo $1 \leq i < j < k$.
+  Mostre que
+  \begin{equation*}
+    \begin{split}
+      & A_n = \Big\{ \omega \in \Omega; \text{ existe um caminho aberto $(x_i)_{i=1}^{k}$ com $x_1 = 0$ e $x_k \not \in [-n, n]^d$} \Big\}\\
+      & A_n = \big\{ \omega \in \Omega; \text{ existe um caminho auto-evitante como acima} \big\}.
+    \end{split}
+  \end{equation*}
+\end{exercise}
+
+\begin{proof}
+  Dado $p < 1/(2d)$ e $n \in \mathbb{N}$, lembramos que
+  \begin{equation*}
+    \begin{split}
+      \theta(p) & \leq P_p(A_n) = P_p \Big[
+      \begin{array}{c}
+      \text{existe $k \in \mathbb{N}$ e um caminho auto-evitante $(x_i)_{i=1}^k$ }\\
+      \text{aberto e com $x_1 = 0$ e $x_k \not \in [-n, n]^d$}
+    \end{array} \Big]\\[2mm]
+    & \leq \sum_{k \geq n} \; \; \sum_{(x_i)_{i=1}^k \text{ auto-evit.}} P_p [(x_i)_{i=1}^k \text{ aberto}] = \sum_{k \geq n} \; \; \sum_{(x_i)_{i=1}^k \text{ auto-evit.}} p^k\\
+    & \leq \sum_{k \geq n} \; \; \sum_{(x_i)_{i=1}^k \text{ caminho}} P_p [(x_i)_{i=1}^k \text{ aberto}] = \sum_{k \geq n} (2d)^k p^k.
+    \end{split}
+  \end{equation*}
+  Como $p < 1/(2d)$, a soma acima é finita e converge a zero quando $n$ diverge, provando o teorema.
+\end{proof}
+
+{\bf Notas} - O teorema acima ajuda a compreender o comportamento que observamos no lado esquerdo da Figura~\ref{f:percola}.
+Mais precisamente, ele nos diz que para valores de $p$ baixos (na verdade $0,4$ não é baixo o suficiente para podermos aplicar esse teorema) é difícil encontrar um caminho aberto do centro à borda da caixa.
+
+Na verdade, é possível mostrar que para $d = 2$,
+\begin{equation}
+  \begin{split}
+    & \text{$\theta(p) = 0$ para todo $p < 1/2$ e}\\
+    & \text{$\theta(p) > 0$ para todo $p > 1/2$,}
+  \end{split}
+\end{equation}
+veja ???.
+De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2$.
 
 \section{Espaços canônicos}
 
@@ -1400,10 +1517,6 @@ Isso nos é fornecido em geral pela regra de Bayes enunciada na seguinte
 
 \newpage
 
-\section{Distribuições conjuntas}
-
-\newpage
-
 \chapter{Somas de variáveis independentes}
 
 \section{Esperança}
@@ -1480,7 +1593,7 @@ Também utilizaremos $E[X; \mathcal{Q}_1, \mathcal{Q}_2, \dots] = E(X \1_{[\math
 
 \begin{example}
   Seja $X \overset{d}\sim \Bin(n,p)$, então, para calcular $E(X)$, basta calcular $E(Y)$ onde $X \overset{d}\sim Y$.
-  Como vimos anteriormente, se $Z_1, Z_2, \dots, Z_n$ são variáveis i.i.d. (relembrando: independentes e identicamente distribuídos) com $Z_1 \overset{d}\sim \Ber(p)$, então $Y = \sum_i Z_i \overset{d}\sim \Bin(n,p)$.
+  Como vimos anteriormente, se $Z_1, Z_2, \dots, Z_n$ são variáveis \iid (relembrando: independentes e identicamente distribuídos) com $Z_1 \overset{d}\sim \Ber(p)$, então $Y = \sum_i Z_i \overset{d}\sim \Bin(n,p)$.
   Logo
   \begin{equation}
     E(X) = E(Y) = \sum_i E(Z_i) = n p.
@@ -1751,7 +1864,7 @@ Definimos a distribuição geométrica de parâmetro $p \in (0,1]$ por
 
 \begin{exercise}
   \label{x:geo_time}
-  Sejam $Y_i$, para $i \geq 1$ i.i.d. com distribuição $\Ber(p)$ e defina
+  Sejam $Y_i$, para $i \geq 1$ \iid com distribuição $\Ber(p)$ e defina
   \begin{equation}
     T = \inf\{i; Y_i = 1\}.
   \end{equation}
@@ -1813,7 +1926,7 @@ Nessa seção iremos mostrar como esse método é mais geral, se aplicando mesmo
 Seja $V_n = \{1, \dots, n\}$ com $n \geq 3$ e $\mathcal{E}_n = \big\{ \{x,y\} \subseteq V_n; x \neq y \big\}$.
 Chamamos o par $(V_n, \mathcal{E}_n)$ de grafo completo em $n$ vértices.
 
-Definimos em um certo espaço de probabilidade $P_n$, as variáveis aleatórias $(X_e)_{e \in \mathcal{E}_n}$ de maneira i.i.d. com distribuição $\Ber(p)$, onde $p \in [0,1]$.
+Definimos em um certo espaço de probabilidade $P_n$, as variáveis aleatórias $(X_e)_{e \in \mathcal{E}_n}$ de maneira \iid com distribuição $\Ber(p)$, onde $p \in [0,1]$.
 Essas variáveis induzem um subgrafo aleatório $(V_n, \mathcal{E}_n')$, onde
 \begin{equation}
   \mathcal{E}_n' = \big\{ e \in \mathcal{E}_n; X_e = 1 \big\}.
@@ -1866,7 +1979,7 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
 
 \begin{theorem}[Lei Forte dos Grandes Números]
   \label{t:LFGN}
-  Sejam $X_1, X_2, \dots$ i.i.d. em $\mathcal{L}^1$, com $m = E(X_1)$.
+  Sejam $X_1, X_2, \dots$ \iid em $\mathcal{L}^1$, com $m = E(X_1)$.
   Então,
   \begin{equation}
     \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^n X_n = m, \text{ $P$-quase certamente.}
@@ -2130,7 +2243,7 @@ Uma outra propriedade importante da função geradora de momentos é que ela se 
   usando Fubini.
 \end{proof}
 
-Consideraremos agora uma sequência $X_1, X_2, \dots$ de variáveis i.i.d. com $\phi_{X_1}(s) < \infty$ para $|s| < \delta$.
+Consideraremos agora uma sequência $X_1, X_2, \dots$ de variáveis \iid com $\phi_{X_1}(s) < \infty$ para $|s| < \delta$.
 Então podemos tentar estimar, para $a > 0$ e $|s| < \delta$,
 \begin{equation*}
   \begin{split}
@@ -2154,13 +2267,13 @@ Logo, existe $s > 0$ tal que $\phi_{X_1}(s) < 1 + (E(X_1) + \tfrac{a}{2}) s$, do
 Isso nos garante um decaimento exponencial da probabilidade da média dos $X_i$ se desviar da esperança.
 
 \begin{exercise}
-  Aplique o método acima para variáveis $X_i$ i.i.d. com distribuição $\Ber(1/2)$ e encontre $s(a)$ que otimize o decaimento da probabilidade $P\big[\sum_{i=1}^n X_i > (1/2 + a) n \big]$.
+  Aplique o método acima para variáveis $X_i$ \iid com distribuição $\Ber(1/2)$ e encontre $s(a)$ que otimize o decaimento da probabilidade $P\big[\sum_{i=1}^n X_i > (1/2 + a) n \big]$.
 \end{exercise}
 
 Poderíamos nos perguntar se a cota acima é suficientemente boa.
 Talvez pudéssemos esperar um decaimento ainda melhor que exponencial.
 Para responder a essa pergunta, vamos considerar o seguinte exemplo.
-Sejam $(X_i)_{i \geq 1}$ variáveis i.i.d. com $X_1 \distr \Ber(1/2)$.
+Sejam $(X_i)_{i \geq 1}$ variáveis \iid com $X_1 \distr \Ber(1/2)$.
 Nesse caso temos por exemplo
 \begin{equation}
   P\Big[ \big| \frac{X_1 + \dots + X_n}{n} - \frac 12 \big| \geq \frac 14\Big] \geq P[X_i = 1, \forall i \leq n] = 2^{-n}.
@@ -2181,7 +2294,7 @@ Futuramente no curso estudaremos as probabilidades de que esse desvio seja de or
 
 \begin{theorem}[Princípio de Grandes Desvios - cota superior]
   \label{t:PGDleq}
-  Sejam $X_1, X_2, \dots$ variáveis aleatórias i.i.d. tais que $\phi_{X_1}(s) < \infty$, para todo $s \in (-\delta, \delta)$.
+  Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid tais que $\phi_{X_1}(s) < \infty$, para todo $s \in (-\delta, \delta)$.
   Então, para $a > 0$,
   \begin{equation}
     P\big[ X_1 + \dots + X_n \geq \big(m + a \big) n \big] \leq \ex{-\psi_{X_1}(m + a) n},
@@ -2233,7 +2346,7 @@ Futuramente no curso estudaremos as probabilidades de que esse desvio seja de or
 \end{exercise}
 
 Vamos agora tomar um exemplo concreto para análise.
-Sejam $X_1, X_2, \dots$ variáveis aleatórias i.i.d. com distribuição $\Ber(1/2)$, donde
+Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid com distribuição $\Ber(1/2)$, donde
 \begin{equation}
   \phi_{X_1}(s) = \frac{1}{2} (1 + e^s) \quad \text{e} \quad \psi_{X_1}(b) = \sup_{s \geq 0} \{bs - \log(1 + e^s) + \log(2) \}.
 \end{equation}
@@ -2308,7 +2421,7 @@ Isso é confirmado no seguinte resultado
 
 \begin{theorem}[Princípio de Grandes Desvios - cota inferior]
   \label{t:PGDgeq}
-  Sejam $X_1, X_2, \dots$ variáveis aleatórias i.i.d. com $\phi_{X_1}(s) < \infty$, para todo $s \in \mathbb{R}$.
+  Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid com $\phi_{X_1}(s) < \infty$, para todo $s \in \mathbb{R}$.
   Então, para todo $a > 0$,
   \begin{equation}
     \liminf_{n \to \infty} \frac{1}{n} \log P\big[ X_1 + \dots + X_n \geq \big(m + a \big) n \big] \geq -\psi_{X_1}(m + a),
@@ -2319,7 +2432,7 @@ Isso é confirmado no seguinte resultado
 Note que o resultado do teorema acima é mais fraco que o que vemos na equação \eqref{e:PGDgeq_falso}, mas mostra que $\psi_{X_1}(a)$ é realmente o expoente correto no decaimento da probabilidade de grandes desvios.
 
 A idéia da prova é transformar a distribuição de $X_i$, usando uma exponencial como derivada de Radon-Nikodim.
-Essa nova distribuição possuirá esperança maior $m + a$, de forma que se tomamos a média de variáveis i.i.d. $X'_1, \dots, X'_n$ distribuídas dessa forma, obteremos algo que se concentra acima de $m + a$.
+Essa nova distribuição possuirá esperança maior $m + a$, de forma que se tomamos a média de variáveis \iid $X'_1, \dots, X'_n$ distribuídas dessa forma, obteremos algo que se concentra acima de $m + a$.
 Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_i$ será aproximadamente $\ex{-\psi_{X_1}(m + a)}$, como desejado para nossa cota inferior.
 
 \begin{proof}
@@ -2366,7 +2479,7 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
   Isso implica que se uma variável aleatória tem distribuição $\nu$, sua esperança é $b$.
   Obviamente uma tal variável aleatória $X'$ satisfaz obrigatoriamente $\phi_{X'}(s) < \infty$ para todo $s \geq 0$, donde $X' \in \mathcal{L}^p$ para todo $p > 1$.
 
-  Como prometido, consideramos variáveis $X_1', X_2', \dots$ i.i.d. com distribuição $\nu$.
+  Como prometido, consideramos variáveis $X_1', X_2', \dots$ \iid com distribuição $\nu$.
   Pela lei fraca dos grandes números, para qualquer $\delta > 0$,
   \begin{equation}
     \lim_n P\Big[ \frac{X_1' + \dots + X_n'}{n} \in (b-\delta,b+\delta) \Big] = 1.
@@ -2404,12 +2517,12 @@ Agora estudaremos esse tópico pela última vez, mas atravéz de uma técnica ba
 
 \subsection{A distribuição normal}
 
-Começaremos estudando de maneira sistemática o que acontece quando somamos duas variáveis aleatórias i.i.d. em termos de distribuição.
+Começaremos estudando de maneira sistemática o que acontece quando somamos duas variáveis aleatórias \iid em termos de distribuição.
 Isso pode ser visto como um operador no espaço de distribuições em $\mathbb{R}$ que definiremos a seguir.
 Estaremos interessados nos pontos fixos de tal operador, mas antes, vamos fazer uma observação simples que evitará trivialidades.
 
 \begin{lemma}
-  Sejam $X$ e $Y$ variáveis aleatórias em $\mathcal{L}^2$, i.i.d. com distribuição $\mu$.
+  Sejam $X$ e $Y$ variáveis aleatórias em $\mathcal{L}^2$, \iid com distribuição $\mu$.
   Nesse caso, se $X + Y$ também tem distribuição $\mu$, então $\mu = \delta_0$.
 \end{lemma}
 
@@ -2547,7 +2660,7 @@ Para confirmar que de fato as distribuições normais se comportam bem com respe
 Podemos obter um corolário interessante sobre a soma de várias normais i.i.d.
 \begin{corollary}
   \label{c:normaliz_normais}
-  Sejam $X_1, X_2, \dots$ variáveis aleatórias i.i.d. com distribuição $\mathcal{N}(m,\sigma^2)$, então
+  Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid com distribuição $\mathcal{N}(m,\sigma^2)$, então
   \begin{equation}
     X_1 + \dots + X_n \distr \mathcal{N}(nm, n \sigma^2).
   \end{equation}
@@ -2566,7 +2679,7 @@ Note que a somar as coordenadas canônicas é equivalente a multiplicar pelo vet
 Uma outra maneira de entender o corolário acima é que a normal é um ponto fixo da operação seguinte
 \begin{enumerate}
 \item tome uma distribuição $\mu \in \mathcal{L}^2$,
-\item considere $X_1, \dots, X_n$ i.i.d. com distribuição $\mu$ e
+\item considere $X_1, \dots, X_n$ \iid com distribuição $\mu$ e
 \item retorne a distribuição de
   \begin{equation}
     \frac{X_1 + \dots + X_n - n E(X_1)}{\sqrt{\Var(X_1) n}}.
@@ -2785,7 +2898,7 @@ A primeira é dada pela seguinte
 
 \begin{theorem}
   \label{:tcl_iid}
-  Considere num espaço $(\Omega, \mathcal{F}, P)$, uma sequência $X_1, X_2, \dots$ de variáveis aleatórias i.i.d. em $\mathcal{L}^3$.
+  Considere num espaço $(\Omega, \mathcal{F}, P)$, uma sequência $X_1, X_2, \dots$ de variáveis aleatórias \iid em $\mathcal{L}^3$.
   Nesse caso, se definimos $m = E(X_1)$ e $\sigma^2 = \Var(X_1)$, temos
   \begin{equation}
     \frac{\sum_{i=1}^n (X_i - m)}{\sigma \sqrt{n}} \Rightarrow \mathcal{N}(0,1).
@@ -2808,7 +2921,7 @@ A primeira é dada pela seguinte
   \end{equation}
 
   Vale lembrar que no Corolário~\ref{c:normaliz_normais} já estabelecemos algo mais forte para variáveis normais.
-  Mais precisamente, suponha que extendemos nosso espaço de probabilidade para $(\Omega', \mathcal{F}', P')$, onde exista uma sequência $Y_1, Y_2, \dots$ de variáveis aleatórias i.i.d. com distribuição $\mathcal{N}(0,1)$ independente de $X_1, X_2, \dots$
+  Mais precisamente, suponha que extendemos nosso espaço de probabilidade para $(\Omega', \mathcal{F}', P')$, onde exista uma sequência $Y_1, Y_2, \dots$ de variáveis aleatórias \iid com distribuição $\mathcal{N}(0,1)$ independente de $X_1, X_2, \dots$
   Então,
   \begin{equation}
     \int \phi^n(Y_1, \dots, Y_n) \d P' = \int g(s) \mathcal{N}(0,1) (\d s),
@@ -2864,7 +2977,7 @@ A primeira é dada pela seguinte
 \end{proof}
 
 \begin{corollary}
-  A $\mathcal{N}(0,1)$ é a única distribuição $\mu$ que possui esperança zero, variância $1$ e é tal que se $X, Y$ são i.i.d. com distribuição $\mu$, então $(X + Y)/\sqrt{2}$ possuem distribuição $\mu$.
+  A $\mathcal{N}(0,1)$ é a única distribuição $\mu$ que possui esperança zero, variância $1$ e é tal que se $X, Y$ são \iid com distribuição $\mu$, então $(X + Y)/\sqrt{2}$ possuem distribuição $\mu$.
 \end{corollary}
 
 \begin{proof}
