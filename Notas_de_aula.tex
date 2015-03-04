@@ -1,8 +1,17 @@
-\documentclass[reqno]{article}
+\documentclass[reqno,draft]{book}
 \usepackage{amssymb,amsmath,amsthm}
+
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\pgfmathsetseed{123321}
+\usepackage[first=1, last=100]{lcg}
+%\usetikzlibrary{external}
+%\tikzexternalize % to speed up compilation
+\usepackage{ifthen}
+
+\usepackage{ifdraft}
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{enumerate}
@@ -13,6 +22,8 @@
 \usepackage{dsfont} % includes bb 1
 \newcommand*\1{\mathds{1}}
 \usepackage[brazil]{babel}
+
+\usepackage{hyperref}
 
 \newtheorem{theorem}{Teorema}[section]
 \newtheorem{corollary}[theorem]{Corolário}
@@ -89,8 +100,11 @@
 
 \tableofcontents
 
-\section{Espaços mensuráveis}
+\newpage
 
+\chapter{Espaços de probabilidade}
+
+\section{Espaços mensuráveis}
 
 Denotaremos sempre por $\Omega$ o nosso espaço amostral (à princípio qualquer conjunto).
 
@@ -311,7 +325,7 @@ Note que $X$ e $Y$ nem ao menos precisam pertencer ao mesmo espaço de probabili
 \item Escrevemos $X \distr \mu$, que lê-se \emph{$X$ é distribuída como $\mu$}, onde $\mu$ é uma probabilidade em $E$, caso $X \circ P = \mu$.
 \end{enumerate}
 
-\section{Sistemas $\lambda$-$\pi$}
+\section{Sistemas \texorpdfstring{$\lambda$-$\pi$}{lambda-pi}}
 
 Uma importante ferramenta para provar fatos teóricos sobre probabilidades é o Teorema de Dynkin que apresentaremos nessa seção.
 Ele trata de classes de eventos que não são necessariamente $\sigma$-álgebras, mas sistemas $\sigma$ ou $\pi$ como definidos abaixo.
@@ -441,9 +455,10 @@ Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistem
   Contudo, $P_1 \neq P_2$, mesmo tendo $\mathcal{P}(\Omega) = \sigma(\{A,B\})$.
 \end{example}
 
+
 \section{Construção de espaços de probabilidade}
 
-\subsection{Caso $\Omega$ enumerável}
+\subsection{Caso \texorpdfstring{$\Omega$}{Omega} enumerável}
 
 Se $\Omega = \{\omega_1, \omega_2, \dots\}$, então podemos definir $\mathcal{A} = \mathcal{P}(\Omega) (= \sigma(\{\omega_i\}_{i \geq 1}))$.
 Assim, dados $(p_\omega)_{\omega \in \Omega}$ tais que
@@ -519,7 +534,7 @@ Podemos também usar a distribuição de um elemento aleatório para construir o
   Construa uma probabilidade em $S^2$ invariante por rotações.
 \end{exercise}
 
-\subsection{O caso $\Omega = \mathbb{R}$}
+\subsection{O caso \texorpdfstring{$\Omega = \mathbb{R}$}{Omega = R}}
 
 Será importante nesse curso entender a distribuição de variáveis aleatórias.
 Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em $\mathbb{R}$.
@@ -699,7 +714,7 @@ Mais precisamente
   Então $B$ é independente de $A$ para todo $B \in \sigma(\mathcal{B})$.
 \end{corollary}
 
-\subsection{Independência de $\sigma$-álgebras}
+\subsection{Independência de \texorpdfstring{$\sigma$}{sigma}-álgebras}
 
 \begin{definition}
   Dadas $\sigma$-algebras $\mathcal{F}_1, \dots, \mathcal{F}_k \subseteq \mathcal{F}$.
@@ -985,6 +1000,46 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 \end{exercise}
 
 \newpage
+
+\section{Tópico: Percolação}
+
+Imagine que gostaríamos de modelar o movimento de um líquido em um meio poroso, como uma rocha ou uma esponja.
+A primeira tarefa nesse estudo seria modelar esse meio poroso de maneira matematicamente rigorosa, que é o que faremos a seguir.
+
+Fixamos uma dimensão $d \geq 1$ e consideramos o seguinte grafo $G = (\mathbb{Z}^d, E)$, onde a rede quadrada $\mathbb{Z}^d$ é o conjunto de vértices de $G$ e o conjunto de elos é dado por
+\begin{equation*}
+  E = \big\{ \{x, y\} \subset \mathbb{Z}^d; |x - y| = 1 \},
+\end{equation*}
+onde $|\cdot|$ representa a distância euclideana em $\mathbb{R}^d$.
+
+No nosso modelo, esse grafo pode ser entendido como um cristal periódico onde cada vértice representa uma cavidade do material poroso e os elos são potenciais conexões entre poros vizinhos.
+
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}[scale=.1]
+    \ifdraft{\def\side{5}}{\def\side{30}}
+    \draw[step=1, color=gray!50!white] (1,1) grid (\side + 1, \side + 1)
+                                       (41, 1) grid (41 + \side, \side + 1) (81, 1) grid (81 + \side, \side + 1);
+    \foreach \x in {1,...,\side}
+    { \foreach \y in {1,...,\side}
+      { {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>60}{\draw[thick] (\x, \y) -- (\x, \y + 1);}{}
+        {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>60}{\draw[thick] (\x, \y) -- (\x + 1, \y);}{} } }
+    \foreach \x in {1,...,\side}
+    { \foreach \y in {1,...,\side}
+      { {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>50}{\draw[thick] (40 + \x, \y) -- (40 + \x, \y + 1);}{}
+        {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>50}{\draw[thick] (40 + \x, \y) -- (40 + \x + 1, \y);}{} } }
+    \foreach \x in {1,...,\side}
+    { \foreach \y in {1,...,\side}
+      { {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>40}{\draw[thick] (80 + \x, \y) -- (80 + \x, \y + 1);}{}
+        {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>40}{\draw[thick] (80 + \x, \y) -- (80 + \x + 1, \y);}{} } }
+  \end{tikzpicture}
+  \caption{Uma simulação...}
+\end{figure}
+
+
+
+
+
 
 \section{Espaços canônicos}
 
@@ -1344,6 +1399,12 @@ Isso nos é fornecido em geral pela regra de Bayes enunciada na seguinte
 \end{exercise}
 
 \newpage
+
+\section{Distribuições conjuntas}
+
+\newpage
+
+\chapter{Somas de variáveis independentes}
 
 \section{Esperança}
 
@@ -1801,10 +1862,6 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
 
 \newpage
 
-\section{Distribuições conjuntas}
-
-\newpage
-
 \section{Lei forte dos grandes números}
 
 \begin{theorem}[Lei Forte dos Grandes Números]
@@ -1921,7 +1978,7 @@ Estamos agora em posição de finalizar a
 
 \newpage
 
-\section{Lei $\{0, 1\}$ de Kolmogorov}
+\section{Lei \texorpdfstring{$\{0, 1\}$}{\{0,1\}} de Kolmogorov}
 
 Ao estudarmos o Lema de Borel-Cantelli, vimos que, se os eventos $(A_i)_{i \geq 1}$ são independentes, então a probabilidade de $[A_i \text{ infinitas vezes}]$ somente pode assumir os valores zero ou um (dependendo da somabilidade de $P(A_i)$).
 Nessa seção iremos estudar outros tipos de evento que assumem apenas esses dois valores.
@@ -2686,7 +2743,7 @@ Para memorizar o teorema acima, é conveniente lembrar dos dois exemplos:
 Nós algumas vezes denotamos $X_n \Rightarrow X$ quando $X_n$ e $X$ são elementos aleatórios de $(\Omega, \mathcal{F}, P)$ para descrever a convergência fraca de suas respectivas distribuições.
 Mais precisamente, $X_n \circ P \Rightarrow X \circ P$.
 
-\subsection{Convergência fraca em $\mathbb{R}$}
+\subsection{Convergência fraca em \texorpdfstring{$\mathbb{R}$}{R}}
 
 No caso especial em que $E = \mathbb{R}$, temos vários outras maneiras de caracterizar convergência em distribuição.
 A primeira é dada pela seguinte
@@ -2819,6 +2876,8 @@ A primeira é dada pela seguinte
 \end{proof}
 
 \newpage
+
+\chapter{Esperança condicional}
 
 \section{Núcleos de transição}
 
