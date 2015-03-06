@@ -1,16 +1,17 @@
 \documentclass[reqno, draft]{book}
-\usepackage{amssymb,amsmath,amsthm}
+\usepackage{amssymb, amsmath, amsthm}
+
+\usepackage[margin=10pt,font=small,labelfont=bf]{caption}
 
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfmathsetseed{123321}
 \usepackage[first=1, last=100]{lcg}
-%\usetikzlibrary{external}
-%\tikzexternalize % to speed up compilation
-\usepackage{ifthen}
 
+\usepackage{ifthen}
 \usepackage{ifdraft}
+
 \usepackage{hyperref}
 \hypersetup{final}
 \usepackage{xcolor}
@@ -21,15 +22,28 @@
     urlcolor={blue!80!black}
 }
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%% trying lualatex %%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[charter]{mathdesign}  % sets the math font
+%\usepackage{fontspec}
+%\setmainfont{TeX Gyre Bonum}
+%\def\mathds{}
+\def\bigtimes{\times}
+\def\widebar{\bar}
+%\usepackage{mathabx}
+\usepackage{mathpazo}
+\usepackage{dsfont} % includes bb 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \usepackage{enumerate}
 \usepackage{color}
-\usepackage{mathabx}
+%\usepackage{mathabx}
 \usepackage{calc}
 
-\usepackage{dsfont} % includes bb 1
 \newcommand*\1{\mathds{1}}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
 
 \newtheorem{theorem}{Teorema}[section]
@@ -102,6 +116,7 @@
 
 \begin{document}
 
+
 \title{Probabilidade I}
 \author{Augusto Teixeira}
 
@@ -115,7 +130,7 @@
 
 \section{Espaços mensuráveis}
 
-Denotaremos sempre por $\Omega$ o nosso espaço amostral (à princípio qualquer conjunto).
+Denotaremos $\alpha$ sempre por $\Omega$ o nosso espaço amostral (à princípio qualquer conjunto).
 
 \begin{example} Espaços amostrais
   \label{x:espacos_amostrais}
@@ -176,13 +191,16 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
   Dado $(\Omega, \mathcal{F})$ espaço mensurável, dizemos que $P:\mathcal{F} \to [0,1]$ é uma probabilidade se
   \begin{enumerate}
   \item $P(\Omega) = 1$ e
-  \item sempre que $A_1, A_2, \dots \in \mathcal{F}$ forem disjuntos ($A_i \cap A_j = \varnothing$ se $i \neq j$), temos $$P\big({\mcup\nolimits_i} A_i\big) = {\textstyle\sum_i} P(A_i).$$
+  \item sempre que $A_1, A_2, \dots \in \mathcal{F}$ forem disjuntos ($A_i \cap A_j = \varnothing$ se $i \neq j$), temos
+    \begin{equation}
+      P\big({\mcup\nolimits_i} A_i\big) = \sum_i P(A_i).
+    \end{equation}
   \end{enumerate}
 \end{definition}
 
 \begin{example} Probabilidades em dois dos espaços do Exemplo~\ref{x:espacos_amostrais}
   \begin{enumerate}
-  \item $P_1(A) = \tfrac{\#A}{6}$ em $(\Omega_1, \mathcal{F}_1)$.
+  \item $P_1(A) = (\#A)/6$ em $(\Omega_1, \mathcal{F}_1)$.
     Ou mais geralmente $P_1'(A) = \sum_{i \in A} p_i$, onde $p_i \geq 0$ e $\sum_i p_i = 1$.
   \item $P_2$ pode ser a medida de Lebesgue em $([0,1], \mathcal{B}([0,1]))$.
     Mais geralmente também podemos ter $P_2'(A) = \int_A \rho(x) \d x$, onde $\rho:[0,1] \to \mathbb{R}_+$, chamada densidade, é tal que $\int_{[0,1]} \rho (x) \d x = 1$.
@@ -193,8 +211,8 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
   Valem as afirmativas
   \begin{enumerate}
   \item Se $A \subseteq B$ então $P(A) = P(B) - P(B \setminus A) \leq P(B)$,
-  \item $P\big(\smash{\mcup_{i}} A_i\big) \leq \smash{\sum\limits_i} P(A_i)$ e
-  \item $P\big(\mcup_{i \leq n} A_i\big) = \smash{\sum\limits_{k = 1}^n} (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k})$.
+  \item $P\big(\mcup\nolimits_i A_i\big) \leq \smash{\sum\limits_i} P(A_i)$ e
+  \item $P\big(\mcup\nolimits_{i \leq n} A_i\big) = \smash{\sum\limits_{k = 1}^n} (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k})$.
   \end{enumerate}
 \end{proposition}
 
@@ -216,7 +234,7 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
     respeito a $P$.
     \begin{equation}
       \label{e:indicadora_como_produto}
-      \1_A(\omega) = \sum_{k=1}^n (-1)^{k - 1} \sum_{I \subseteq \{1, \dots, n\} \atop |I| = k} \prod_{i \in I} \1_{A_i}(\omega).
+      \1_A(\omega) = \sum_{k=1}^n (-1)^{k - 1} \sum_{\substack{I \subseteq \{1, \dots, n\}\\|I| = k}} \prod_{i \in I} \1_{A_i}(\omega).
     \end{equation}
     Para tanto, observe que para todo $\omega \in \Omega$,
     \begin{equation}
@@ -224,7 +242,7 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
     \end{equation}
     Logo, expandindo o produto acima obtemos
     \begin{equation}
-      \1_A + \sum_{k = 1}^n \sum_{I \subseteq \{1, \dots, n\} \atop |I| = k} (-1)^k \1_{A_k}(\omega) = 0,
+      \1_A + \sum_{k = 1}^n \sum_{\substack{I \subseteq \{1, \dots, n\}\\|I| = k}} (-1)^k \1_{A_k}(\omega) = 0,
     \end{equation}
     que equivale a \eqref{e:indicadora_como_produto}.
 \end{proof}
@@ -262,7 +280,7 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
 \end{proof}
 
 \begin{lemma}[Borel-Cantelli - primeira parte]
-  Sejam $A_1, A_2, \dots \in \mathcal{F}$ com $\sum_{i = 1}^\infty P(A_i) < \infty$.
+  Sejam $A_1, A_2, \dots \in \mathcal{F}$ satisfazendo $\sum_{i = 1}^\infty P(A_i) < \infty$.
   Então
   \begin{equation}
     P[\text{$A_i$ para infinitos $i$}] := P\big({\mcap\nolimits_{n = 1}^\infty} ({\mcup\nolimits_{i \geq n}} A_i)\big) = 0.
@@ -280,7 +298,7 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
 \section{Elementos aleatórios}
 
 Seja $(E,\mathcal{A})$ um espaço mensurável.
-Nesse caso, se $X: \Omega \to E$ é $(\mathcal{F}, \mathcal{A})$-mensurável, dizemos que $X$ é um elemento aleatório em $(\Omega, \mathcal{F})$ tomando valores em $E$, ou um $E$-elemento aleatório.
+Nesse caso, se $X: \Omega \to E$ é uma função $(\mathcal{F}, \mathcal{A})$-mensurável, dizemos que $X$ é um elemento aleatório em $(\Omega, \mathcal{F})$ tomando valores em $E$, ou um $E$-elemento aleatório.
 
 \begin{example} Retomando o Exemplo~\ref{x:espacos_amostrais},
   \begin{enumerate}
@@ -360,7 +378,7 @@ Ele trata de classes de eventos que não são necessariamente $\sigma$-álgebras
 
 Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistema contendo $\mathcal{A}$, ou seja
 \begin{equation}
-  \lambda(\mathcal{A}) = \mcap_{\text{$\mathcal{B}$ $\lambda$-sistema} \atop \mathcal{A} \subseteq \mathcal{B}} \mathcal{B}.
+  \lambda(\mathcal{A}) = \bigcap_{\substack{\text{$\mathcal{B}$ $\lambda$-sistema}\\\mathcal{A} \subseteq \mathcal{B}}} \mathcal{B}.
 \end{equation}
 É fácil ver que $\lambda(\mathcal{A})$ é sempre um $\lambda$-sistema.
 
@@ -376,7 +394,7 @@ Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistem
 \begin{proof}
   Obviamente, $\lambda(\mathcal{A}) \subseteq \sigma(\mathcal{A})$.
   Portanto basta provar a inclusão inversa.
-  Definimos primeiramente $\mathcal{B} = \big\{B \in \lambda(\mathcal{A}); \text{$B \cap A \in \lambda(\mathcal{A})$ para todo $A \in \mathcal{A}$})\big\}$ e iremos mostrar que
+  Definimos $\mathcal{B} = \big\{B \in \lambda(\mathcal{A}); \text{$B \cap A \in \lambda(\mathcal{A})$ para todo $A \in \mathcal{A}$})\big\}$ e iremos mostrar que
   \begin{equation}
     \label{e:B_igual_lambda}
     B = \lambda(\mathcal{A}).
@@ -507,7 +525,7 @@ definimos $P(A) = \sum_{\omega \in A} p_\omega$ que claramente define uma probab
 
 \subsection{Caso absolutamente contínuo}
 
-Seja $(\Omega, \mathcal{F}, \mu)$ um espaço de medida e $\rho:\Omega \to \mathbb{R}_+$ mensurável com $\int \rho(x) \mu(\d x) = 1$.
+Seja $(\Omega, \mathcal{F}, \mu)$ um espaço de medida e $\rho:\Omega \to \mathbb{R}_+$ uma função mensurável com $\int \rho(x) \mu(\d x) = 1$.
 Então podemos definir a probabilidade induzida
 \begin{equation}
   \label{e:absolutamente_cont}
@@ -775,7 +793,7 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
 \end{exercise}
 
 \begin{exercise}
-  Sejam $(X_i)_{i \geq 1}$ elementos aleatórios independentes em espaços $(E_i)_{i \geq 1}$, respectivamente.
+  Sejam $(X_i)_{i \geq 1}$ elementos aleatórios independentes tomando valores em espaços $(E_i)_{i \geq 1}$, respectivamente.
   Mostre que para funções mensuráveis $(f_i)_{i \geq 1}$ temos que $(f_i(X_i))_{i \geq 1}$ são independentes.
 \end{exercise}
 
@@ -1243,7 +1261,7 @@ Mais precisamente
 \end{equation}
 Podemos ver na Figura~\ref{f:percola} algumas simulações desse grafo aleatório.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
   \centering
   \begin{tikzpicture}[scale=.1]
     \ifdraft{\def\side{5}}{\def\side{30}}
@@ -1291,7 +1309,7 @@ Para estudar $A$, vamos fazer uma aproximação de $A$ por eventos mais simples
 para $n \geq 1$.
 
 \begin{exercise}
-  Mostre que $A = \cap_n A_n$ e consequentemente que $A$ é de fato um evento (mensurável) e $P(A) = \lim_n P(A_n)$.
+  Mostre que $A = \cap \cap_n A_n$ e consequentemente que $A$ é de fato um evento (mensurável) e $P(A) = \lim_n P(A_n)$.
 \end{exercise}
 
 Definimos portanto a função $\theta:[0,1] \to [0,1]$ por
@@ -1511,7 +1529,7 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
     A_0 = B_0, \quad \text{e} \quad A_n = B_n \setminus \mcup_{i=0}^{n-1} B_i \quad \text{para $n \geq 1$.}
   \end{equation}
 
-  Agora podemos dotar cada um dos $A_i$ com a métrica $d_i$ obtida pelo Lema~\ref{l:sub_polones} (observe para tanto que os $A_i$ são dados por interseções de um aberto com um fechado).
+  Agora podemos dotar cada um dos $A_i$ com a métrica $d_i$ obtida atravéz do Lema~\ref{l:sub_polones} (observe para tanto que os $A_i$ são dados por interseções de um aberto com um fechado).
   As propriedades enunciadas no lema são trivialmente satisfeitas.
 \end{proof}
 
@@ -1531,15 +1549,15 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   Vamos definir borelianos $A_m$ de $E$ e métricas $d_m$ em $A_m$ para cada $m \in M$.
   Faremos isso da seguinte forma:
   \begin{enumerate}
-  \item se $m = i \in M_1$, então definimos $A_1, A_2, \dots$ e $d_1, d_2, \dots$ como no Lema~\ref{l:particao_polones} com $r = 1$,
-  \item se $(A_m, d_m)$ já foi definido para algum $m \in I_n$, então utilizamos o Lema~\ref{l:particao_polones} com $r = 1/n$ para particionar o conjunto $A_m$ (com a métrica $d_m$) em $A_{(m,1)}, A_{(m,2)}, \dots$ com suas respectivas métricas $d_{(m,1)}, d_{(m,2)}, \dots$
+  \item se $m = i \in M_1$, então definimos $A_1, A_2, A_3, \dots$ e $d_1, d_2, d_3, \dots$ como no Lema~\ref{l:particao_polones} com $r = 1$,
+  \item se $(A_m, d_m)$ já foi definido para algum $m \in I_n$, então utilizamos também o Lema~\ref{l:particao_polones} com $r = 1/n$ para particionar o conjunto $A_m$ (com a métrica $d_m$) em $A_{(m,1)}, A_{(m,2)}, \dots$ com suas respectivas métricas $d_{(m,1)}, d_{(m,2)}, \dots$
   \end{enumerate}
   Obviamente suporemos que são válidas as propriedades de tais métricas garantidas pelo Lema~\ref{l:particao_polones}.
 
   Podemos desde já definir $\phi:E \to \mathbb{N}^\mathbb{N}$ e para tanto, considere $x \in E$.
   Indutivamente
   \begin{enumerate}
-  \item como $\{A_m\}_{m \in M_1}$ formam uma partição de $E$, podemos definir $\phi_1(x)$ como sendo o único índice tal que $x \in A_{\phi_1(x)}$,
+  \item como $\{A_m\}_{m \in M_1}$ formam uma partição de $E$, definimos $\phi_1(x)$ como o único índice tal que $x \in A_{\phi_1(x)}$,
   \item se já encontramos $\phi_1(x), \dots, \phi_n(x)$ tal que $x \in A_{(\phi_1(x), \dots \phi_n(x))}$, então o fato que particionamos o último conjunto na definição de $A_m$, $m \in M_{n+1}$ nos garante que podemos definir unicamente $\phi_{n+1}(x)$ de forma a continuar a indução.
   \end{enumerate}
   Da maneira acima já obtivemos $\phi(x) = (\phi_1(x), \phi_2(x), \dots)$.
@@ -1650,7 +1668,7 @@ A intuição desta proposição é que se repetimos o experimento $(\Omega, \mat
 \end{proof}
 
 \begin{exercise}
-  Seja $\lambda > 0$ e $X \distr \Exp(\lambda)$ (lembrando $\d (X \circ P) = \lambda \exp\{- \lambda x\} \d x$).
+  Seja $\lambda > 0$ e $X \distr \Exp(\lambda)$ (lembrando a definição da distribuição exponencial: $\d (X \circ P) = \lambda \exp\{- \lambda x\} \d x$).
   Mostre que as variáveis com distribuição exponencial não possuem memória, ou seja:
   \begin{equation}
     \label{e:sem_memoria}
@@ -1829,7 +1847,7 @@ Se $d(X \circ P) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), 
 \end{equation}
 
 \begin{example}
-  Se $X \overset{d}\sim U_{[0,1]}$, então $d(X \circ P) = \1_{[0,1]} \d x$, donde $E(X) = \int_0^1 x \d x = 1/2$.
+  Se $X \overset{d}\sim U_{[0,1]}$, então sua densidade com respeito a Lebesgue é dada por $d(X \circ P) = \1_{[0,1]} \d x$, donde $E(X) = \int_0^1 x \d x = 1/2$.
 \end{example}
 
 \begin{proposition}
@@ -2061,7 +2079,7 @@ Uma observação importante é que
 \begin{exercise}
   Sejam $X_1$ e $X_2$ as coordenadas canônicas em $\mathbb{R}^2$.
   Já vimos que elas não são independentes sob a distribuição $U_{S^1}$.
-  Mostre que mesmo assim $\Cov(X_1, X_2) = 0$.
+  Mostre que mesmo assim temos $\Cov(X_1, X_2) = 0$.
 \end{exercise}
 
 Uma outra propriedade bastante importante da variância é que ela se comporta bem com somas, no seguinte sentido
@@ -2308,7 +2326,7 @@ O próximo passo para a prova da Lei Forte dos Grandes Números é cuidar da esp
   \begin{equation}
     \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^n E(Y_i) = m.
   \end{equation}
-  Dessa forma, obtemos que $\tfrac 1n \sum_{i=1}^n Y_i$ converge quase certamente a $m$, concluindo a prova do Teorema~\ref{t:LFGN} por meio do Lema~\ref{l:LFGN}.
+  Dessa forma, obtemos que $\tfrac 1n \sum_{i=1}^n Y_i$ converge quase certamente a $m$, donde concluímos a prova do Teorema~\ref{t:LFGN} por meio do Lema~\ref{l:LFGN}.
 \end{proof}
 
 Gostaríamos de utilizar os teoremas das séries para mostrar a convergência de $\tfrac 1n \sum_{n} Z_n$, mas obviamente, o fator $\tfrac 1n$ que precede a soma nos impede de fazê-lo.
@@ -2415,7 +2433,7 @@ Uma outra maneira de enunciar a conclusão do teorema acima é dizer que a $\sig
   Mas vamos com calma.
 
   Fixe $k \geq 1$, $A \in \mathcal{F}_\infty$ e $B \in \sigma(X_1, \dots, X_k)$.
-  Nesse caso, como $A \in \sigma(X_{k+1}, X_{k+2}, \dots)$, temos que $A$ e $B$ são independentes.
+  Nesse caso, como o evento $A$ pertence a $\sigma(X_{k+1}, X_{k+2}, \dots)$, temos que $A$ e $B$ são independentes.
   Fixe agora $A \in \mathcal{F}_\infty$ e considere a classe
   \begin{equation}
     \mathcal{B}_A = \{B \in \mathcal{F}; \text{ $B$ é independente de $A$}\}.
@@ -2436,8 +2454,9 @@ Uma outra maneira de enunciar a conclusão do teorema acima é dizer que a $\sig
 \begin{exercise}
   Dizemos que uma probabilidade $P$ no espaço produto $\Omega = \bigtimes_{n \geq 1} E$ (com a $\sigma$-álgebra canônica) é fortemente misturadora se, para todo $k \geq 1$, temos
   \begin{equation}
-    \lim_{n \to \infty} \sup \Big\{ \big| P(A \cap B) - P(A) P(B) \big| \; ; \;\; A \in \sigma(X_1, \dots, X_k), B \in \sigma(X_n, X_{n+1}, \dots) \Big\} = 0.
+    \lim_{n \to \infty} \sup \big| P(A \cap B) - P(A) P(B) \big| = 0,
   \end{equation}
+  onde o supremo acima é tomado sobre $A \in \sigma(X_1, \dots, X_k)$ e $B \in \sigma(X_n, X_{n+1}, \dots)$.
   Mostre que nesse caso, a $\sigma$-álgebra dos eventos caudais é trivial.
 \end{exercise}
 
@@ -2487,7 +2506,7 @@ A última conclusão da proposição acima justifica a nomenclatura \emph{funç�
 
 \begin{proof}
   Obviamente, para todo $p \geq 1$ existe $c > 0$ tal que $\ex{\delta |x|} \geq c |x|^p$, donde $X \in \mathcal{L}^p$.
-  Além disso, para todo $s \in (-\delta, \delta)$, $\phi_X(s) = E(\ex{s X}) \leq E(\ex{\delta |X|}) < \infty$, donde \textit{2.} segue imediatamente.
+  Além disso, para todo $s \in (-\delta, \delta)$, temos $\phi_X(s) = E(\ex{s X}) \leq E(\ex{\delta |X|}) < \infty$, donde \textit{2.} segue imediatamente.
 
   Fixando $s \in \mathbb{R}$, vamos agora calcular
   \begin{equation}
@@ -2509,7 +2528,7 @@ Mais precisamente, $\Var(X_1 + \dots + X_k) = \Var(X_1) + \dots + \Var(X_k)$.
 
 Uma outra propriedade importante da função geradora de momentos é que ela se comporta bem com respeito à somas independentes.
 \begin{proposition}
-  Se $X_1, \dots, X_n$ são variáveis aleatórias independentes com $\phi_{X_i}(s) < \infty$ para todo $i \leq k$ e $|s| < \delta$, então
+  Se $X_1, \dots, X_n$ são variáveis independentes com $\phi_{X_i}(s) < \infty$ para todo $i \leq k$ e $|s| < \delta$, então
   \begin{equation}
     \phi_{X_1 + \dots + X_k}(s) = \phi_{X_1}(s) \dotsm \phi_{X_k}(s), \text{ para todos $|s| < \delta$.}
   \end{equation}
@@ -2661,7 +2680,7 @@ Note que $P[X_1 + \dots + X_n = n] = 2^{-n} = \ex{-\log(2)n} = \ex{-\psi_{X_1}(1
 Isso nos dá um forte indício de que talvez nossas cotas superiores não estejam tão longe de ser precisas.
 Para confirmar essa hipótese, precisamos obter cotas inferiores parecidas.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
   \centering
   \begin{tikzpicture}[scale=3]
     \draw[->] (-0.2,0) -- (1.2,0) node[right] {$b$};
@@ -2731,7 +2750,7 @@ Isso é confirmado no seguinte resultado
 Note que o resultado do teorema acima é mais fraco que o que vemos na equação \eqref{e:PGDgeq_falso}, mas mostra que $\psi_{X_1}(a)$ é realmente o expoente correto no decaimento da probabilidade de grandes desvios.
 
 A idéia da prova é transformar a distribuição de $X_i$, usando uma exponencial como derivada de Radon-Nikodim.
-Essa nova distribuição possuirá esperança maior $m + a$, de forma que se tomamos a média de variáveis \iid $X'_1, \dots, X'_n$ distribuídas dessa forma, obteremos algo que se concentra acima de $m + a$.
+Essa nova distribuição possuirá esperança maior que $m + a$, de forma que se tomamos a média de variáveis \iid $X'_1, \dots, X'_n$ distribuídas dessa forma, obteremos algo que se concentra acima de $m + a$.
 Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_i$ será aproximadamente $\ex{-\psi_{X_1}(m + a)}$, como desejado para nossa cota inferior.
 
 \begin{proof}
@@ -2762,7 +2781,7 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
   \end{equation}
   pois a função $\psi_{X_1}(b)$ é convexa, portanto contínua.
 
-  Vamos definir uma nova distribuição $\nu$ atravéz da derivada de Radon-Nikodim
+  Vamos definir uma nova distribuição $\nu$ com derivada de Radon-Nikodim
   \begin{equation}
     \d \nu = \frac{1}{Z_\sigma} \ex{\sigma x} (X_1 \circ P) (\d x).
   \end{equation}
@@ -2959,7 +2978,7 @@ Para confirmar que de fato as distribuições normais se comportam bem com respe
 Podemos obter um corolário interessante sobre a soma de várias normais i.i.d.
 \begin{corollary}
   \label{c:normaliz_normais}
-  Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid com distribuição $\mathcal{N}(m,\sigma^2)$, então
+  Sejam $X_1, X_2, \dots$ variáveis \iid com distribuição $\mathcal{N}(m,\sigma^2)$, então
   \begin{equation}
     X_1 + \dots + X_n \distr \mathcal{N}(nm, n \sigma^2).
   \end{equation}
@@ -3023,7 +3042,7 @@ Esse porém não é o caso para $d_{\VT}$, pois se $x_n \neq x$ para todo $n$ e 
   d_{\VT}(\delta_{x_n}, \delta_x) \geq |\delta_{x_n}(\{x\}) - \delta_{x}(\{x\}) | = |0 - 1| = 1.
 \end{equation}
 
-Aqueles que já viram o conceito de convergência fraca acharão natural que a convergência de $\mu_n$ para $\mu$ seja definida em termos da convergência de $\int f \d \mu_n$ para $\int f \d \mu$.
+Aqueles que já viram o conceito de convergência fraca acharão natural que a convergência de $\mu_n$ para $\mu$ seja definida em termos da convergência das integrais $\int f \d \mu_n$ para $\int f \d \mu$.
 Porém, como mencionamos no exemplo das medidas $\delta_{x_n}$ acima, gostaríamos também de a convergência respeitasse a topologia original do espaço $E$, o que torna natural a seguinte
 
 \begin{definition}
@@ -3116,7 +3135,10 @@ Para memorizar o teorema acima, é conveniente lembrar dos dois exemplos:
   Para mostrar $(b + b' \Rightarrow c)$, seja $A \in \mathcal{A}$ tal que $\mu(\partial A) = 0$.
   Nesse caso, sabemos que
   \begin{equation*}
-    \limsup_n \mu_n(A) \leq \limsup_n \mu_n(\bar A) \leq \mu (\bar A) = \mu (\mathring{A}) \leq \liminf \mu_n (\mathring{A}) \leq \liminf_n \mu_n (A),
+    \begin{split}
+      \limsup_n \mu_n(A) & \leq \limsup_n \mu_n(\bar A) \leq \mu (\bar A) = \mu (\mathring{A})\\
+      & \leq \liminf \mu_n (\mathring{A}) \leq \liminf_n \mu_n (A),
+    \end{split}
   \end{equation*}
   o que mostra o limite em $c)$.
 
@@ -3132,7 +3154,7 @@ Para memorizar o teorema acima, é conveniente lembrar dos dois exemplos:
     \end{array}
   \end{equation}
 
-  \begin{figure}[!h]
+  \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[scale=3]
       \draw[->,gray,very thin] (-1,0) -- (1.4,0) node[right,black] {$x$};
@@ -3157,7 +3179,7 @@ Para memorizar o teorema acima, é conveniente lembrar dos dois exemplos:
 
 \begin{exercise}
   Lembrando que em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$, temos $\tfrac{1}{n} \sum_{i=1}^n \delta_{i/n} \Rightarrow U_{[0,1]}$, use o ítem $d)$ do Teorema~\ref{t:portmanteau} para dar uma caracterização dos conjuntos Riemann-mensuráveis.
-  Mais precisamente, encontre os conjuntos $A \subseteq \mathbb{R}$ tais que $\tfrac{1}{n} \sum_{i=1}^n \delta_{i/n}(A)$ converge para a medida de Lebesgue de $A$.
+  Mais precisamente, encontre os $A \subseteq \mathbb{R}$ tais que $\tfrac{1}{n} \sum_{i=1}^n \delta_{i/n}(A)$ converge para a medida de Lebesgue de $A$.
 \end{exercise}
 
 \newpage
@@ -3176,10 +3198,14 @@ A primeira é dada pela seguinte
 \end{proposition}
 
 \begin{proof}
-  Primeiramente, vamos ver que podemos nos concentrar em uma porção compacta da reta.
+  Primeiramente, vamos ver que podemos nos concentrar em um conjunto compacto da reta.
 
   Para isso fixe um $\varepsilon > 0$ e tome $M'$ tal que $\mu\big( [-M', M'] \big) > 1 - \varepsilon / 3$.
-  Tomando uma função $g$ satisfazendo as hipóteses do teorema e tal que $\1{[-M',M']} \leq g \leq \1{[-M'-1,M'+1]}$, concluimos que
+  Tomando uma função $g$ satisfazendo as hipóteses do teorema e tal que
+  \begin{equation}
+    \1{[-M',M']} \leq g \leq \1{[-M'-1,M'+1]},
+  \end{equation}
+  concluimos que
   \begin{equation}
     \mu_n \big( [-(M'+1), M'+1] \big) \geq 1 - \varepsilon/2,
   \end{equation}
@@ -3277,7 +3303,8 @@ A primeira é dada pela seguinte
   Estamos prontos agora para a computação final
   \begin{equation*}
     \begin{split}
-      \Big| \int \phi^n & (X_1, \dots, X_n) \d P - \int g(s) \mathcal{N}(0,1)(\d s) \Big| = \Big| \int \phi^n(Z_0) \d P' - \int \phi^n(Z_n) \d P' \Big|\\
+      \Big| \int \phi^n & (X_1, \dots, X_n) \d P - \int g(s) \mathcal{N}(0,1)(\d s) \Big|\\
+      & = \Big| \int \phi^n(Z_0) \d P' - \int \phi^n(Z_n) \d P' \Big|\\
       & \leq \sum_{i=0}^{n-1} \Big| \int \phi^n(Z_{i}) \d P' - \int \phi^n(Z_{i+1}) \d P' \Big| = \sum_{i=0}^{n-1} |k_i - k'_i|\\
       & \leq n \frac{M}{n^{3/2}} \big(E(|X_1|^3) + E(|Y_1|^3) \big),
     \end{split}
@@ -3434,11 +3461,15 @@ Assim, a integral que gostaríamos de definir se torna $\int f_y(z) K(y, \d z)$,
 Porém resta a pergunta, será que essa expressão define uma função mensurável de $y$?
 
 \begin{lemma}
-  Se $K$ é um núcleo de transição, então para toda $f: E_1 \times E_2 \to \mathbb{R}_+$ que seja $\mathcal{A}_1 \otimes \mathcal{A}_2$ mensurável, temos que $g^f:A_1 \to \mathbb{R}_+$ dada por $g^f(y) = \int f_y(z) K(y, \d z)$ é $\mathcal{A}_1$-mensurável.
+  Se $K$ é um núcleo de transição, então para toda $f: E_1 \times E_2 \to \mathbb{R}_+$ que seja $\mathcal{A}_1 \otimes \mathcal{A}_2$ mensurável, temos que $g^f:A_1 \to \mathbb{R}_+$ dada por
+  \begin{equation}
+    g^f(y) = \int f_y(z) K(y, \d z)
+  \end{equation}
+  é $\mathcal{A}_1$-mensurável.
 \end{lemma}
 
 \begin{proof}
-  Se $f = \1_{A_1 \times A_2}$ para $A_i \in \mathcal{A}_i$, $i = 1,2$, então $g^f(y) = K(y, A_2) \1_{A_1}$, que obviamente é mensurável pois $K$ é um núcleo.
+  Se $f = \1_{A_1 \times A_2}$ para $A_i \in \mathcal{A}_i$, $i = 1,2$, então temos que $g^f(y) = K(y, A_2) \1_{A_1}$, que obviamente é mensurável pois $K$ é um núcleo.
 
   Definimos $\mathcal{D} = \{B \in \mathcal{A}_1 \otimes \mathcal{A}_2; g^{\1_B} \text{ é $\mathcal{A}_1$-mensurável}\}$.
   É fácil ver que $\mathcal{D}$ é um $\lambda$-sistema que contém o $\pi$-sistema dos retângulos, logo $\mathcal{D} = \mathcal{A}_1 \otimes \mathcal{A}_2$.
@@ -3524,7 +3555,7 @@ Nesse caso, é conveniente escrever
 \end{equation}
 
 \begin{exercise}
-  Seja $K:\mathbb{R}_+ \times \mathbb{B}(\mathbb{R}_+) \to [0,1]$ dada por $K(x,A) = \int_A x \exp\{-x t\} \d t$.
+  Seja $K:\mathbb{R}_+ \times \mathbb{B}(\mathbb{R}_+) \to [0,1]$ dada pela equação $K(x,A) = \int_A x \exp\{-x t\} \d t$.
   \begin{enumerate}[\quad a)]
   \item Prove que $K$ \'e um n\'ucleo de transi\c{c}\~ao.
   \item Seja $P$ dada por $P = K \star \textnormal{Exp}(1)$.
@@ -3576,7 +3607,7 @@ Podemos finalmente definir
 Mas resta a questão sobre a existência de uma $\mu^\infty$ que será respondida com ajuda do próximo
 
 \begin{lemma}
-  As probabilidades $\mu_n$ definidas em \eqref{e:Pn_Markov} são compatíveis, isto é $\mu_{n+1}(A \times E) = \mu_n(A)$ para todo $A \in \mathcal{A}^{\otimes n}$.
+  As probabilidades $\mu_n$ definidas em \eqref{e:Pn_Markov} são compatíveis, mais precisamente $\mu_{n+1}(A \times E) = \mu_n(A)$ para todo $A \in \mathcal{A}^{\otimes n}$.
 \end{lemma}
 
 \begin{proof}
@@ -3587,11 +3618,11 @@ Mas resta a questão sobre a existência de uma $\mu^\infty$ que será respondid
   Provando o lema.
 \end{proof}
 
-Logo, o Teorema da Extensão de Kolmogorov (lembre que supusemos $(E, \mathcal{A})$ canônico) nos fornece uma única $P$ em $(\Omega, \mathcal{F})$ tal que
+Logo, o Teorema da Extensão de Kolmogorov (lembre que $(E, \mathcal{A})$ foi suposto canônico) nos fornece uma única $P$ em $(\Omega, \mathcal{F})$ tal que
 \begin{equation}
   (X_0, \dots, X_n) \circ P = \mu_n, \text{ para todo $n \geq 0$}.
 \end{equation}
-Lembramos novamente que $X_i$ denotam as projeções canônicas em $\Omega = \times_{i=1}^\infty E$.
+Lembramos que $X_i$ denotam as projeções canônicas em $\Omega = \times_{i=1}^\infty E$.
 
 Chamamos o processo $X_1, X_2, \dots$ sob a lei $P$ de Cadeia de Markov com distribuição inicial $\mu_0$ e núcleo de transição $K$.
 
@@ -3659,7 +3690,7 @@ Em alguns momentos, chegamos a desejar que tudo fosse mensurável e não tivéss
 No estudo que iniciaremos agora, nos restringiremos a sub-$\sigma$-álgebras $\mathcal{F}'$ próprias de $\mathcal{F}$ propositalmente.
 Ficará claro portanto, que o estudo de $\sigma$-álgebras e mensurabilidade não é uma mera tecnicalidade, mas sim uma ferramenta importante.
 
-Em algum sentido (que ficará claro no decorrer do texto) essas sub-$\sigma$-álgebras representarão uma forma de ``informação incompleta''.
+Em algum sentido (que ficará claro no decorrer do texto) essas sub-$\sigma$-ál\-ge\-bras representarão uma forma de ``informação incompleta''.
 Daremos sentido a frases como ``nós temos conhecimento apenas da $\sigma$-álgebra $\mathcal{F}'$''.
 
 Mas antes lembraremos um lema básico de Teoria da Medida.
@@ -3900,14 +3931,14 @@ Porém ainda falta um ingrediente bastante importante para construir ou verifica
 
 \begin{theorem}[Convergência Monótona para Esperanças Condicionais]
   \label{t:TCM_EC}
-  Se $X_n \uparrow X$, todas em $\mathcal{L}^1(P)$, então
+  Se as variáveis $X_n$ satisfazem $X_n \uparrow X$ e estão todas em $\mathcal{L}^1(P)$, então
   \begin{equation}
     \lim_n E(X_n|\mathcal{F}') = E(X|\mathcal{F}').
   \end{equation}
 \end{theorem}
 
 \begin{proof}[Demonstração do Teorema~\ref{t:TCM_EC}]
-  Sabemos que $E(X_{n+1} | \mathcal{F}') \geq E(X_n|\mathcal{F}')$, logo $E(X_n|\mathcal{F}') \uparrow Y$.
+  Sabemos que $E(X_{n+1} | \mathcal{F}') \geq E(X_n|\mathcal{F}')$, donde concluímos que $E(X_n|\mathcal{F}') \uparrow Y$.
   Vamos demosntrar que $Y = E(X|\mathcal{F}')$.
   \begin{enumerate}
   \item Por ser um limite de funções $\mathcal{F}'$ mensuráveis, $Y$ é $\mathcal{F}'$-mensurável.
@@ -3924,10 +3955,10 @@ Porém ainda falta um ingrediente bastante importante para construir ou verifica
 
 \newpage
 
-No que segue, muitas vezes escreveremos $E(X|Z)$ para representar $E(X|\sigma(Z))$.
+No que segue, muitas vezes escreveremos $E(X|Z)$ para representar a esperança condicional $E(X|\sigma(Z))$.
 
 \begin{exercise}
-  Sejam $X_1$ e $X_2$ as coordenadas canônicas em $E_1 \times E_2$ e $\d P = \rho(x,y) \d \mu_1 \d \mu_2$, onde $\rho:E_1 \times E_2 \to \mathbb{R}_+$ é uma densidade.
+  Sejam $X_1$ e $X_2$ as coordenadas canônicas em $E_1 \times E_2$ e definimos a probabilidade $\d P = \rho(x,y) \d \mu_1 \d \mu_2$, onde $\rho:E_1 \times E_2 \to \mathbb{R}_+$ é uma densidade.
   Dê sentido à expressão abaixo e mostre que elá é $E(X_1|X_2)$:
   \begin{equation}
      \frac{\int x\rho(x, X_2) \mu_1(\d x)}{\int \rho(x, X_2) \mu_1(\d x)}.
@@ -3967,7 +3998,7 @@ Uma outra propriedade que a esperança condicional herda da integral é a
   \end{equation}
   Tomamos finalmente o supremo em todas as $\psi$ lineares com $\psi \leq \phi$ dos dois lados da desigualdade acima, obtendo
   \begin{equation}
-    E\big( \phi(X) | \mathcal{F}' \big) \geq \sup_{\psi \leq \phi \atop \psi \text{ linear}} \psi \big( E(X|\mathcal{F}') \big) = \phi \big( E(X|\mathcal{F}') \big),
+    E\big( \phi(X) | \mathcal{F}' \big) \geq \sup_{\substack{\psi \leq \phi\\\psi \text{ linear}}} \psi \big( E(X|\mathcal{F}') \big) = \phi \big( E(X|\mathcal{F}') \big),
   \end{equation}
   terminando a prova da proposição.
 \end{proof}
@@ -4235,7 +4266,7 @@ Vamos introduzir nosso último conceito de condicionais.
   Nesse caso escrevemos $K(x, A) = P(A|X = x)$.
 \end{definition}
 
-A existência de tais condicionais não decorre imediatamente do Teorema~\ref{t:prob_cond_reg_F}, já que o Lema~\ref{l:f_g_circ_X} não se aplica para núcleos de transição.
+A existência de tais condicionais não decorre somente do Teorema~\ref{t:prob_cond_reg_F}, já que o Lema~\ref{l:f_g_circ_X} não se aplica para núcleos de transição.
 A principal dificuldade de adaptarmos esse lema para núcleos vem do fato de que a imagem de uma função mensurável não é necessariamente mensurável.
 
 Contudo, não estamos muito longe de obter a existência das condicionais definidas acima.
@@ -4398,10 +4429,11 @@ Definindo
   \tilde{R_0} = E_0 + ( D_0 \wedge \lfloor k/2 \rfloor ) \text{ e } \tilde{R}_k = D_k + ( E_k \wedge \lfloor k/2 \rfloor ),
 \end{equation}
 temos que $\tilde{R}_0$ e $\tilde{R}_k$ são independentes (pois dependem de elos disjuntos).
-Donde
+Daí
 \begin{equation}
   \begin{split}
-    \text{Cov}(R_0, R_k) & = E(R_0 R_k) - m^2 = E(\tilde{R}_0 \tilde{R_k}) + E(R_0 R_k \1{[R_0 \neq \tilde{R}_0] \cup [R_k \neq \tilde{R}_k]}) - m^2\\
+    \text{Cov}(R_0, R_k) & = E(R_0 R_k) - m^2\\
+    & = E(\tilde{R}_0 \tilde{R_k}) + E(R_0 R_k \1{[R_0 \neq \tilde{R}_0] \cup [R_k \neq \tilde{R}_k]}) - m^2\\
     & \leq E(\tilde{R}_0)^2 - m^2 + E\big( (E_0 + D_0) (E_k + D_k) \1{[R_0 \neq \tilde{R}_0] \cup [R_k \neq \tilde{R}_k]}\big)\\
     & \leq E\big( (E_0 + k + D_k)^2 \1{[R_0 \neq \tilde{R}_0] \cup [R_k \neq \tilde{R}_k]}\big)\\
     & = E\big( (E_0 + k + D_k)^2 \big) P\big([R_0 \neq \tilde{R}_0] \cup[R_k \neq \tilde{R}_k]\big)\\
