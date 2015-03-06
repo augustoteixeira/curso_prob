@@ -1,6 +1,35 @@
 \documentclass[reqno, draft]{book}
 \usepackage{amssymb, amsmath, amsthm}
 
+\def\booktitle{Notas de aula: Probabilidade I}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% TOC in odd pages only %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{afterpage}
+\AtBeginDocument{\addtocontents{toc}{\protect\afterpage\protect\cleardoublepage}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Headers %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\headheight}{16pt}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[LE]{\leftmark}
+\fancyhead[LO]{}
+\fancyhead[RO]{\rightmark}
+\fancyhead[RE]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{titlesec}
+\titleformat
+{\chapter} [display]
+{\bfseries\LARGE\itshape} {\chaptername~\thechapter} {0.5ex}
+{ \vspace{2ex}
+  \rule{\textwidth}{1pt}
+  \vspace{2ex}
+  \centering
+}[\vspace{-0.5ex}\rule{\textwidth}{0.3pt}]
+
+
 \usepackage[margin=10pt,font=small,labelfont=bf]{caption}
 
 \usepackage{graphicx}
@@ -22,18 +51,23 @@
     urlcolor={blue!80!black}
 }
 
+\usepackage{makeidx}
+\makeindex
+%\usepackage{imakeidx}
+%\makeindex[columns=2, title=Alphabetical Index]
+
+\usepackage[obeyDraft]{todonotes}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%% trying lualatex %%%%%%%%%%%%%%%%%%%%%%%%%
 %\usepackage[charter]{mathdesign}  % sets the math font
 %\usepackage{fontspec}
 %\setmainfont{TeX Gyre Bonum}
 %\def\mathds{}
-\def\bigtimes{\times}
 \def\widebar{\bar}
 %\usepackage{mathabx}
 \usepackage{mathpazo}
 \usepackage{dsfont} % includes bb 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \usepackage{enumerate}
 \usepackage{color}
@@ -101,8 +135,7 @@
 \newcommand{\mcup}{\textstyle \bigcup\limits}
 \newcommand{\mcap}{\textstyle \bigcap\limits}
 
-\marginparwidth = 57pt
-\def\todo#1{\ifdraft{\marginpar{\raggedright \tiny #1}}{}}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% mathclap %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\clap#1{\hbox to 0pt{\hss#1\hss}}
@@ -117,56 +150,72 @@
 \begin{document}
 
 
-\title{Probabilidade I}
+\title{\booktitle}
 \author{Augusto Teixeira}
+
+\frontmatter
 
 \maketitle
 
-\tableofcontents
+\mbox{}
+\thispagestyle{empty}
 
 \newpage
 
-\chapter{Espaços de probabilidade}
+\setcounter{page}{1}
+
+\addcontentsline{toc}{chapter}{Prefácio}
+...
+
+\newpage
+
+\thispagestyle{empty}
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{Fundamentos}
 
 \section{Espaços mensuráveis}
 
-Denotaremos $\alpha$ sempre por $\Omega$ o nosso espaço amostral (à princípio qualquer conjunto).
+Denotaremos sempre por $\Omega$ o nosso \emph{espaço amostral} \index{espaco@espaço!amostral} (à princípio qualquer conjunto).
 
-\begin{example} Espaços amostrais
+\begin{example} Possíveis exemplos de espaço amostral
   \label{x:espacos_amostrais}
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $\Omega_1 = \{1, 2, \dots, 6\}$,
   \item $\Omega_2 = [0,1]$,
-  \item $\Omega_3 = \{f:[0,1] \to \mathbb{R}; \text{$f$ é contínua}\}$...
+  \item $\Omega_3 = \{f:[0,1] \to \mathbb{R}; \text{$f$ é contínua}\}$.
   \end{enumerate}
 \end{example}
 
-Consideraremos sempre $\Omega$'s equipados com uma $\sigma$-álgebra denotada por $\mathcal{F}$.
+Consideraremos sempre $\Omega$'s equipados com uma \emph{$\sigma$-álgebra} \index{sigma-algebra@$\sigma$-álgebra} denotada por $\mathcal{F}$.
 Mais precisamente
 \begin{definition}
   Dizemos que $\mathcal{F} \subseteq \mathcal{P}(\Omega)$ é uma $\sigma$-álgebra se
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $\Omega \in \mathcal{F}$,
   \item $A \in \mathcal{F}$ implica que $A^c \in \mathcal{F}$ e
   \item se $A_1, A_2, \dots \in \mathcal{F}$, então $\cup_i A_i \in \mathcal{F}$.
   \end{enumerate}
 \end{definition}
 
-Se $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ (que chamamos de uma classe ou família), denotamos por $\sigma(\mathcal{G})$ a menor $\sigma$-álgebra contendo $\mathcal{G}$.
-Um exemplo importante é dado pela $\sigma$-álgebra de Borel, gerada pelos abertos de uma topologia em $\Omega$.
+Se $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ (que chamamos de uma classe ou família), denotamos por $\sigma(\mathcal{G})$ a \emph{$\sigma$-álgebra gerada por $\mathcal{G}$} \index{sigma-algebra@$\sigma$-álgebra!gerada por G@gerada por $\mathcal{G}$}, que é a menor $\sigma$-álgebra contendo $\mathcal{G}$.
+Um exemplo importante é dado pela \emph{$\sigma$-álgebra de Borel} \index{sigma-algebra@$\sigma$-álgebra!de borel}, gerada pelos abertos de uma topologia em $\Omega$.
 
 \begin{example} Típicas $\sigma$-álgebras correspondentes aos espaços amostrais do Exemplo~\ref{x:espacos_amostrais}
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $\mathcal{F}_1 = \mathcal{P}(\Omega_1)$,
   \item $\mathcal{F}_2 = \mathcal{B}([0,1])$ e
   \item $\mathcal{F}_3 = \mathcal{B}(C[0,1])$.
   \end{enumerate}
 \end{example}
 
-No caso acima, dizemos que $(\Omega, \mathcal{F})$ é um \emph{espaço mensurável} e os elementos $A \in \mathcal{F}$ são chamados de \emph{eventos}.
+No caso acima, dizemos que $(\Omega, \mathcal{F})$ é um \emph{espaço mensurável} \index{epaco@espaço!mensuravel@mensurável} e os elementos $A \in \mathcal{F}$ são chamados de \emph{eventos} \index{evento}.
 
 \begin{example} Eventos de $\mathcal{F}_i$ acima
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $\{\text{$x$ é ímpar}\} \subset \Omega_1$
   \item $[0,1/2] \subset \Omega_2$ e
   \item $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\} \subset \Omega_3$.
@@ -178,7 +227,7 @@ No caso acima, dizemos que $(\Omega, \mathcal{F})$ é um \emph{espaço mensuráv
 \end{exercise}
 
 \begin{notation}
-  Se $Q$ for uma condição qualquer sobre candidatos $\omega \in \Omega$, escreveremos $[\text{$\omega$ satisfaz $Q$}]$ para denotar $\{\omega \in \Omega; \text{$\omega$ stisfaz $Q$}\}$.
+  Se $Q$ for uma condição qualquer sobre candidatos $\omega \in \Omega$, escreveremos $[\text{$\omega$ satisfaz $Q$}]$ \index{[omega satisfaz Q]@$[\text{$\omega$ satisfaz $Q$}]$} para denotar $\{\omega \in \Omega; \text{$\omega$ stisfaz $Q$}\}$.
 \end{notation}
 
 Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesmente como $[f(1) \geq 0]$.
@@ -188,8 +237,8 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
 \section{Espaços de probabilidade}
 
 \begin{definition}
-  Dado $(\Omega, \mathcal{F})$ espaço mensurável, dizemos que $P:\mathcal{F} \to [0,1]$ é uma probabilidade se
-  \begin{enumerate}
+  Dado $(\Omega, \mathcal{F})$ espaço mensurável, dizemos que $P:\mathcal{F} \to [0,1]$ é uma \emph{probabilidade} \index{probabilidade} se
+  \begin{enumerate}[\quad a)]
   \item $P(\Omega) = 1$ e
   \item sempre que $A_1, A_2, \dots \in \mathcal{F}$ forem disjuntos ($A_i \cap A_j = \varnothing$ se $i \neq j$), temos
     \begin{equation}
@@ -199,7 +248,7 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
 \end{definition}
 
 \begin{example} Probabilidades em dois dos espaços do Exemplo~\ref{x:espacos_amostrais}
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $P_1(A) = (\#A)/6$ em $(\Omega_1, \mathcal{F}_1)$.
     Ou mais geralmente $P_1'(A) = \sum_{i \in A} p_i$, onde $p_i \geq 0$ e $\sum_i p_i = 1$.
   \item $P_2$ pode ser a medida de Lebesgue em $([0,1], \mathcal{B}([0,1]))$.
@@ -209,7 +258,7 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
 
 \begin{proposition}
   Valem as afirmativas
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item Se $A \subseteq B$ então $P(A) = P(B) - P(B \setminus A) \leq P(B)$,
   \item $P\big(\mcup\nolimits_i A_i\big) \leq \smash{\sum\limits_i} P(A_i)$ e
   \item $P\big(\mcup\nolimits_{i \leq n} A_i\big) = \smash{\sum\limits_{k = 1}^n} (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k})$.
@@ -254,7 +303,7 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
 \begin{proposition}
   \label{p:prob_continua}
   $P$ é contínua, isto é:
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item Se $A_1 \subseteq A_2 \subseteq \dots \in \mathcal{F}$, então $\lim_n P(A_n) = P(\cup_n A_n)$.
   \item Também, se $A_1 \supseteq A_2 \supseteq \dots \in \mathcal{F}$, temos $\lim_n P(A_n) = P(\cap_n A_n)$.
   \end{enumerate}
@@ -298,11 +347,11 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) \geq 0\}$ pode ser escrita simplesm
 \section{Elementos aleatórios}
 
 Seja $(E,\mathcal{A})$ um espaço mensurável.
-Nesse caso, se $X: \Omega \to E$ é uma função $(\mathcal{F}, \mathcal{A})$-mensurável, dizemos que $X$ é um elemento aleatório em $(\Omega, \mathcal{F})$ tomando valores em $E$, ou um $E$-elemento aleatório.
+Nesse caso, se $X: \Omega \to E$ é uma função $(\mathcal{F}, \mathcal{A})$-mensurável, dizemos que $X$ é um \emph{elemento aleatório} \index{elemento aleatorio@elemento aleatório} em $(\Omega, \mathcal{F})$ tomando valores em $E$, ou um $E$-elemento aleatório.
 
 \begin{example} Retomando o Exemplo~\ref{x:espacos_amostrais},
-  \begin{enumerate}
-  \item $X:\Omega \to \mathbb{R}$ mensurável é dita variável aleatória.
+  \begin{enumerate}[\quad a)]
+  \item $X:\Omega \to \mathbb{R}$ mensurável é dita variável aleatória. \index{variavel aleatoria@variável aleatória}
   \item $X:\Omega \to \mathbb{R}^d$ mensurável é dito vetor aleatório ($d$-dimensional).
   \item $X:\Omega \to C[0,1]$ mensurável é dita função aleatória.
   \end{enumerate}
@@ -311,8 +360,6 @@ Nesse caso, se $X: \Omega \to E$ é uma função $(\mathcal{F}, \mathcal{A})$-me
 Citando Kingman em seu livro Poisson Processes: ``\emph{a random elephant is a function from $\Omega$ into a suitable space of elephants.}''
 
 Relembrando a nossa notação: $P[X \in A] = P(\{\omega \in \Omega; X(\omega) \in A\})$.
-
-\newpage
 
 \begin{proposition}
   Seja $X:\Omega \to E$ onde $(E, \mathcal{A})$ é um espaço mensurável com $\mathcal{A} = \sigma(\mathcal{G})$.
@@ -327,11 +374,10 @@ Relembrando a nossa notação: $P[X \in A] = P(\{\omega \in \Omega; X(\omega) \i
   Se $\Omega$ e $E$ são espaços topológicos dotados das correspondentes $\sigma$-álgebras de Borel, então toda função contínua é um $E$-elemento aleatório.
 \end{example}
 
-\section{Distribuição de elementos aleatórios}
-
+\subsection{Distribuição de elementos aleatórios}
 
 \begin{definition}
-  Se $X:\Omega \to E$ é um elemento aleatório e $\Omega$ é dotado de uma probabilidade $P$, então denotamos por $X \circ P$, a chamada \emph{distribuição de $X$}, a medida de probabilidade
+  Se $X:\Omega \to E$ é um elemento aleatório e $\Omega$ é dotado de uma probabilidade $P$, então denotamos por $X \circ P$, a chamada \emph{distribuição de $X$} \index{distribuicao@distribuição}, a medida de probabilidade
   \begin{equation}
     (X \circ P)(A) := P\big( \{\omega \in \Omega; X(\omega) \in A\} \big) = P[X \in A].
   \end{equation}
@@ -346,17 +392,13 @@ Fica como exercício verificar que $X \circ P$ é de fato uma probabilidade em $
 \end{example}
 
 Duas notações importantes nesse contexto são:
-\begin{enumerate}
-\item Dizemos que $X \distr Y$, quando $X \circ P = Y \circ P'$.
+\begin{enumerate}[\quad a)]
+\item Dizemos que $X \distr Y$, \index{X d Y@$X \distr Y$} quando $X \circ P = Y \circ P'$.
 Note que $X$ e $Y$ nem ao menos precisam pertencer ao mesmo espaço de probabilidade para dizermos que são \emph{igualmente distribuídos}, mas precisam ser elementos aleatórios de mesmo tipo (ou seja, possuir o mesmo contradomínio).
-\item Escrevemos $X \distr \mu$, que lê-se \emph{$X$ é distribuída como $\mu$}, onde $\mu$ é uma probabilidade em $E$, caso $X \circ P = \mu$.
+\item Escrevemos $X \distr \mu$, \index{X d mu@$X \distr \mu$} que lê-se \emph{$X$ é distribuída como $\mu$}, onde $\mu$ é uma probabilidade em $E$, caso $X \circ P = \mu$.
 \end{enumerate}
 
-\newpage
-
-\section{Distribuições conjuntas}
-
-\newpage
+\subsection{Distribuições conjuntas}
 
 \section{Sistemas \texorpdfstring{$\lambda$-$\pi$}{lambda-pi}}
 
@@ -364,12 +406,12 @@ Uma importante ferramenta para provar fatos teóricos sobre probabilidades é o 
 Ele trata de classes de eventos que não são necessariamente $\sigma$-álgebras, mas sistemas $\sigma$ ou $\pi$ como definidos abaixo.
 
 \begin{definition}
-  Dizemos que uma classe $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\pi$-sistema se for fechado por interseções finitas, isto é: para todos $A, B \in \mathcal{A}$ temos $A \cap B \in \mathcal{A}$.
+  Dizemos que uma classe $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\pi$-sistema \index{pi sistema@$\pi$-sistema} se for fechado por interseções finitas, isto é: para todos $A, B \in \mathcal{A}$ temos $A \cap B \in \mathcal{A}$.
 \end{definition}
 
 \begin{definition}
-  Dizemos que $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\lambda$-sistema, se
-  \begin{enumerate}
+  Dizemos que $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\lambda$-sistema, \index{lambda sistema@$\lambda$-sistema} se
+  \begin{enumerate}[\quad a)]
   \item $\Omega \in \mathcal{A}$,
   \item Sempre que $A \in \mathcal{A}$ temos $A^c \in \mathcal{A}$ e
   \item para $A_1, A_2, \dots \in \mathcal{A}$ disjuntos dois a dois, temos $\cup_i A_i \in \mathcal{A}$.
@@ -385,6 +427,7 @@ Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistem
 \todo{rever a posição deste teorema no texto.}
 
 \begin{theorem}[Dynkin]
+  \index{Teorema!de Dynkin}
   \label{t:dynkin}
   Se $\mathcal{A}$ é um $\pi$-sistema, então $\lambda(\mathcal{A}) = \sigma(\mathcal{A})$.
 \end{theorem}
@@ -401,7 +444,7 @@ Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistem
   \end{equation}
   Obviamente, $\mathcal{A} \subseteq \mathcal{B}$, pois $\mathcal{A}$ é um $\pi$-sistema.
   Então basta mostrar que $\mathcal{B}$ é um $\lambda$-sistema.
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $\Omega$ obviamente pertence a $\mathcal{B}$.
   \item Se $B \in \mathcal{B}$ e $A \in \mathcal{A}$, então $B^c \cap A = A \setminus(B \cap A) = (A^c \cup (B \cap A))^c$.
     Mas como $B \in \mathcal{B}$, $(B \cap A) \in \lambda(\mathcal{A})$ e usando o fato que $\lambda$-sistemas são fechados por complementos e uniões disjuntas, $B^c \cap A \in \lambda(\mathcal{A})$.
@@ -431,7 +474,7 @@ Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistem
     \text{$\bar{\mathcal{B}}$ é um $\lambda$-sistema}.
   \end{equation}
   Para tanto, verificaremos
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $\Omega \in \bar{\mathcal{B}}$, que é claro.
   \item Tomando $A \in \bar{\mathcal{B}}$ e $B \in \lambda(\mathcal{A})$, $A^c \cap B = B \setminus (A cap B) = \big(B^c \cup (A \cap B)\big)^c \in \lambda(\mathcal{A})$, por um argumento análogo ao apresentado para $\mathcal{B}$.
     Logo $A^c \in \bar{\mathcal{B}}$.
@@ -488,27 +531,28 @@ Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistem
   Contudo, $P_1 \neq P_2$, mesmo tendo $\mathcal{P}(\Omega) = \sigma(\{A,B\})$.
 \end{example}
 
-
 \section{Construção de espaços de probabilidade}
 
 \subsection{Caso \texorpdfstring{$\Omega$}{Omega} enumerável}
 
 Se $\Omega = \{\omega_1, \omega_2, \dots\}$, então podemos definir $\mathcal{A} = \mathcal{P}(\Omega) (= \sigma(\{\omega_i\}_{i \geq 1}))$.
 Assim, dados $(p_\omega)_{\omega \in \Omega}$ tais que
-\begin{enumerate}
+\begin{enumerate}[\quad a)]
 \item $p_\omega \geq 0$ para todo $\omega \in \Omega$ e
 \item $\sum_{\omega \in \Omega} p_\omega = 1$,
 \end{enumerate}
 definimos $P(A) = \sum_{\omega \in A} p_\omega$ que claramente define uma probabilidade.
 
+\todo{mover as distribuições Bin e Geo para secao de independencia,}
+
 \begin{example} \mbox{}
-  \begin{enumerate}
-  \item Dado $p \in [0,1]$, definimos a medida $\Ber(p)$ (em homenagem a Bernoulli) em $\{0,1\}$ com $p_1 = p, p_0 = 1-p$.
-  \item Dados $n \geq 1$ e $p \in [0,1]$, definimos a medida $\Bin(n,p)$ (de binomial) em $\Omega = \{0, 1, \dots, n\}$ com
+  \begin{enumerate}[\quad a)]
+  \item Dado $p \in [0,1]$, definimos a medida $\Ber(p)$ \index{distribuicao@distribuição!de Bernoulli} (em homenagem a Bernoulli) em $\{0,1\}$ com $p_1 = p, p_0 = 1-p$.
+  \item Dados $n \geq 1$ e $p \in [0,1]$, definimos a medida $\Bin(n,p)$ \index{distribuicao@distribuição!binomial} (binomial) em $\Omega = \{0, 1, \dots, n\}$ com
     \begin{equation}
       p_i = \binom ni p^i (1-p)^{n-i}, \text{ para $i \in \Omega$.}
     \end{equation}
-  \item Dado $p \in (0,1]$, em $\Omega = \{0, 1, \dots\}$ definimos a medida $\Geo(p)$ em $\Omega$ induzida pelos pesos
+  \item Dado $p \in (0,1]$, em $\Omega = \{0, 1, \dots\}$ definimos a medida $\Geo(p)$ \index{distribuicao@distribuição!geometrica@geométrica} (geométrica) em $\Omega$ induzida pelos pesos
   \begin{equation}
     p_i = (1-p)^i p, \text{ para $i \geq 1$.}
   \end{equation}
@@ -531,8 +575,8 @@ Então podemos definir a probabilidade induzida
   \label{e:absolutamente_cont}
   P(A) = \int_A \rho(x) \mu(\d x).
 \end{equation}
-Nesse caso, chamamos $\rho$ de a densidade de $P$ com respeito a $\mu$.
-Uma outra possível notação para a equação acima é $\d P = \rho(x) \d \mu$ (lembrando a derivada de Radon-Nikodim).
+Nesse caso, chamamos $\rho$ de a \emph{densidade} \index{densidade} de $P$ com respeito a $\mu$.
+Uma outra possível notação para a equação acima é $\d P = \rho(x) \d \mu$ \index{dP@$\d P = \rho \d \mu$} (lembrando a derivada de Radon-Nikodim).
 
 Observe que o caso discreto pode ser definido em termos de uma densidade, onde $\rho(\omega) = p_\omega$ e $\mu$ é a medida da contagem em $\Omega$.
 
@@ -540,13 +584,11 @@ Observe que o caso discreto pode ser definido em termos de uma densidade, onde $
   Vários exemplos podem ser obtidos via \eqref{e:absolutamente_cont} se tomamos $\Omega \subseteq \mathbb{R}$ e $\mu$ a medida de Lebesgue restrita a $\Omega$.
   Nesses casos, escrevemos $P = \rho(x) \d x$ em $\Omega$.
   Alguns exemplos importantes são:
-  \begin{enumerate}
-  \item Para $a < b \in \mathbb{R}$, definimos a medida $U[a,b]$ usando $\rho(x) = \tfrac{1}{b-a}\1_{[a,b]}(x)$.
-  \item Para $\lambda > 0$, definimos a medida $\Exp(\lambda)$ (chamada exponencial de parâmetro $\lambda$) por meio da densidade $\rho(x) = \tfrac{1}{\lambda} \exp\{-\lambda x\}$ em $[0,\infty)$.
+  \begin{enumerate}[\quad a)]
+  \item Para $a < b \in \mathbb{R}$, definimos a medida $U[a,b]$ \index{distribuicao@distribuição!uniforme} usando $\rho(x) = \tfrac{1}{b-a}\1_{[a,b]}(x)$.
+  \item Para $\lambda > 0$, definimos a medida $\Exp(\lambda)$ \index{distribuicao@distribuição!exponencial} (chamada exponencial de parâmetro $\lambda$) por meio da densidade $\rho(x) = \tfrac{1}{\lambda} \exp\{-\lambda x\}$ em $[0,\infty)$.
   \end{enumerate}
 \end{example}
-
-\newpage
 
 Podemos também usar a distribuição de um elemento aleatório para construir outras probabilidades.
 
@@ -574,11 +616,11 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
 
 \begin{definition}
   Dada $P$ em $\mathbb{R}$, definimos $F_P:\mathbb{R} \to [0,1]$ por $F_P(x) = P\big((-\infty, x]\big)$.
-  Essa função é chamada a função de distribuição acumulada de $P$.
+  Essa função é chamada a \emph{função de distribuição} acumulada de $P$. \index{funcao de distribuicao@função de distribuição}
 \end{definition}
 
 \begin{notation}
-  Se $X:\Omega \to \mathbb{R}$ é uma variável aleatória num espaço $(\Omega, \mathcal{F}, P)$, denotamos por $F_X$ a função de distribuição acumulada correspondente à distribuição $X \circ P$.
+  Se $X:\Omega \to \mathbb{R}$ é uma variável aleatória num espaço $(\Omega, \mathcal{F}, P)$, denotamos por $F_X$ \index{FX@$F_X$} a função de distribuição acumulada correspondente à distribuição $X \circ P$.
 \end{notation}
 
 \begin{example}
@@ -599,7 +641,7 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
 \begin{proposition}
   \label{p:propried_F}
   $F_P$ (e obviamente $F_X$) satisfazem:
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $\smash{\lim\limits_{x \to -\infty}} F(x) = 0$, $\smash{\lim\limits_{x \to \infty}} F(x) = 1$,
   \item $F$ é monótona não-decrescente e
   \item $F$ é contínua à direita e possui limite à esquerda.
@@ -607,7 +649,7 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
 \end{proposition}
 
 \begin{proof}
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item Se $x_n \to -\infty$ monotonamente, então $A_n = (-\infty, x_n]$ são encaixados e de interseção vazia.
     Logo, pela Proposição~\ref{p:prob_continua}, temos $P(A_n) \to 0$.
     O outro caso é análogo.
@@ -631,50 +673,50 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
   \begin{equation}
     S(u) = \sup \{x \in \mathbb{R}; F(x) < u\}.
   \end{equation}
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=.8]
-\draw (0,1) -- (10,1);
-\draw (0,4) -- (10,4); % second line
-\draw plot [smooth,tension=.5] coordinates{(0, 4.4) (2.5, 4.5) (5,5) (7.5, 5.5) (10, 5.6)};
-\draw plot [smooth,tension=.5] coordinates{(0, 1.4) (2.5, 1.5) (5,1.8)};
-\draw plot [smooth,tension=.5] coordinates{(5, 2.3) (7.5, 2.5) (10,2.6)};
-\draw[dotted] (0,5) -- (5,5) -- (5,4);
-\draw[dotted] (0,2) -- (5,2) -- (5,1);
-\draw [fill,color=white] (5,1.8) circle [radius=0.05];
-\draw (5,1.8) circle [radius=0.05];
-\draw [fill] (5,2.3) circle [radius=0.05];
-\node at (0,5) [left]{$u$};
-\node at (0,2) [left]{$u$};
-\node at (5,1) [below]{$S(u)$};
-\node at (5,4) [below]{$S(u)$};
-\end{tikzpicture}
-\caption{\small Ilustração da definição de $S(u)$.}
-\label{f:Rk_good}
-\end{figure}
+  \begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[scale=.8]
+      \draw (0,1) -- (10,1);
+      \draw (0,4) -- (10,4); % second line
+      \draw plot [smooth,tension=.5] coordinates{(0, 4.4) (2.5, 4.5) (5,5) (7.5, 5.5) (10, 5.6)};
+      \draw plot [smooth,tension=.5] coordinates{(0, 1.4) (2.5, 1.5) (5,1.8)};
+      \draw plot [smooth,tension=.5] coordinates{(5, 2.3) (7.5, 2.5) (10,2.6)};
+      \draw[dotted] (0,5) -- (5,5) -- (5,4);
+      \draw[dotted] (0,2) -- (5,2) -- (5,1);
+      \draw [fill,color=white] (5,1.8) circle [radius=0.05];
+      \draw (5,1.8) circle [radius=0.05];
+      \draw [fill] (5,2.3) circle [radius=0.05];
+      \node at (0,5) [left]{$u$};
+      \node at (0,2) [left]{$u$};
+      \node at (5,1) [below]{$S(u)$};
+      \node at (5,4) [below]{$S(u)$};
+    \end{tikzpicture}
+    \caption{\small Ilustração da definição de $S(u)$.}
+    \label{f:Rk_good}
+  \end{figure}
 
-Seja $P = S \circ U_{[0,1]}$, isto é $P(A) = U_{[0,1]}(S^{-1}(A))$ e mostraremos que $F_P = F$.
-Para tanto, basta ver que
-\begin{equation}
-  \label{e:pseudo_inversa}
-  \{u; S(u) \leq x\} = \{u; u \leq F(x)\}, \text{ para todo $x \in \mathbb{R}$}.
-\end{equation}
-Pois se tivermos a igualdade acima, $F_P(x) = U_{[0,1]}[S \leq x] = U_{[0,1]} [u \leq F(x)] = F(x)$.
+  Seja $P = S \circ U_{[0,1]}$, isto é $P(A) = U_{[0,1]}(S^{-1}(A))$ e mostraremos que $F_P = F$.
+  Para tanto, basta ver que
+  \begin{equation}
+    \label{e:pseudo_inversa}
+    \{u; S(u) \leq x\} = \{u; u \leq F(x)\}, \text{ para todo $x \in \mathbb{R}$}.
+  \end{equation}
+  Pois se tivermos a igualdade acima, $F_P(x) = U_{[0,1]}[S \leq x] = U_{[0,1]} [u \leq F(x)] = F(x)$.
 
-Vamos agora checar \eqref{e:pseudo_inversa} observando que:
-\begin{enumerate}
-\item Se $u \leq F(x)$ então todo $x'$ tal que $F(x') < u$ é menor que $x$.
-  Logo $S(u) \leq x$.
-\item Por outro lado, se $u > F(x)$ então existe $x' > x$ tal que $F(x') < u$ (pois $F$ é càd), donde $S(u) > x$.
-\end{enumerate}
-Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
+  Vamos agora checar \eqref{e:pseudo_inversa} observando que:
+  \begin{enumerate}[\quad a)]
+  \item Se $u \leq F(x)$ então todo $x'$ tal que $F(x') < u$ é menor que $x$.
+    Logo $S(u) \leq x$.
+  \item Por outro lado, se $u > F(x)$ então existe $x' > x$ tal que $F(x') < u$ (pois $F$ é càd), donde $S(u) > x$.
+  \end{enumerate}
+  Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
 \end{proof}
 
 
 \section{Independência}
 
 \begin{definition}
-  Dados dois eventos $A, B \in \mathcal{F}$, dizemos que eles são independentes se
+  Dados dois eventos $A, B \in \mathcal{F}$, dizemos que eles são \emph{independentes} \index{independencia@independência!de eventos} se
   \begin{equation}
     P(A \cap B) = P(A) P(B).
   \end{equation}
@@ -702,7 +744,7 @@ Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
 
 \begin{definition}
   Sejam $A_1, A_2, \dots, A_k$ eventos.
-  Dizemos que eles formam uma coleção independente se para todo $I \subseteq \{1, \dots, k\}$ não vazio
+  Dizemos que eles formam uma coleção independente \index{independencia@independência!de eventos} se para todo $I \subseteq \{1, \dots, k\}$ não vazio
   \begin{equation}
     P\Big( \mcap_{i \in I} A_i \Big) =  \prod\limits_{i \in I} P(A_i).
   \end{equation}
@@ -713,7 +755,7 @@ Mais precisamente
 \begin{example}
   Seja $\Omega = \{1,2,3,4\}$ com $P(A) = \# A/4$ e sejam os seguintes eventos: $A_1 = \{1,2\}$, $A_2 = \{2,3\}$ e $A_3 = \{1,3\}$.
   Nesse caso,
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $P(A_i) = 1/2$ para $i = 1, 2, 3$,
   \item $P(A_i \cap A_j) = 1/4$ para todo $i \neq j$ mas
   \item $P(A_1 \cap A_2 \cap A_3) = 0 \neq 1/8 = P(A_1) P(A_2) P(A_3)$.
@@ -721,7 +763,7 @@ Mais precisamente
 \end{example}
 
 \begin{definition}
-  Dizemos que uma coleção infinita de eventos $A_1, A_2, \dots$ é independente se toda sub-coleção finita de tais eventos forem independentes.
+  Dizemos que uma coleção infinita de eventos $A_1, A_2, \dots$ é independente \index{independencia@independência!de eventos} se toda sub-coleção finita de tais eventos forem independentes.
 \end{definition}
 
 \begin{lemma}
@@ -751,7 +793,7 @@ Mais precisamente
 
 \begin{definition}
   Dadas $\sigma$-algebras $\mathcal{F}_1, \dots, \mathcal{F}_k \subseteq \mathcal{F}$.
-  Dizemos que elas são independentes se todos $A_1 \in \mathcal{F}_1, \dots, A_k \in \mathcal{F}_k$ o são.
+  Dizemos que elas são independentes \index{independencia@independência!de sigma-algebras@de $\sigma$-álgebras} se todos $A_1 \in \mathcal{F}_1, \dots, A_k \in \mathcal{F}_k$ o são.
   Nessa definição podemos tomar uma coleção infinita.
 \end{definition}
 
@@ -769,7 +811,7 @@ Mais precisamente
 Podemos extender o conceito de independência a elementos aleatórios.
 Isto é
 \begin{definition}
-  Dizemos que $X_1, \dots, X_k$ são elementos aleatórios independentes se as respectivas $\sigma$-álgebras $\sigma(X_1), \dots, \sigma(X_k)$ o forem.
+  Dizemos que $X_1, \dots, X_k$ são elementos aleatórios independentes \index{independencia@independência!de elementos} se as respectivas $\sigma$-álgebras $\sigma(X_1), \dots, \sigma(X_k)$ o forem.
 \end{definition}
 
 Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma distribuição, escrevemos que $X_i$ são \iid (independentes e identicamente distribuídos).
@@ -861,24 +903,25 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
   \end{enumerate}
 \end{exercise}
 
-\section{Tópico: Lei dos pequenos números}
+\todo{incluir produtos finitos}
+
+\newpage
+
+\subsection{Tópico: Lei dos pequenos números}
 
 Estudaremos agora processos de Poisson, que são limites naturais de somas de variáveis aleatórias, em um regime diferente daquele presente no Teorema Central do Limite.
 
 \todo{Talvez valha a pena escrever sobre acoplamentos de maneira geral. Talvez pegando algo do Pascal Massart. Vale a pena tentar escrever algo sobre: composiçao de acoplamentos, quando um acoplamento ``dá errado''...}
 
-\subsection{Limites de Poisson}
-
 \begin{definition}
-  Uma variável aleatória $X$ é dita ter distribuição de Poisson com
-  parâmetro $\lambda$, se
+  Uma variável aleatória $X$ é dita ter distribuição de Poisson \index{distribuicao@distribuição!de Poisson} com parâmetro $\lambda$, se
   \begin{equation}
     P[X = k] = \frac{\lambda^k e^{-\lambda}}{k!}, \text{ para $k \geq 0$ inteiro.}
   \end{equation}
   Denotamos isso por $X \overset{d}\sim \Poisson(\lambda)$.
 \end{definition}
 
-De maneira semelhante à normal, a distribuição de Poisson se comporta bem com somas independentes, como mostra o seguinte
+A distribuição de Poisson se comporta bem com respeito a somas independentes, como mostra o seguinte
 \begin{lemma}
 \label{l:soma_poisson}
 Sejam $X \overset{d}\sim \Poisson(\lambda_1)$ e $Y \overset{d}\sim \Poisson(\lambda_2)$ independentes, então $X+Y \overset{d}\sim \Poisson(\lambda_1 + \lambda_2)$.
@@ -895,7 +938,8 @@ Basta calcular
 mostrando o resultado.
 \end{proof}
 
-Uma distinção importante distribuição poissoniana é que, ao contrário da normal, ela não se comporta bem com respeito à multiplicação por constantes. Mais precisamente, se $X \overset{d}\sim \Poisson(\lambda)$, então $\alpha X$ não tem distribuição poissoniana (exceto é claro se $\alpha = 0, 1$).
+Uma distinção importante distribuição poissoniana é que ela não se comporta bem com respeito à multiplicação por constantes. Mais precisamente, se $X \overset{d}\sim \Poisson(\lambda)$, então $\alpha X$ não tem distribuição poissoniana (exceto é claro se $\alpha = 0, 1$).
+Isso aparecerá novamente quando estudarmos outras distribuições.
 
 Agora, nos concentraremos em mostrar a convergência de somas de variáveis aleatórias para a distribuição de Poisson. Para tanto, utilizaremos uma noção mais forte de convergência do que a convergência de distribuições. Isso é possível pois o suporte de $\Poisson(\lambda)$ é enumerável.
 
@@ -904,7 +948,7 @@ Dadas duas distribuições $\mu_1$ e $\mu_2$ em $(\Omega, \mathcal{A})$, definim
 \begin{equation}
   \lVert \mu_1 - \mu_2 \rVert_{\VT} = \sup_{A \in \mathcal{A}} |\mu_1(A) - \mu_2(A)|,
 \end{equation}
-chamada de distância em variação total entre $\mu_1$ e $\mu_2$.
+\index{mu1 - mu2@$\lVert \mu_1 - \mu_2 \rVert$} chamada de distância em variação total \index{variacao total@variação total} entre $\mu_1$ e $\mu_2$.
 \end{definition}
 
 Caso $\Omega$ seja enumerável, podemos reescrever a definição acima de modo a ver mais facilmente que se trata de uma distância no espaço de probabilidades em $\Omega$.
@@ -1038,21 +1082,21 @@ terminando a prova.
 
 \todo{enunciar a lei dos pequenos números}
 
-\newpage
+\index{Lei!dos Pequenos Numeros@dos Pequenos Números}
 
 \section{Espaços produto infinito}
 \label{s:Omega_produto}
 
 Dada uma coleção de espaços $E_1, E_2, \dots$, definimos o espaço produto
 \begin{equation}
-  \Omega = \bigtimes_{i\geq 1} E_i = \big\{(\omega_1, \omega_2, \dots); \omega_i \in E_i \text{ para todo $i \geq 1$}\big\}.
+  \Omega = \times_{i\geq 1} E_i = \big\{(\omega_1, \omega_2, \dots); \omega_i \in E_i \text{ para todo $i \geq 1$}\big\}.
 \end{equation}
 
 Sejam $X_i:\Omega \to E_i$, definidos para $i = 1, 2, \dots$ por
 \begin{equation}
   X_i(\omega_1, \omega_2, \dots) = \omega_i,
 \end{equation}
-que chamamos de coordenadas canonicas associadas ao produto $\Omega$.
+que chamamos de \emph{coordenadas canônicas} \index{coordenadas canonicas@coordenadas canônicas} associadas ao produto $\Omega$.
 
 Se cada $E_i$ é dotado de uma $\sigma$-álgebra $\mathcal{A}_i$, então definimos
 \begin{equation}
@@ -1063,7 +1107,7 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 
 \begin{exercise}
   Mostre que em $(\mathbb{R}^{\mathbb{N}},\mathcal{F})$ temos que os conjuntos
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $A = \{ \liminf_n X_n \text{ existe}\}$,
   \item $B = \{ \lim_n X_n = 4\}$ e
   \item $C = \{ \lim_n \tfrac{1}{n} X_n \text{ existe}\}$
@@ -1074,7 +1118,7 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 
 \begin{exercise}
   Verifique que,
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $\mathcal{F} = \sigma\big(A_1 \times \dots \times A_k \times E_{k+1} \times E_{k+2} \times \dots; k \geq 1, A_i \in \mathcal{A}_i, i \leq k\big)$, os chamados eventos retangulares e
   \item $\mathcal{F} = \sigma\big(A \times E_{k+1} \times E_{k+2} \times \dots; k \geq 1, A \in \mathcal{A}_i \otimes \dots \otimes \mathcal{A}_k\big)$ eventos cilíndricos.
   \end{enumerate}
@@ -1094,13 +1138,16 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 \end{exercise}
 
 \begin{definition}
-  Seja $\Omega = \bigtimes E_i$ um espaço produto (infinito ou finito) dotado de uma probabilidade $P$.
-  Se $X_i$ é uma coordenada canônica, então chamamos a probabilidade $X_i \circ P$ de \emph{distribuição marginal} de $P$ na coordenada $i$.
+  Seja $\Omega = \times E_i$ um espaço produto (infinito ou finito) dotado de uma probabilidade $P$.
+  Se $X_i$ é uma coordenada canônica, então chamamos a probabilidade $X_i \circ P$ de \emph{distribuição marginal} \index{distribuicao@distribuição!marginal} de $P$ na coordenada $i$.
 \end{definition}
 
+\todo{mudar a prova do teorema da extensão de Kolmogorov: trocar retângulos por cilindros do tipo AxRxRx... (para o enunciado podemos até usar semiretas, depois Dynkin). mandar Kolmogorov para o final (próximo a núcleos de transição, talvez) e dar produtos de espaços não canonicos no início? o espaço mensuravel (E,A) vai para o final, sempre denotando canonicos.}
+
 \begin{theorem}[Extensão de Kolmogorov]
+  \index{Teorema!da Extensao de Kolmogorov@da Extensão}
   \label{t:extens_kolmog}
-  Seja para cada $n \geq 1$ uma medida de probabilidade $P_n$ em $\mathbb{R}^n$ tal que seja satisfeita a seguinte condição de compatibilidade
+  Seja para cada $n \geq 1$ uma medida de probabilidade $P_n$ em $\mathbb{R}^n$ tal que seja satisfeita a seguinte condição de compatibilidade \index{compatibilidade}
   \begin{equation}
     \label{e:consist_kolmog}
     P_{n+1} (I_1 \times I_n \times \mathbb{R}) = P_n (I_1 \times \dots \times I_n), \text{ para $I_i = (-a_i, b_i]$, $i \leq n$}.
@@ -1114,8 +1161,8 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
   \begin{equation}
     \mathcal{S} = \big\{I_1 \times \dots \times I_n \times \mathbb{R} \times \dots; n \geq 1 \text{ e } I_i = (a_i, b_i] \text{ para $i \leq n$} \big\}.
   \end{equation}
-  Claramente, $\mathcal{S}$ é uma semi-álgebra, isto é,
-  \begin{enumerate}
+  Claramente, $\mathcal{S}$ é uma semi-álgebra, isto é, \index{semi-algebra@semi-álgebra}
+  \begin{enumerate}[\quad a)]
   \item se $A, B \in \mathcal{S}$, então $A \cap B \in \mathcal{S}$ e
   \item se $A \in S$, então $A^c = \bigcup_{i = 1}^k A_i$ para algum $k$ e $A_i \in \mathcal{S}$
   \end{enumerate}
@@ -1138,7 +1185,7 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
     B_n = A \setminus \mcup_{i=1}^n A_i.
   \end{equation}
   Claramente
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $B_n \downarrow \varnothing$ e
   \item $B_n \in \mathcal{S}'$, pois $\mathcal{S}'$ é uma álgebra.
   \end{enumerate}
@@ -1199,7 +1246,7 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 
   Para cada $n \geq 1$ considere um $\omega^n \in D_n^* \subseteq \mathbb{R}^{l_n}$.
   Usando um argumento de diagonal de Cantor, podemos obter um $\omega \in \Omega$ e uma sub-sequência de $\omega^{n_j}$ que convirja para $\omega \in \Omega$ coordenada a coordenada (observe que $\omega^{n_j} \in \mathbb{R}^{l_{n_j}}$).
-%  Tomando subsequências se necessário, podemos supor que $\omega^n$ converge coordenada a coordenada a um certo $\omega \in \Omega$.
+  % Tomando subsequências se necessário, podemos supor que $\omega^n$ converge coordenada a coordenada a um certo $\omega \in \Omega$.
 
   Para terminar a contradição, vamos mostrar que $\omega \in \bigcap_m B_m$.
   Fixado $m \geq 1$, para obter $\omega = (\omega_1, \omega_2, \dots) \in B_m$, basta ver que $\omega \in \widebar{C_m} = \widebar{C_m^*} \times \mathbb{R} \times \dots$
@@ -1209,7 +1256,7 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 \begin{example}
   Se $(\Omega_i, \mathcal{F}_i, P_i)$ são espaços de probabilidade, podemos definir $\mathbb{P}_n = \bigotimes_{i=1}^n P_i$ (relembrando, $\mathbb{P}_n$ é a única distribuição em $\Omega_1 \times \dots \times \Omega_n$ tal que $\mathbb{P}_n(A_1 \times \dots \times A_n) = \prod_{i=1}^n P_i(A_i)$).
   Não é difícil verificar que essa lei satisfaz as equações de consistência \eqref{e:consist_kolmog}.
-  Desta forma, podemos construir uma única $\mathbb{P}$ em $\bigtimes_{i \geq 1} \Omega_i$ para os quais as coordenadas canônicas $X_i$ são independentes e possuem distribuições marginais $P_i$.
+  Desta forma, podemos construir uma única $\mathbb{P}$ em $\times_{i \geq 1} \Omega_i$ para os quais as coordenadas canônicas $X_i$ são independentes e possuem distribuições marginais $P_i$.
   Denotamos nesse caso $\mathbb{P} = \bigotimes_{i \geq 1} P_i$.
 \end{example}
 
@@ -1236,7 +1283,7 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 
 \newpage
 
-\section{Tópico: Percolação}
+\subsection{Tópico: Percolação}
 
 Imagine que gostaríamos de modelar o movimento de um líquido em um meio poroso, como uma rocha ou uma esponja.
 A primeira tarefa nesse estudo seria modelar esse meio poroso de maneira matematicamente rigorosa, que é o que faremos a seguir.
@@ -1385,20 +1432,35 @@ Na verdade, é possível mostrar que para $d = 2$,
 veja ???.
 De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2$.
 
+\newpage
+
+\subsection{Tópico: Teorema de Uma Série}
+
+\todo{fazer}
+
+\newpage
+
+\subsection{Tópico: Uma dinâmica em \texorpdfstring{$[0,1]$}{[0,1]}}
+
+\todo{fazer dinâmica 2x mod 1 e relações Lebesgue[0,1] com produtos de bernoulli}
+
+\newpage
+
 \section{Espaços canônicos}
 
-
 \begin{definition}
-  Uma função $\phi:E \to E'$ entre dois espaços mensuráveis é dita bi-mensurável quando $\phi$ é mensurável e injetiva, $\phi(E)$ for mensurável e a sua inversa $\phi^{-1}:f(E) \to E$ também for mensurável.
+  Uma função $\phi:E \to E'$ entre dois espaços mensuráveis é dita bi-mensurável \index{bi-mensuravel@bi-mensurável} quando $\phi$ é mensurável e injetiva, $\phi(E)$ for mensurável e a sua inversa $\phi^{-1}:f(E) \to E$ também for mensurável.
 \end{definition}
 
+\todo{olhar a questão: todo boreliano de um polonês é canônico?}
+
 \begin{definition}
-  Dizemos que o espaço mensurável $(E, \mathcal{A})$ é canônico se existe uma função $\phi: E \to \mathbb{R}$ bi-mensurável.
+  Dizemos que o espaço mensurável $(E, \mathcal{A})$ é canônico \index{espaco@espaço!canonico@canônico} se existe uma função $\phi: E \to \mathbb{R}$ bi-mensurável.
 \end{definition}
 
 \begin{theorem}
-  Sejam $E_1, E_2, \dots$ espaços mensuráveis canônicos.
-  Então o Teorema~\ref{t:extens_kolmog} (da extensão de Kolmogorov) também é válido no espaço produto $\Omega = E_1 \times E_2 \times \dots$ se a condição de consistência \eqref{e:consist_kolmog} for válida com $I_j$ substituídos por eventos quaiquer em $E_j$.
+  \index{Teorema!da Extensao de Kolmogorov@da Extensão}
+  Se $E_1, E_2, \dots$ espaços mensuráveis canônicos, então o Teorema~\ref{t:extens_kolmog} (da extensão de Kolmogorov) também é válido no espaço produto $\Omega = E_1 \times E_2 \times \dots$ se a condição de consistência \eqref{e:consist_kolmog} for válida com $I_j$ substituídos por eventos quaiquer em $E_j$.
 \end{theorem}
 
 \begin{proof}
@@ -1410,7 +1472,7 @@ De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2
   É fácil verificar que as $\bar P_n$ são consistentes como em \eqref{e:consist_kolmog}.
   Logo, existe $\bar{P}$ em $(\mathbb{R}^\mathbb{N}, \mathcal{F})$ extendendo $\bar{P_n}$.
 
-  Finalmente, consideramos o mapa $\Phi: \bigtimes_{i=1}^\infty \phi_i(E_i) \to \Omega$ dado por
+  Finalmente, consideramos o mapa $\Phi: \times_{i=1}^\infty \phi_i(E_i) \to \Omega$ dado por
   \begin{equation}
     \Phi(\phi_1(\omega_1), \phi_2(\omega_2), \dots) = (\omega_1, \omega_2, \dots).
   \end{equation}
@@ -1447,18 +1509,18 @@ A seguir daremos um exemplo de espaço canônico que é importante para a seçã
 Nessa seção mostraremos que uma grande coleção de espaços conhecidos são canônicos.
 
 \begin{definition}
-  Um espaço métrico $(E,d)$ é dito polonês se é separável e completo.
+  Um espaço métrico $(E,d)$ é dito polonês \index{espaco@espaço!polones@polonês} se é separável e completo.
 \end{definition}
 
 \begin{example} \mbox{}
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item Todo espaço enumerável $\Omega$ pode ser feito em um espaço métrico polonês de forma que a $\sigma$-álgebra de Borel seja $\mathcal{P}(\Omega)$.
   \item $\mathbb{R}^n$ e $C([0,1])$ são notoriamente poloneses.
   \end{enumerate}
 \end{example}
 
 \begin{lemma}
-  Se $(E_i, d_i)$ são espaços métricos poloneses para $i = 1, 2, \dots$ então $E = \bigtimes_i E_i$ com a métrica
+  Se $(E_i, d_i)$ são espaços métricos poloneses para $i = 1, 2, \dots$ então $E = \times_i E_i$ com a métrica
   \begin{equation}
     \label{e:metrica_produto}
     d(x,y) = \sum_i \frac{1}{2^{i+1}} \frac{d_i(x_i, y_i)}{1 + d_i(x_i, y_i)}
@@ -1476,7 +1538,7 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   \label{l:sub_polones}
   Seja $(E,d)$ um espaço polonês e $G, F \subseteq E$ um aberto e um fechado de $E$ respectivamente.
   Então, existe uma métrica $d'$ em $F \cap G$ tal que
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $d$ e $d'$ são equivalentes (induzem a mesma noção de convergência),
   \item $d(x,y) \leq d'(x,y)$ para todo $x, y \in F \cap G$ e
   \item $(F \cap G, d')$ é polonês.
@@ -1494,7 +1556,7 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   onde $d(x,A) = \inf\{d(x,x'); x' \in A\}$.
 
   Não é difícil ver que com a definição acima (e deixamos como exercício) que
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item as métricas $d$ e $d'$ são equivalentes em $G$,
   \item $F \cap G$ é separável quando dotado da métrica $d'$,
   \item $(F \cap G, d')$ é completo.
@@ -1504,7 +1566,7 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
 
 \begin{example}
   Um importante exemplo é dado por espaços produto.
-  Sejam $(E_i, d_i)$ espaços poloneses para $i \geq 1$ e introduza em $E = \bigtimes_i E_i$ a métrica $d$ definida em \eqref{e:metrica_produto}.
+  Sejam $(E_i, d_i)$ espaços poloneses para $i \geq 1$ e introduza em $E = \times_i E_i$ a métrica $d$ definida em \eqref{e:metrica_produto}.
   Então, se $A_1 \subseteq E_1$, $\dots$, $A_k \subseteq E_k$ forem abertos, o retângulo $R = A_1 \times \dots \times A_k \times E_{k+1} \times \dots$ é aberto.
   Dessa forma vemos que tanto $R$ como $R^c$ podem ser dotados de métricas com as quais se tornam espaços poloneses.
   Além disso tais métricas podem ser escolhidas satisfazendo as hipóteses do Lema~\ref{l:sub_polones}
@@ -1514,7 +1576,7 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   \label{l:particao_polones}
   Seja $(E, d)$ um espaço polonês e $r > 0$.
   Então existe uma partição $A_0, A_1, \dots$ de $A$ e métricas $d_0, d_1, \dots$ nesses respectivos subconjuntos de forma que para todo $i \geq 0$,
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $(A_i, d_i)$ são espaços poloneses disjuntos,
   \item $d_i$ e $d$ são equivalentes em $A_i$ e $d_i \geq d$ e finalmente
   \item o diâmetro de $A_i$ (com respeito a $d$) é menor ou igual a $r$.
@@ -1548,7 +1610,7 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
 
   Vamos definir borelianos $A_m$ de $E$ e métricas $d_m$ em $A_m$ para cada $m \in M$.
   Faremos isso da seguinte forma:
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item se $m = i \in M_1$, então definimos $A_1, A_2, A_3, \dots$ e $d_1, d_2, d_3, \dots$ como no Lema~\ref{l:particao_polones} com $r = 1$,
   \item se $(A_m, d_m)$ já foi definido para algum $m \in I_n$, então utilizamos também o Lema~\ref{l:particao_polones} com $r = 1/n$ para particionar o conjunto $A_m$ (com a métrica $d_m$) em $A_{(m,1)}, A_{(m,2)}, \dots$ com suas respectivas métricas $d_{(m,1)}, d_{(m,2)}, \dots$
   \end{enumerate}
@@ -1556,7 +1618,7 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
 
   Podemos desde já definir $\phi:E \to \mathbb{N}^\mathbb{N}$ e para tanto, considere $x \in E$.
   Indutivamente
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item como $\{A_m\}_{m \in M_1}$ formam uma partição de $E$, definimos $\phi_1(x)$ como o único índice tal que $x \in A_{\phi_1(x)}$,
   \item se já encontramos $\phi_1(x), \dots, \phi_n(x)$ tal que $x \in A_{(\phi_1(x), \dots \phi_n(x))}$, então o fato que particionamos o último conjunto na definição de $A_m$, $m \in M_{n+1}$ nos garante que podemos definir unicamente $\phi_{n+1}(x)$ de forma a continuar a indução.
   \end{enumerate}
@@ -1603,7 +1665,7 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
     x \in \mcap_n A_{w_1, \dots, w_n}, \text{ para todo $n \geq 1$.}
   \end{equation}
   Mas claramente
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $x \in A_\varnothing = E$ e
   \item se $x \in A_{w_1, \dots, w_n}$, então como $x_k$ é Cauchy em $A_{w_1, \dots, w_{n+1}}$, temos que $x_k$ converge a um certo $x' \in A_{w_1, \dots, w_{n+1}}$ na métrica $d_{w_1, \dots, w_{n+1}}$.
     Como essa métrica é equivalente a tanto $d_{w_1, \dots, w_n}$ quanto $d$ em $A_{w_1, \dots, w_n}$, temos que $x = x' \in A_{w_1, \dots, w_n}$.
@@ -1611,12 +1673,10 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   Isso conclui por indução a prova de \eqref{e:x_in_Aw} e consequentemente do teorema.
 \end{proof}
 
-\newpage
-
 \section{Probabilidades condicionais}
 
 \begin{definition}
-  Se $(\Omega, \mathcal{F}, P)$ é espaço de probabilidade e $B \in \mathcal{F}$ é tal que $P(B) > 0$, então definimos a probabilidade $P(\cdot | B): \mathcal{F} \to [0,1]$ por
+  Se $(\Omega, \mathcal{F}, P)$ é espaço de probabilidade e $B \in \mathcal{F}$ é tal que $P(B) > 0$, então definimos a probabilidade \index{probabilidade!condicional} $P(\cdot | B): \mathcal{F} \to [0,1]$ por
   \begin{equation}
     \label{e:P_condicional}
     P(A | B) = \frac{P(A \cap B)}{P(B)},
@@ -1633,7 +1693,7 @@ Logo podemos entender o denominador de \eqref{e:P_condicional} como uma normaliz
 Mas a interpretação mais natural de \eqref{e:P_condicional} é dada pela seguinte proposição.
 Para enunciá-la, considere $(\Omega, \mathcal{F}, P)$ um espaço de probabilidade e defina o produto
 \begin{equation}
-  \bar{\Omega} = \bigtimes_{i=1}^\infty \Omega, \qquad \bar{\mathcal{F}} = \bigotimes_{i=1}^\infty \mathcal{F} \quad \text{e} \quad \bar P = \bigotimes_{i=1}^\infty P.
+  \bar{\Omega} = \times_{i=1}^\infty \Omega, \qquad \bar{\mathcal{F}} = \bigotimes_{i=1}^\infty \mathcal{F} \quad \text{e} \quad \bar P = \bigotimes_{i=1}^\infty P.
 \end{equation}
 Na verdade tal produto está bem definido mesmo quando $\Omega$ não é canônico, mas deixaremos isso pra uma outra vez.
 
@@ -1677,9 +1737,23 @@ A intuição desta proposição é que se repetimos o experimento $(\Omega, \mat
   Ou em outras palavras, sabendo que $X$ é maior que $t$, a distribuição condicional de $X - t$ ainda é $\Exp(\lambda)$.
 \end{exercise}
 
+Definimos a distribuição geométrica \index{distribuicao@distribuição!geometrica@geométrica} de parâmetro $p \in (0,1]$ por
+\begin{equation}
+  \Geo(p) = \sum_{i = 1}^\infty \delta_i (1-p)^i p.
+\end{equation}
+
 \begin{exercise}
   Inspirado no exercício anterior, mostre que a distribuição geométrica $\Geo(p)$ também satisfaz \eqref{e:sem_memoria} para todos $t, s \in \mathbb{N}$.
   Mostre que essas são as únicas distribuições com suporte em $\mathbb{N}$ satisfazendo tal propriedade
+\end{exercise}
+
+\begin{exercise}
+  \label{x:geo_time}
+  Sejam $Y_i$, para $i \geq 1$ \iid com distribuição $\Ber(p)$ e defina
+  \begin{equation}
+    T = \inf\{i; Y_i = 1\}.
+  \end{equation}
+  Mostre que $T \overset{d}\sim \Geo(p)$.
 \end{exercise}
 
 \begin{exercise}
@@ -1702,7 +1776,15 @@ A intuição desta proposição é que se repetimos o experimento $(\Omega, \mat
   \end{enumerate}
 \end{exercise}
 
-\section{Regra de Bayes}
+\newpage
+
+\subsection{Tópico: Distribuições de Extremos}
+
+\todo{fazer}
+
+\newpage
+
+\subsection{Regra de Bayes}
 
 Frequentemente definimos um espaço de probabilidade atravéz de probabilidades condicionais.
 Consideramos por exemplo um exame médico para detectar uma doença, nesse caso temos
@@ -1763,18 +1845,18 @@ Isso nos é fornecido em geral pela regra de Bayes enunciada na seguinte
 \section{Esperança}
 
 \begin{definition}
-  Se $X$ é uma variável aleatória com $\int_\Omega |X| \d \omega < \infty$, dizemos que $X$ é integrável e definimos
+  Se $X$ é uma variável aleatória com $\int_\Omega |X| \d \omega < \infty$, dizemos que $X$ é integrável \index{variavel aleatoria@variável aleatória!integravel@integrável} e definimos
   \begin{equation}
     E(X) = \int_\Omega X(\omega) P(\d \omega),
   \end{equation}
-  a chamada esperança de $X$.
+  a chamada esperança de $X$. \index{esperanca@esperança}
   Nesse caso também dizemos que $X \in \mathcal{L}^1$.
 \end{definition}
 
 Quando $X \geq 0$, também podemos supor que $E(X)$ está bem definida, mesmo que possivelmente tomando valor infinito.
 
 Não demonstraremos algumas propriedades conhecidas da integração de Lebesgue, tais como
-\begin{enumerate}
+\begin{enumerate}[\quad a)]
 \item $E(X + \alpha Y) = E(X) + \alpha E(Y)$ (se estiverem bem definidas),
 \item Valem os Teoremas de Convergência (Monótona e Limitada).
 \end{enumerate}
@@ -1908,6 +1990,7 @@ Se $d(X \circ P) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), 
 \subsection{Desigualdade de Markov}
 
 \begin{theorem}
+  \index{Desigualdade de Markov}
   Se $X \geq 0$ $P$-q.c., então para todo $x > 0$,
   \begin{equation}
     P[X \geq x] \leq \frac{E(X)}{x}.
@@ -1922,6 +2005,8 @@ Se $d(X \circ P) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), 
   que termina a prova.
 \end{proof}
 
+\todo{dar explicação sobre: aproximações no lugar de igualdades nos permite estudar problemas mais complexos.}
+
 \begin{example}
   Sejam $n$ patos e $m$ caçadores.
   Cada caçador escolhe um pato aleatorea e uniformemente e atira (abatendo-o com probabilidade $p$).
@@ -1934,7 +2019,7 @@ Se $d(X \circ P) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), 
     \end{split}
   \end{equation}
   Observe que
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item acima obtivemos uma igualdade e
   \item $[\text{pato $i$ vive}]$, $i = 1, \dots, n$ não são independentes.
   \end{enumerate}
@@ -1947,6 +2032,18 @@ Se $d(X \circ P) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), 
     \end{split}
   \end{equation}
 \end{example}
+
+\newpage
+
+\subsection{Tópico: Grafos Aleatórios}
+
+\todo{fazer erdos renyi}
+
+\newpage
+
+\subsection{Tópico: Currie Weiss}
+
+\todo{fazer}
 
 \newpage
 
@@ -1969,11 +2066,12 @@ Se $d(X \circ P) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), 
   Mostre que $E(XY)$, $E(X/Y)$, $E(X + Y)$... dependem apenas da distribuição de $(X,Y) \in \mathbb{R}^2$.
 \end{exercise}
 
+\todo{colocar como exercício o que acontece com E(XY) = E(X)E(Y) com X, Y independentes mas apenas em $L^1$?}
+
 \section{Variância}
 
-
 Na seção anterior, limitamos $P[X > a]$ usando $E(X)$ (se $X \geq 0$).
-Esse método é chamado de \emph{método do primeiro momento}, de acordo com a seguinte
+Esse método é chamado de \emph{método do primeiro momento}, \index{momento!primeiro} de acordo com a seguinte
 \begin{definition}
   Dada uma variável aleatória $X$, definimos o seu $k$-ésimo momento como $E(X^k)$, para $k = 1, 2, \dots$
 \end{definition}
@@ -2006,14 +2104,14 @@ Essa equação obviamente possui um único mínimo em $a = E(X)$.
 Ao erro da aproximação acima damos o nome de variância
 
 \begin{definition}
-  Dada uma variável aleatória $X \in \mathcal{L}^2$, definimos sua variância como
+  Dada uma variável aleatória $X \in \mathcal{L}^2$, definimos sua variância \index{variancia@variância} como
   \begin{equation}
     \Var(X) = E \Big( \big(X - E(X)\big)^2 \Big) = E(X^2) - E(X)^2.
   \end{equation}
 \end{definition}
 
 Observe pelas definições alternativas dadas acima que
-\begin{enumerate}
+\begin{enumerate}[\quad a)]
 \item $\Var(X) \geq 0$ e
 \item $E(X^2) \geq E(X)^2$.
 \end{enumerate}
@@ -2052,13 +2150,12 @@ A seguinte proposição mostra que a variância é uma maneira de estimar o quan
 
 \begin{proof}
   A desigualdade segue trivialmente da cota de Markov, ao observarmos que
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $|X - E(X)| \geq 0$,
   \item $|X - E(X)| > a$ se e somente se $|X - E(X)|^2 > a^2$ e
   \item $E\big(|X - E(X)|^2\big) = E\big((X - E(X))^2\big) = \Var(X)$.
   \end{enumerate}
 \end{proof}
-
 
 Para variáveis aleatórias de média zero, a variância nada mais é que $E(X^2)$, ou em outras palavras $\lVert X \rVert^2_2$, o quadrado de sua norma em $\mathcal{L}^2$.
 Isso nos motiva a olhar mais de perto para o produto interno em $\mathcal{L}^2$, que se traduz a $E(XY)$.
@@ -2110,12 +2207,6 @@ Uma outra propriedade bastante importante da variância é que ela se comporta b
   Calcule $\Var(X)$ quando $X \overset{d}\sim \Bin(n, p)$.
 \end{exercise}
 
-
-Definimos a distribuição geométrica de parâmetro $p \in (0,1]$ por
-\begin{equation}
-  \Geo(p) = \sum_{i = 1}^\infty \delta_i (1-p)^i p.
-\end{equation}
-
 \begin{exercise}
   Calcule $E(X)$ quando $X \overset{d}\sim \Geo(p)$.
 \end{exercise}
@@ -2125,18 +2216,12 @@ Definimos a distribuição geométrica de parâmetro $p \in (0,1]$ por
   Você reconhece esse limite?
 \end{exercise}
 
-\begin{exercise}
-  \label{x:geo_time}
-  Sejam $Y_i$, para $i \geq 1$ \iid com distribuição $\Ber(p)$ e defina
-  \begin{equation}
-    T = \inf\{i; Y_i = 1\}.
-  \end{equation}
-  Mostre que $T \overset{d}\sim \Geo(p)$.
-\end{exercise}
-
 \section{Lei fraca dos grandes números}
 
+\todo{fazer lei dos grandes números fraca quantitativa (deixar a cota na prob.)}
+
 \begin{theorem}
+  \index{Lei!Fraca dos Grandes Numeros@Fraca dos Grandes Números}
   \label{t:lei_fraca}
   Se $X_1, X_2, \dots$ são i.i.d.s em $\mathcal{L}^2$ e definimos
   \begin{equation}
@@ -2184,7 +2269,7 @@ Observe que nós apenas utilizamos que as variáveis $X_i$ eram independentes du
 
 \section{Método do segundo momento}
 
-Vimos como a Lei Fraca dos Grandes Números seguiu de uma estimativa de segundo momento (mais precisamente usando a variância).
+Vimos como a Lei Fraca dos Grandes Números seguiu de uma estimativa de segundo momento \index{momento!segundo} (mais precisamente usando a variância).
 
 Nessa seção iremos mostrar como esse método é mais geral, se aplicando mesmo em situações onde as variáveis não são necessariamente independentes duas a duas.
 
@@ -2268,9 +2353,20 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
 
 \newpage
 
+\subsection{Tópico: Análise de DNA}
+
+\todo{fazer "computational molecular biology" - Pevzner seção 5.5}
+
+\newpage
+
+\subsection{Tópico: Contando triângulos}
+
+\todo{números de triângulos em grafos (olhar alon spencer)}
+
 \section{Lei forte dos grandes números}
 
 \begin{theorem}[Lei Forte dos Grandes Números]
+  \index{Lei!Forte dos Grandes Numeros@Forte dos Grandes Números}
   \label{t:LFGN}
   Sejam $X_1, X_2, \dots$ \iid em $\mathcal{L}^1$, com $m = E(X_1)$.
   Então,
@@ -2382,7 +2478,15 @@ Estamos agora em posição de finalizar a
   Consequentemente, obtemos o Teorema~\ref{t:LFGN} via o Lema~\ref{l:lim_Z_n_LFGN}.
 \end{proof}
 
+\todo{provar o teorema de Weierstrass de aproximação de funções contínuas por polinômios (prova probabilística). Ele é usado em convergência fraca em $\mathbb{R}$}
+
 \newpage
+
+\subsection{Tópico: Entropia de Shannon}
+
+\newpage
+
+\subsection{Tópico: Processos de renovação}
 
 \section{Lei \texorpdfstring{$\{0, 1\}$}{\{0,1\}} de Kolmogorov}
 
@@ -2400,6 +2504,7 @@ No que se segue, consideraremos um espaço mensurável $\Omega = \times_{i=1}^\i
   \begin{equation}
     \mathcal{F}_\infty = \mcap_{n \geq 1} \sigma\big( X_i; i \geq n\big).
   \end{equation}
+  Chamamos $\mathcal{F}_\infty$ de $\sigma$-álgebra caudal. \index{sigma-algebra@$\sigma$-álgebra!caudal}
 \end{definition}
 
 Vejamos que, dados $A_i \in \sigma(X_i)$, $i \geq 1$, temos que $[A_i \text{ infinitas vezes}]$ é caudal.
@@ -2411,7 +2516,7 @@ que obviamente pertence a $\sigma(X_i; i \geq n)$.
 
 \begin{exercise}
   Mostre que em $\Omega = \mathbb{R}^{\infty}$, são caudais os seguintes eventos
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $[X_i \text{ converge}]$,
   \item $\big[\tfrac{1}{n} \sum_{i=1}^n X_i \text{ converge}\big]$ e
   \item $[\#\{i \geq 1; X_i > 0\} < \infty]$.
@@ -2421,10 +2526,11 @@ que obviamente pertence a $\sigma(X_i; i \geq n)$.
 Podemos agora enunciar o pricipal teorema dessa seção
 
 \begin{theorem}[Lei $\{0,1\}$ de Kolmogorov]
+  \index{Lei!0,1 de Kolmogorov@$\{0,1\}$ de Kolmogorov}
   Se $\Omega = E^{\infty}$, onde $E$ é um espaço canônico, for provido de uma lei produto $P = \otimes_{i=1}^\infty P_i$, então todo evento caudal tem probabilidade $0$ ou $1$ sob $P$.
 \end{theorem}
 
-Quando uma $\sigma$-álgebra $\mathcal{F}$ satisfaz $P(A) \in \{0,1\}$ para todo $A \in \mathcal{F}$, dizemos que $\mathcal{F}$ é trivial.
+Quando uma $\sigma$-álgebra $\mathcal{F}$ satisfaz $P(A) \in \{0,1\}$ para todo $A \in \mathcal{F}$, dizemos que $\mathcal{F}$ é trivial. \index{sigma-algebra@$\sigma$-álgebra!trivial}
 Uma outra maneira de enunciar a conclusão do teorema acima é dizer que a $\sigma$-álgebra caudal $\mathcal{F}_\infty$ é trivial.
 
 \begin{proof}
@@ -2452,7 +2558,7 @@ Uma outra maneira de enunciar a conclusão do teorema acima é dizer que a $\sig
 \end{proof}
 
 \begin{exercise}
-  Dizemos que uma probabilidade $P$ no espaço produto $\Omega = \bigtimes_{n \geq 1} E$ (com a $\sigma$-álgebra canônica) é fortemente misturadora se, para todo $k \geq 1$, temos
+  Dizemos que uma probabilidade $P$ no espaço produto $\Omega = \times_{n \geq 1} E$ (com a $\sigma$-álgebra canônica) é fortemente misturadora se, para todo $k \geq 1$, temos
   \begin{equation}
     \lim_{n \to \infty} \sup \big| P(A \cap B) - P(A) P(B) \big| = 0,
   \end{equation}
@@ -2479,12 +2585,12 @@ As cotas de segundo momento são muito ruins para esse tipo de estimativa, nos l
 Abaixo, desenvolveremos um método mais eficiente para responder a essa pergunta, obviamente sob certas hipóteses na distribuição das variáveis aleatórias.
 
 \begin{definition}
-  Dada uma variável aleatória $X$, definimos sua transformada de Laplace como
+  Dada uma variável aleatória $X$, definimos sua transformada de Laplace \index{trasformada!de Laplace} como
   \begin{equation}
     \phi_X(s) = E(\ex{s X}) \in (0, \infty],
   \end{equation}
   para todos $s \in \mathbb{R}$.
-  Essa transformada também é chamada \emph{função geradora de momentos} de $X$.
+  Essa transformada também é chamada \emph{função geradora de momentos} de $X$. \index{funcao@função!geradora de momentos}
 \end{definition}
 
 \begin{exercise}
@@ -2494,15 +2600,15 @@ Abaixo, desenvolveremos um método mais eficiente para responder a essa pergunta
 \begin{proposition}
   \label{p:propried_phi}
   Se $E(\ex{\delta |X|}) < \infty$, então
-  \begin{enumerate}
-  \item $X \in \mathcal{L}^p$ para todo $p \geq 1$,
+  \begin{enumerate}[\quad a)]
+  \item $X \in \mathcal{L}^p$ para todo $1 \leq p < \infty$,
   \item $\phi_X(s) < \infty$ para todo $s \in (-\delta, \delta)$,
   \item $\phi_X(s)$ é $C^\infty$ em $(-\delta, \delta)$ e
   \item $\phi_X^{(n)}(s) = E(X^n \ex{sX})$.
   \end{enumerate}
 \end{proposition}
 
-A última conclusão da proposição acima justifica a nomenclatura \emph{função geradora de momentos}.
+A última conclusão da proposição acima justifica a nomenclatura função geradora de momentos.
 
 \begin{proof}
   Obviamente, para todo $p \geq 1$ existe $c > 0$ tal que $\ex{\delta |x|} \geq c |x|^p$, donde $X \in \mathcal{L}^p$.
@@ -2526,7 +2632,7 @@ A última conclusão da proposição acima justifica a nomenclatura \emph{funç�
 Lembramos que ao usarmos o método do segundo momento, nos foi bastante útil o fato que a variância se comporta bem com relação a somas independentes.
 Mais precisamente, $\Var(X_1 + \dots + X_k) = \Var(X_1) + \dots + \Var(X_k)$.
 
-Uma outra propriedade importante da função geradora de momentos é que ela se comporta bem com respeito à somas independentes.
+Uma outra propriedade importante da função geradora de momentos é que ela também se comporta bem com respeito à somas independentes.
 \begin{proposition}
   Se $X_1, \dots, X_n$ são variáveis independentes com $\phi_{X_i}(s) < \infty$ para todo $i \leq k$ e $|s| < \delta$, então
   \begin{equation}
@@ -2600,17 +2706,25 @@ Resta agora tentar entender qual é o expoente correto para o decaimento da prob
   \end{enumerate}
 \end{exercise}
 
-
 \newpage
+
+\subsection{Tópico: Processos de ramificação}
+
+\todo{fazer}
 
 \section{Princípio de Grandes Desvios}
 \label{s:PGD}
+
+\todo{lim vira liminf ou limsup}
 
 A primeira tarefa nossa será otimizar a estimativa grosseira feita na seção anterior.
 Essas estimativas são chamadas de \emph{estimativas de grandes desvios}, pois se referem a probabilidades que a média empírica de $X_i$ se desvie de sua esperança por um valor constante $a$.
 Futuramente no curso estudaremos as probabilidades de que esse desvio seja de ordem $a_n \to 0$ que são chamados de \emph{desvios moderados} ou \emph{flutuações}, dependendo se a probabilidade de desvio converge a zero ou não.
 
+\todo{o limite dos grandes desvios existe}
+
 \begin{theorem}[Princípio de Grandes Desvios - cota superior]
+  \index{Principio@Princípio!de Grandes Desvios@de Grandes Desvios}
   \label{t:PGDleq}
   Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid tais que $\phi_{X_1}(s) < \infty$, para todo $s \in (-\delta, \delta)$.
   Então, para $a > 0$,
@@ -2619,8 +2733,9 @@ Futuramente no curso estudaremos as probabilidades de que esse desvio seja de or
   \end{equation}
   onde $m = E(X_1)$ e
   \begin{equation}
-    \psi_{X_1}(b) = \sup_{s \geq 0} \big\{ bs - \log \big( \phi_{X_1}(s) \big) \big\}.
+    \psi_{X_1}(b) = \sup_{s \geq 0} \big\{ bs - \log \big( \phi_{X_1}(s) \big) \big\}
   \end{equation}
+  é chamada função taxa. \index{funcao@função!taxa}
 \end{theorem}
 
 É importante observar que para estimar $P\big(X_1 + \dots + X_n \leq (m - a)n\big)$, basta considerarmos $X'_i = -X_i$ ao utilizar o teorema acima.
@@ -2716,9 +2831,11 @@ Certamente, esse nem sempre é o caso, por exemplo se $X = m$ quase certamente, 
   Isso, junto com a continuidade de $\phi_X$ implica a existência do $s_{\text{max}}$ desejado.
 \end{proof}
 
+\todo{provar que a função taxa é convexa, portanto contínua (está como exercício mas é usado)}
+
 \begin{exercise}
   Suponha que se $\phi_{X}(s)$ é finita para todo $s \in (-\delta, \delta)$ e mostre que
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item na definição de $\psi_{X}(a)$, poderíamos tomar o ínfimo em todos $s \in \mathbb{R}$ (ao invéz de $s \geq 0$) sem mudar o valor de $\psi_X(a)$,
   \item a função $\psi_{X}(s)$ é não negativa, semi-contínua inferior e convexa em seu domínio e
   \item $\psi_X(a)$ se anula somente em $a = 0$ e $\psi_X$ é crescente no seu domínio.
@@ -2738,6 +2855,7 @@ Contudo, gostaríamos de entender se ao menos o expoente $\psi_{X_1}(a)$ na cota
 Isso é confirmado no seguinte resultado
 
 \begin{theorem}[Princípio de Grandes Desvios - cota inferior]
+  \index{Principio de Grandes Desvios@Princípio de Grandes Desvios}
   \label{t:PGDgeq}
   Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid com $\phi_{X_1}(s) < \infty$, para todo $s \in \mathbb{R}$.
   Então, para todo $a > 0$,
@@ -2826,8 +2944,6 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
   Mostre o Teorema~\ref{t:PGDgeq} no caso em que $\phi_{X_1}(s) < \infty$, para todo $s \in (-\delta, \delta)$.
 \end{exercise}
 
-\newpage
-
 \section{O Teorema Central do Limite}
 
 Até esse momento, já estudamos bastante somas de variáveis aleatórias independentes.
@@ -2904,7 +3020,7 @@ Para isso, precisamos que $\alpha$ seja negativo e, fixado $\alpha$, o valor de 
 Tudo isso motiva finalmente a seguinte
 
 \begin{definition}
-  Dizemos que $X$ tem distibuição normal canônica, se
+  Dizemos que $X$ tem distibuição normal canônica, se \index{distribuicao@distribuição!normal}
   \begin{equation}
     \label{e:normal_canonica}
     X \distr \frac{1}{\sqrt{2 \pi}} \exp \big\{-x^2/2\big\} \d x.
@@ -2995,7 +3111,7 @@ Mais uma observação curiosa: nossa motivação para a definição da distribui
 Note que a somar as coordenadas canônicas é equivalente a multiplicar pelo vetor $(1,1,\dots,1)$, que tem norma euclideana $\sqrt{n}$.
 
 Uma outra maneira de entender o corolário acima é que a normal é um ponto fixo da operação seguinte
-\begin{enumerate}
+\begin{enumerate}[\quad a)]
 \item tome uma distribuição $\mu \in \mathcal{L}^2$,
 \item considere $X_1, \dots, X_n$ \iid com distribuição $\mu$ e
 \item retorne a distribuição de
@@ -3011,8 +3127,6 @@ Isso é estudado no Teorema Central do Limite (TCL) que provaremos posteriorment
 Mas antes, precisamos desenvolver uma boa definição de convergência para distribuições o que será o nosso próximo tópico.
 
 \todo{Mencionar que queremos saber se o ponto fixo $\mathcal{N}(0,1)$ é atrator.}
-
-\newpage
 
 \subsection{Convergência fraca}
 
@@ -3046,7 +3160,7 @@ Aqueles que já viram o conceito de convergência fraca acharão natural que a c
 Porém, como mencionamos no exemplo das medidas $\delta_{x_n}$ acima, gostaríamos também de a convergência respeitasse a topologia original do espaço $E$, o que torna natural a seguinte
 
 \begin{definition}
-  Dizemos que uma sequência de medidas de probabilidade $\mu_n$ converge fracamente (ou converge em distribuição) para uma probabilidade $\mu$ se
+  Dizemos que uma sequência de medidas de probabilidade $\mu_n$ converge fracamente (ou converge em distribuição) para uma probabilidade $\mu$ se \index{convergencia@convergência!fraca}
   \begin{equation}
     \lim_{n \to \infty} \int f \d \mu_n = \int f \d \mu, \text{ para toda $f:E \to \mathbb{R}$ contínua e limitada.}
   \end{equation}
@@ -3063,7 +3177,7 @@ Com isso em mente, podemos relacionar a convergência em distribuição com a co
 \begin{exercise}
   Considere a função $\phi$ do espaço de medidas em $([0,1], \mathcal{B}([0,1]))$ nele mesmo, dada pelo seguinte:
   \begin{equation}
-    \phi(\mu)(A) = \tfrac{1}{2} \big( \mu(A/3) + \mu(A/3 + 2/3) \big).
+    \phi(\mu)(A) = \tfrac{1}{2} \big( \mu(3A) + \mu(3A - 2) \big).
   \end{equation}
   Identifique o limite em distribuição de $\phi^{(n)}(\delta_0)$.
   Mostre que
@@ -3086,10 +3200,11 @@ Com isso em mente, podemos relacionar a convergência em distribuição com a co
 O próximo resultado é bastante útil para provar convergência fraca, pois nos fornece uma coleção de equivalências muitas vezes mais fáceis de verificar.
 
 \begin{theorem}[Teorema de Portmanteau]
+  \index{Teorema!de Portmanteau}
   \label{t:portmanteau}
   Sejam $(\mu_n)_{n \geq 1}$ e $\mu$ medidas de probabilidade em $(E, \mathcal{A})$.
   São equivalentes:
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item[a)] $\mu_n \Rightarrow \mu$,
   \item[a')] $\int f \d \mu_n \to \int f \d \mu$, para toda $f$ unifmormemente contínua e limitada,
   \item[b)] $\limsup_n \mu_n(F) \leq \mu(F),$ para todo $F \subseteq E$ fechado,
@@ -3182,8 +3297,6 @@ Para memorizar o teorema acima, é conveniente lembrar dos dois exemplos:
   Mais precisamente, encontre os $A \subseteq \mathbb{R}$ tais que $\tfrac{1}{n} \sum_{i=1}^n \delta_{i/n}(A)$ converge para a medida de Lebesgue de $A$.
 \end{exercise}
 
-\newpage
-
 Nós algumas vezes denotamos $X_n \Rightarrow X$ quando $X_n$ e $X$ são elementos aleatórios de $(\Omega, \mathcal{F}, P)$ para descrever a convergência fraca de suas respectivas distribuições.
 Mais precisamente, $X_n \circ P \Rightarrow X \circ P$.
 
@@ -3227,11 +3340,10 @@ A primeira é dada pela seguinte
   Como o último termo converge a zero e $\varepsilon$ foi escolhido arbitrariamente, isso conclui a prova da proposição.
 \end{proof}
 
-\newpage
-
 \subsection{O TCL para uma sequência i.i.d.}
 
 \begin{theorem}
+  \index{Teorema!Central do Limite}
   \label{:tcl_iid}
   Considere num espaço $(\Omega, \mathcal{F}, P)$, uma sequência $X_1, X_2, \dots$ de variáveis aleatórias \iid em $\mathcal{L}^3$.
   Nesse caso, se definimos $m = E(X_1)$ e $\sigma^2 = \Var(X_1)$, temos
@@ -3326,6 +3438,18 @@ A primeira é dada pela seguinte
 
 \newpage
 
+\subsection{Tópico: Análise de componentes principais}
+
+\todo{variáveis gaussianas e principal component analysis}
+
+\newpage
+
+\subsection{Tópico: Funções características???}
+
+\todo{funcoes caracteristicas e tomografia}
+
+\newpage
+
 \chapter{Esperança condicional}
 
 \section{Núcleos de transição}
@@ -3343,7 +3467,7 @@ Como modelaríamos um lançamento dessa moeda, se $P$ também fosse aleatório?
 Sejam $(E_1, \mathcal{A}_1)$ e $(E_2, \mathcal{A}_2)$ espaços mensuráveis.
 
 \begin{definition}
-  Um núcleo de transição entre $E_1$ e $E_2$ é uma função
+  Um núcleo de transição entre $E_1$ e $E_2$ é uma função \index{nucleo de transicao@núcleo de transição}
   \begin{equation}
     K: E_1 \times \mathcal{A}_2 \to [0,1],
   \end{equation}
@@ -3434,6 +3558,7 @@ Apesar de interessante, a definição acima ainda não nos permitiu definir espa
 Isso será possibilitado pelo próximo resultado, que pode ser visto como uma generalização do Teorema de Fubini.
 
 \begin{theorem}[Fubini para Núcleos de Transição]
+  \index{Teorema!de Fubini para Nucleos@de Fubini para Núcleos}
   \label{t:fubini}
   Dado um núcleo $K$ de $(E_1, \mathcal{A}_1)$ para $(E_2, \mathcal{A}_2)$ e uma probabilidade $P_1$ em $E_1$, existe uma única probabilidade $P$ em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$ tal que
   \begin{equation}
@@ -3543,11 +3668,9 @@ Estamos prontos agora para fornecer a
 
 Posteriormente extenderemos o resultado acima para o caso $P_1(\{y\}) = 0$, mas isso demandará algum esforço.
 
-\newpage
-
 Vamos introduzir uma última notação com respeito a núcleos de transição.
 Muitas vezes, não estamos interessados na distribuição conjunta de $P_1 \star K$ em $E_1 \times E_2$, mas apenas na distribuição marginal da segunda coordenada.
-No exemplo do martelo, talvez poderíamos estar interessados apenas na distribuição final da moeda.
+No exemplo do martelo, talvez poderíamos estar interessados apenas na distribuição final da moeda.\todo{trocar o exemplo moeda/martelo para marcador/doença.}
 Nesse caso, é conveniente escrever
 \begin{equation}
   \label{e:P1_K}
@@ -3565,7 +3688,9 @@ Nesse caso, é conveniente escrever
   \end{enumerate}
 \end{exercise}
 
-\subsection{Cadeias de Markov}
+\newpage
+
+\subsection{Tópico: Cadeias de Markov}
 
 Um exemplo de como usar núcleos de transição é a construção de Cadeias de Markov.
 Esse tipo de processo é bastante útil em diversas aplicações, desde a biologia até a computação.
@@ -3624,7 +3749,7 @@ Logo, o Teorema da Extensão de Kolmogorov (lembre que $(E, \mathcal{A})$ foi su
 \end{equation}
 Lembramos que $X_i$ denotam as projeções canônicas em $\Omega = \times_{i=1}^\infty E$.
 
-Chamamos o processo $X_1, X_2, \dots$ sob a lei $P$ de Cadeia de Markov com distribuição inicial $\mu_0$ e núcleo de transição $K$.
+Chamamos o processo $X_1, X_2, \dots$ sob a lei $P$ de Cadeia de Markov \index{Cadia de Markov} com distribuição inicial $\mu_0$ e núcleo de transição $K$.
 
 \begin{example}
   Suponha que $E$ seja enumerável.
@@ -3681,6 +3806,16 @@ Essa analogia é real se $E$ for um espaço enumerável.
 
 \newpage
 
+\subsection{Tópico: Urna de Pólya}
+
+\todo{fazer}
+
+\newpage
+
+\subsection{Tópico: Recorrência e transiência}
+
+\todo{markov recorrência/transiência + periodicidade}
+
 \section{Esperança condicional}
 
 Como já foi dito anteriormente, a estrutura de $\sigma$-álgebra tem um papel muito importante na área de probabilidade.
@@ -3721,7 +3856,7 @@ O que aconteceria se soubéssemos integrar $f$ apenas para eventos $A$ em uma su
 \begin{definition}
   \label{d:esperanca_condicional}
   Seja uma variável aleatória $X \in \mathcal{L}^1(P)$ e uma sub-$\sigma$-álgebra $\mathcal{F}' \subseteq \mathcal{F}$.
-  Dizemos que uma variável aleatória $Y$ é a esperança condicional de $X$ com respeito a $\mathcal{F}'$ (ou dada $\mathcal{F}'$) se
+  Dizemos que uma variável aleatória $Y$ é a esperança condicional \index{esperanca@esperança!condicional} de $X$ com respeito a $\mathcal{F}'$ (ou dada $\mathcal{F}'$) se
   \begin{enumerate}[\quad a)]
   \item $Y$ é $\mathcal{F}'$-mensurável e
   \item $E(X \1_{A}) = E(Y \1_{A})$ para todo $A \in \mathcal{F}'$.
@@ -3790,7 +3925,7 @@ Além do Exemplo~\ref{x:EXF_trivial} trivial acima, quando podemos esperar que e
   Um passo importante da prova é observar que $\mu$ também define uma medida no espaço $(\Omega, \mathcal{F}')$.
   Estamos portanto propositalmente restringindo nossa $\sigma$-álgebra.
   Como $P(A) = 0$ implica que $\mu(A) = 0$, temos que $\mu \ll P$ e podemos aplicar o Teorema de Radon-Nikodim para obter uma derivada $Y:\Omega \to \mathbb{R}$ tal que
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item $Y$ é $\mathcal{F}'$-mensurável e
   \item $\mu(A) = \int_A Y \d P$.
   \end{enumerate}
@@ -3801,8 +3936,7 @@ Além do Exemplo~\ref{x:EXF_trivial} trivial acima, quando podemos esperar que e
 Observe que a condição de $\mathcal{F}'$-mensurabilidade é essencial para a unicidade.
 De fato, $X$ obviamente satisfaz a segunda condição da Definição~\ref{d:esperanca_condicional}, mas não necessariamente a primeira.
 
-
-\subsection{Propriedades básicas da esperança condicional}
+\section{Propriedades básicas da esperança condicional}
 
 Nessa seção justificaremos, em certa medida, a nomenclatura ``esperança condicional''.
 Faremos isso mostrando que ela satisfaz várias propriedades que já conhecemos para a esperança tradicional.
@@ -3811,6 +3945,7 @@ Mas como podemos mostrar propriedades simples tais como a linearidade da esperan
 Vamos começar com um exemplo
 
 \begin{proposition}
+  \index{esperanca@esperança!condicional!aditividade}
   Se $X, X' \in \mathcal{L}^1(P)$, então
   \begin{equation}
     E(X + X'|\mathcal{F}') = E(X|\mathcal{F}') + E(X'|\mathcal{F}'), \text{ $P$-quase certamente.}
@@ -3845,6 +3980,7 @@ Note que a igualdade acima é uma igualdade entre variáveis aleatórias.
 Uma outra propriedade bem simples da esperança condicional é a monotonicidade.
 
 \begin{lemma}
+  \index{esperanca@esperança!condicional!monotonicidade}
   \label{l:ec_mono}
   Se $X \geq X'$ em $\mathcal{L}^1(P)$, então
   \begin{equation}
@@ -3930,6 +4066,7 @@ Podemos começar provando esse resultado para funções indicadoras, depois para
 Porém ainda falta um ingrediente bastante importante para construir ou verificar que determinadas variáveis são esperanças condicionais.
 
 \begin{theorem}[Convergência Monótona para Esperanças Condicionais]
+  \index{esperanca@esperança!condicional!T.C.M.}
   \label{t:TCM_EC}
   Se as variáveis $X_n$ satisfazem $X_n \uparrow X$ e estão todas em $\mathcal{L}^1(P)$, então
   \begin{equation}
@@ -3940,7 +4077,7 @@ Porém ainda falta um ingrediente bastante importante para construir ou verifica
 \begin{proof}[Demonstração do Teorema~\ref{t:TCM_EC}]
   Sabemos que $E(X_{n+1} | \mathcal{F}') \geq E(X_n|\mathcal{F}')$, donde concluímos que $E(X_n|\mathcal{F}') \uparrow Y$.
   Vamos demosntrar que $Y = E(X|\mathcal{F}')$.
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item Por ser um limite de funções $\mathcal{F}'$ mensuráveis, $Y$ é $\mathcal{F}'$-mensurável.
   \item Dado $A \in \mathcal{F}'$, temos
     \begin{equation}
@@ -3952,8 +4089,6 @@ Porém ainda falta um ingrediente bastante importante para construir ou verifica
   \end{enumerate}
   O que termina a prova do teorema.
 \end{proof}
-
-\newpage
 
 No que segue, muitas vezes escreveremos $E(X|Z)$ para representar a esperança condicional $E(X|\sigma(Z))$.
 
@@ -3979,11 +4114,10 @@ No que segue, muitas vezes escreveremos $E(X|Z)$ para representar a esperança c
   Em breve extenderemos esse tipo de resultado a espaços quaisquer.
 \end{exercise}
 
-\newpage
-
 Uma outra propriedade que a esperança condicional herda da integral é a
 
 \begin{proposition}[Desigualdade de Jensen]
+  \index{esperanca@esperança!condicional!desigualdade de Jensen}
   Se $\phi:\mathbb{R} \to \mathbb{R}$ é convexa, $X, \phi(X) \in \mathcal{L}^1(P)$, então
   \begin{equation}
     \phi\big( E(X|\mathcal{F}') \big) \leq E\big( \phi(X) | \mathcal{F}' \big).
@@ -4027,6 +4161,7 @@ Uma outra propriedade interessante da esperança condicional diz respeito a sua 
 Terminamos essa seção com o que chamamos da propriedade de torre da esperança condicional.
 
 \begin{proposition}
+  \index{esperanca@esperança!condicional!torre}
   Se $\mathcal{F}' \subseteq \mathcal{F}''$ são ambas sub-$\sigma$-álgebras de $\mathcal{F}$, então para $X \in \mathcal{L}^1(P)$, temos
   \begin{equation}
     \label{e:ec_torre}
@@ -4078,8 +4213,6 @@ Nesse caso denotamos
   Mostre que $g$ é única $X \circ P$-quase certamente.
 \end{exercise}
 
-\newpage
-
 Gostaríamos de dizer que $E(Y|X = x)$ satisfaz alguma propriedade que justifique essa notação.
 Apesar de que apenas na próxima seção poderemos justificar completamente essa nomenclatura, nesse momento já podemos mostrar a seguinte relação
 \begin{equation*}
@@ -4105,6 +4238,7 @@ Em outras palavras, para integrar $Y$, basta conhecermos a distribuição de $X$
 Um outro resultado bastante importante é o seguinte
 
 \begin{theorem}[Teorema da Convergência Dominada para Esperanças Condicionais]
+  \index{esperanca@esperança!condicional!T.C.D.}
   Se $X_n \to X$ e existe $Y \in \mathcal{L}^1(P)$ tal que $|X_n| \leq Y$ para todo $n$, então
   \begin{equation}
     E(X_n | \mathcal{F}) \to E(X|\mathcal{F}) \text{ $P$-quase certamente.}
@@ -4144,6 +4278,18 @@ Um outro resultado bastante importante é o seguinte
   \end{enumerate}
 \end{exercise}
 
+\newpage
+
+\subsection{Tópico: Martingais a tempo discreto}
+
+\todo{fazer}
+
+\newpage
+
+\subsection{Tópico: Propriedade fraca de Markov}
+
+\todo{mostrar que cadeias = processos}
+
 \section{Probabilidade Condicional Regular}
 
 Já sabemos definir por exemplo $E(\1_A|X = x)$.
@@ -4160,6 +4306,8 @@ Poderíamos portanto garantir que para uma classe enumerável de conjuntos $A \i
 Porém, a $\sigma$-álgebra $\mathcal{F}$ é frequentemente não enumerável, portanto não conseguimos a $\sigma$-aditividade plena.
 Isso pode ser contornado se o espaço for canônico, como afirma o nosso próximo resultado.
 
+\todo{Tirar o teorema \ref{t:prob_cond_reg_F} e fazer direto o \ref{t:prob_cond_reg_X} com $q \in \mathbb{Q}$... (quem precisa do \ref{t:prob_cond_reg_F} anyway???)}
+
 \begin{theorem}
   \label{t:prob_cond_reg_F}
   Seja $X: \Omega \to E$ um elemento aleatório tomando valores em um espaço canônico $E$ e $\mathcal{F}'$ uma sub-$\sigma$-álgebra qualquer.
@@ -4167,8 +4315,10 @@ Isso pode ser contornado se o espaço for canônico, como afirma o nosso próxim
   \begin{equation}
     K(\omega, B) = E\big(\1_{[X \in B]} | \mathcal{F}'\big) (\omega) \text{ $P$-quase certamente.}
   \end{equation}
-  A esse núcleo, damos o nome Probabilidade Condicional Regular (dada $\mathcal{F}'$), que é denotada por $P(X \in \cdot|\mathcal{F}')$.
+  A esse núcleo, damos o nome Probabilidade Condicional Regular \index{probabilidade!condicional!regular}(dada $\mathcal{F}'$), que é denotada por $P(X \in \cdot|\mathcal{F}')$.
 \end{theorem}
+
+\todo{melhorar a prova da existência de Prob Cond Regular. Em particular, $\hat F = F$ nos racionais?}
 
 \begin{proof}
   Primeiramente observamos que podemos assumir sem perda de generalidade que $E = \mathbb{R}$.
@@ -4250,8 +4400,6 @@ Se alguém tiver acesso à $\sigma$-álgebra $\mathcal{F}'$ (por exemplo se $\ma
   $P$-quase certamtente.
 \end{exercise}
 
-\newpage
-
 Uma das grandes vantagens de ter um núcleo de transição a determinar uma distribuição conjunta, como é o caso quando obtemos uma probabilidade condicional regular, é que podemos usar a versão generalizada de Fubini.
 Antes, nós somente podiamos usar Fubini para espaços produto.
 
@@ -4317,17 +4465,18 @@ Observe que a hipótese de ser canônico é sobre $\Omega$!
 \begin{exercise}
   Considere em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ as projeções canônicas $X_1$ e $X_2$.
   Calcule, em cada um dos exemplos abaixo, a probabilidade condicional regular $P[X_1 \in \cdot|X_2 = x_2]$, justificando sua resposta,
-  \begin{enumerate}
+  \begin{enumerate}[\quad a)]
   \item Quando $P$ é a medida uniforme em $T = \{(x,y) \in [0,1]^2; x \leq y\}$ (ou seja, a medida de Lebesgue em $\mathbb{R}^2$ restrita a $T$ e normalizada para ser uma probabilidade).
   \item Quando $P$ é a medida $U_{S^1}$ (uniforme em $S^1$).
   \end{enumerate}
 \end{exercise}
 
-\subsection{Princípio da substituição}
+\section{Princípio da substituição}
 
 No próximo resultado, veremos como o conceito abstrato de probabilidade condicional regular pode nos ajudar a fazer cálculos envolvendo variáveis dependentes.
 
 \begin{theorem}
+  \index{Principio@Princípio!da Substituicao@da Substituição}
   Dado $X: \Omega \to E$ um elemento aleatório, se existe $P(\cdot | X = x)$ (em particular se $\Omega$ é canônico), então a medida $P(\cdot | X = x)$ tem suporte no conjunto $[X = x] \subseteq \Omega$, $X \circ P$-quase certamente.
 \end{theorem}
 
@@ -4376,6 +4525,25 @@ No próximo resultado, veremos como o conceito abstrato de probabilidade condici
   \end{enumerate}
 \end{exercise}
 
+\newpage
+
+\subsection{Tópico: Processos de Poisson em \texorpdfstring{$\mathbb{R}$}{R}}
+
+\todo{fazer}
+
+\newpage
+
+\subsection{Tópico: Processos de Markov em tempo contínuo}
+
+\todo{fazer}
+
+\newpage
+
+\subsection{Tópico: Sistemas de partículas}
+
+\todo{fazer}
+
+\newpage
 
 \chapter{Solução de exercícios}
 
@@ -4442,5 +4610,10 @@ Daí
   \end{split}
 \end{equation}
 Finalizando a cota para a covariância.
+
+\clearpage
+
+\addcontentsline{toc}{chapter}{Index}
+\printindex
 
 \end{document}
