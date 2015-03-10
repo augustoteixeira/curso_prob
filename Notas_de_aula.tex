@@ -1,4 +1,4 @@
-\documentclass[reqno, draft]{book}
+\documentclass[reqno]{book}
 \usepackage{amssymb, amsmath, amsthm}
 
 \def\booktitle{Notas de aula: Probabilidade I}
@@ -35,9 +35,8 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.11}
-\pgfmathsetseed{123321}
-\usepackage[first=1, last=100]{lcg}
+%\pgfplotsset{compat=1.11}
+%\pgfmathsetseed{123321}
 
 \usepackage{ifthen}
 \usepackage{ifdraft}
@@ -66,6 +65,7 @@
 %\def\mathds{}
 \def\widebar{\bar}
 %\usepackage{mathabx}
+%\usepackage{newtxtext,newtxmath}
 \usepackage{mathpazo}
 \usepackage{dsfont} % includes bb 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -178,25 +178,26 @@
 
 \chapter{Fundamentos}
 
-A probabilidade moderna se baseia fortemente na Teoria da Medida e supomos durante esse curso que o leitor esteja bem familiarizado com conceitos tais como: Medida de Lebesgue, extensões de medida, teoremas de convergência.
-Iremos brevemente agora justificar a escolha da Teoria da Medida para o estudo de probabilidade.
+A probabilidade moderna se baseia fortemente na Teoria da Medida e supomos durante esse curso que o leitor esteja bem familiarizado com conceitos tais como: Medida de Lebesgue, extensões de medida e teoremas de convergência.
+Iremos agora justificar brevemente a escolha da Teoria da Medida para o estudo de probabilidade.
 
-Inicialmente, frequentemente foram estudados fenômenos probabilísticos para os quais apenas um número finito de resultados era possível, como por exemplo ao se jogar um dado de seis lados.
+No início da Teoria da Probabilidade, a maioria dos fenômenos estudados apresentava apenas um número finito de resultados possíveis, como por exemplo ao se jogar um dado de seis lados ou sortear uma carta em um baralho.
 Em tais casos é desnecessário o uso de ferramentas sofisticadas pra modelar tais situações.
-Por exemplo, podemos simplesmente dizer que as probabilidade $p_i$ de obter o lado $i$ são todas iguais a $1/6$.
+Por exemplo, podemos simplesmente dizer que a probabilidade de se obter cada um dos lados do dado é igual a $1/6$.
 
 Mas digamos por exemplo que queremos um modelo para estudar o volume de chuva em uma cidade durante um ano.
 Obviamente, esse volume poderia ser qualquer número real positivo e não podemos simplesmente atribuir valores positivos de probabilidade a cada número real (lembramos que somas não enumeráveis de termos positivos são sempre infinitas).
-Mas como podemos continuar nossa modelagem se nem ao menos podemos dizer qual é a probabilidade de chover um determinado volume esse ano, por exemplo $\pi/19$?
+Mas como podemos continuar nossa modelagem se nem ao menos podemos dizer qual é a probabilidade de chover um determinado volume esse ano, por exemplo $(\pi/19)mm$?
 
 A solução para tal dilema, se baseia no fato de que na verdade nunca estamos interessados no exato resultado do nosso experimento.
-Gostaríamos sim de responder perguntas do tipo: qual é a probabilidade de que chova mais do que $37$?
+Gostaríamos sim de responder perguntas do tipo: qual é a probabilidade de que chova entre zero e $37mm$?
 Estamos portanto interessados em atribuir probabilidades não a valoers exatos do experimento, mas a certos conjuntos de possíveis valores.
 Chamamos tais conjuntos de \emph{eventos}. \index{evento}
 
-Se nos inspiramos no exemplo do dado, poderíamos também nos interessar pela probabilidade de eventos, tais como: o dado lado sorteado é ímpar ($p_1 + p_3 + p_5$) ou o lado serteado seja dois ($p_2$).
-E percebemos rapidamente que para eventos disjuntos a probabilidade de sua união é a soma de suas probabilidades (no caso acima $p_1 + p_2 + p_3 + p_5$) e se isso certamente nos lembra dos conceitos básicos de Teoria da Medida.
-Vamos agora rever a discussão acima com mais calma, sob a ótica dessa teoria.
+Voltando ao caso do dado de seis lados, poderíamos nos interessar por exemplo pela probabilidade dos seguintes eventos: o lado sorteado foi ímpar ($P(\{1,3,5\}) = 1/2$) ou o lado serteado foi dois ($P(\{2\}) = 1/6$).
+E percebemos rapidamente que para eventos disjuntos a probabilidade de sua união é a soma de suas probabilidades (no caso acima, $P(\{1,2,3,5\}) = 1/2 + 1/6 = 2/3$).
+Esse caráter aditivo da probabilidade certamente nos remete aos conceitos básicos de Teoria da Medida.
+Vamos agora formalizar a discussão acima com mais calma, sob a ótica dessa teoria.
 
 \section{Espaços mensuráveis}
 
@@ -256,7 +257,8 @@ Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) > 0\}$ pode ser escrita simplesment
 
 \section{Espaços de probabilidade}
 
-Inspirados na Teoria da Medida, podemos introduzir a seguinte definição.
+Agora estamos prontos para introduzir o conceito moderno do que é uma probabilidade.
+
 \begin{definition}
   Dado $(\Omega, \mathcal{F})$ espaço mensurável, dizemos que $P:\mathcal{F} \to [0,1]$ é uma \emph{probabilidade} \index{probabilidade} se
   \begin{enumerate}[\quad a)]
@@ -268,13 +270,15 @@ Inspirados na Teoria da Medida, podemos introduzir a seguinte definição.
   \end{enumerate}
 \end{definition}
 
+Obviamente, isso nada mais é que uma medida que associa massa um ao espaço todo.
+
 \begin{example} Probabilidades nos espaços do Exemplo~\ref{x:espacos_amostrais}
   \begin{enumerate}[\quad a)]
   \item $P_1(A) = (\#A)/6$ em $(\Omega_1, \mathcal{F}_1)$.
     Ou mais geralmente $P_1'(A) = \sum_{i \in A} p_i$, onde $p_i \geq 0$ e $\sum_i p_i = 1$.
   \item $P_2$ pode ser a medida de Lebesgue em $([0,1], \mathcal{B}([0,1]))$.
     Mais geralmente também podemos ter $P_2'(A) = \int_A \rho(x) \d x$, onde $\rho:[0,1] \to \mathbb{R}_+$, chamada densidade, é tal que $\int_{[0,1]} \rho (x) \d x = 1$.
-  \item $P_3 = \delta_{f \equiv 0}$, que atribui o valor um se o evento contém a função identicamente nula e zero caso contrário.
+  \item $P_3 = \delta_{0}$, que atribui o valor um se o evento contém a função identicamente nula ($f \equiv 0$) e zero caso contrário.
   \end{enumerate}
 \end{example}
 Obviamente o terceiro exemplo é bastante artificial (e inútil).
@@ -284,8 +288,14 @@ Mas futuramente, estaremos protos para introduzir medidas bem interessantes no e
   Valem as afirmativas
   \begin{enumerate}[\quad a)]
   \item Se $A \subseteq B$ então $P(A) = P(B) - P(B \setminus A) \leq P(B)$,
-  \item $P\big(\mcup\nolimits_i A_i\big) \leq \smash{\sum\limits_i} P(A_i)$ e
-  \item $P\big(\mcup\nolimits_{i \leq n} A_i\big) = \smash{\sum\limits_{k = 1}^n} (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k})$.
+  \item A cota da união:
+    \begin{equation}
+      P\big(\mcup\nolimits_i A_i\big) \leq \smash{\sum\limits_i} P(A_i)
+    \end{equation}
+  \item e o que chamamos de princípio da \emph{inclusão e exclusão} \index{inclusao e exclusao@inclusão e exclusão}
+    \begin{equation}
+      P\big(\mcup\nolimits_{i \leq n} A_i\big) = \smash{\sum\limits_{k = 1}^n} (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k}).
+    \end{equation}
   \end{enumerate}
 \end{proposition}
 
@@ -324,9 +334,27 @@ Mas futuramente, estaremos protos para introduzir medidas bem interessantes no e
   Mostre que $P\big(\mcup\nolimits_i A_i\big) \leq \sum_i P(A_i)$ no caso enumerável.
 \end{exercise}
 
+\begin{exercise}
+  Mostre que
+  \begin{equation*}
+    \begin{split}
+      P\big( \mcup\nolimits_{i=1}^n A_i \big) & \leq \sum\limits_{k = 1}^m (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k}) \text{ se $m$ é ímpar e}\\
+      P\big( \mcup\nolimits_{i=1}^n A_i \big) & \geq \sum\limits_{k = 1}^m (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k}) \text{ se $m$ é par.}
+    \end{split}
+  \end{equation*}
+\end{exercise}
+
+
+
+\begin{exercise}
+  Seja $n \geq 1$ um número inteiro e considere $\Omega = \{0, 1\}^n$, o hipercubo de dimensão $n$ (cada $\omega \in \Omega$ pode ser visto como uma função $\omega:\{1, \dots, n\} \to \{0,1\}$).
+  Para cada $i \in \{1, \dots, n\}$, definimos o evento $A_i = \{ \omega \in \Omega; \omega(i) = 1 \}$.
+  Dadas duas probabilidades $P$ e $P'$ em $(\Omega, \mathcal{P}(\Omega))$, mostre que se $P(B) = P'(B)$ para todos conjuntos $B$ dados por interseções de $A_i$'s, então $P = P'$.
+\end{exercise}
+
 \begin{proposition}
   \label{p:prob_continua}
-  $P$ é contínua, isto é:
+  Toda probabilidade $P$ é contínua, isto é:
   \begin{enumerate}[\quad a)]
   \item Se $A_1 \subseteq A_2 \subseteq \dots \in \mathcal{F}$, então $\lim_n P(A_n) = P(\mcup\nolimits_n A_n)$.
   \item Também, se $A_1 \supseteq A_2 \supseteq \dots \in \mathcal{F}$, temos $\lim_n P(A_n) = P(\mcap\nolimits_n A_n)$.
@@ -349,8 +377,6 @@ Mas futuramente, estaremos protos para introduzir medidas bem interessantes no e
 
   $b)$ A prova é análoga à de 1.
 \end{proof}
-
-\todo{será que vale a pena fazer Caratheodory com continuidade no vazio? por exemplo simplifica um pouco a extensão de Kolmogorov.}
 
 \begin{lemma}[Borel-Cantelli - primeira parte]
   Sejam $A_1, A_2, \dots \in \mathcal{F}$ satisfazendo $\sum_{i = 1}^\infty P(A_i) < \infty$.
@@ -387,7 +413,7 @@ Nesse caso, se $X: \Omega \to E$ é uma função $(\mathcal{F}, \mathcal{A})$-me
   \item $X:\Omega \to C[0,1]$ mensurável é dita função aleatória.
   \end{enumerate}
 \end{example}
-Seguindo a motivação do Exemplo~\ref{x:espacos_amostrais} $c)$, podemos estar interessados apenas na variável aleatória $X:\Omega_3 \to \mathbb{R}$ dada por $X(f) = f(1)$.
+Seguindo a motivação do Exemplo~\ref{x:espacos_amostrais} $c)$, poderia ser que, por exemplo, estivéssemos interessados apenas na variável aleatória $X:\Omega_3 \to \mathbb{R}$ dada por $X(f) = f(1)$.
 
 \begin{exercise}
   Mostre que $X:\Omega_3 \to \mathbb{R}$ dada por $X(f) = f(1)$ é uma variável aleatória.
@@ -434,7 +460,11 @@ Note que $X$ e $Y$ nem ao menos precisam pertencer ao mesmo espaço de probabili
 \item Escrevemos $X \distr \mu$, \index{X d mu@$X \distr \mu$} que lê-se \emph{$X$ é distribuída como $\mu$}, onde $\mu$ é uma probabilidade em $E$, caso $X \circ P = \mu$.
 \end{enumerate}
 
-\subsection{Distribuições conjuntas}
+\newpage
+
+\section{Relembrar é viver...}
+
+Fazer Caratheodory com continuidade no vazio. Por exemplo simplifica um pouco a extensão de Kolmogorov.
 
 \section{Sistemas \texorpdfstring{$\lambda$-$\pi$}{lambda-pi}}
 
@@ -531,7 +561,7 @@ Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistem
   Isso mostra que $\bar{\mathcal{B}}$ é uma $\sigma$-álgebra, concluindo a prova do teorema.
 \end{proof}
 
-\subsection{Aplicação}
+\subsection{Igualdade de probabilidades}
 
 \begin{proposition}
   \label{p:P12_equal_pi}
@@ -569,7 +599,7 @@ Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistem
 
 \section{Construção de espaços de probabilidade}
 
-\subsection{Caso \texorpdfstring{$\Omega$}{Omega} enumerável}
+\subsection{Caso enumerável}
 
 Se $\Omega = \{\omega_1, \omega_2, \dots\}$, então podemos definir $\mathcal{A} = \mathcal{P}(\Omega) (= \sigma(\{\omega_i\}_{i \geq 1}))$.
 Assim, dados $(p_\omega)_{\omega \in \Omega}$ tais que
@@ -645,109 +675,13 @@ Podemos também usar a distribuição de um elemento aleatório para construir o
   Construa uma probabilidade em $S^2$ invariante por rotações.
 \end{exercise}
 
-\subsection{O caso \texorpdfstring{$\Omega = \mathbb{R}$}{Omega = R}}
+\subsection{Espaços produto}
 
-Será importante nesse curso entender a distribuição de variáveis aleatórias.
-Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em $\mathbb{R}$.
+\subsection{Distribuições conjuntas}
 
-\begin{definition}
-  Dada $P$ em $\mathbb{R}$, definimos $F_P:\mathbb{R} \to [0,1]$ por $F_P(x) = P\big((-\infty, x]\big)$.
-  Essa função é chamada a \emph{função de distribuição} acumulada de $P$. \index{funcao de distribuicao@função de distribuição}
-\end{definition}
+\subsection{Acoplamentos}
 
-\begin{notation}
-  Se $X:\Omega \to \mathbb{R}$ é uma variável aleatória num espaço $(\Omega, \mathcal{F}, P)$, denotamos por $F_X$ \index{FX@$F_X$} a função de distribuição acumulada correspondente à distribuição $X \circ P$.
-\end{notation}
-
-\begin{example}
-  \begin{equation}
-  F_{U_{[0,1]}} =
-  \begin{cases}
-    0 & \text{ se $x \leq 0$,}\\
-    x & \text{ se $x \in [0,1]$ e}\\
-    1 & \text{ se $x \geq 1$.}
-  \end{cases}
-\end{equation}
-\end{example}
-
-\begin{exercise}
-  Calcule $F_{\Exp(\lambda)}$.
-\end{exercise}
-
-\begin{proposition}
-  \label{p:propried_F}
-  $F_P$ (e obviamente $F_X$) satisfazem:
-  \begin{enumerate}[\quad a)]
-  \item $\smash{\lim\limits_{x \to -\infty}} F(x) = 0$, $\smash{\lim\limits_{x \to \infty}} F(x) = 1$,
-  \item $F$ é monótona não-decrescente e
-  \item $F$ é contínua à direita e possui limite à esquerda.
-  \end{enumerate}
-\end{proposition}
-
-\begin{proof}
-  \begin{enumerate}[\quad a)]
-  \item Se $x_n \to -\infty$ monotonamente, então $A_n = (-\infty, x_n]$ são encaixados e de interseção vazia.
-    Logo, pela Proposição~\ref{p:prob_continua}, temos $P(A_n) \to 0$.
-    O outro caso é análogo.
-  \item Se $x \leq x'$ então $(-\infty, x] \subseteq (-\infty,x']$, donde $F(x) \leq F(x')$.
-  \item Continuidade à direita (càd) - Se $x_n \downarrow x$ monotonamente, então $A_n = (-\infty, x_n] \downarrow (-\infty, x]$ (eles são encaixados).
-    Logo $F(x_n) \to F(x)$.
-
-    Limite à esquerda (làg do francês) - Segue do fato de $F$ ser monótona e limitada.
-  \end{enumerate}
-\end{proof}
-
-\begin{theorem}
-  Se $F$ satisfaz as três propriedades listadas na Proposição~\ref{p:propried_F}, então existe uma única $P$ em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ tal que $F = F_P$.
-\end{theorem}
-
-\begin{proof}
-  A unicidade de tal $P$ segue da Proposição~\ref{p:P12_equal_pi} (consequêcia do Teorema de Dynkin), pois se $P$ e $P'$ são tais que $F_{P} = F_{P'}$, então temos que $P\big( (-\infty, x] \big) = P'\big( (-\infty, x] \big)$.
-  Mas a classe de intervalos semi-infinitos da forma $(-\infty, x]$ forma um $\pi$-sistema que gera a $\sigma$-álgebra dos borelianos, logo $P = P'$.
-
-  Para construir uma $P$ tal que $F_P = F$, definiremos primeiramente a inversa generalizada de $F$, $S:(0,1) \to \mathbb{R}$ por
-  \begin{equation}
-    S(u) = \sup \{x \in \mathbb{R}; F(x) < u\}.
-  \end{equation}
-  \begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}[scale=.8]
-      \draw (0,1) -- (10,1);
-      \draw (0,4) -- (10,4); % second line
-      \draw plot [smooth,tension=.5] coordinates{(0, 4.4) (2.5, 4.5) (5,5) (7.5, 5.5) (10, 5.6)};
-      \draw plot [smooth,tension=.5] coordinates{(0, 1.4) (2.5, 1.5) (5,1.8)};
-      \draw plot [smooth,tension=.5] coordinates{(5, 2.3) (7.5, 2.5) (10,2.6)};
-      \draw[dotted] (0,5) -- (5,5) -- (5,4);
-      \draw[dotted] (0,2) -- (5,2) -- (5,1);
-      \draw [fill,color=white] (5,1.8) circle [radius=0.05];
-      \draw (5,1.8) circle [radius=0.05];
-      \draw [fill] (5,2.3) circle [radius=0.05];
-      \node at (0,5) [left]{$u$};
-      \node at (0,2) [left]{$u$};
-      \node at (5,1) [below]{$S(u)$};
-      \node at (5,4) [below]{$S(u)$};
-    \end{tikzpicture}
-    \caption{\small Ilustração da definição de $S(u)$.}
-    \label{f:Rk_good}
-  \end{figure}
-
-  Seja $P = S \circ U_{[0,1]}$, isto é $P(A) = U_{[0,1]}(S^{-1}(A))$ e mostraremos que $F_P = F$.
-  Para tanto, basta ver que
-  \begin{equation}
-    \label{e:pseudo_inversa}
-    \{u; S(u) \leq x\} = \{u; u \leq F(x)\}, \text{ para todo $x \in \mathbb{R}$}.
-  \end{equation}
-  Pois se tivermos a igualdade acima, $F_P(x) = U_{[0,1]}[S \leq x] = U_{[0,1]} [u \leq F(x)] = F(x)$.
-
-  Vamos agora checar \eqref{e:pseudo_inversa} observando que:
-  \begin{enumerate}[\quad a)]
-  \item Se $u \leq F(x)$ então todo $x'$ tal que $F(x') < u$ é menor que $x$.
-    Logo $S(u) \leq x$.
-  \item Por outro lado, se $u > F(x)$ então existe $x' > x$ tal que $F(x') < u$ (pois $F$ é càd), donde $S(u) > x$.
-  \end{enumerate}
-  Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
-\end{proof}
-
+Talvez valha a pena escrever sobre acoplamentos de maneira geral. Talvez pegando algo do Pascal Massart. Vale a pena tentar escrever algo sobre: composiçao de acoplamentos, quando um acoplamento ``dá errado''...
 
 \section{Independência}
 
@@ -946,8 +880,6 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
 \subsection{Tópico: Lei dos pequenos números}
 
 Estudaremos agora processos de Poisson, que são limites naturais de somas de variáveis aleatórias, em um regime diferente daquele presente no Teorema Central do Limite.
-
-\todo{Talvez valha a pena escrever sobre acoplamentos de maneira geral. Talvez pegando algo do Pascal Massart. Vale a pena tentar escrever algo sobre: composiçao de acoplamentos, quando um acoplamento ``dá errado''...}
 
 \begin{definition}
   Uma variável aleatória $X$ é dita ter distribuição de Poisson \index{distribuicao@distribuição!de Poisson} com parâmetro $\lambda$, se
@@ -1160,25 +1092,12 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
   \end{enumerate}
 \end{exercise}
 
-\begin{exercise}
-  Considere o grafo $(\mathbb{Z}^d, \mathcal{E})$, com $\mathcal{E} = \{ \{x,y\}; d(x,y) = 1 \}$, onde $d(x,y)$ representa a distância euclideana.
-  Tome em $\Omega = \{0,1\}^\mathcal{E}$ a $\sigma$-álgebra produto e mostre que o seguinte conjunto é mensurável (ou seja é um evento)
-  \begin{equation}
-    \text{Perc} = \Big[
-    \begin{array}{c}
-      \text{existe uma sequência divergente $0 = x_0, x_1, \dots \in \mathbb{Z}^d$}\\
-      \text{com $e_i = \{x_i, x_{i+1}\} \in \mathcal{E}$ e $X_{e_i} = 1$ para todo $i \geq 0$}
-    \end{array}
-\Big].
-  \end{equation}
-\end{exercise}
-
 \begin{definition}
   Seja $\Omega = \times E_i$ um espaço produto (infinito ou finito) dotado de uma probabilidade $P$.
   Se $X_i$ é uma coordenada canônica, então chamamos a probabilidade $X_i \circ P$ de \emph{distribuição marginal} \index{distribuicao@distribuição!marginal} de $P$ na coordenada $i$.
 \end{definition}
 
-\todo{mudar a prova do teorema da extensão de Kolmogorov: trocar retângulos por cilindros do tipo AxRxRx... (para o enunciado podemos até usar semiretas, depois Dynkin). mandar Kolmogorov para o final (próximo a núcleos de transição, talvez) e dar produtos de espaços não canonicos no início? o espaço mensuravel (E,A) vai para o final, sempre denotando canonicos.}
+\todo{mandar Kolmogorov para o final (próximo a núcleos de transição, talvez) e dar produtos de espaços não canonicos no início}
 
 \begin{theorem}[Extensão de Kolmogorov]
   \index{Teorema!da Extensao de Kolmogorov@da Extensão}
@@ -1191,6 +1110,8 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
   Note que os intervalos do tipo $(-\infty, b_i]$, $(a_i, \infty)$ e $\mathbb{R}$ também são permitidos.
   Então existe uma única probabilidade $P$ no espaço produto infinito $(\Omega, \mathcal{F})$ tal que $P(A \times \mathbb{R} \times \dots) = P_n (A)$ para todo $n$ e todo boreliano $A$ de $\mathbb{R}^n$.
 \end{theorem}
+
+\todo{mudar a prova do teorema da extensão de Kolmogorov: trocar retângulos por cilindros do tipo AxRxRx... (para o enunciado podemos até usar semiretas, depois Dynkin). o espaço mensuravel (E,A) vai para o final, sempre denotando canonicos.}
 
 \begin{proof}
   Seja a seguinte classe de conjuntos
@@ -1352,18 +1273,18 @@ Podemos ver na Figura~\ref{f:percola} algumas simulações desse grafo aleatóri
                                        (41, 1) grid (41 + \side, \side + 1) (81, 1) grid (81 + \side, \side + 1);
     \foreach \x in {1,...,\side}
     { \foreach \y in {1,...,\side}
-      { {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>60}{\draw[thick] (\x, \y) -- (\x, \y + 1);}{}
-        {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>60}{\draw[thick] (\x, \y) -- (\x + 1, \y);}{} } }
+      { \pgfmathrandominteger{\a}{0}{100} \ifthenelse{\a>60}{\draw[thick] (\x, \y) -- (\x, \y + 1);}{}
+        \pgfmathrandominteger{\a}{0}{100} \ifthenelse{\a>60}{\draw[thick] (\x, \y) -- (\x + 1, \y);}{} } }
     \foreach \x in {1,...,\side}
     { \foreach \y in {1,...,\side}
-      { {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>50}{\draw[thick] (40 + \x, \y) -- (40 + \x, \y + 1);}{}
-        {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>50}{\draw[thick] (40 + \x, \y) -- (40 + \x + 1, \y);}{} } }
+      { \pgfmathrandominteger{\a}{0}{100} \ifthenelse{\a>50}{\draw[thick] (40 + \x, \y) -- (40 + \x, \y + 1);}{}
+        \pgfmathrandominteger{\a}{0}{100} \ifthenelse{\a>50}{\draw[thick] (40 + \x, \y) -- (40 + \x + 1, \y);}{} } }
     \foreach \x in {1,...,\side}
     { \foreach \y in {1,...,\side}
-      { {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>40}{\draw[thick] (80 + \x, \y) -- (80 + \x, \y + 1);}{}
-        {\rand\arabic{rand}}; \ifthenelse{\arabic{rand}>40}{\draw[thick] (80 + \x, \y) -- (80 + \x + 1, \y);}{} } }
+      { \pgfmathrandominteger{\a}{0}{100} \ifthenelse{\a>40}{\draw[thick] (80 + \x, \y) -- (80 + \x, \y + 1);}{}
+        \pgfmathrandominteger{\a}{0}{100} \ifthenelse{\a>40}{\draw[thick] (80 + \x, \y) -- (80 + \x + 1, \y);}{} } }
   \end{tikzpicture}
-  \caption{Três simulações do grafo aleatório $(\mathbb{Z}^d, \mathcal{E})$, para valores de $p = 0,4$ (esquerda), $p = 0,5$ (centro) e $p = 0,6$ (direita). Tente imaginar como seria caminhar nesse grafo como um labirinto.}
+  \caption{Três simulações do grafo aleatório $(\mathbb{Z}^d, \mathcal{E})$, para valores de $p = 0,4$ (esquerda), $p = 0,5$ (centro) e $p = 0,6$ (direita). Tente imaginar como seria caminhar nesse grafo como se ele fosse um labirinto.}
   \label{f:percola}
 \end{figure}
 
@@ -1468,19 +1389,118 @@ Na verdade, é possível mostrar que para $d = 2$,
 veja ???.
 De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2$.
 
-\newpage
+\ifdraft{\newpage \subsection{Tópico: Teorema de Uma Série} fazer...}{}
 
-\subsection{Tópico: Teorema de Uma Série}
-
-\todo{fazer}
+\ifdraft{\newpage \subsection{Tópico: Uma dinâmica em \texorpdfstring{$[0,1]$}{[0,1]}} fazer dinâmica 2x mod 1 e relações Lebesgue[0,1] com produtos de bernoulli}{}
 
 \newpage
 
-\subsection{Tópico: Uma dinâmica em \texorpdfstring{$[0,1]$}{[0,1]}}
+\section{Funções acumuladas de distribuição}
 
-\todo{fazer dinâmica 2x mod 1 e relações Lebesgue[0,1] com produtos de bernoulli}
+Será importante nesse curso entender a distribuição de variáveis aleatórias.
+Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em $\mathbb{R}$.
 
-\newpage
+\begin{definition}
+  Dada $P$ em $\mathbb{R}$, definimos $F_P:\mathbb{R} \to [0,1]$ por $F_P(x) = P\big((-\infty, x]\big)$.
+  Essa função é chamada a \emph{função de distribuição} acumulada de $P$. \index{funcao de distribuicao@função de distribuição}
+\end{definition}
+
+\begin{notation}
+  Se $X:\Omega \to \mathbb{R}$ é uma variável aleatória num espaço $(\Omega, \mathcal{F}, P)$, denotamos por $F_X$ \index{FX@$F_X$} a função de distribuição acumulada correspondente à distribuição $X \circ P$.
+\end{notation}
+
+\begin{example}
+  \begin{equation}
+  F_{U_{[0,1]}} =
+  \begin{cases}
+    0 & \text{ se $x \leq 0$,}\\
+    x & \text{ se $x \in [0,1]$ e}\\
+    1 & \text{ se $x \geq 1$.}
+  \end{cases}
+\end{equation}
+\end{example}
+
+\begin{exercise}
+  Calcule $F_{\Exp(\lambda)}$.
+\end{exercise}
+
+\begin{proposition}
+  \label{p:propried_F}
+  $F_P$ (e obviamente $F_X$) satisfazem:
+  \begin{enumerate}[\quad a)]
+  \item $\smash{\lim\limits_{x \to -\infty}} F(x) = 0$, $\smash{\lim\limits_{x \to \infty}} F(x) = 1$,
+  \item $F$ é monótona não-decrescente e
+  \item $F$ é contínua à direita e possui limite à esquerda.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  \begin{enumerate}[\quad a)]
+  \item Se $x_n \to -\infty$ monotonamente, então $A_n = (-\infty, x_n]$ são encaixados e de interseção vazia.
+    Logo, pela Proposição~\ref{p:prob_continua}, temos $P(A_n) \to 0$.
+    O outro caso é análogo.
+  \item Se $x \leq x'$ então $(-\infty, x] \subseteq (-\infty,x']$, donde $F(x) \leq F(x')$.
+  \item Continuidade à direita (càd) - Se $x_n \downarrow x$ monotonamente, então $A_n = (-\infty, x_n] \downarrow (-\infty, x]$ (eles são encaixados).
+    Logo $F(x_n) \to F(x)$.
+
+    Limite à esquerda (làg do francês) - Segue do fato de $F$ ser monótona e limitada.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  Se $F$ satisfaz as três propriedades listadas na Proposição~\ref{p:propried_F}, então existe uma única $P$ em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ tal que $F = F_P$.
+\end{theorem}
+
+\begin{proof}
+  A unicidade de tal $P$ segue da Proposição~\ref{p:P12_equal_pi} (consequêcia do Teorema de Dynkin), pois se $P$ e $P'$ são tais que $F_{P} = F_{P'}$, então temos que $P\big( (-\infty, x] \big) = P'\big( (-\infty, x] \big)$.
+  Mas a classe de intervalos semi-infinitos da forma $(-\infty, x]$ forma um $\pi$-sistema que gera a $\sigma$-álgebra dos borelianos, logo $P = P'$.
+
+  Para construir uma $P$ tal que $F_P = F$, definiremos primeiramente a inversa generalizada de $F$, $S:(0,1) \to \mathbb{R}$ por
+  \begin{equation}
+    S(u) = \sup \{x \in \mathbb{R}; F(x) < u\}.
+  \end{equation}
+  \begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[scale=.8]
+      \draw (0,1) -- (10,1);
+      \draw (0,4) -- (10,4); % second line
+      \draw plot [smooth,tension=.5] coordinates{(0, 4.4) (2.5, 4.5) (5,5) (7.5, 5.5) (10, 5.6)};
+      \draw plot [smooth,tension=.5] coordinates{(0, 1.4) (2.5, 1.5) (5,1.8)};
+      \draw plot [smooth,tension=.5] coordinates{(5, 2.3) (7.5, 2.5) (10,2.6)};
+      \draw[dotted] (0,5) -- (5,5) -- (5,4);
+      \draw[dotted] (0,2) -- (5,2) -- (5,1);
+      \draw [fill,color=white] (5,1.8) circle [radius=0.05];
+      \draw (5,1.8) circle [radius=0.05];
+      \draw [fill] (5,2.3) circle [radius=0.05];
+      \node at (0,5) [left]{$u$};
+      \node at (0,2) [left]{$u$};
+      \node at (5,1) [below]{$S(u)$};
+      \node at (5,4) [below]{$S(u)$};
+    \end{tikzpicture}
+    \caption{\small Ilustração da definição de $S(u)$.}
+    \label{f:Rk_good}
+  \end{figure}
+
+  Seja $P = S \circ U_{[0,1]}$, isto é $P(A) = U_{[0,1]}(S^{-1}(A))$ e mostraremos que $F_P = F$.
+  Para tanto, basta ver que
+  \begin{equation}
+    \label{e:pseudo_inversa}
+    \{u; S(u) \leq x\} = \{u; u \leq F(x)\}, \text{ para todo $x \in \mathbb{R}$}.
+  \end{equation}
+  Pois se tivermos a igualdade acima, $F_P(x) = U_{[0,1]}[S \leq x] = U_{[0,1]} [u \leq F(x)] = F(x)$.
+
+  Vamos agora checar \eqref{e:pseudo_inversa} observando que:
+  \begin{enumerate}[\quad a)]
+  \item Se $u \leq F(x)$ então todo $x'$ tal que $F(x') < u$ é menor que $x$.
+    Logo $S(u) \leq x$.
+  \item Por outro lado, se $u > F(x)$ então existe $x' > x$ tal que $F(x') < u$ (pois $F$ é càd), donde $S(u) > x$.
+  \end{enumerate}
+  Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
+\end{proof}
+
+
+
+
 
 \section{Espaços canônicos}
 
@@ -1812,11 +1832,9 @@ Definimos a distribuição geométrica \index{distribuicao@distribuição!geomet
   \end{enumerate}
 \end{exercise}
 
-\newpage
 
-\subsection{Tópico: Distribuições de Extremos}
 
-\todo{fazer}
+\ifdraft{\newpage \subsection{Tópico: Distribuições de Extremos} fazer...}{}
 
 \newpage
 
@@ -2069,17 +2087,9 @@ Se $d(X \circ P) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), 
   \end{equation}
 \end{example}
 
-\newpage
+\ifdraft{\newpage \subsection{Tópico: Grafos Aleatórios} fazer erdos renyi...}{}
 
-\subsection{Tópico: Grafos Aleatórios}
-
-\todo{fazer erdos renyi}
-
-\newpage
-
-\subsection{Tópico: Currie Weiss}
-
-\todo{fazer}
+\ifdraft{\newpage \subsection{Tópico: Currie Weiss} fazer...}{}
 
 \newpage
 
@@ -2387,17 +2397,9 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
   \end{enumerate}
 \end{exercise}
 
-\newpage
+\ifdraft{\newpage \subsection{Tópico: Análise de DNA} fazer "computational molecular biology" - Pevzner seção 5.5...}{}
 
-\subsection{Tópico: Análise de DNA}
-
-\todo{fazer "computational molecular biology" - Pevzner seção 5.5}
-
-\newpage
-
-\subsection{Tópico: Contando triângulos}
-
-\todo{números de triângulos em grafos (olhar alon spencer)}
+\ifdraft{\newpage \subsection{Tópico: Contando triângulos} números de triângulos em grafos (olhar alon spencer)...}{}
 
 \section{Lei forte dos grandes números}
 
@@ -2516,13 +2518,9 @@ Estamos agora em posição de finalizar a
 
 \todo{provar o teorema de Weierstrass de aproximação de funções contínuas por polinômios (prova probabilística). Ele é usado em convergência fraca em $\mathbb{R}$}
 
-\newpage
+\ifdraft{\newpage \subsection{Tópico: Entropia de Shannon} fazer...}{}
 
-\subsection{Tópico: Entropia de Shannon}
-
-\newpage
-
-\subsection{Tópico: Processos de renovação}
+\ifdraft{\newpage \subsection{Tópico: Processos de renovação} fazer...}{}
 
 \section{Lei \texorpdfstring{$\{0, 1\}$}{\{0,1\}} de Kolmogorov}
 
@@ -2742,11 +2740,7 @@ Resta agora tentar entender qual é o expoente correto para o decaimento da prob
   \end{enumerate}
 \end{exercise}
 
-\newpage
-
-\subsection{Tópico: Processos de ramificação}
-
-\todo{fazer}
+\ifdraft{\newpage \subsection{Tópico: Processos de ramificação} fazer...}{}
 
 \section{Princípio de Grandes Desvios}
 \label{s:PGD}
@@ -3472,17 +3466,9 @@ A primeira é dada pela seguinte
   Mas pelo Teorema central do limite, a distribuição dessa combinação de $X_i$ deve convergir a $\mathcal{N}(0,1)$, logo temos $\mu = \mathcal{N}(0,1)$.
 \end{proof}
 
-\newpage
+\ifdraft{\newpage \subsection{Tópico: Análise de componentes principais} variáveis gaussianas e principal component analysis...}{}
 
-\subsection{Tópico: Análise de componentes principais}
-
-\todo{variáveis gaussianas e principal component analysis}
-
-\newpage
-
-\subsection{Tópico: Funções características???}
-
-\todo{funcoes caracteristicas e tomografia}
+\ifdraft{\newpage \subsection{Tópico: Funções características???} funcoes caracteristicas e tomografia...}{}
 
 \newpage
 
@@ -3840,17 +3826,9 @@ Essa analogia é real se $E$ for um espaço enumerável.
   \end{enumerate}
 \end{exercise}
 
-\newpage
+\ifdraft{\newpage \subsection{Tópico: Urna de Pólya} fazer...}{}
 
-\subsection{Tópico: Urna de Pólya}
-
-\todo{fazer}
-
-\newpage
-
-\subsection{Tópico: Recorrência e transiência}
-
-\todo{markov recorrência/transiência + periodicidade}
+\ifdraft{\newpage \subsection{Tópico: Recorrência e transiência} markov recorrência/transiência + periodicidade...}{}
 
 \section{Esperança condicional}
 
@@ -4314,17 +4292,9 @@ Um outro resultado bastante importante é o seguinte
   \end{enumerate}
 \end{exercise}
 
-\newpage
+\ifdraft{\newpage \subsection{Tópico: Martingais a tempo discreto} fazer...}{}
 
-\subsection{Tópico: Martingais a tempo discreto}
-
-\todo{fazer}
-
-\newpage
-
-\subsection{Tópico: Propriedade fraca de Markov}
-
-\todo{mostrar que cadeias = processos}
+\ifdraft{\newpage \subsection{Tópico: Propriedade fraca de Markov} mostrar que cadeias = processos...}{}
 
 \section{Probabilidade Condicional Regular}
 
@@ -4561,23 +4531,11 @@ No próximo resultado, veremos como o conceito abstrato de probabilidade condici
   \end{enumerate}
 \end{exercise}
 
-\newpage
+\ifdraft{\newpage \subsection{Tópico: Processos de Poisson em \texorpdfstring{$\mathbb{R}$}{R}} fazer...}{}
 
-\subsection{Tópico: Processos de Poisson em \texorpdfstring{$\mathbb{R}$}{R}}
+\ifdraft{\newpage \subsection{Tópico: Processos de Markov em tempo contínuo} fazer...}{}
 
-\todo{fazer}
-
-\newpage
-
-\subsection{Tópico: Processos de Markov em tempo contínuo}
-
-\todo{fazer}
-
-\newpage
-
-\subsection{Tópico: Sistemas de partículas}
-
-\todo{fazer}
+\ifdraft{\newpage \subsection{Tópico: Sistemas de partículas} fazer...}{}
 
 \newpage
 
