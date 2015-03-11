@@ -2,8 +2,6 @@
 \documentclass[reqno]{book}
 \usepackage{amssymb, amsmath, amsthm}
 
-\def\booktitle{Notas de aula: Probabilidade I}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%% TOC in odd pages only %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{afterpage}
 \AtBeginDocument{\addtocontents{toc}{\protect\afterpage\protect\cleardoublepage}}
@@ -23,7 +21,7 @@
 \overfullrule=5pt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{microtype}
+\usepackage[final]{microtype}
 
 \usepackage{titlesec}
 \titleformat
@@ -35,27 +33,20 @@
   \centering
 }[\vspace{-0.5ex}\rule{\textwidth}{0.3pt}]
 
-
 \usepackage[margin=10pt,font=small,labelfont=bf]{caption}
 
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{pgfplots}
 %\pgfplotsset{compat=1.11}
-%\pgfmathsetseed{123321}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
 
 \usepackage{ifthen}
 \usepackage{ifdraft}
 
-\usepackage{hyperref}
-\hypersetup{final}
-\usepackage{xcolor}
-\hypersetup{
-    colorlinks,
-    linkcolor={red!50!black},
-    citecolor={blue!50!black},
-    urlcolor={blue!80!black}
-}
 
 \usepackage{makeidx}
 \makeindex
@@ -70,7 +61,6 @@
 %\setmainfont{TeX Gyre Bonum}
 %\def\mathds{}
 \def\widebar{\bar}
-%\usepackage{mathabx}
 %\usepackage{newtxtext,newtxmath}
 \usepackage{mathpazo}
 \usepackage{dsfont} % includes bb 1
@@ -78,14 +68,25 @@
 
 \usepackage{enumerate}
 \usepackage{color}
-%\usepackage{mathabx}
 \usepackage{calc}
 
-\newcommand*\1{\mathds{1}}
+%%%%%%%%%%%%%%%% array for equations alignment %%%%%%%%%%%%%%%%%%%%%
+\usepackage{array}
+\newcolumntype{e}{>{\displaystyle}r @{\,} >{\displaystyle}c @{\,} >{\displaystyle}l}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[brazil]{babel}
+\usepackage{hyperref}
+\hypersetup{final}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% New commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*\1{\mathds{1}}
 
 \newtheorem{theorem}{Teorema}[section]
 \newtheorem{corollary}[theorem]{Corolário}
@@ -94,7 +95,6 @@
 \newtheorem{definition}[theorem]{Definição}
 \newtheorem{question}[theorem]{Questão}
 \newtheorem{notation}[theorem]{Notação}
-
 \newtheorem{example}{Exemplo}[section]
 \newtheorem{exercise}[example]{Exercício}
 
@@ -108,17 +108,34 @@
 \DeclareMathOperator{\VT}{VT}
 
 \def \iid{i.i.d.~}
-
 \def \distr{\overset{d}{\sim}}
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\newcommand{\mcup}{\textstyle \bigcup\limits}
+\newcommand{\mcap}{\textstyle \bigcap\limits}
+\newcommand*\bigtimes{\tikz[baseline=0, scale=.3]{
+\draw[opacity=0] (-.1,-.1) rectangle (1.1, 1.1);
+\draw[line width=.5pt] (0,0) -- (1,1) (1,0) -- (0,1);}
+}
 
-\usepackage{etoolbox}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%% array for equations alignment %%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{array}
-\newcolumntype{e}{>{\displaystyle}r @{\,} >{\displaystyle}c @{\,} >{\displaystyle}l}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\todosec}[2]{\ifdraft{\vfill \pagebreak \subsection{#1} #2 \vfill \pagebreak}{}}
+
+%%%%%%%%%%%%%%%%%%%%%%% array paragraph %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{calc}
+\def\arraypar#1{\parbox[c]{\textwidth - 2cm}{\centering #1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% create text displays %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{environ}
+\NewEnviron{display}{
+\begin{equation}\begin{array}{c}
+  \arraypar{\BODY}
+\end{array}\end{equation}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%% Make automatic exp{x} or e^x %%%%%%%%%%%%%%%%%%%%%%
+\usepackage{etoolbox}
 \makeatletter
 \def\mathsettoheight#1#2%
   {\setbox\@tempboxa\hbox{{#2}}%
@@ -136,15 +153,7 @@
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\renewcommand*\d{\mathop{}\!\mathrm{d}}
-\newcommand{\red}[1]{\color{red}\textnormal{#1}\color{black}}
-
-\newcommand{\mcup}{\textstyle \bigcup\limits}
-\newcommand{\mcap}{\textstyle \bigcap\limits}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% mathclap %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% mathclap %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\clap#1{\hbox to 0pt{\hss#1\hss}}
 \def\mathllap{\mathpalette\mathllapinternal}
 \def\mathrlap{\mathpalette\mathrlapinternal}
@@ -152,12 +161,11 @@
 \def\mathllapinternal#1#2{\llap{$\mathsurround=0pt#1{#2}$}}
 \def\mathrlapinternal#1#2{\rlap{$\mathsurround=0pt#1{#2}$}}
 \def\mathclapinternal#1#2{\clap{$\mathsurround=0pt#1{#2}$}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
-
-\title{\booktitle}
+\title{Notas de aula: Probabilidade I}
 \author{Augusto Teixeira}
 
 \frontmatter
@@ -403,6 +411,152 @@ Mas futuramente, estaremos protos para introduzir medidas bem interessantes no e
 Imagine que jogamos todos os dias em uma loteria e que nossa probabilidade de ganhar no dia $i$ é $p_i$.
 Então se $\sum_i p_i < \infty$, sabemos que certamente não ganharemos infinitas vezes.
 
+\newpage
+
+\section{Sistemas \texorpdfstring{$\lambda$-$\pi$}{lambda-pi}}
+
+Uma importante ferramenta para provar fatos teóricos sobre probabilidades é o Teorema de Dynkin que apresentaremos nessa seção.
+Ele trata de classes de eventos que não são necessariamente $\sigma$-álgebras, mas sistemas $\sigma$ ou $\pi$ como definidos abaixo.
+
+\begin{definition}
+  Dizemos que uma classe $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\pi$-sistema \index{pi sistema@$\pi$-sistema} se for fechado por interseções finitas, isto é: para todos $A, B \in \mathcal{A}$ temos $A \cap B \in \mathcal{A}$.
+\end{definition}
+
+\begin{definition}
+  Dizemos que $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\lambda$-sistema, \index{lambda sistema@$\lambda$-sistema} se
+  \begin{enumerate}[\quad a)]
+  \item $\Omega \in \mathcal{A}$,
+  \item Sempre que $A \in \mathcal{A}$ temos $A^c \in \mathcal{A}$ e
+  \item para $A_1, A_2, \dots \in \mathcal{A}$ disjuntos dois a dois, temos $\cup_i A_i \in \mathcal{A}$.
+  \end{enumerate}
+\end{definition}
+
+\begin{exercise}
+  \label{x:lambda_nao_sigma}
+  Dê um exemplo de $\lambda$-sistema que não seja uma $\sigma$-álbebra.
+\end{exercise}
+
+Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistema contendo $\mathcal{A}$, ou seja
+\begin{equation}
+  \lambda(\mathcal{A}) = \bigcap_{\substack{\text{$\mathcal{B}$ $\lambda$-sistema}\\\mathcal{A} \subseteq \mathcal{B}}} \mathcal{B}.
+\end{equation}
+É fácil ver que $\lambda(\mathcal{A})$ é sempre um $\lambda$-sistema.
+
+\begin{theorem}[Dynkin]
+  \index{Teorema!de Dynkin}
+  \label{t:dynkin}
+  Se $\mathcal{A}$ é um $\pi$-sistema, então $\lambda(\mathcal{A}) = \sigma(\mathcal{A})$.
+\end{theorem}
+
+Note pelo Exercício~\ref{x:lambda_nao_sigma} que a hipótese de que $\mathcal{A}$ é um $\pi$-sistema é necessária em geral.
+
+\begin{proof}
+  Obviamente, basta mostrar é que $\lambda(\mathcal{A})$ é fechado por uniões não necessariamente disjuntas.
+  Na verdade, vamos ver que é suficiente provar que
+  \begin{equation}
+    \label{e:lambda_is_pi}
+    \lambda(\mathcal{A}) \text{ é um $\pi$-sistema}.
+  \end{equation}
+  De fato, caso isso seja provado teremos que $\lambda(\mathcal{A})$ é fechado por diferenças (pois $A \setminus B = A \cap B^c$).
+  Assim, podemos mostrar que $\lambda(\mathcal{A})$ é fechado por uniões enumeráveis, pois se $A_1, A_2, \dots \in \lambda(\mathcal{A})$, definimos $B_n = \cup_{i=1}^n A_i = (\cap_{i=1}^n A_i^c)^c \in \lambda(\mathcal{A})$ e escrevemos
+  \begin{equation}
+    \mcup_n A_n = \mcup_n \big(A_n \setminus B_{n-1} \big),
+  \end{equation}
+  que é uma união disjunta de termos em $\lambda(\mathcal{A})$, logo está em $\lambda(\mathcal{A})$.
+  Isso mostra que $\lambda(\mathcal{A})$ é uma $\sigma$-álgebra e que de fato é suficiente demonstrar \eqref{e:lambda_is_pi}.
+
+  Vamos primeiramente mostrar que $\lambda(\mathcal{A})$ é fechado por interseções com $\mathcal{A}$.
+  Para tanto, definimos $\mathcal{B} = \big\{B \in \lambda(\mathcal{A}); \text{$B \cap A \in \lambda(\mathcal{A})$ para todo $A \in \mathcal{A}$})\big\}$ e veremos que
+  \begin{equation}
+    \label{e:B_igual_lambda}
+    B = \lambda(\mathcal{A}).
+  \end{equation}
+  Obviamente, $\mathcal{A} \subseteq \mathcal{B}$, pois $\mathcal{A}$ é um $\pi$-sistema.
+  Então basta mostrar que $\mathcal{B}$ é um $\lambda$-sistema.
+  \begin{enumerate}[\quad a)]
+  \item $\Omega$ obviamente pertence a $\mathcal{B}$.
+  \item Se $B \in \mathcal{B}$ e $A \in \mathcal{A}$, então $B^c \cap A = A \setminus(B \cap A) = (A^c \cup (B \cap A))^c$.
+    Mas como $B \in \mathcal{B}$, $(B \cap A) \in \lambda(\mathcal{A})$ e usando o fato que $\lambda$-sistemas são fechados por complementos e uniões disjuntas, $B^c \cap A \in \lambda(\mathcal{A})$.
+    Como isso vale para todo $A \in \mathcal{A}$, temos $B^c \in \mathcal{B}$ por definição.
+  \item Se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos e $A \in \mathcal{A}$, então
+    \begin{equation}
+      \big(\cup_i B_i \big) \cap A = \cup_i \big(B_i \cap A\big) \in \lambda(\mathcal{A}),
+    \end{equation}
+    pois a união acima é disjunta.
+    Logo $\cup_i B_i \in \mathcal{B}$.
+  \end{enumerate}
+  Isso mostra que $\mathcal{B}$ é um $\lambda$-sistema com $\mathcal{A} \subseteq \mathcal{B} \subseteq \lambda(\mathcal{A})$, mostrando \eqref{e:B_igual_lambda}.
+
+  No próximo passo, definimos $\bar{\mathcal{B}} = \{A \in \lambda(A); \text{$B \cap A \in \lambda(A), \; \forall B \in \lambda(A)$}\}$ e mostraremos que
+  \begin{equation}
+    \label{e:Bbar_igual_lambda}
+    \bar{\mathcal{B}} = \lambda(\mathcal{A}),
+  \end{equation}
+  que vai na direção de provar \eqref{e:lambda_is_pi}.
+
+  Primeiramente, observe que $\mathcal{A} \subseteq \bar{\mathcal{B}}$ pois $\mathcal{B} = \lambda(\mathcal{A})$ (veja a definição de $\mathcal{B}$).
+  Mostraremos agora que
+  \begin{equation}
+    \label{e:B_barra_lambda}
+    \text{$\bar{\mathcal{B}}$ é um $\lambda$-sistema}.
+  \end{equation}
+  Para tanto, verificaremos
+  \begin{enumerate}[\quad a)]
+  \item $\Omega \in \bar{\mathcal{B}}$, que é claro.
+  \item Tomando $A \in \bar{\mathcal{B}}$ e $B \in \lambda(\mathcal{A})$, $A^c \cap B = B \setminus (A \cap B) = \big(B^c \cup (A \cap B)\big)^c \in \lambda(\mathcal{A})$, por um argumento análogo ao apresentado para $\mathcal{B}$.
+    Logo $A^c \in \bar{\mathcal{B}}$.
+  \item Também o caso de uniões disjuntas é bastante análogo ao feito para $\mathcal{B}$.
+  \end{enumerate}
+  Isso mostra que $\bar{\mathcal{B}}$ é um $\lambda$-sistema com $\mathcal{A} \subseteq \bar{\mathcal{B}} \subseteq \lambda(\mathcal{A})$, estabelecendo \eqref{e:B_barra_lambda}.
+
+  Finalmente mostraremos que
+  \begin{equation}
+    \label{e:B_barra_pi}
+    \text{$\bar{\mathcal{B}}$ é um $\pi$-sistema}.
+  \end{equation}
+  De fato, sejam $A_1, A_2 \in \bar{\mathcal{B}}$ e $B \in \lambda(A)$.
+  Então $(A_1 \cap A_2) \cap B = (A_1 \cap B) \cap A_2 \in \lambda(\mathcal{A})$, donde $A_1 \cap A_2$ pertence a $\bar{\mathcal{B}}$.
+  Logo temos por \eqref{e:B_barra_pi} e \eqref{e:B_barra_lambda} que $\lambda(\mathcal{A})$ é um $\pi$-sistema, ou seja \eqref{e:lambda_is_pi}, terminando a prova do teorema.
+\end{proof}
+
+\subsection{Igualdade de probabilidades}
+
+\begin{proposition}
+  \label{p:P12_equal_pi}
+  Se $P_1$ e $P_2$ são probabilidades em $(\Omega, \mathcal{F})$, tais que $P_1(A) = P_2(A)$ para todo $A \in \mathcal{A}$ e $\mathcal{A}$ é um $\pi$-sistema, então $P_1(B) = P_2(B)$ para todo $B \in \lambda(\mathcal{A})$.
+\end{proposition}
+
+\begin{proof}
+  Seja $\mathcal{B} = \{A \in \mathcal{F}; P_1(A) = P_2(A)\}$.
+  É fácil ver que $\mathcal{B}$ é um $\lambda$-sistema.
+  Logo $\mathcal{B}$ contém $\lambda(\mathcal{A})$ que é igual a $\sigma(\mathcal{A})$ por Dynkin.
+\end{proof}
+
+\begin{corollary}
+  \label{c:produto_e_unico}
+  Se $P_1$ e $P_2$ são probabilidades em $(\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2)$, tais que
+  \begin{equation}
+    P_1(A_1 \times A_2) = P_2(A_1 \times A_2), \text{ para todos $A_1 \in \mathcal{F}_1$, $A_2 \in \mathcal{F}_2$,}
+  \end{equation}
+  então $P_1 = P_2$.
+\end{corollary}
+
+\begin{proof}
+  Obviamente as caixas do tipo $A_1 \times A_2$ formam um $\pi$-sistema que gera $\mathcal{F}_1 \otimes \mathcal{F}_2$ (por definição).
+\end{proof}
+
+\begin{example}
+  Observe portanto que é importante que $\mathcal{A}$ seja um $\pi$-sistema na Proposição~\ref{p:P12_equal_pi}.
+  Imagine por exemplo que $\Omega = \{0,1\}^2$ e $P_1 = \tfrac 14 \sum_{x \in \Omega} \delta_x$ e $P_2 = \tfrac 12 (\delta_{(0,0)} + \delta_{(1,1)})$.
+  Nesse caso
+  \begin{equation}
+    P_1(A) = P_2(A) = 1/2 = P_1(B) = P_2(B),
+  \end{equation}
+  com $A = \{(0,0), (0,1)\}$ e $B = \{(0,0), (1,0)\}$.
+  Contudo, $P_1 \neq P_2$, mesmo tendo $\mathcal{P}(\Omega) = \sigma(\{A,B\})$.
+\end{example}
+
+
 \section{Elementos aleatórios}
 
 Muitas vezes não estamos interessados no resultado exato do nosso experimento aleatório, mas sim em uma determinada medição ou função de $\omega \in \Omega$.
@@ -435,7 +589,7 @@ Relembrando a nossa notação: $P[X \in A] = P(\{\omega \in \Omega; X(\omega) \i
 \end{proposition}
 
 \begin{proof}
-  Teoria da medida.
+  Teoria da Medida.
 \end{proof}
 
 \begin{example}
@@ -454,10 +608,11 @@ Relembrando a nossa notação: $P[X \in A] = P(\{\omega \in \Omega; X(\omega) \i
 
 Fica como exercício verificar que $X \circ P$ é de fato uma probabilidade em $E$.
 
-\begin{example}
-  Em $\Omega_2 = [0,1]$ com a medida de Lebesgue, seja $X:[0,1] \to \{0,1\}$ dada por $X(\omega) = \1_{[0,1/2]} (\omega)$.
-  Nesse caso $X \circ P = 1/2(\delta_0 + \delta_1)$.
-\end{example}
+\begin{exercise}
+  Seja $X:[0,1] \to \{0,1\}$ dada por $X(\omega) = \1_A (\omega)$.
+  Nesse caso, mostre que $X \circ P = \Ber(p)$ para algum $p \in [0,1]$.
+  Calcule o valor de $p$.
+\end{exercise}
 
 Duas notações importantes nesse contexto são:
 \begin{enumerate}[\quad a)]
@@ -466,156 +621,37 @@ Note que $X$ e $Y$ nem ao menos precisam pertencer ao mesmo espaço de probabili
 \item Escrevemos $X \distr \mu$, \index{X d mu@$X \distr \mu$} que lê-se \emph{$X$ é distribuída como $\mu$}, onde $\mu$ é uma probabilidade em $E$, caso $X \circ P = \mu$.
 \end{enumerate}
 
-\newpage
+\begin{exercise}
+  Sejam $X$ e $Y$ variáveis aleatórias tais que $X$ é nula quase certamente.
+  Mostre que $X + Y$ tem a mesma distribuição de $Y$.
+\end{exercise}
 
-\section{Relembrar é viver...}
+O exercício acima é bastante simples, mas o usaremos para fazer uma importante observação sobre como são enunciados tipicamente os resultados de probabilidade.
 
-Fazer Caratheodory com continuidade no vazio. Por exemplo simplifica um pouco a extensão de Kolmogorov.
+Raramente encontramos teoremas que explicitam qual é o espaço de probabilidades $\Omega$ em questão.
+Como no exercício acima, o contexto de um teorema frequentemente é dado apenas em termos de elementos aleatórios em $\Omega$ e de suas distribuições.
+Dessa forma, podemos utilizar o resultado em vários contextos diferentes, desde que possamos encontrar elementos aleatórios que satisfaçam as hipóteses.
+Com o tempo, passamos até mesmo a considerar menos relevante a escolha específica do espaço amostral, focando cada vez mais na distribuição de seus elementos aleatórios.
 
-\section{Sistemas \texorpdfstring{$\lambda$-$\pi$}{lambda-pi}}
 
-Uma importante ferramenta para provar fatos teóricos sobre probabilidades é o Teorema de Dynkin que apresentaremos nessa seção.
-Ele trata de classes de eventos que não são necessariamente $\sigma$-álgebras, mas sistemas $\sigma$ ou $\pi$ como definidos abaixo.
 
-\begin{definition}
-  Dizemos que uma classe $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\pi$-sistema \index{pi sistema@$\pi$-sistema} se for fechado por interseções finitas, isto é: para todos $A, B \in \mathcal{A}$ temos $A \cap B \in \mathcal{A}$.
-\end{definition}
+\chapter{Construção de espaços de probabilidade}
 
-\begin{definition}
-  Dizemos que $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\lambda$-sistema, \index{lambda sistema@$\lambda$-sistema} se
-  \begin{enumerate}[\quad a)]
-  \item $\Omega \in \mathcal{A}$,
-  \item Sempre que $A \in \mathcal{A}$ temos $A^c \in \mathcal{A}$ e
-  \item para $A_1, A_2, \dots \in \mathcal{A}$ disjuntos dois a dois, temos $\cup_i A_i \in \mathcal{A}$.
-  \end{enumerate}
-\end{definition}
+Nessa seção descreveremos diversas maneiras diferentes de construir um espaço de probabilidade, dando diversos exemplos de como elas podem ser usadas na modelagem de diferentes processos reais.
 
-Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistema contendo $\mathcal{A}$, ou seja
-\begin{equation}
-  \lambda(\mathcal{A}) = \bigcap_{\substack{\text{$\mathcal{B}$ $\lambda$-sistema}\\\mathcal{A} \subseteq \mathcal{B}}} \mathcal{B}.
-\end{equation}
-É fácil ver que $\lambda(\mathcal{A})$ é sempre um $\lambda$-sistema.
+\section{Caso enumerável}
 
-\todo{rever a posição deste teorema no texto.}
-
-\begin{theorem}[Dynkin]
-  \index{Teorema!de Dynkin}
-  \label{t:dynkin}
-  Se $\mathcal{A}$ é um $\pi$-sistema, então $\lambda(\mathcal{A}) = \sigma(\mathcal{A})$.
-\end{theorem}
-
-\todo{Dar intuição da prova: passo de redução (basta mostrar que $\lambda(\mathcal{A})$ é $\pi$-sistema), motivar def de $\mathcal{B}$ e $\bar{\mathcal{B}}$.}
-
-\begin{proof}
-  Obviamente, $\lambda(\mathcal{A}) \subseteq \sigma(\mathcal{A})$.
-  Portanto basta provar a inclusão inversa.
-  Definimos $\mathcal{B} = \big\{B \in \lambda(\mathcal{A}); \text{$B \cap A \in \lambda(\mathcal{A})$ para todo $A \in \mathcal{A}$})\big\}$ e iremos mostrar que
-  \begin{equation}
-    \label{e:B_igual_lambda}
-    B = \lambda(\mathcal{A}).
-  \end{equation}
-  Obviamente, $\mathcal{A} \subseteq \mathcal{B}$, pois $\mathcal{A}$ é um $\pi$-sistema.
-  Então basta mostrar que $\mathcal{B}$ é um $\lambda$-sistema.
-  \begin{enumerate}[\quad a)]
-  \item $\Omega$ obviamente pertence a $\mathcal{B}$.
-  \item Se $B \in \mathcal{B}$ e $A \in \mathcal{A}$, então $B^c \cap A = A \setminus(B \cap A) = (A^c \cup (B \cap A))^c$.
-    Mas como $B \in \mathcal{B}$, $(B \cap A) \in \lambda(\mathcal{A})$ e usando o fato que $\lambda$-sistemas são fechados por complementos e uniões disjuntas, $B^c \cap A \in \lambda(\mathcal{A})$.
-    Como isso vale para todo $A \in \mathcal{A}$, temos $B^c \in \mathcal{B}$ por definição.
-  \item Se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos e $A \in \mathcal{A}$, então
-    \begin{equation}
-      \big(\cup_i B_i \big) \cap A = \cup_i \big(B_i \cap A\big) \in \lambda(\mathcal{A}),
-    \end{equation}
-    pois a união acima é disjunta.
-    Logo $\cup_i B_i \in \mathcal{B}$.
-  \end{enumerate}
-  Isso mostra que $\mathcal{B}$ é um $\lambda$-sistema contido em $\lambda(\mathcal{A})$, mostrando \eqref{e:B_igual_lambda}.
-
-  No próximo passo, definimos $\bar{\mathcal{B}} = \{A \in \lambda(A); \text{$B \cap A \in \lambda(A), \; \forall B \in \lambda(A)$}\}$ e mostraremos que $\bar{\mathcal{B}}$ é tanto um $\pi$-sistema quanto um $\lambda$-sistema que contém $\mathcal{A}$.
-  Primeiramente, observe que $\mathcal{A} \subseteq \bar{\mathcal{B}}$ pois $\mathcal{B} = \lambda(\mathcal{A})$ (lebre da definição de $\mathcal{B}$).
-
-  Mostraremos agora que
-  \begin{equation}
-    \label{e:B_barra_pi}
-    \text{$\bar{\mathcal{B}}$ é um $\pi$-sistema}.
-  \end{equation}
-  De fato, sejam $A_1, A_2 \in \bar{\mathcal{B}}$ e $B \in \lambda(A)$.
-  Então $(A_1 \cap A_2) \cap B = (A_1 \cap B) \cap A_2 \in \lambda(\mathcal{A})$, donde $A_1 \cap A_2$ pertence a $\bar{\mathcal{B}}$.
-  Finalmente mostraremos que
-  \begin{equation}
-    \label{e:B_barra_lambda}
-    \text{$\bar{\mathcal{B}}$ é um $\lambda$-sistema}.
-  \end{equation}
-  Para tanto, verificaremos
-  \begin{enumerate}[\quad a)]
-  \item $\Omega \in \bar{\mathcal{B}}$, que é claro.
-  \item Tomando $A \in \bar{\mathcal{B}}$ e $B \in \lambda(\mathcal{A})$, $A^c \cap B = B \setminus (A cap B) = \big(B^c \cup (A \cap B)\big)^c \in \lambda(\mathcal{A})$, por um argumento análogo ao apresentado para $\mathcal{B}$.
-    Logo $A^c \in \bar{\mathcal{B}}$.
-  \item Também o caso de uniões disjuntas é bastante análogo ao caso para $\mathcal{B}$.
-  \end{enumerate}
-  Isso mostra que $\bar{\mathcal{B}}$ é um $\lambda$-sistema.
-
-  Para terminar a prova, precisamos apenas mostrar que $\sigma(\mathcal{A}) \subseteq \bar{\mathcal{B}}$, pois $\bar{\mathcal{B}} \subseteq \lambda(\mathcal{A})$.
-  Para tanto basta ver que $\bar{\mathcal{B}}$ é uma $\sigma$-álgebra.
-  Como essa família já é um $\lambda$ e $\pi$-sistema, basta considerarmos uniões arbitrárias em $\bar{\mathcal{B}}$.
-
-  Seja $A_1, A_2, \dots \in \bar{\mathcal{B}}$ e defina $B_n = \cup_{i=1}^n A_i = (\cap_{i=1}^n A_i^c)^c \in \bar{\mathcal{B}}$.
-  Escrevemos portanto
-  \begin{equation}
-    \cup_n A_n = \cup_n \big(A_n \setminus B_{n-1} \big),
-  \end{equation}
-  que é uma união disjunta de termos em $\bar{\mathcal{B}}$, logo está em $\bar{\mathcal{B}}$.
-  Isso mostra que $\bar{\mathcal{B}}$ é uma $\sigma$-álgebra, concluindo a prova do teorema.
-\end{proof}
-
-\subsection{Igualdade de probabilidades}
-
-\begin{proposition}
-  \label{p:P12_equal_pi}
-  Se $P_1$ e $P_2$ são probabilidades em $(\Omega, \mathcal{F})$, tais que $P_1(A) = P_2(A)$ para todo $A \in \mathcal{A}$ e $\mathcal{A}$ é um $\pi$-sistema, então $P_1(B) = P_2(B)$ para todo $B \in \lambda(\mathcal{A})$.
-\end{proposition}
-
-\begin{proof}
-  Seja $\mathcal{B} = \{A \in \mathcal{F}; P_1(A) = P_2(A)\}$.
-  É fácil ver que $\mathcal{B}$ é um $\lambda$-sistema.
-  Logo $\mathcal{B}$ contém $\lambda(\mathcal{A})$ que é igual a $\sigma(\mathcal{A})$ por Dynkin.
-\end{proof}
-
-\begin{corollary}
-  Se $P_1$ e $P_2$ são probabilidades em $(\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2)$, tais que
-  \begin{equation}
-    P_1(A_1 \times A_2) = P_2(A_1 \times A_2), \text{ para todos $A_1 \in \mathcal{F}_1$, $A_2 \in \mathcal{F}_2$,}
-  \end{equation}
-  então $P_1 = P_2$.
-\end{corollary}
-
-\begin{proof}
-  Obviamente as caixas do tipo $A_1 \times A_2$ formam um $\pi$-sistema que gera $\mathcal{F}_1 \otimes \mathcal{F}_2$ (por definição).
-\end{proof}
-
-\begin{example}
-  Observe portanto que é importante que $\mathcal{A}$ seja um $\pi$-sistema na Proposição~\ref{p:P12_equal_pi}.
-  Imagine por exemplo que $\Omega = \{0,1\}^2$ e $P_1 = \tfrac 14 \sum_{x \in \Omega} \delta_x$ e $P_2 = \tfrac 12 (\delta_{(0,0)} + \delta_{(1,1)})$.
-  Nesse caso
-  \begin{equation}
-    P_1(A) = P_2(A) = 1/2 = P_1(B) = P_2(B),
-  \end{equation}
-  com $A = \{(0,0), (0,1)\}$ e $B = \{(0,0), (1,0)\}$.
-  Contudo, $P_1 \neq P_2$, mesmo tendo $\mathcal{P}(\Omega) = \sigma(\{A,B\})$.
-\end{example}
-
-\section{Construção de espaços de probabilidade}
-
-\subsection{Caso enumerável}
-
-Se $\Omega = \{\omega_1, \omega_2, \dots\}$, então podemos definir $\mathcal{A} = \mathcal{P}(\Omega) (= \sigma(\{\omega_i\}_{i \geq 1}))$.
-Assim, dados $(p_\omega)_{\omega \in \Omega}$ tais que
+Quando $\Omega$ é finito ou enumerável, tipicamente definimos sobre $\Omega$ a $\sigma$-álgebra das partes, ou seja $\mathcal{F} = \mathcal{P}(\Omega) = \sigma(\{\omega\}_{\omega \in \Omega})$.
+Além disso podemos definir probabilidades sobre $(\Omega, \mathcal{F})$ de maneira simples tomando $(p_\omega)_{\omega \in \Omega}$ tais que
 \begin{enumerate}[\quad a)]
 \item $p_\omega \geq 0$ para todo $\omega \in \Omega$ e
-\item $\sum_{\omega \in \Omega} p_\omega = 1$,
+\item $\sum_{\omega \in \Omega} p_\omega = 1$.
 \end{enumerate}
-definimos $P(A) = \sum_{\omega \in A} p_\omega$ que claramente define uma probabilidade.
+De fato, nesse caso definimos $P(A) = \sum_{\omega \in A} p_\omega$ que claramente define uma probabilidade.
 
-\todo{mover as distribuições Bin e Geo para secao de independencia,}
+\begin{exercise}
+  Mostre que se $\Omega$ é finito ou enumerável, toda probabilidade sobre $(\Omega, \mathcal{P}(\Omega))$ é dada como na descrição acima.
+\end{exercise}
 
 \begin{example} \mbox{}
   \begin{enumerate}[\quad a)]
@@ -638,9 +674,11 @@ definimos $P(A) = \sum_{\omega \in A} p_\omega$ que claramente define uma probab
   Dê um exemplo de medida em $\omega$ para a qual a distribuição de $X$ seja $\Bin(n,p)$.
 \end{exercise}
 
+\todosec{Tópico: Método Probabilístico}{Pedir ao Rob um exemplo bem básico e interessante, como soluções de $x + y = z$ em $\mathbb{N}$.}
 
-\subsection{Caso absolutamente contínuo}
+\section{Caso absolutamente contínuo}
 
+Uma outra maneira simples de definir um espaço de probabilidade, é partindo de um espaço de medida.
 Seja $(\Omega, \mathcal{F}, \mu)$ um espaço de medida e $\rho:\Omega \to \mathbb{R}_+$ uma função mensurável com $\int \rho(x) \mu(\d x) = 1$.
 Então podemos definir a probabilidade induzida
 \begin{equation}
@@ -662,7 +700,7 @@ Observe que o caso discreto pode ser definido em termos de uma densidade, onde $
   \end{enumerate}
 \end{example}
 
-Podemos também usar a distribuição de um elemento aleatório para construir outras probabilidades.
+Podemos também usar a distribuição de um elemento aleatório para construir outras probabilidades, como mostra o seguinte exemplo.
 
 \begin{example}
   Considere por exemplo $X:[0,2\pi] \to \mathbb{C}$ dada por $X(t) = \exp\{-i t\}$.
@@ -681,13 +719,138 @@ Podemos também usar a distribuição de um elemento aleatório para construir o
   Construa uma probabilidade em $S^2$ invariante por rotações.
 \end{exercise}
 
-\subsection{Espaços produto}
+\section{Funções acumuladas de distribuição}
 
-\subsection{Distribuições conjuntas}
+Um outro caso importante a ser estudado de construção de espaços de probabilidade se refere ao caso em que $\Omega = \mathbb{R}$.
+Esse exemplo será muito importante no que segue ao nos ajudar a entender distribuições de variáveis aleatórias.
+Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em $\mathbb{R}$.
 
-\subsection{Acoplamentos}
+\begin{definition}
+  Dada $P$ em $\mathbb{R}$, definimos $F_P:\mathbb{R} \to [0,1]$ por $F_P(x) = P\big((-\infty, x]\big)$.
+  Essa função é chamada a \emph{função de distribuição} acumulada de $P$. \index{funcao de distribuicao@função de distribuição}
+\end{definition}
 
-Talvez valha a pena escrever sobre acoplamentos de maneira geral. Talvez pegando algo do Pascal Massart. Vale a pena tentar escrever algo sobre: composiçao de acoplamentos, quando um acoplamento ``dá errado''...
+\begin{notation}
+  Se $X:\Omega \to \mathbb{R}$ é uma variável aleatória num espaço $(\Omega, \mathcal{F}, P)$, denotamos por $F_X$ \index{FX@$F_X$} a função de distribuição acumulada correspondente à distribuição $X \circ P$.
+\end{notation}
+
+\begin{example}
+  Não é difícil verificar que
+  \begin{equation}
+  F_{U_{[0,1]}} =
+  \begin{cases}
+    0 & \text{ se $x \leq 0$,}\\
+    x & \text{ se $x \in [0,1]$ e}\\
+    1 & \text{ se $x \geq 1$.}
+  \end{cases}
+\end{equation}
+\end{example}
+
+\begin{exercise}
+  Calcule $F_{\Exp(\lambda)}$.
+\end{exercise}
+
+\begin{proposition}
+  \label{p:propried_F}
+  $F_P$ (e obviamente $F_X$) satisfazem:
+  \begin{enumerate}[\quad a)]
+  \item $\smash{\lim\limits_{x \to -\infty}} F(x) = 0$, $\smash{\lim\limits_{x \to \infty}} F(x) = 1$,
+  \item $F$ é monótona não-decrescente e
+  \item $F$ é contínua à direita e possui limite à esquerda.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  \begin{enumerate}[\quad a)]
+  \item Se $x_n \to -\infty$ monotonamente, então $A_n = (-\infty, x_n]$ são encaixados e de interseção vazia.
+    Logo, pela Proposição~\ref{p:prob_continua}, temos $P(A_n) \to 0$.
+    O outro caso é análogo.
+  \item Se $x \leq x'$ então $(-\infty, x] \subseteq (-\infty,x']$, donde $F(x) \leq F(x')$.
+  \item Continuidade à direita (càd) - Se $x_n \downarrow x$ monotonamente, então $A_n = (-\infty, x_n] \downarrow (-\infty, x]$ (eles são encaixados).
+    Logo $F(x_n) \to F(x)$.
+
+    Limite à esquerda (làg do francês) - Segue do fato de $F$ ser monótona e limitada.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  Se $F$ satisfaz as três propriedades listadas na Proposição~\ref{p:propried_F}, então existe uma única $P$ em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ tal que $F = F_P$.
+\end{theorem}
+
+\begin{proof}
+  A unicidade de tal $P$ segue da Proposição~\ref{p:P12_equal_pi} (consequêcia do Teorema de Dynkin), pois se $P$ e $P'$ são tais que $F_{P} = F_{P'}$, então temos que $P\big( (-\infty, x] \big) = P'\big( (-\infty, x] \big)$.
+  Mas a classe de intervalos semi-infinitos da forma $(-\infty, x]$ forma um $\pi$-sistema que gera a $\sigma$-álgebra dos borelianos, logo $P = P'$.
+
+  Para construir uma $P$ tal que $F_P = F$, definiremos primeiramente a inversa generalizada de $F$, $S:(0,1) \to \mathbb{R}$ por
+  \begin{equation}
+    S(u) = \sup \{x \in \mathbb{R}; F(x) < u\}.
+  \end{equation}
+  \begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[scale=.8]
+      \draw (0,1) -- (10,1);
+      \draw (0,4) -- (10,4); % second line
+      \draw plot [smooth,tension=.5] coordinates{(0, 4.4) (2.5, 4.5) (5,5) (7.5, 5.5) (10, 5.6)};
+      \draw plot [smooth,tension=.5] coordinates{(0, 1.4) (2.5, 1.5) (5,1.8)};
+      \draw plot [smooth,tension=.5] coordinates{(5, 2.3) (7.5, 2.5) (10,2.6)};
+      \draw[dotted] (0,5) -- (5,5) -- (5,4);
+      \draw[dotted] (0,2) -- (5,2) -- (5,1);
+      \draw [fill,color=white] (5,1.8) circle [radius=0.05];
+      \draw (5,1.8) circle [radius=0.05];
+      \draw [fill] (5,2.3) circle [radius=0.05];
+      \node at (0,5) [left]{$u$};
+      \node at (0,2) [left]{$u$};
+      \node at (5,1) [below]{$S(u)$};
+      \node at (5,4) [below]{$S(u)$};
+    \end{tikzpicture}
+    \caption{\small Ilustração da definição de $S(u)$.}
+    \label{f:Rk_good}
+  \end{figure}
+
+  Seja $P = S \circ U_{[0,1]}$, isto é $P(A) = U_{[0,1]}(S^{-1}(A))$ e mostraremos que $F_P = F$.
+  Para tanto, basta ver que
+  \begin{equation}
+    \label{e:pseudo_inversa}
+    \{u; S(u) \leq x\} = \{u; u \leq F(x)\}, \text{ para todo $x \in \mathbb{R}$}.
+  \end{equation}
+  Pois se tivermos a igualdade acima, $F_P(x) = U_{[0,1]}[S \leq x] = U_{[0,1]} [u \leq F(x)] = F(x)$.
+
+  Vamos agora checar \eqref{e:pseudo_inversa} observando que:
+  \begin{enumerate}[\quad a)]
+  \item Se $u \leq F(x)$ então todo $x'$ tal que $F(x') < u$ é menor que $x$.
+    Logo $S(u) \leq x$.
+  \item Por outro lado, se $u > F(x)$ então existe $x' > x$ tal que $F(x') < u$ (pois $F$ é càd), donde $S(u) > x$.
+  \end{enumerate}
+  Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
+\end{proof}
+
+\newpage
+
+\section{Espaços produto finito}
+
+Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebras $\mathcal{F}_1, \dots, \mathcal{F}_n$, podemos definir o espaço mensurável produto $(\bar{\Omega}, \bar{\mathcal{F}})$ da seguinte forma
+\begin{equation}
+  \bar{\Omega} = \bigtimes_{i=1}^n \Omega_i \quad \text{e} \quad \bar{\mathcal{F}} = \sigma \Big( A_1 \times \cdots \times A_n; \; A_i \in \mathcal{F}_i, \text{ para $i \leq n$} \Big).
+\end{equation}
+
+\begin{proposition}
+  Se $(\Omega_1, \mathcal{F}_1, P_1), \dots, (\Omega_n, \mathcal{F}_n, P_n)$ são espaços de probabilidade, então existe uma única probabilidade $\bar{P}$ no espaço mensurável $(\bar{\Omega}, \bar{\mathcal{F}})$ tal que
+  \begin{equation}
+    \bar{P}(A_1 \times \cdots, \times A_n) = \prod_{i=1}^n P_i(A_i), \text{ para todos $A_i \in \mathcal{F}_i$, $i \leq n$.}
+  \end{equation}
+  Essa probabilidade é chamada probabilidade produto.
+\end{proposition}
+
+\begin{proof}
+  Teoria da Medida.
+\end{proof}
+
+Note que a unicidade do produto pode ser concluída por exemplo usando o Corolário~\ref{c:produto_e_unico}.
+
+\begin{exercise}
+  Mostre que o produto de $n$ cópias de $(\{0,1\}, \mathcal{P}(\{0,1\}), \Ber(1/2))$ é a distribuição uniforme em $\{0,1\}^n$.
+\end{exercise}
+
 
 \section{Independência}
 
@@ -699,7 +862,7 @@ Talvez valha a pena escrever sobre acoplamentos de maneira geral. Talvez pegando
 \end{definition}
 
 \begin{example}
-  Se $\Omega = \{1, \dots, 6\}$ com $P(A) = \#A/6$ então os eventos $A = [\omega \text{ é impar}]$ e $B = [\omega \geq 5]$ satisfazem
+  Se $\Omega = \{1, \dots, 6\}$ é dotada da $\sigma$-álgebra das partes e e $P(A) = \#A/6$, então os eventos $A = [\omega \text{ é impar}]$ e $B = [\omega \geq 5]$ satisfazem
   \begin{equation}
     P(A \cap B) = P(\{5\}) = 1/6 = (1/2) (1/3) = P(A) P(B).
   \end{equation}
@@ -722,7 +885,7 @@ Talvez valha a pena escrever sobre acoplamentos de maneira geral. Talvez pegando
   Sejam $A_1, A_2, \dots, A_k$ eventos.
   Dizemos que eles formam uma coleção independente \index{independencia@independência!de eventos} se para todo $I \subseteq \{1, \dots, k\}$ não vazio
   \begin{equation}
-    P\Big( \mcap_{i \in I} A_i \Big) =  \prod\limits_{i \in I} P(A_i).
+    P\big( \mcap\nolimits_{i \in I} A_i \big) =  \prod\limits_{i \in I} P(A_i).
   \end{equation}
 \end{definition}
 
@@ -750,20 +913,19 @@ Mais precisamente
 \end{lemma}
 
 \begin{proof}
-  Temos,
-  \begin{equation}
-    P\Big( \mcap_{i} A_i \Big) = \lim_n P\Big( \mcap_{i = 1}^n A_i \Big) = \lim_n \prod\limits_{i=1}^n P(A_i) = \prod\limits_{i} P(A_i)
-  \end{equation}
+  De fato,
+  \begin{equation*}
+    P\Big( \mcap_{i} A_i \Big) = \lim_n P\Big( \mcap_{i = 1}^n A_i \Big) = \lim_n \prod\limits_{i=1}^n P(A_i) = \prod\limits_{i} P(A_i). \qedhere
+  \end{equation*}
 \end{proof}
 
-\begin{proposition}
-  $\{B;B \text{ ind de } A\}$ é $\lambda$-sistema....
-\end{proposition}
+\begin{exercise}
+  Mostre que se $A \in \mathcal{F}$, então $\{B \in \mathcal{F}; B \text{ é independente de } A\}$ é um $\lambda$-sistema.
+\end{exercise}
 
-\begin{corollary}
-  Se $B$ é independente de $A$ para todo $B \in \mathcal{B}$, com $\mathcal{B}$ um $\pi$-sistema.
-  Então $B$ é independente de $A$ para todo $B \in \sigma(\mathcal{B})$.
-\end{corollary}
+\begin{exercise}
+  Mostre que se $B$ é independente de $A$ para todo $B \in \mathcal{B}$, com $\mathcal{B}$ um $\pi$-sistema, então $B$ é independente de $A$ para todo $B \in \sigma(\mathcal{B})$.
+\end{exercise}
 
 \subsection{Independência de \texorpdfstring{$\sigma$}{sigma}-álgebras}
 
@@ -784,8 +946,7 @@ Mais precisamente
   Mostre que essas $\sigma$-álgebras são independentes.
 \end{exercise}
 
-Podemos extender o conceito de independência a elementos aleatórios.
-Isto é
+Podemos extender esse conceito a elementos aleatórios, ou seja:
 \begin{definition}
   Dizemos que $X_1, \dots, X_k$ são elementos aleatórios independentes \index{independencia@independência!de elementos} se as respectivas $\sigma$-álgebras $\sigma(X_1), \dots, \sigma(X_k)$ o forem.
 \end{definition}
@@ -878,10 +1039,6 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
   \item Mostre que $X$ e $Y$ s\~ao independentes.
   \end{enumerate}
 \end{exercise}
-
-\todo{incluir produtos finitos}
-
-\newpage
 
 \subsection{Tópico: Lei dos pequenos números}
 
@@ -1060,6 +1217,29 @@ terminando a prova.
 
 \section{Espaços produto infinito}
 \label{s:Omega_produto}
+
+\subsection{Recordar é viver...}
+
+Vamos lembrar o enunciado do Teorema da Extensão de Caratheodory \index{Teorema!da Extensao de Caratheodory@da Extensão de Caratheodory}.
+Antes, vamos relembrar uma definição definição importante.
+Uma família $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ é dita um anel de conjuntos \index{anel de conjuntos} se vale
+\begin{enumerate}[\quad a)]
+  \item $\Omega \in \mathcal{G}$,
+  \item se $A \in \mathcal{G}$, então $A^c \in \mathcal{G}$ e
+  \item para todo $n \geq 1$, se $A_1, \dots, A_n \in \mathcal{G}$, então $\cup_{i=1}^n A_i \in \mathcal{G}$.
+\end{enumerate}
+
+\begin{theorem}[Teorema da Extensão de Caratheodory]
+  Seja $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ uma álgebra de conjuntos em $\Omega$ e suponha que $\mu: \mathcal{G} \to \mathbb{R}_+$ satisfaça a seguinte propriedade
+  \begin{display}
+    sempre que $A_1, A_2, \dots \in \mathcal{G}$ forem disjuntos e tais que $\cup_i A_i \in \mathcal{G}$,\\temos $\mu(\cup_i A_i) = \sum_i \mu(A_i)$.
+  \end{display}
+  Nesse caso, existe uma medida $\bar{\mu}: \sigma(\mathcal{G}) \to \mathbb{R}_+$ tal que $\bar{\mu}(A) = \mu(A)$ para todo $A \in \mathcal{G}$.
+\end{theorem}
+
+\todo{Fazer Caratheodory com continuidade no vazio. Por exemplo simplifica um pouco a extensão de Kolmogorov.}
+
+\subsection{Teorema da Extensão de Kolmogorov}
 
 Dada uma coleção de espaços $E_1, E_2, \dots$, definimos o espaço produto
 \begin{equation}
@@ -1244,7 +1424,8 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
   \end{equation}
 \end{exercise}
 
-\newpage
+\vfill
+\pagebreak
 
 \subsection{Tópico: Percolação}
 
@@ -1395,118 +1576,410 @@ Na verdade, é possível mostrar que para $d = 2$,
 veja ???.
 De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2$.
 
-\ifdraft{\newpage \subsection{Tópico: Teorema de Uma Série} fazer...}{}
+\todosec{Tópico: Teorema de Uma Série}{fazer...}
 
-\ifdraft{\newpage \subsection{Tópico: Uma dinâmica em \texorpdfstring{$[0,1]$}{[0,1]}} fazer dinâmica 2x mod 1 e relações Lebesgue[0,1] com produtos de bernoulli}{}
+\todosec{Tópico: Uma dinâmica em \texorpdfstring{$[0,1]$}{[0,1]}}{fazer dinâmica 2x mod 1 e relações Lebesgue[0,1] com produtos de bernoulli}
 
-\newpage
+\section{Distribuições conjuntas}
 
-\section{Funções acumuladas de distribuição}
-
-Será importante nesse curso entender a distribuição de variáveis aleatórias.
-Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em $\mathbb{R}$.
+\section{Probabilidades condicionais}
 
 \begin{definition}
-  Dada $P$ em $\mathbb{R}$, definimos $F_P:\mathbb{R} \to [0,1]$ por $F_P(x) = P\big((-\infty, x]\big)$.
-  Essa função é chamada a \emph{função de distribuição} acumulada de $P$. \index{funcao de distribuicao@função de distribuição}
+  Se $(\Omega, \mathcal{F}, P)$ é espaço de probabilidade e $B \in \mathcal{F}$ é tal que $P(B) > 0$, então definimos a probabilidade \index{probabilidade!condicional} $P(\cdot | B): \mathcal{F} \to [0,1]$ por
+  \begin{equation}
+    \label{e:P_condicional}
+    P(A | B) = \frac{P(A \cap B)}{P(B)},
+  \end{equation}
+  chamada probabilidade condicional dado o evento $B$.
 \end{definition}
 
-\begin{notation}
-  Se $X:\Omega \to \mathbb{R}$ é uma variável aleatória num espaço $(\Omega, \mathcal{F}, P)$, denotamos por $F_X$ \index{FX@$F_X$} a função de distribuição acumulada correspondente à distribuição $X \circ P$.
-\end{notation}
+Obviamente $P(\cdot | B)$ é uma probabilidade em $(\Omega, \mathcal{F})$ e podemos entendê-la de duas formas: como uma normalização ou como uma tentativa de sucesso.
+Explicaremos abaixo cada uma dessas interpretações.
 
-\begin{example}
-  \begin{equation}
-  F_{U_{[0,1]}} =
-  \begin{cases}
-    0 & \text{ se $x \leq 0$,}\\
-    x & \text{ se $x \in [0,1]$ e}\\
-    1 & \text{ se $x \geq 1$.}
-  \end{cases}
+Quando restringimos o espaço amostral $\Omega$ ao conjunto $B$ (como em $P(A \cap B)$), temos uma sub-probabilidade, isto é possivelmente $P(\Omega \cap B) < 1$.
+Logo podemos entender o denominador de \eqref{e:P_condicional} como uma normalização para obtermos novamente uma probabilidade.
+
+Mas a interpretação mais natural de \eqref{e:P_condicional} é dada pela seguinte proposição.
+Para enunciá-la, considere $(\Omega, \mathcal{F}, P)$ um espaço de probabilidade e defina o produto
+\begin{equation}
+  \bar{\Omega} = \times_{i=1}^\infty \Omega, \qquad \bar{\mathcal{F}} = \bigotimes_{i=1}^\infty \mathcal{F} \quad \text{e} \quad \bar P = \bigotimes_{i=1}^\infty P.
 \end{equation}
-\end{example}
-
-\begin{exercise}
-  Calcule $F_{\Exp(\lambda)}$.
-\end{exercise}
+Na verdade tal produto está bem definido mesmo quando $\Omega$ não é canônico, mas deixaremos isso pra uma outra vez.
 
 \begin{proposition}
-  \label{p:propried_F}
-  $F_P$ (e obviamente $F_X$) satisfazem:
+  Na situação acima, seja $B \in \mathcal{F}$ com $P(B) > 0$ e defina $T:\bar{\Omega} \to \mathbb{N}$ por $T(\omega) = \inf \{n \geq 1; X_n(\omega) \in B\}$, onde os $X_n$ são as coordenadas canônicas. Então $T < \infty$ quase certamente e
+  \begin{equation}
+    \text{$X_{T(\omega)}(\omega)$ é um elemento aleatório em $\Omega$ com distribuição $P(\cdot | B)$.}
+  \end{equation}
+\end{proposition}
+
+A intuição desta proposição é que se repetimos o experimento $(\Omega, \mathcal{F}, P)$ independentemente até obter uma amostra em $B$, essa terá a distribuição condicional.
+
+\begin{proof}
+  Sejam os eventos $A_n = [X_n \in B]$, $n \geq 1$ que são claramente independentes segundo $\bar{P}$.
+  Logo, como $\sum_n \bar{P}(A_n) = \sum_n P(B) = \infty$, temos pelo Lema de Borel-Cantelli (segunda parte) que $\bar{P}(\text{$A_n$ infinitas vezes}) = 1$, logo $T < \infty$ quase certamente.
+
+  Para ver que $X_{T(\omega)}(\omega)$ é um elemento aletório, basta escrever
+  \begin{equation}
+    [X_{T} \in A] = \mcup_{t=1}^\infty [X_t \in A, T = t],
+  \end{equation}
+  e observar que tanto $[X_t \in A]$ quanto $[T = t] = [X_1 \not \in B, \dots, X_{t-1} \not \in B, X_t \in B]$ são mensuráveis.
+
+  Finalmente podemos usar a decomposição (disjunta) acima para calcular
+  \begin{equation}
+    \begin{split}
+      \bar{P}[X_T \in A] & = \sum_{t=1}^\infty \bar{P} [X_t \in A, T = t]\\
+      & = \sum_{t=1}^\infty \bar{P} [X_t \in A, X_t \in B, X_s \not \in B \text{ for $s < t$}]\\
+      & = \sum_{t=1}^\infty P(A \cap B) P(B^c)^{t-1} = \frac{P(A \cap B)}{1-P(B^c)} = P(A | B),
+    \end{split}
+  \end{equation}
+  terminando a prova da proposição.
+\end{proof}
+
+\begin{exercise}
+  Seja $\lambda > 0$ e $X \distr \Exp(\lambda)$ (lembrando a definição da distribuição exponencial: $\d (X \circ P) = \lambda \exp\{- \lambda x\} \d x$).
+  Mostre que as variáveis com distribuição exponencial não possuem memória, ou seja:
+  \begin{equation}
+    \label{e:sem_memoria}
+    P[X > t + s | X > t] = P [X > s], \text{ para todo $s, t > 0$}.
+  \end{equation}
+  Ou em outras palavras, sabendo que $X$ é maior que $t$, a distribuição condicional de $X - t$ ainda é $\Exp(\lambda)$.
+\end{exercise}
+
+Definimos a distribuição geométrica \index{distribuicao@distribuição!geometrica@geométrica} de parâmetro $p \in (0,1]$ por
+\begin{equation}
+  \Geo(p) = \sum_{i = 1}^\infty \delta_i (1-p)^i p.
+\end{equation}
+
+\begin{exercise}
+  Inspirado no exercício anterior, mostre que a distribuição geométrica $\Geo(p)$ também satisfaz \eqref{e:sem_memoria} para todos $t, s \in \mathbb{N}$.
+  Mostre que essas são as únicas distribuições com suporte em $\mathbb{N}$ satisfazendo tal propriedade
+\end{exercise}
+
+\begin{exercise}
+  \label{x:geo_time}
+  Sejam $Y_i$, para $i \geq 1$ \iid com distribuição $\Ber(p)$ e defina
+  \begin{equation}
+    T = \inf\{i; Y_i = 1\}.
+  \end{equation}
+  Mostre que $T \overset{d}\sim \Geo(p)$.
+\end{exercise}
+
+\begin{exercise}
+  Barry James: Cap. 2-5, Ex: 5, 10, 21, 22 (a) e (b).
+\end{exercise}
+
+\begin{exercise}
+  Porta dos desesperados...
+\end{exercise}
+
+\begin{exercise}
+  $P(\cdot|A|B) = P(\cdot|B|A)$.
+\end{exercise}
+
+\begin{exercise}
+  Sejam $X, Y$ vari\'aveis aleat\'orias em um espaço $(\Omega, \mathcal{F}, P)$, independentes e com distribuição $U_{[0,1]}$.
   \begin{enumerate}[\quad a)]
-  \item $\smash{\lim\limits_{x \to -\infty}} F(x) = 0$, $\smash{\lim\limits_{x \to \infty}} F(x) = 1$,
-  \item $F$ é monótona não-decrescente e
-  \item $F$ é contínua à direita e possui limite à esquerda.
+  \item Calcule $(X+Y) \circ P$.
+  \item Considere $P'(\cdot) = P\big(\cdot | X + Y \leq 1 \big)$ e calcule $X \circ P'$.
   \end{enumerate}
+\end{exercise}
+
+\subsection{Regra de Bayes}
+
+Frequentemente definimos um espaço de probabilidade atravéz de probabilidades condicionais.
+Consideramos por exemplo um exame médico para detectar uma doença, nesse caso temos
+\begin{equation}
+  \Omega = \{(\text{doente}, +), (\text{doente}, -), (\text{saudável}, +), (\text{saudável}, -)\},
+\end{equation}
+com obviamente a $\sigma$-álgebra das partes.
+
+Contudo, ao contrário do que fizemos anteriormente, não daremos probabilidades $p_\omega \in [0,1]$ para cada $\omega \in \Omega$.
+Poderíamos por exemplo fornecer
+\begin{equation}
+  \label{e:exame_medico}
+  P(\text{doente}) = 0.005, \quad P( + | \text{saudável}) = 0.01, \quad P( - | \text{doente}) = 0.05.
+\end{equation}
+Obviamente podemos obter as probabilidades dos complementos dos eventos acima.
+As probabilidades acima podem ser facilmente estimadas num laboratório e as duas últimas são chamadas respectivamente de probabilidades de \emph{falso positivo} e \emph{falso negativo}.
+Outra vantagem da representação em \eqref{e:exame_medico} é que as probabilidades descritas são mais ``compartimentadas'' no seguinte sentido.
+Note que $P(\text{doente})$ somente depende da população em questão, enquanto as outras duas dependem apenas do exame e não da população.
+Isso não pode ser dito das probabilidades de pontos individuais em $\Omega$.
+
+Agora fica fácil construir nosso espaço de probabilidade escrevendo, para $r \in \{+, -\}$ e $e \in \{\text{saudável}, \text{doente}\}$,
+\begin{equation}
+  P(\{(r,e)\}) = P(r \cap e) = P(r | e) P(e).
+\end{equation}
+E as probabilidades do lado direito da equação acima estão todas determinadas em \eqref{e:exame_medico} (possivelmente tomando complementos).
+
+Contudo, o que estamos interessado muitas vezes é em como interpretar resultados de um exame.
+Por exemplo, quanto vele $P(\text{doente} | +)$?
+Isso nos é fornecido em geral pela regra de Bayes enunciada na seguinte
+
+\begin{proposition}
+  Se $A_1, A_2, \dots$ formam uma partição (finita ou não) de $\Omega$ e $B \in \mathcal{F}$ tem probabilidade positiva, então
+  \begin{equation}
+    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{\sum_j P(A_j) P(B | A_j)}.
+  \end{equation}
 \end{proposition}
 
 \begin{proof}
-  \begin{enumerate}[\quad a)]
-  \item Se $x_n \to -\infty$ monotonamente, então $A_n = (-\infty, x_n]$ são encaixados e de interseção vazia.
-    Logo, pela Proposição~\ref{p:prob_continua}, temos $P(A_n) \to 0$.
-    O outro caso é análogo.
-  \item Se $x \leq x'$ então $(-\infty, x] \subseteq (-\infty,x']$, donde $F(x) \leq F(x')$.
-  \item Continuidade à direita (càd) - Se $x_n \downarrow x$ monotonamente, então $A_n = (-\infty, x_n] \downarrow (-\infty, x]$ (eles são encaixados).
-    Logo $F(x_n) \to F(x)$.
-
-    Limite à esquerda (làg do francês) - Segue do fato de $F$ ser monótona e limitada.
-  \end{enumerate}
+  Basta notar que
+  \begin{equation}
+    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{P(B)} = \frac{P(A_i) P(B | A_i)}{\sum_j P(B \cap A_j)} = \frac{P(A_i) P(B | A_i)}{\sum_j P(A_j) P(B | A_j)}.
+  \end{equation}
 \end{proof}
 
-\begin{theorem}
-  Se $F$ satisfaz as três propriedades listadas na Proposição~\ref{p:propried_F}, então existe uma única $P$ em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ tal que $F = F_P$.
-\end{theorem}
+\begin{exercise}
+  Utilize a fórmula acima para calcular $P(\text{doente} | +)$ com os dados em \eqref{e:exame_medico}.
+  Comente o resultado.
+\end{exercise}
+
+\begin{exercise}
+  Barry James: Cap. 1, Ex: 18 e 19.
+\end{exercise}
+
+\todosec{Tópico: Distribuições de Extremos}{fazer...}
+
+\section{Acoplamentos}
+
+Talvez valha a pena escrever sobre acoplamentos de maneira geral. Talvez pegando algo do Pascal Massart. Vale a pena tentar escrever algo sobre: composiçao de acoplamentos, quando um acoplamento ``dá errado''...
+
+\section{Núcleos de transição}
+
+Já focamos bastante energia em variáveis aleatórias independentes.
+Por exemplo, estudamos em detalhes o que acontece com a soma de tais variáveis.
+Agora passaremos a estudar elementos aleatórios dependentes e o primeiro passo para isso é obter um método geral de construí-los.
+
+Definiremos agora um núcleo de transição.
+Intuitivamente, ele nos dá um meio de usar um elemento aleatório em um espaço para induzir uma probabilidade em outro espaço.
+Um exemplo em que poderíamos utilizar essa construção seria intuitivamente o seguinte.
+Digamos que uma moeda foi danificada acidentalmente, e isso fez com que sua probabilidade retornar \emph{cara} tenha se modificado para algum $P \in [0,1]$.
+Como modelaríamos um lançamento dessa moeda, se $P$ também fosse aleatório?
+
+Sejam $(E_1, \mathcal{A}_1)$ e $(E_2, \mathcal{A}_2)$ espaços mensuráveis.
+
+\begin{definition}
+  Um núcleo de transição entre $E_1$ e $E_2$ é uma função \index{nucleo de transicao@núcleo de transição}
+  \begin{equation}
+    K: E_1 \times \mathcal{A}_2 \to [0,1],
+  \end{equation}
+  tal que
+  \begin{enumerate}[\quad a)]
+  \item para todo $y \in E_1$, $K(y,\cdot)$ é uma probabilidade em $(E_2, \mathcal{A}_2)$ e
+  \item para todo $A \in \mathcal{A}_2$, a função $K(\cdot, A): E_1 \to [0,1]$ é $\mathcal{A}_1$-mensurável.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  \label{x:moeda_danificada}
+  Daremos agora o exemplo de uma moeda danificada de maneira arbitrária (possivelmente aleatóriamente).
+  Nesse caso, seja $E_1 = [0,1]$ e $E_2 = \{0,1\}$ com as $\sigma$-álgebras naturais e defina
+  \begin{equation}
+    K(p, A) = \big( (1-p)\delta_0 + p \delta_1 \big) (A).
+  \end{equation}
+\end{example}
+
+Vamos verificar que $K$ definido acima é um núcleo.
+De fato,
+\begin{enumerate}[\quad i)]
+\item $K(p, \cdot)$ é a distribuição Bernoulli com parâmetro $p$, que obviamente é uma probabilidade,
+\item além disso, $K(\cdot, \{0\}) = 1-p = 1 - K(\cdot,\{1\})$, que obviamente é mensurável.
+Isso prova que esse $K$ específico é um núcleo
+\end{enumerate}
+
+\begin{example}[Discreto]
+  \label{x:nucleo_discreto}
+  Seja $E_1 = \{y_i\}_{i \geq 1}$ e $E_2 = \{z_j\}_{j \geq 1}$.
+  Se $p: E_1 \times E_2 \to [0,1]$ é tal que para todo $y \in E_1$ temos $\sum_{j} p(y, z_j) = 1$, então
+  \begin{equation}
+    K(y, A) := \sum_{j \in A} p(y, z_j) \text{ é um núcleo de transição entre $E_1$ e $E_2$.}
+  \end{equation}
+  Nesse caso $p(y,z)$ representa a probabilidade que a segunda coordenada seja $z$, se a primeira é $y$.
+\end{example}
+
+\begin{exercise}
+  Mostre que se $E_1$ e $E_2$ são enumeráveis então todo núcleo entre $E_1$ e $E_2$ pode ser escrito na forma do exemplo acima.
+\end{exercise}
+
+\begin{example}[Absolutamente contínuo]
+  Digamos que $E_1$ e $E_2$ sejam dotados de medidas $\mu_1$ e $\mu_2$ $\sigma$-finitas.
+  Seja $\rho: E_1 \times E_2 \to \mathbb{R}_+$ mensurável e tal que para $\mu_1$-quase todo $y \in E_1$, tenhamos que $\int_{E_2} \rho(y, z) \mu_2(\d z) = 1$.
+  Então
+  \begin{equation}
+    K(y, A) := \int_A \rho(y, z) \mu_2(\d z) \text{ é um núcleo de transição entre $E_1$ e $E_2$.}
+  \end{equation}
+  Note que $K(\cdot, A)$ está bem definido para $\mu_2$-quase todo ponto por Fubini.
+\end{example}
+
+\begin{exercise}
+  Prove que os dois exemplos acima de fato definem um núcleo.
+\end{exercise}
+
+Tipicamente, definimos os núcleos de transição introduzindo $K(y, \cdot)$ como sendo uma medida que depende de $y$.
+Nesse caso, uma das condições para que $K$ seja um núcleo está automaticamente satisfeita, restando apenas mostrar que $K(\cdot, A)$ é mensurável para quaisquer $A \in \mathcal{A}_2$.
+Mas obviamente o conjunto $\mathcal{A}_2$ pode ser muito complexo, então gostaríamos de nos restringir a verificar que $K(\cdot, A)$ é mensurável para os conjuntos $A$ em uma classe rica o suficiente.
+
+\begin{proposition}
+  \label{p:K_nucleo_na_classe}
+  Seja $K:E_1 \times \mathcal{A}_2 \to [0,1]$, tal que $K(y, \cdot)$ é uma medida para todo $y \in E_1$.
+  Se $K(\cdot, A)$ é mensurável para dodo $A \in \mathcal{G}$, onde $\mathcal{G}$ é um $\pi$-sistema que gera $\mathcal{A}_2$, então $K$ é um núcleo de transição.
+\end{proposition}
 
 \begin{proof}
-  A unicidade de tal $P$ segue da Proposição~\ref{p:P12_equal_pi} (consequêcia do Teorema de Dynkin), pois se $P$ e $P'$ são tais que $F_{P} = F_{P'}$, então temos que $P\big( (-\infty, x] \big) = P'\big( (-\infty, x] \big)$.
-  Mas a classe de intervalos semi-infinitos da forma $(-\infty, x]$ forma um $\pi$-sistema que gera a $\sigma$-álgebra dos borelianos, logo $P = P'$.
-
-  Para construir uma $P$ tal que $F_P = F$, definiremos primeiramente a inversa generalizada de $F$, $S:(0,1) \to \mathbb{R}$ por
+  Como de costume, vamos definir
   \begin{equation}
-    S(u) = \sup \{x \in \mathbb{R}; F(x) < u\}.
+    \mathcal{B} = \{B \in \mathcal{A}_2; K(\cdot, B) \text{ é $\mathcal{A}_1$-mensurável}\}.
   \end{equation}
-  \begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}[scale=.8]
-      \draw (0,1) -- (10,1);
-      \draw (0,4) -- (10,4); % second line
-      \draw plot [smooth,tension=.5] coordinates{(0, 4.4) (2.5, 4.5) (5,5) (7.5, 5.5) (10, 5.6)};
-      \draw plot [smooth,tension=.5] coordinates{(0, 1.4) (2.5, 1.5) (5,1.8)};
-      \draw plot [smooth,tension=.5] coordinates{(5, 2.3) (7.5, 2.5) (10,2.6)};
-      \draw[dotted] (0,5) -- (5,5) -- (5,4);
-      \draw[dotted] (0,2) -- (5,2) -- (5,1);
-      \draw [fill,color=white] (5,1.8) circle [radius=0.05];
-      \draw (5,1.8) circle [radius=0.05];
-      \draw [fill] (5,2.3) circle [radius=0.05];
-      \node at (0,5) [left]{$u$};
-      \node at (0,2) [left]{$u$};
-      \node at (5,1) [below]{$S(u)$};
-      \node at (5,4) [below]{$S(u)$};
-    \end{tikzpicture}
-    \caption{\small Ilustração da definição de $S(u)$.}
-    \label{f:Rk_good}
-  \end{figure}
-
-  Seja $P = S \circ U_{[0,1]}$, isto é $P(A) = U_{[0,1]}(S^{-1}(A))$ e mostraremos que $F_P = F$.
-  Para tanto, basta ver que
-  \begin{equation}
-    \label{e:pseudo_inversa}
-    \{u; S(u) \leq x\} = \{u; u \leq F(x)\}, \text{ para todo $x \in \mathbb{R}$}.
-  \end{equation}
-  Pois se tivermos a igualdade acima, $F_P(x) = U_{[0,1]}[S \leq x] = U_{[0,1]} [u \leq F(x)] = F(x)$.
-
-  Vamos agora checar \eqref{e:pseudo_inversa} observando que:
+  Obviamente, como $K(y, \cdot)$ é uma probabilidade, vale que
   \begin{enumerate}[\quad a)]
-  \item Se $u \leq F(x)$ então todo $x'$ tal que $F(x') < u$ é menor que $x$.
-    Logo $S(u) \leq x$.
-  \item Por outro lado, se $u > F(x)$ então existe $x' > x$ tal que $F(x') < u$ (pois $F$ é càd), donde $S(u) > x$.
+  \item $\Omega \in \mathcal{B}$, pois a função constante igual a um é mensurável.
+  \item Se $B \in \mathcal{B}$, então $B^c \in \mathcal{B}$, pois $1 - f$ é mensurável se $f$ o é.
+  \item E se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos, então $\cup_i B_i \in \mathcal{B}$, pois a soma de funções mensuráveis também é mensurável.
   \end{enumerate}
-  Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
+
+  A discussão acima mostra que $\mathcal{B}$ é um $\lambda$-sistema que contém o $\pi$-sistema $\mathcal{G}$.
+  Daí, vemos que $\mathcal{A}_2 = \sigma(\mathcal{G}) \subseteq \mathcal{B}$, provando a proposição.
 \end{proof}
 
+\begin{exercise}
+  Seja $K:\mathbb{R} \times \mathcal{B}(\mathbb{R}) \to [0,1]$ dada por $K(y, \cdot) = U_{[y - 1,y + 1]}$.
+  Mostre que $K$ define um núcleo de transição.
+\end{exercise}
+
+Apesar de interessante, a definição acima ainda não nos permitiu definir espaços de probabilidade novos.
+Isso será possibilitado pelo próximo resultado, que pode ser visto como uma generalização do Teorema de Fubini.
+
+\begin{theorem}[Fubini para Núcleos de Transição]
+  \index{Teorema!de Fubini para Nucleos@de Fubini para Núcleos}
+  \label{t:fubini}
+  Dado um núcleo $K$ de $(E_1, \mathcal{A}_1)$ para $(E_2, \mathcal{A}_2)$ e uma probabilidade $P_1$ em $E_1$, existe uma única probabilidade $P$ em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$ tal que
+  \begin{equation}
+    \label{e:fubini}
+    \int_{E_1 \times E_2} f dP = \int_{E_1} \int_{E_2} f(y,z) K(y, \d z) P_1 (\d y),
+  \end{equation}
+  para toda $f:E_1 \times E_2 \to \mathbb{R}_+$.
+  Em particular, $P(A_1 \times A_2) = \int_{A_1} K(y, A_2) P_1 (\d y)$.
+  Nesse caso escrevemos $P = P_1 \star K$.
+\end{theorem}
+
+Antes de iniciar a prova do teorema, vamos ver que as integrais do lado direito de \eqref{e:fubini} estão bem definidas.
+Para isso, definimos para $y \in E_1$ a função fatiadora $\phi_y: E_2 \to E_1 \times E_2$ dada por $\phi_y(z) = (y, z)$.
+Obviamente essa função é mensurável, pois
+\begin{equation}
+  \phi^{-1}(A_1 \times A_2) =
+  \begin{cases}
+    \varnothing, \quad & \text{ se $y \not \in A_1$ e}\\
+    A_2, & \text{ se $y \in A_1$}.
+  \end{cases}
+\end{equation}
+Dessa forma, para definirmos $\int f(y,z) K(y, \d z)$, introduzimos $f_y: A_2 \to \mathbb{R}_+$ dada por $f(z) = f(y,z)$, que é mensurável pois $f_y = f \circ \phi_y$.
+
+Assim, a integral que gostaríamos de definir se torna $\int f_y(z) K(y, \d z)$, que está obviamente bem definida.
+Porém resta a pergunta, será que essa expressão define uma função mensurável de $y$?
+
+\begin{lemma}
+  Se $K$ é um núcleo de transição, então para toda $f: E_1 \times E_2 \to \mathbb{R}_+$ que seja $\mathcal{A}_1 \otimes \mathcal{A}_2$ mensurável, temos que $g^f:A_1 \to \mathbb{R}_+$ dada por
+  \begin{equation}
+    g^f(y) = \int f_y(z) K(y, \d z)
+  \end{equation}
+  é $\mathcal{A}_1$-mensurável.
+\end{lemma}
+
+\begin{proof}
+  Se $f = \1_{A_1 \times A_2}$ para $A_i \in \mathcal{A}_i$, $i = 1,2$, então temos que $g^f(y) = K(y, A_2) \1_{A_1}$, que obviamente é mensurável pois $K$ é um núcleo.
+
+  Definimos $\mathcal{D} = \{B \in \mathcal{A}_1 \otimes \mathcal{A}_2; g^{\1_B} \text{ é $\mathcal{A}_1$-mensurável}\}$.
+  É fácil ver que $\mathcal{D}$ é um $\lambda$-sistema que contém o $\pi$-sistema dos retângulos, logo $\mathcal{D} = \mathcal{A}_1 \otimes \mathcal{A}_2$.
+
+  Acabamos de ver que $g^f$ é mensurável para toda $f$ indicadora, donde o mesmo vale para $f$ simples por linearidade e para toda $f$ positiva pelo Teorema da Convergência Monótona (lembre que limite de funções mensuráveis é mensurável).
+\end{proof}
+
+Estamos prontos agora para fornecer a
+\begin{proof}[Demonstração do Teorema~\ref{t:fubini}]
+  Já sabemos que a integral do lado direito de \eqref{e:fubini} está bem definida (assumindo possivelmente o valor infinito).
+  A unicidade vale obviamente pois a probabilidade de conjuntos do tipo $A_1 \times A_2$ definem $P$ de maneira inequívoca.
 
 
+  Só nos resta mostrar que
+  Isto é
+  \begin{equation}
+    P(B) = \int_{E_1} \int_{E_2} \1_{B} K(y, \d z) P_1 (\d y),
+  \end{equation}
+  nos define uma probabilidade em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$.
 
+  De fato,
+  \begin{enumerate}[\quad a)]
+  \item $P(\Omega) = \int_{E_1} \int_{E_2} 1 K(y, \d z) = 1$ obviamente e
+  \item se $B_1, B_2, \dots \in \mathcal{A}_1 \otimes \mathcal{A}_2$ são disjuntos, então definimos $f^i = \1_{B_i}$ e $f = \sum_i f^i$ e observamos o seguinte.
+    A função fatiadora $f_y$ é igual a $\sum_i f^i_y$, donde
+    \begin{equation}
+      \begin{split}
+        P(B) & = \int_{E_1} \int_{E_2} f_y(z) K(y, \d z) P_1(\d y)\\
+        & = \int_{E_1} \sum_i \int_{E_2} f^i_y(z) K(y, \d z) P_1(\d y) = \sum_i P(B).
+      \end{split}
+    \end{equation}
+  \end{enumerate}
+  O que demonstra o teorema.
+\end{proof}
+
+\begin{exercise}
+  Considere duas probabilidades $P_i$ em $(E_i, \mathcal{A}_i)$ para $i = 1,2$ e $K:E_1 \times \mathcal{A}_2 \to [0,1]$ dado por $K(y,A) = P_2(A)$.
+  Mostre que $K$ é núcleo e que $P_1 \star K = P_1 \otimes P_2$.
+  Relacione esse resultado ao Teorema de Fubini clássico para produtos de medidas.
+\end{exercise}
+
+\begin{exercise}
+  Considere o núcleo do Exemplo~\ref{x:moeda_danificada} e calcule:
+  \begin{enumerate}[\quad a)]
+  \item $U_{[0,1]} \star K [X_2 = 1]$,
+  \item $P_1 \star K [X_2 = 1]$, onde $\d P_1 = 2x \d x$ e
+  \item encontre a distribuição de $X_1 \circ \big( U_{[0,1]} \star K [\; \cdot \; | X_2 = 1] \big)$. Interprete o resultado.
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Seja $P = P_1 \star K$ como acima e $Q(\cdot) = P[\cdot | X_2 = 1]$.
+  Calcule
+  \begin{equation}
+    \int_{[0,1] \times \{0,1\}} X_1 \d Q
+  \end{equation}
+\end{exercise}
+
+\begin{exercise}
+  Considere $K:E_1 \times \mathcal{A}_2 \to [0,1]$ dada por $K(p, \cdot) = \Exp(p)$.
+  Mostre que $K$ é núcleo de transição e calcule $U_{[0,1]}[X_2 > 1] \star K$.
+\end{exercise}
+
+\begin{exercise}
+  Se $K$ é um núcleo de transição entre $E_1$ e $E_2$ e $\{y\} \in \mathcal{A}_1$ satisfaz $P_1(\{y\}) > 0$, mostre que
+  \begin{equation}
+    P_1 \star K [X_2 \in \cdot | X_1 = y] = K(y, \cdot).
+  \end{equation}
+  Ou em outras palavras, $K$ nos dá a distribuição condicional de $X_2$ dado $X_1 = y$.
+\end{exercise}
+
+Posteriormente extenderemos o resultado acima para o caso $P_1(\{y\}) = 0$, mas isso demandará algum esforço.
+
+Vamos introduzir uma última notação com respeito a núcleos de transição.
+Muitas vezes, não estamos interessados na distribuição conjunta de $P_1 \star K$ em $E_1 \times E_2$, mas apenas na distribuição marginal da segunda coordenada.
+No exemplo do martelo, talvez poderíamos estar interessados apenas na distribuição final da moeda.\todo{trocar o exemplo moeda/martelo para marcador/doença.}
+Nesse caso, é conveniente escrever
+\begin{equation}
+  \label{e:P1_K}
+  P_1 K := X_2 \circ (P_1 \star K).
+\end{equation}
+
+\begin{exercise}
+  Seja $K:\mathbb{R}_+ \times \mathbb{B}(\mathbb{R}_+) \to [0,1]$ dada pela equação $K(x,A) = \int_A x \exp\{-x t\} \d t$.
+  \begin{enumerate}[\quad a)]
+  \item Prove que $K$ \'e um n\'ucleo de transi\c{c}\~ao.
+  \item Seja $P$ dada por $P = K \star \textnormal{Exp}(1)$.
+    Obtenha $P[X_2 > x_2]$ para todo $x_2 \geq 0$ (lembrando que $X_2$ denota a segunda coordenada no espa\c{c}o produto onde est\'a definida $P$).
+    Compare a probabilidade acima com $K(1,[x_2, \infty))$.
+  \item Mostre que $P[X_1 + X_2 \geq z] = \int_0^z \exp \{-x(z-x+1)\} \d x + \exp\{-z\}$.
+  \end{enumerate}
+\end{exercise}
 
 \section{Espaços canônicos}
 
@@ -1735,170 +2208,123 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   Isso conclui por indução a prova de \eqref{e:x_in_Aw} e consequentemente do teorema.
 \end{proof}
 
-\section{Probabilidades condicionais}
+\subsection{Tópico: Cadeias de Markov}
 
-\begin{definition}
-  Se $(\Omega, \mathcal{F}, P)$ é espaço de probabilidade e $B \in \mathcal{F}$ é tal que $P(B) > 0$, então definimos a probabilidade \index{probabilidade!condicional} $P(\cdot | B): \mathcal{F} \to [0,1]$ por
-  \begin{equation}
-    \label{e:P_condicional}
-    P(A | B) = \frac{P(A \cap B)}{P(B)},
-  \end{equation}
-  chamada probabilidade condicional dado o evento $B$.
-\end{definition}
+Um exemplo de como usar núcleos de transição é a construção de Cadeias de Markov.
+Esse tipo de processo é bastante útil em diversas aplicações, desde a biologia até a computação.
 
-Obviamente $P(\cdot | B)$ é uma probabilidade em $(\Omega, \mathcal{F})$ e podemos entendê-la de duas formas: como uma normalização ou como uma tentativa de sucesso.
-Explicaremos abaixo cada uma dessas interpretações.
+Considere um espaço mensurável canônico fixo $(E, \mathcal{A})$ e seja $K$ um núcleo de $E$ nele mesmo.
+Seria bastante intuitivo agora iterar $K$ (já que ele está no mesmo espaço) e obter uma medida em $\Omega = \times_{i=1}^\infty E$ com a $\sigma$-álgebra canônica.
 
-Quando restringimos o espaço amostral $\Omega$ ao conjunto $B$ (como em $P(A \cap B)$), temos uma sub-probabilidade, isto é possivelmente $P(\Omega \cap B) < 1$.
-Logo podemos entender o denominador de \eqref{e:P_condicional} como uma normalização para obtermos novamente uma probabilidade.
+Para começar esse procedimento, seja $\mu_0$ uma medida inicial em $(E, \mathcal{A})$.
+Podemos então definir $\mu_1 = \mu_0 \star K$ o que é o primeiro passo da nossa construção, porém observe que não podemos escrever ``$\mu_2 = \mu_1 \star K$'', pois $\mu_1 \star K$ é uma medida em $(E^2, \mathcal{A}^{\otimes 2})$.
+Vamos com calma então.
 
-Mas a interpretação mais natural de \eqref{e:P_condicional} é dada pela seguinte proposição.
-Para enunciá-la, considere $(\Omega, \mathcal{F}, P)$ um espaço de probabilidade e defina o produto
+Observe que
 \begin{equation}
-  \bar{\Omega} = \times_{i=1}^\infty \Omega, \qquad \bar{\mathcal{F}} = \bigotimes_{i=1}^\infty \mathcal{F} \quad \text{e} \quad \bar P = \bigotimes_{i=1}^\infty P.
+  \mu_1(A_0 \times A_1) = \int_{A_0} \int_{A_1} K(x_0, \d x_1) \mu_0(\d x_0),
 \end{equation}
-Na verdade tal produto está bem definido mesmo quando $\Omega$ não é canônico, mas deixaremos isso pra uma outra vez.
+ou em outras palavras o valor de $x_0$ determina a distribuição de $x_1$.
+Gostaríamos agora que $x_1$ determinasse a distribuição de $x_2$ via $K$, como por exemplo assim
+\begin{equation}
+  \mu_2(A_0 \times A_1 \times A_2) = \int_{A_0} \int_{A_1} \int_{A_2} K(x_1, \d x_2) K(x_0, \d x_1) \mu_0 (\d x_0).
+\end{equation}
+Mas essa notação é bastante carregada à medida que iteramos.
 
-\begin{proposition}
-  Na situação acima, seja $B \in \mathcal{F}$ com $P(B) > 0$ e defina $T:\bar{\Omega} \to \mathbb{N}$ por $T(\omega) = \inf \{n \geq 1; X_n(\omega) \in B\}$, onde os $X_n$ são as coordenadas canônicas. Então $T < \infty$ quase certamente e
-  \begin{equation}
-    \text{$X_{T(\omega)}(\omega)$ é um elemento aleatório em $\Omega$ com distribuição $P(\cdot | B)$.}
-  \end{equation}
-\end{proposition}
+Para tornar essa notação mais simples, definimos a projeção $\phi_n:E^n \to E$ por $\phi_n(x_0, \dots, x_{n-1}) = x_{n-1}$.
+Também precisamos de $K_n: E^n \times \mathcal{A} \to [0,1]$ dado por
+\begin{equation}
+  K_n(\vec{x},A) = K\big(\phi_n(\vec{x}), A\big) \quad \big(= K(x_{n-1}),A) \big).
+\end{equation}
+O fato de $K_n$ ser um núcleo de transição segue imediatamente dessa propriedade para $K$.
 
-A intuição desta proposição é que se repetimos o experimento $(\Omega, \mathcal{F}, P)$ independentemente até obter uma amostra em $B$, essa terá a distribuição condicional.
+Note que, nessa notação, estamos dizendo que para irmos de $E^n$ para $E^{n+1}$ iremos olhar apenas para a última coordenada, na qual aplicaremos o núcleo $K$.
+Isso é o ponto mais importante que caracteriza uma Cadeia de Markov: a distribuição do estado futuro da cadeia depende apenas do estado atual e não do passado.
+Em alguns contextos essa propriedade é chamada de ausência de memória.
+
+Podemos finalmente definir
+\begin{equation}
+  \label{e:Pn_Markov}
+  \mu_{n+1} = \mu_n \star K^n, \text{ para todo $n \geq 1$}.
+\end{equation}
+Mas resta a questão sobre a existência de uma $\mu^\infty$ que será respondida com ajuda do próximo
+
+\begin{lemma}
+  As probabilidades $\mu_n$ definidas em \eqref{e:Pn_Markov} são compatíveis, mais precisamente $\mu_{n+1}(A \times E) = \mu_n(A)$ para todo $A \in \mathcal{A}^{\otimes n}$.
+\end{lemma}
 
 \begin{proof}
-  Sejam os eventos $A_n = [X_n \in B]$, $n \geq 1$ que são claramente independentes segundo $\bar{P}$.
-  Logo, como $\sum_n \bar{P}(A_n) = \sum_n P(B) = \infty$, temos pelo Lema de Borel-Cantelli (segunda parte) que $\bar{P}(\text{$A_n$ infinitas vezes}) = 1$, logo $T < \infty$ quase certamente.
-
-  Para ver que $X_{T(\omega)}(\omega)$ é um elemento aletório, basta escrever
+  Basta observar que
   \begin{equation}
-    [X_{T} \in A] = \mcup_{t=1}^\infty [X_t \in A, T = t],
+    \mu_{n+1}(A \times E) = \mu_n \star K (A \times E) = \int_{A} \underbrace{K_n (\vec{x}, E)}_1 \mu_n(\d \vec{x}) = \mu_n(A).
   \end{equation}
-  e observar que tanto $[X_t \in A]$ quanto $[T = t] = [X_1 \not \in B, \dots, X_{t-1} \not \in B, X_t \in B]$ são mensuráveis.
-
-  Finalmente podemos usar a decomposição (disjunta) acima para calcular
-  \begin{equation}
-    \begin{split}
-      \bar{P}[X_T \in A] & = \sum_{t=1}^\infty \bar{P} [X_t \in A, T = t]\\
-      & = \sum_{t=1}^\infty \bar{P} [X_t \in A, X_t \in B, X_s \not \in B \text{ for $s < t$}]\\
-      & = \sum_{t=1}^\infty P(A \cap B) P(B^c)^{t-1} = \frac{P(A \cap B)}{1-P(B^c)} = P(A | B),
-    \end{split}
-  \end{equation}
-  terminando a prova da proposição.
+  Provando o lema.
 \end{proof}
 
-\begin{exercise}
-  Seja $\lambda > 0$ e $X \distr \Exp(\lambda)$ (lembrando a definição da distribuição exponencial: $\d (X \circ P) = \lambda \exp\{- \lambda x\} \d x$).
-  Mostre que as variáveis com distribuição exponencial não possuem memória, ou seja:
-  \begin{equation}
-    \label{e:sem_memoria}
-    P[X > t + s | X > t] = P [X > s], \text{ para todo $s, t > 0$}.
-  \end{equation}
-  Ou em outras palavras, sabendo que $X$ é maior que $t$, a distribuição condicional de $X - t$ ainda é $\Exp(\lambda)$.
-\end{exercise}
-
-Definimos a distribuição geométrica \index{distribuicao@distribuição!geometrica@geométrica} de parâmetro $p \in (0,1]$ por
+Logo, o Teorema da Extensão de Kolmogorov (lembre que $(E, \mathcal{A})$ foi suposto canônico) nos fornece uma única $P$ em $(\Omega, \mathcal{F})$ tal que
 \begin{equation}
-  \Geo(p) = \sum_{i = 1}^\infty \delta_i (1-p)^i p.
+  (X_0, \dots, X_n) \circ P = \mu_n, \text{ para todo $n \geq 0$}.
 \end{equation}
+Lembramos que $X_i$ denotam as projeções canônicas em $\Omega = \times_{i=1}^\infty E$.
+
+Chamamos o processo $X_1, X_2, \dots$ sob a lei $P$ de Cadeia de Markov \index{Cadia de Markov} com distribuição inicial $\mu_0$ e núcleo de transição $K$.
+
+\begin{example}
+  Suponha que $E$ seja enumerável.
+  Nesse caso recordamos do Exemplo~\ref{x:nucleo_discreto} que o núcleo pode ser representado por uma matriz $\big(p(x,y)\big)_{x,y \in E}$ que nos retorna a probabilidade de saltar de $x$ a $y$.
+  Além disso, a distribuição inicial $\mu_0$ é determinada por $P(\{x\}) = p_0(x)$, para alguma sequência $\big(p_0(x)\big)_{x \in E}$.
+\end{example}
 
 \begin{exercise}
-  Inspirado no exercício anterior, mostre que a distribuição geométrica $\Geo(p)$ também satisfaz \eqref{e:sem_memoria} para todos $t, s \in \mathbb{N}$.
-  Mostre que essas são as únicas distribuições com suporte em $\mathbb{N}$ satisfazendo tal propriedade
-\end{exercise}
-
-\begin{exercise}
-  \label{x:geo_time}
-  Sejam $Y_i$, para $i \geq 1$ \iid com distribuição $\Ber(p)$ e defina
+  Mostre que no exemplo acima temos
   \begin{equation}
-    T = \inf\{i; Y_i = 1\}.
+    P(X_0 = x_0, \dots, X_n = x_n) = p_0(x_0) p(x_0, x_1) \dots p(x_{n-1}, x_n).
   \end{equation}
-  Mostre que $T \overset{d}\sim \Geo(p)$.
 \end{exercise}
 
 \begin{exercise}
-  Barry James: Cap. 2-5, Ex: 5, 10, 21, 22 (a) e (b).
-\end{exercise}
-
-\begin{exercise}
-  Porta dos desesperados...
-\end{exercise}
-
-\begin{exercise}
-  $P(\cdot|A|B) = P(\cdot|B|A)$.
-\end{exercise}
-
-\begin{exercise}
-  Sejam $X, Y$ vari\'aveis aleat\'orias em um espaço $(\Omega, \mathcal{F}, P)$, independentes e com distribuição $U_{[0,1]}$.
+  Defina $K:\mathbb{R}^2 \times \mathcal{B}(\mathbb{R}^2) \to [0,1]$ dada por
+  \begin{equation}
+    K(x, A) = U_{S^1}(A - x).
+  \end{equation}
+  Nesse contexto,
   \begin{enumerate}[\quad a)]
-  \item Calcule $(X+Y) \circ P$.
-  \item Considere $P'(\cdot) = P\big(\cdot | X + Y \leq 1 \big)$ e calcule $X \circ P'$.
+  \item mostre que $K$ é um núcleo de transição e,
+  \item considerando a cadeia com distribuição inicial $\mu_0 = \delta_0$ em $\mathbb{R}^2$ e núcleo $K$, mostre que $X_2$ tem distribuição absolutamente contínua com respeito a Lebesgue e calcule sua densidade.
   \end{enumerate}
 \end{exercise}
 
-
-
-\ifdraft{\newpage \subsection{Tópico: Distribuições de Extremos} fazer...}{}
-
-\newpage
-
-\subsection{Regra de Bayes}
-
-Frequentemente definimos um espaço de probabilidade atravéz de probabilidades condicionais.
-Consideramos por exemplo um exame médico para detectar uma doença, nesse caso temos
-\begin{equation}
-  \Omega = \{(\text{doente}, +), (\text{doente}, -), (\text{saudável}, +), (\text{saudável}, -)\},
-\end{equation}
-com obviamente a $\sigma$-álgebra das partes.
-
-Contudo, ao contrário do que fizemos anteriormente, não daremos probabilidades $p_\omega \in [0,1]$ para cada $\omega \in \Omega$.
-Poderíamos por exemplo fornecer
-\begin{equation}
-  \label{e:exame_medico}
-  P(\text{doente}) = 0.005, \quad P( + | \text{saudável}) = 0.01, \quad P( - | \text{doente}) = 0.05.
-\end{equation}
-Obviamente podemos obter as probabilidades dos complementos dos eventos acima.
-As probabilidades acima podem ser facilmente estimadas num laboratório e as duas últimas são chamadas respectivamente de probabilidades de \emph{falso positivo} e \emph{falso negativo}.
-Outra vantagem da representação em \eqref{e:exame_medico} é que as probabilidades descritas são mais ``compartimentadas'' no seguinte sentido.
-Note que $P(\text{doente})$ somente depende da população em questão, enquanto as outras duas dependem apenas do exame e não da população.
-Isso não pode ser dito das probabilidades de pontos individuais em $\Omega$.
-
-Agora fica fácil construir nosso espaço de probabilidade escrevendo, para $r \in \{+, -\}$ e $e \in \{\text{saudável}, \text{doente}\}$,
-\begin{equation}
-  P(\{(r,e)\}) = P(r \cap e) = P(r | e) P(e).
-\end{equation}
-E as probabilidades do lado direito da equação acima estão todas determinadas em \eqref{e:exame_medico} (possivelmente tomando complementos).
-
-Contudo, o que estamos interessado muitas vezes é em como interpretar resultados de um exame.
-Por exemplo, quanto vele $P(\text{doente} | +)$?
-Isso nos é fornecido em geral pela regra de Bayes enunciada na seguinte
-
-\begin{proposition}
-  Se $A_1, A_2, \dots$ formam uma partição (finita ou não) de $\Omega$ e $B \in \mathcal{F}$ tem probabilidade positiva, então
-  \begin{equation}
-    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{\sum_j P(A_j) P(B | A_j)}.
-  \end{equation}
-\end{proposition}
-
-\begin{proof}
-  Basta notar que
-  \begin{equation}
-    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{P(B)} = \frac{P(A_i) P(B | A_i)}{\sum_j P(B \cap A_j)} = \frac{P(A_i) P(B | A_i)}{\sum_j P(A_j) P(B | A_j)}.
-  \end{equation}
-\end{proof}
-
 \begin{exercise}
-  Utilize a fórmula acima para calcular $P(\text{doente} | +)$ com os dados em \eqref{e:exame_medico}.
-  Comente o resultado.
+  Mostre que para qualquer núcleo de transição $K$ entre $E$ e $E$, existe um núcleo de transição $\bar K$ entre $E$ e $\Omega = \prod_{i=1}^\infty$, tal que para toda medida inicial $\mu_0$, temos que $\mu_0 \star K$ é a distribuição de uma Cadeia de Markov começando de $\mu_0$ e com transição dada por $K$.
+  Esse núcleo é útil se quisermos mudar a distribuição inicial $\mu_0$ e uma notação bastante comum para esse núcleo é $P_{x}(\cdot) = \bar K(x, \cdot)$.
 \end{exercise}
 
+Vamos terminar essa seção dando uma interpretação bastante interessante para os núcleos de transição em analogia à álgebra linear.
+Fixe um núcleo de transição $K$ entre $E$ e $E$, uma medida inicial $\mu$ e uma função limitada $f: E \to \mathbb{R}$.
+Relembre a notação em \eqref{e:P1_K} e defina $K f: E \to \mathbb{R}$ dada por
+\begin{equation}
+  K f(x):= \int f(y) K(x, \d y),
+\end{equation}
+que é obviamente limitada e já vimos ser mensurável no Teorema de Fubini.
+
+Então temos dois operadores definidos para núcleos, a multiplicação à esquerda por uma medida em $E$ ($\mu K$ que também é uma medida em $E$) e a multiplicação à direita por uma função limitada e mensurável ($K f$ que também é uma função limitada e mensurável).
+Podemos pensar em $f$ como um vetor coluna e $\mu$ como um vetor linha, nesse caso $K$ faria o papel de uma matriz.
+Essa analogia é real se $E$ for um espaço enumerável.
+
 \begin{exercise}
-  Barry James: Cap. 1, Ex: 18 e 19.
+  No contexto de cadeias de Markov,
+  \begin{enumerate}[\quad a)]
+  \item mostre a relação de associatividade $\mu (K f) = (\mu K) f$,
+  \item defina para todo $n$ o núcleo $K^{(n)}$ iterado (de $E$ em $E$), de forma que $\mu K^{(n)} f$ ainda seja associativa.
+  \item Mostre que a medida $\mu K^{(n)}$ é a distribuição de $X_n$ se começamos de $\mu$,
+  \item que a função $K^{(n)} f (\cdot)$ é o valor esperado de $f$ no tempo $n$ se começamos no zero do ponto $\cdot$ e finalmente que
+  \item o número real $\mu K^{(n)} f$ é a esperança de $f$ no tempo $n$ se começamos de $\mu$.
+  \end{enumerate}
 \end{exercise}
 
-\newpage
+\todosec{Tópico: Urna de Pólya}{fazer...}
+
+\todosec{Tópico: Recorrência e transiência}{markov recorrência/transiência + periodicidade...}
 
 \chapter{Somas de variáveis independentes}
 
@@ -2093,11 +2519,9 @@ Se $d(X \circ P) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), 
   \end{equation}
 \end{example}
 
-\ifdraft{\newpage \subsection{Tópico: Grafos Aleatórios} fazer erdos renyi...}{}
+\todosec{Tópico: Grafos Aleatórios}{fazer erdos renyi...}
 
-\ifdraft{\newpage \subsection{Tópico: Currie Weiss} fazer...}{}
-
-\newpage
+\todosec{Tópico: Currie Weiss}{fazer...}
 
 \subsection{Esperança e independência}
 
@@ -2403,9 +2827,9 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
   \end{enumerate}
 \end{exercise}
 
-\ifdraft{\newpage \subsection{Tópico: Análise de DNA} fazer "computational molecular biology" - Pevzner seção 5.5...}{}
+\todosec{Tópico: Análise de DNA}{fazer "computational molecular biology" - Pevzner seção 5.5...}
 
-\ifdraft{\newpage \subsection{Tópico: Contando triângulos} números de triângulos em grafos (olhar alon spencer)...}{}
+\todosec{Tópico: Contando triângulos}{números de triângulos em grafos (olhar alon spencer)...}
 
 \section{Lei forte dos grandes números}
 
@@ -2524,9 +2948,9 @@ Estamos agora em posição de finalizar a
 
 \todo{provar o teorema de Weierstrass de aproximação de funções contínuas por polinômios (prova probabilística). Ele é usado em convergência fraca em $\mathbb{R}$}
 
-\ifdraft{\newpage \subsection{Tópico: Entropia de Shannon} fazer...}{}
+\todosec{Tópico: Entropia de Shannon}{fazer...}
 
-\ifdraft{\newpage \subsection{Tópico: Processos de renovação} fazer...}{}
+\todosec{Tópico: Processos de renovação}{fazer...}
 
 \section{Lei \texorpdfstring{$\{0, 1\}$}{\{0,1\}} de Kolmogorov}
 
@@ -2746,7 +3170,7 @@ Resta agora tentar entender qual é o expoente correto para o decaimento da prob
   \end{enumerate}
 \end{exercise}
 
-\ifdraft{\newpage \subsection{Tópico: Processos de ramificação} fazer...}{}
+\todosec{Tópico: Processos de ramificação}{fazer...}
 
 \section{Princípio de Grandes Desvios}
 \label{s:PGD}
@@ -3472,369 +3896,11 @@ A primeira é dada pela seguinte
   Mas pelo Teorema central do limite, a distribuição dessa combinação de $X_i$ deve convergir a $\mathcal{N}(0,1)$, logo temos $\mu = \mathcal{N}(0,1)$.
 \end{proof}
 
-\ifdraft{\newpage \subsection{Tópico: Análise de componentes principais} variáveis gaussianas e principal component analysis...}{}
+\todosec{Tópico: Análise de componentes principais}{variáveis gaussianas e principal component analysis...}
 
-\ifdraft{\newpage \subsection{Tópico: Funções características???} funcoes caracteristicas e tomografia...}{}
-
-\newpage
+\todosec{Tópico: Funções características???}{funcoes caracteristicas e tomografia...}
 
 \chapter{Esperança condicional}
-
-\section{Núcleos de transição}
-
-Já focamos bastante energia em variáveis aleatórias independentes.
-Por exemplo, estudamos em detalhes o que acontece com a soma de tais variáveis.
-Agora passaremos a estudar elementos aleatórios dependentes e o primeiro passo para isso é obter um método geral de construí-los.
-
-Definiremos agora um núcleo de transição.
-Intuitivamente, ele nos dá um meio de usar um elemento aleatório em um espaço para induzir uma probabilidade em outro espaço.
-Um exemplo em que poderíamos utilizar essa construção seria intuitivamente o seguinte.
-Digamos que uma moeda foi danificada acidentalmente, e isso fez com que sua probabilidade retornar \emph{cara} tenha se modificado para algum $P \in [0,1]$.
-Como modelaríamos um lançamento dessa moeda, se $P$ também fosse aleatório?
-
-Sejam $(E_1, \mathcal{A}_1)$ e $(E_2, \mathcal{A}_2)$ espaços mensuráveis.
-
-\begin{definition}
-  Um núcleo de transição entre $E_1$ e $E_2$ é uma função \index{nucleo de transicao@núcleo de transição}
-  \begin{equation}
-    K: E_1 \times \mathcal{A}_2 \to [0,1],
-  \end{equation}
-  tal que
-  \begin{enumerate}[\quad a)]
-  \item para todo $y \in E_1$, $K(y,\cdot)$ é uma probabilidade em $(E_2, \mathcal{A}_2)$ e
-  \item para todo $A \in \mathcal{A}_2$, a função $K(\cdot, A): E_1 \to [0,1]$ é $\mathcal{A}_1$-mensurável.
-  \end{enumerate}
-\end{definition}
-
-\begin{example}
-  \label{x:moeda_danificada}
-  Daremos agora o exemplo de uma moeda danificada de maneira arbitrária (possivelmente aleatóriamente).
-  Nesse caso, seja $E_1 = [0,1]$ e $E_2 = \{0,1\}$ com as $\sigma$-álgebras naturais e defina
-  \begin{equation}
-    K(p, A) = \big( (1-p)\delta_0 + p \delta_1 \big) (A).
-  \end{equation}
-\end{example}
-
-Vamos verificar que $K$ definido acima é um núcleo.
-De fato,
-\begin{enumerate}[\quad i)]
-\item $K(p, \cdot)$ é a distribuição Bernoulli com parâmetro $p$, que obviamente é uma probabilidade,
-\item além disso, $K(\cdot, \{0\}) = 1-p = 1 - K(\cdot,\{1\})$, que obviamente é mensurável.
-Isso prova que esse $K$ específico é um núcleo
-\end{enumerate}
-
-\begin{example}[Discreto]
-  \label{x:nucleo_discreto}
-  Seja $E_1 = \{y_i\}_{i \geq 1}$ e $E_2 = \{z_j\}_{j \geq 1}$.
-  Se $p: E_1 \times E_2 \to [0,1]$ é tal que para todo $y \in E_1$ temos $\sum_{j} p(y, z_j) = 1$, então
-  \begin{equation}
-    K(y, A) := \sum_{j \in A} p(y, z_j) \text{ é um núcleo de transição entre $E_1$ e $E_2$.}
-  \end{equation}
-  Nesse caso $p(y,z)$ representa a probabilidade que a segunda coordenada seja $z$, se a primeira é $y$.
-\end{example}
-
-\begin{exercise}
-  Mostre que se $E_1$ e $E_2$ são enumeráveis então todo núcleo entre $E_1$ e $E_2$ pode ser escrito na forma do exemplo acima.
-\end{exercise}
-
-\begin{example}[Absolutamente contínuo]
-  Digamos que $E_1$ e $E_2$ sejam dotados de medidas $\mu_1$ e $\mu_2$ $\sigma$-finitas.
-  Seja $\rho: E_1 \times E_2 \to \mathbb{R}_+$ mensurável e tal que para $\mu_1$-quase todo $y \in E_1$, tenhamos que $\int_{E_2} \rho(y, z) \mu_2(\d z) = 1$.
-  Então
-  \begin{equation}
-    K(y, A) := \int_A \rho(y, z) \mu_2(\d z) \text{ é um núcleo de transição entre $E_1$ e $E_2$.}
-  \end{equation}
-  Note que $K(\cdot, A)$ está bem definido para $\mu_2$-quase todo ponto por Fubini.
-\end{example}
-
-\begin{exercise}
-  Prove que os dois exemplos acima de fato definem um núcleo.
-\end{exercise}
-
-Tipicamente, definimos os núcleos de transição introduzindo $K(y, \cdot)$ como sendo uma medida que depende de $y$.
-Nesse caso, uma das condições para que $K$ seja um núcleo está automaticamente satisfeita, restando apenas mostrar que $K(\cdot, A)$ é mensurável para quaisquer $A \in \mathcal{A}_2$.
-Mas obviamente o conjunto $\mathcal{A}_2$ pode ser muito complexo, então gostaríamos de nos restringir a verificar que $K(\cdot, A)$ é mensurável para os conjuntos $A$ em uma classe rica o suficiente.
-
-\begin{proposition}
-  \label{p:K_nucleo_na_classe}
-  Seja $K:E_1 \times \mathcal{A}_2 \to [0,1]$, tal que $K(y, \cdot)$ é uma medida para todo $y \in E_1$.
-  Se $K(\cdot, A)$ é mensurável para dodo $A \in \mathcal{G}$, onde $\mathcal{G}$ é um $\pi$-sistema que gera $\mathcal{A}_2$, então $K$ é um núcleo de transição.
-\end{proposition}
-
-\begin{proof}
-  Como de costume, vamos definir
-  \begin{equation}
-    \mathcal{B} = \{B \in \mathcal{A}_2; K(\cdot, B) \text{ é $\mathcal{A}_1$-mensurável}\}.
-  \end{equation}
-  Obviamente, como $K(y, \cdot)$ é uma probabilidade, vale que
-  \begin{enumerate}[\quad a)]
-  \item $\Omega \in \mathcal{B}$, pois a função constante igual a um é mensurável.
-  \item Se $B \in \mathcal{B}$, então $B^c \in \mathcal{B}$, pois $1 - f$ é mensurável se $f$ o é.
-  \item E se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos, então $\cup_i B_i \in \mathcal{B}$, pois a soma de funções mensuráveis também é mensurável.
-  \end{enumerate}
-
-  A discussão acima mostra que $\mathcal{B}$ é um $\lambda$-sistema que contém o $\pi$-sistema $\mathcal{G}$.
-  Daí, vemos que $\mathcal{A}_2 = \sigma(\mathcal{G}) \subseteq \mathcal{B}$, provando a proposição.
-\end{proof}
-
-\begin{exercise}
-  Seja $K:\mathbb{R} \times \mathcal{B}(\mathbb{R}) \to [0,1]$ dada por $K(y, \cdot) = U_{[y - 1,y + 1]}$.
-  Mostre que $K$ define um núcleo de transição.
-\end{exercise}
-
-Apesar de interessante, a definição acima ainda não nos permitiu definir espaços de probabilidade novos.
-Isso será possibilitado pelo próximo resultado, que pode ser visto como uma generalização do Teorema de Fubini.
-
-\begin{theorem}[Fubini para Núcleos de Transição]
-  \index{Teorema!de Fubini para Nucleos@de Fubini para Núcleos}
-  \label{t:fubini}
-  Dado um núcleo $K$ de $(E_1, \mathcal{A}_1)$ para $(E_2, \mathcal{A}_2)$ e uma probabilidade $P_1$ em $E_1$, existe uma única probabilidade $P$ em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$ tal que
-  \begin{equation}
-    \label{e:fubini}
-    \int_{E_1 \times E_2} f dP = \int_{E_1} \int_{E_2} f(y,z) K(y, \d z) P_1 (\d y),
-  \end{equation}
-  para toda $f:E_1 \times E_2 \to \mathbb{R}_+$.
-  Em particular, $P(A_1 \times A_2) = \int_{A_1} K(y, A_2) P_1 (\d y)$.
-  Nesse caso escrevemos $P = P_1 \star K$.
-\end{theorem}
-
-Antes de iniciar a prova do teorema, vamos ver que as integrais do lado direito de \eqref{e:fubini} estão bem definidas.
-Para isso, definimos para $y \in E_1$ a função fatiadora $\phi_y: E_2 \to E_1 \times E_2$ dada por $\phi_y(z) = (y, z)$.
-Obviamente essa função é mensurável, pois
-\begin{equation}
-  \phi^{-1}(A_1 \times A_2) =
-  \begin{cases}
-    \varnothing, \quad & \text{ se $y \not \in A_1$ e}\\
-    A_2, & \text{ se $y \in A_1$}.
-  \end{cases}
-\end{equation}
-Dessa forma, para definirmos $\int f(y,z) K(y, \d z)$, introduzimos $f_y: A_2 \to \mathbb{R}_+$ dada por $f(z) = f(y,z)$, que é mensurável pois $f_y = f \circ \phi_y$.
-
-Assim, a integral que gostaríamos de definir se torna $\int f_y(z) K(y, \d z)$, que está obviamente bem definida.
-Porém resta a pergunta, será que essa expressão define uma função mensurável de $y$?
-
-\begin{lemma}
-  Se $K$ é um núcleo de transição, então para toda $f: E_1 \times E_2 \to \mathbb{R}_+$ que seja $\mathcal{A}_1 \otimes \mathcal{A}_2$ mensurável, temos que $g^f:A_1 \to \mathbb{R}_+$ dada por
-  \begin{equation}
-    g^f(y) = \int f_y(z) K(y, \d z)
-  \end{equation}
-  é $\mathcal{A}_1$-mensurável.
-\end{lemma}
-
-\begin{proof}
-  Se $f = \1_{A_1 \times A_2}$ para $A_i \in \mathcal{A}_i$, $i = 1,2$, então temos que $g^f(y) = K(y, A_2) \1_{A_1}$, que obviamente é mensurável pois $K$ é um núcleo.
-
-  Definimos $\mathcal{D} = \{B \in \mathcal{A}_1 \otimes \mathcal{A}_2; g^{\1_B} \text{ é $\mathcal{A}_1$-mensurável}\}$.
-  É fácil ver que $\mathcal{D}$ é um $\lambda$-sistema que contém o $\pi$-sistema dos retângulos, logo $\mathcal{D} = \mathcal{A}_1 \otimes \mathcal{A}_2$.
-
-  Acabamos de ver que $g^f$ é mensurável para toda $f$ indicadora, donde o mesmo vale para $f$ simples por linearidade e para toda $f$ positiva pelo Teorema da Convergência Monótona (lembre que limite de funções mensuráveis é mensurável).
-\end{proof}
-
-Estamos prontos agora para fornecer a
-\begin{proof}[Demonstração do Teorema~\ref{t:fubini}]
-  Já sabemos que a integral do lado direito de \eqref{e:fubini} está bem definida (assumindo possivelmente o valor infinito).
-  A unicidade vale obviamente pois a probabilidade de conjuntos do tipo $A_1 \times A_2$ definem $P$ de maneira inequívoca.
-
-
-  Só nos resta mostrar que
-  Isto é
-  \begin{equation}
-    P(B) = \int_{E_1} \int_{E_2} \1_{B} K(y, \d z) P_1 (\d y),
-  \end{equation}
-  nos define uma probabilidade em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$.
-
-  De fato,
-  \begin{enumerate}[\quad a)]
-  \item $P(\Omega) = \int_{E_1} \int_{E_2} 1 K(y, \d z) = 1$ obviamente e
-  \item se $B_1, B_2, \dots \in \mathcal{A}_1 \otimes \mathcal{A}_2$ são disjuntos, então definimos $f^i = \1_{B_i}$ e $f = \sum_i f^i$ e observamos o seguinte.
-    A função fatiadora $f_y$ é igual a $\sum_i f^i_y$, donde
-    \begin{equation}
-      \begin{split}
-        P(B) & = \int_{E_1} \int_{E_2} f_y(z) K(y, \d z) P_1(\d y)\\
-        & = \int_{E_1} \sum_i \int_{E_2} f^i_y(z) K(y, \d z) P_1(\d y) = \sum_i P(B).
-      \end{split}
-    \end{equation}
-  \end{enumerate}
-  O que demonstra o teorema.
-\end{proof}
-
-\begin{exercise}
-  Considere duas probabilidades $P_i$ em $(E_i, \mathcal{A}_i)$ para $i = 1,2$ e $K:E_1 \times \mathcal{A}_2 \to [0,1]$ dado por $K(y,A) = P_2(A)$.
-  Mostre que $K$ é núcleo e que $P_1 \star K = P_1 \otimes P_2$.
-  Relacione esse resultado ao Teorema de Fubini clássico para produtos de medidas.
-\end{exercise}
-
-\begin{exercise}
-  Considere o núcleo do Exemplo~\ref{x:moeda_danificada} e calcule:
-  \begin{enumerate}[\quad a)]
-  \item $U_{[0,1]} \star K [X_2 = 1]$,
-  \item $P_1 \star K [X_2 = 1]$, onde $\d P_1 = 2x \d x$ e
-  \item encontre a distribuição de $X_1 \circ \big( U_{[0,1]} \star K [\; \cdot \; | X_2 = 1] \big)$. Interprete o resultado.
-  \end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-  Seja $P = P_1 \star K$ como acima e $Q(\cdot) = P[\cdot | X_2 = 1]$.
-  Calcule
-  \begin{equation}
-    \int_{[0,1] \times \{0,1\}} X_1 \d Q
-  \end{equation}
-\end{exercise}
-
-\begin{exercise}
-  Considere $K:E_1 \times \mathcal{A}_2 \to [0,1]$ dada por $K(p, \cdot) = \Exp(p)$.
-  Mostre que $K$ é núcleo de transição e calcule $U_{[0,1]}[X_2 > 1] \star K$.
-\end{exercise}
-
-\begin{exercise}
-  Se $K$ é um núcleo de transição entre $E_1$ e $E_2$ e $\{y\} \in \mathcal{A}_1$ satisfaz $P_1(\{y\}) > 0$, mostre que
-  \begin{equation}
-    P_1 \star K [X_2 \in \cdot | X_1 = y] = K(y, \cdot).
-  \end{equation}
-  Ou em outras palavras, $K$ nos dá a distribuição condicional de $X_2$ dado $X_1 = y$.
-\end{exercise}
-
-Posteriormente extenderemos o resultado acima para o caso $P_1(\{y\}) = 0$, mas isso demandará algum esforço.
-
-Vamos introduzir uma última notação com respeito a núcleos de transição.
-Muitas vezes, não estamos interessados na distribuição conjunta de $P_1 \star K$ em $E_1 \times E_2$, mas apenas na distribuição marginal da segunda coordenada.
-No exemplo do martelo, talvez poderíamos estar interessados apenas na distribuição final da moeda.\todo{trocar o exemplo moeda/martelo para marcador/doença.}
-Nesse caso, é conveniente escrever
-\begin{equation}
-  \label{e:P1_K}
-  P_1 K := X_2 \circ (P_1 \star K).
-\end{equation}
-
-\begin{exercise}
-  Seja $K:\mathbb{R}_+ \times \mathbb{B}(\mathbb{R}_+) \to [0,1]$ dada pela equação $K(x,A) = \int_A x \exp\{-x t\} \d t$.
-  \begin{enumerate}[\quad a)]
-  \item Prove que $K$ \'e um n\'ucleo de transi\c{c}\~ao.
-  \item Seja $P$ dada por $P = K \star \textnormal{Exp}(1)$.
-    Obtenha $P[X_2 > x_2]$ para todo $x_2 \geq 0$ (lembrando que $X_2$ denota a segunda coordenada no espa\c{c}o produto onde est\'a definida $P$).
-    Compare a probabilidade acima com $K(1,[x_2, \infty))$.
-  \item Mostre que $P[X_1 + X_2 \geq z] = \int_0^z \exp \{-x(z-x+1)\} \d x + \exp\{-z\}$.
-  \end{enumerate}
-\end{exercise}
-
-\newpage
-
-\subsection{Tópico: Cadeias de Markov}
-
-Um exemplo de como usar núcleos de transição é a construção de Cadeias de Markov.
-Esse tipo de processo é bastante útil em diversas aplicações, desde a biologia até a computação.
-
-Considere um espaço mensurável canônico fixo $(E, \mathcal{A})$ e seja $K$ um núcleo de $E$ nele mesmo.
-Seria bastante intuitivo agora iterar $K$ (já que ele está no mesmo espaço) e obter uma medida em $\Omega = \times_{i=1}^\infty E$ com a $\sigma$-álgebra canônica.
-
-Para começar esse procedimento, seja $\mu_0$ uma medida inicial em $(E, \mathcal{A})$.
-Podemos então definir $\mu_1 = \mu_0 \star K$ o que é o primeiro passo da nossa construção, porém observe que não podemos escrever ``$\mu_2 = \mu_1 \star K$'', pois $\mu_1 \star K$ é uma medida em $(E^2, \mathcal{A}^{\otimes 2})$.
-Vamos com calma então.
-
-Observe que
-\begin{equation}
-  \mu_1(A_0 \times A_1) = \int_{A_0} \int_{A_1} K(x_0, \d x_1) \mu_0(\d x_0),
-\end{equation}
-ou em outras palavras o valor de $x_0$ determina a distribuição de $x_1$.
-Gostaríamos agora que $x_1$ determinasse a distribuição de $x_2$ via $K$, como por exemplo assim
-\begin{equation}
-  \mu_2(A_0 \times A_1 \times A_2) = \int_{A_0} \int_{A_1} \int_{A_2} K(x_1, \d x_2) K(x_0, \d x_1) \mu_0 (\d x_0).
-\end{equation}
-Mas essa notação é bastante carregada à medida que iteramos.
-
-Para tornar essa notação mais simples, definimos a projeção $\phi_n:E^n \to E$ por $\phi_n(x_0, \dots, x_{n-1}) = x_{n-1}$.
-Também precisamos de $K_n: E^n \times \mathcal{A} \to [0,1]$ dado por
-\begin{equation}
-  K_n(\vec{x},A) = K\big(\phi_n(\vec{x}), A\big) \quad \big(= K(x_{n-1}),A) \big).
-\end{equation}
-O fato de $K_n$ ser um núcleo de transição segue imediatamente dessa propriedade para $K$.
-
-Note que, nessa notação, estamos dizendo que para irmos de $E^n$ para $E^{n+1}$ iremos olhar apenas para a última coordenada, na qual aplicaremos o núcleo $K$.
-Isso é o ponto mais importante que caracteriza uma Cadeia de Markov: a distribuição do estado futuro da cadeia depende apenas do estado atual e não do passado.
-Em alguns contextos essa propriedade é chamada de ausência de memória.
-
-Podemos finalmente definir
-\begin{equation}
-  \label{e:Pn_Markov}
-  \mu_{n+1} = \mu_n \star K^n, \text{ para todo $n \geq 1$}.
-\end{equation}
-Mas resta a questão sobre a existência de uma $\mu^\infty$ que será respondida com ajuda do próximo
-
-\begin{lemma}
-  As probabilidades $\mu_n$ definidas em \eqref{e:Pn_Markov} são compatíveis, mais precisamente $\mu_{n+1}(A \times E) = \mu_n(A)$ para todo $A \in \mathcal{A}^{\otimes n}$.
-\end{lemma}
-
-\begin{proof}
-  Basta observar que
-  \begin{equation}
-    \mu_{n+1}(A \times E) = \mu_n \star K (A \times E) = \int_{A} \underbrace{K_n (\vec{x}, E)}_1 \mu_n(\d \vec{x}) = \mu_n(A).
-  \end{equation}
-  Provando o lema.
-\end{proof}
-
-Logo, o Teorema da Extensão de Kolmogorov (lembre que $(E, \mathcal{A})$ foi suposto canônico) nos fornece uma única $P$ em $(\Omega, \mathcal{F})$ tal que
-\begin{equation}
-  (X_0, \dots, X_n) \circ P = \mu_n, \text{ para todo $n \geq 0$}.
-\end{equation}
-Lembramos que $X_i$ denotam as projeções canônicas em $\Omega = \times_{i=1}^\infty E$.
-
-Chamamos o processo $X_1, X_2, \dots$ sob a lei $P$ de Cadeia de Markov \index{Cadia de Markov} com distribuição inicial $\mu_0$ e núcleo de transição $K$.
-
-\begin{example}
-  Suponha que $E$ seja enumerável.
-  Nesse caso recordamos do Exemplo~\ref{x:nucleo_discreto} que o núcleo pode ser representado por uma matriz $\big(p(x,y)\big)_{x,y \in E}$ que nos retorna a probabilidade de saltar de $x$ a $y$.
-  Além disso, a distribuição inicial $\mu_0$ é determinada por $P(\{x\}) = p_0(x)$, para alguma sequência $\big(p_0(x)\big)_{x \in E}$.
-\end{example}
-
-\begin{exercise}
-  Mostre que no exemplo acima temos
-  \begin{equation}
-    P(X_0 = x_0, \dots, X_n = x_n) = p_0(x_0) p(x_0, x_1) \dots p(x_{n-1}, x_n).
-  \end{equation}
-\end{exercise}
-
-\begin{exercise}
-  Defina $K:\mathbb{R}^2 \times \mathcal{B}(\mathbb{R}^2) \to [0,1]$ dada por
-  \begin{equation}
-    K(x, A) = U_{S^1}(A - x).
-  \end{equation}
-  Nesse contexto,
-  \begin{enumerate}[\quad a)]
-  \item mostre que $K$ é um núcleo de transição e,
-  \item considerando a cadeia com distribuição inicial $\mu_0 = \delta_0$ em $\mathbb{R}^2$ e núcleo $K$, mostre que $X_2$ tem distribuição absolutamente contínua com respeito a Lebesgue e calcule sua densidade.
-  \end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-  Mostre que para qualquer núcleo de transição $K$ entre $E$ e $E$, existe um núcleo de transição $\bar K$ entre $E$ e $\Omega = \prod_{i=1}^\infty$, tal que para toda medida inicial $\mu_0$, temos que $\mu_0 \star K$ é a distribuição de uma Cadeia de Markov começando de $\mu_0$ e com transição dada por $K$.
-  Esse núcleo é útil se quisermos mudar a distribuição inicial $\mu_0$ e uma notação bastante comum para esse núcleo é $P_{x}(\cdot) = \bar K(x, \cdot)$.
-\end{exercise}
-
-Vamos terminar essa seção dando uma interpretação bastante interessante para os núcleos de transição em analogia à álgebra linear.
-Fixe um núcleo de transição $K$ entre $E$ e $E$, uma medida inicial $\mu$ e uma função limitada $f: E \to \mathbb{R}$.
-Relembre a notação em \eqref{e:P1_K} e defina $K f: E \to \mathbb{R}$ dada por
-\begin{equation}
-  K f(x):= \int f(y) K(x, \d y),
-\end{equation}
-que é obviamente limitada e já vimos ser mensurável no Teorema de Fubini.
-
-Então temos dois operadores definidos para núcleos, a multiplicação à esquerda por uma medida em $E$ ($\mu K$ que também é uma medida em $E$) e a multiplicação à direita por uma função limitada e mensurável ($K f$ que também é uma função limitada e mensurável).
-Podemos pensar em $f$ como um vetor coluna e $\mu$ como um vetor linha, nesse caso $K$ faria o papel de uma matriz.
-Essa analogia é real se $E$ for um espaço enumerável.
-
-\begin{exercise}
-  No contexto de cadeias de Markov,
-  \begin{enumerate}[\quad a)]
-  \item mostre a relação de associatividade $\mu (K f) = (\mu K) f$,
-  \item defina para todo $n$ o núcleo $K^{(n)}$ iterado (de $E$ em $E$), de forma que $\mu K^{(n)} f$ ainda seja associativa.
-  \item Mostre que a medida $\mu K^{(n)}$ é a distribuição de $X_n$ se começamos de $\mu$,
-  \item que a função $K^{(n)} f (\cdot)$ é o valor esperado de $f$ no tempo $n$ se começamos no zero do ponto $\cdot$ e finalmente que
-  \item o número real $\mu K^{(n)} f$ é a esperança de $f$ no tempo $n$ se começamos de $\mu$.
-  \end{enumerate}
-\end{exercise}
-
-\ifdraft{\newpage \subsection{Tópico: Urna de Pólya} fazer...}{}
-
-\ifdraft{\newpage \subsection{Tópico: Recorrência e transiência} markov recorrência/transiência + periodicidade...}{}
 
 \section{Esperança condicional}
 
@@ -4298,9 +4364,9 @@ Um outro resultado bastante importante é o seguinte
   \end{enumerate}
 \end{exercise}
 
-\ifdraft{\newpage \subsection{Tópico: Martingais a tempo discreto} fazer...}{}
+\todosec{Tópico: Martingais a tempo discreto}{fazer...}
 
-\ifdraft{\newpage \subsection{Tópico: Propriedade fraca de Markov} mostrar que cadeias = processos...}{}
+\todosec{Tópico: Propriedade fraca de Markov}{mostrar que cadeias = processos...}
 
 \section{Probabilidade Condicional Regular}
 
@@ -4537,13 +4603,11 @@ No próximo resultado, veremos como o conceito abstrato de probabilidade condici
   \end{enumerate}
 \end{exercise}
 
-\ifdraft{\newpage \subsection{Tópico: Processos de Poisson em \texorpdfstring{$\mathbb{R}$}{R}} fazer...}{}
+\todosec{Tópico: Processos de Poisson em \texorpdfstring{$\mathbb{R}$}{R}}{fazer...}
 
-\ifdraft{\newpage \subsection{Tópico: Processos de Markov em tempo contínuo} fazer...}{}
+\todosec{Tópico: Processos de Markov em tempo contínuo}{fazer...}
 
-\ifdraft{\newpage \subsection{Tópico: Sistemas de partículas} fazer...}{}
-
-\newpage
+\todosec{Tópico: Sistemas de partículas}{fazer...}
 
 \chapter{Solução de exercícios}
 
