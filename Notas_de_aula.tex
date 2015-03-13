@@ -1,5 +1,5 @@
 \RequirePackage{nag}
-\documentclass[reqno]{book}
+\documentclass[reqno, draft]{book}
 \usepackage{amssymb, amsmath, amsthm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% TOC in odd pages only %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -110,8 +110,8 @@
 \def \iid{i.i.d.~}
 \def \distr{\overset{d}{\sim}}
 \renewcommand*\d{\mathop{}\!\mathrm{d}}
-\newcommand{\mcup}{\textstyle \bigcup\limits}
-\newcommand{\mcap}{\textstyle \bigcap\limits}
+\DeclareMathOperator*{\mcup}{{\textstyle \bigcup}}
+\DeclareMathOperator*{\mcap}{{\textstyle \bigcap}}
 \newcommand*\bigtimes{\tikz[baseline=0, scale=.3]{
 \draw[opacity=0] (-.1,-.1) rectangle (1.1, 1.1);
 \draw[line width=.5pt] (0,0) -- (1,1) (1,0) -- (0,1);}
@@ -480,10 +480,10 @@ Note pelo Exercício~\ref{x:lambda_nao_sigma} que a hipótese de que $\mathcal{A
     Como isso vale para todo $A \in \mathcal{A}$, temos $B^c \in \mathcal{B}$ por definição.
   \item Se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos e $A \in \mathcal{A}$, então
     \begin{equation}
-      \big(\cup_i B_i \big) \cap A = \cup_i \big(B_i \cap A\big) \in \lambda(\mathcal{A}),
+      \big(\mcup\nolimits_i B_i \big) \cap A = \mcup_i \big(B_i \cup A\big) \in \lambda(\mathcal{A}),
     \end{equation}
     pois a união acima é disjunta.
-    Logo $\cup_i B_i \in \mathcal{B}$.
+    Logo $\mcup_i B_i \in \mathcal{B}$.
   \end{enumerate}
   Isso mostra que $\mathcal{B}$ é um $\lambda$-sistema com $\mathcal{A} \subseteq \mathcal{B} \subseteq \lambda(\mathcal{A})$, mostrando \eqref{e:B_igual_lambda}.
 
@@ -674,7 +674,64 @@ De fato, nesse caso definimos $P(A) = \sum_{\omega \in A} p_\omega$ que claramen
   Dê um exemplo de medida em $\omega$ para a qual a distribuição de $X$ seja $\Bin(n,p)$.
 \end{exercise}
 
-\todosec{Tópico: Método Probabilístico}{Pedir ao Rob um exemplo bem básico e interessante, como soluções de $x + y = z$ em $\mathbb{N}$.}
+%\todosec{Tópico: Método Probabilístico}{Pedir ao Rob um exemplo bem básico e interessante, como soluções de $x + y = z$ em $\mathbb{N}$.}
+
+\vfill
+\pagebreak
+
+\subsection{Tópico: Método Probabilístico}
+
+
+
+Uma importante ferramenta em várias áreas da matemática, tais como Teoria dos Números, Combinatória e Teoria da Computação é o que chamamos de Método Probabilístico. \index{Metodo Probabilistico@Método Probabilístico}
+
+Em várias situações, nós precisamos de mostrar a existência de objetos satisfazendo determinadas propriedades, mas não temos informação suficiente ou capacidade para construí-los explicitamente.
+Nesse caso, podemos recorrer ao Método Probabilístico, que simplesmente nos sugere tomar um objeto aleatório de uma maneira esperta e mostrar que com probabilidade positiva as propriedades desejadas serão satisfeitas.
+Esse método, apesar de muito ingênuo, é muito eficiente e em diversos casos provê os melhores exemplos conhecidos de certos objetos (para embaraço da comunidade científica).
+
+Nessa seção daremos um exemplo em Teoria dos Números provido primeiramente por Erdõs\footnote{Somos gratos a Robert Morris por sugerir esse teorema como exemplo do Método Probabilístico.}.
+
+\begin{theorem}[Erdös]
+  Para todo conjunto finito $A \subset \mathbb{N}$, existe um sub-conjunto $B \subseteq A$ satisfazendo
+  \begin{enumerate}[\quad a)]
+  \item $\# B \geq \frac{\#A}{3}$ e tal que
+  \item não existem $x, y$ e $z \in B$ com $x + y = z$.
+  \end{enumerate}
+  A propriedade $b)$ acima é o que chamamos de um conjunto ser livre de somas. \index{conjunto!livre de somas}
+\end{theorem}
+
+Certamente não temos muita informação sobre $A$, então vamos usar o método probabilístico para a prova desse teorema.
+
+\begin{proof}
+  Fixamos $p$ um número primo maior que três vezes o maior elemento de $A$ e considere o espaço $\mathbb{Z}_p$ dos inteiros módulo $p$.
+  Seja $X$ um elemento aleatório de $\mathbb{Z}_p$ com distribuição uniforma, isto é $U_{\{0, \dots, p-1\}}$.
+  \begin{exercise}
+    Mostre que para todo $a \in A$, a multiplicação por $a$ é uma bijeção em $\mathbb{Z}_p$, ou seja
+    \begin{equation}
+      \mathbb{Z}_p \cdot a = \mathbb{Z}_p.
+    \end{equation}
+    onde o produto $\mathbb{Z}_p \cdot a$ é entendido elemento a elemento.
+    Conclua que
+    \begin{equation}
+      P \Big[ X \cdot a \in \big[\tfrac p3, \tfrac {2p}3\big) \Big] \geq \frac 13.
+    \end{equation}
+  \end{exercise}
+  Definimos o conjunto aleatório $\mathcal{B} = (X \cdot A) \cap [\tfrac p3, \tfrac {2p}3)$, que obviamente é livre de somas.
+  Basta portanto mostrar que com probabilidade positiva $\# \mathcal{B} \geq \tfrac{\#A}3$, que segue do seguinte argumento.
+  \begin{equation*}
+    \int \# \mathcal{B} \d P = \int \sum_{a \in A} \1_{\big[ X \cdot a \in [p/3, 2p/3) \big]} \d P = \sum_{a \in A} P \Big[ X \cdot a \in \big[\tfrac p3, \tfrac {2p}3\big) \Big] \geq \frac{\# A}3,
+  \end{equation*}
+  mas para qualquer variável aleatória, $\int X \d P \geq x$ implica que $P[X \geq x] > 0$.
+\end{proof}
+
+\todo{Adicionar contexto histórico: citar artigo Erdos e o Annals of Math que mostra que não é possível com $\#A(1/3 + \varepsilon)$.}
+
+
+
+
+\vfill
+\pagebreak
+
 
 \section{Caso absolutamente contínuo}
 
@@ -721,8 +778,7 @@ Podemos também usar a distribuição de um elemento aleatório para construir o
 
 \section{Funções acumuladas de distribuição}
 
-Um outro caso importante a ser estudado de construção de espaços de probabilidade se refere ao caso em que $\Omega = \mathbb{R}$.
-Esse exemplo será muito importante no que segue ao nos ajudar a entender distribuições de variáveis aleatórias.
+Um caso muito importante de espaço amostral é $\Omega = \mathbb{R}$, principalmente por nos ajudar a entender distribuições de variáveis aleatórias.
 Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em $\mathbb{R}$.
 
 \begin{definition}
@@ -733,6 +789,10 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
 \begin{notation}
   Se $X:\Omega \to \mathbb{R}$ é uma variável aleatória num espaço $(\Omega, \mathcal{F}, P)$, denotamos por $F_X$ \index{FX@$F_X$} a função de distribuição acumulada correspondente à distribuição $X \circ P$.
 \end{notation}
+
+Lembramos que uma probabilidade em $\mathbb{R}$ é uma função $P:\mathcal{B}(\mathbb{R}) \to [0,1]$ e o domínio dessa função é bastante complicado.
+Por exemplo se quisermos representar uma distribuição de uma variável aleatória no computador atravéz dessa função $P$, teríamos problemas.
+Contudo, a função $F_P$ (ou $F_X$) é muito mais simples de ser compreendida ou representada, por seu domínio ser $R$.
 
 \begin{example}
   Não é difícil verificar que
@@ -756,7 +816,7 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
   \begin{enumerate}[\quad a)]
   \item $\smash{\lim\limits_{x \to -\infty}} F(x) = 0$, $\smash{\lim\limits_{x \to \infty}} F(x) = 1$,
   \item $F$ é monótona não-decrescente e
-  \item $F$ é contínua à direita e possui limite à esquerda.
+  \item $F$ é contínua à direita e possui limite à esquerda (càdlàg, do francês). \index{cadlag@càdlàg}
   \end{enumerate}
 \end{proposition}
 
@@ -769,7 +829,7 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
   \item Continuidade à direita (càd) - Se $x_n \downarrow x$ monotonamente, então $A_n = (-\infty, x_n] \downarrow (-\infty, x]$ (eles são encaixados).
     Logo $F(x_n) \to F(x)$.
 
-    Limite à esquerda (làg do francês) - Segue do fato de $F$ ser monótona e limitada.
+    Limite à esquerda (làg) - Segue do fato de $F$ ser monótona e limitada. \qedhere
   \end{enumerate}
 \end{proof}
 
@@ -781,7 +841,7 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
   A unicidade de tal $P$ segue da Proposição~\ref{p:P12_equal_pi} (consequêcia do Teorema de Dynkin), pois se $P$ e $P'$ são tais que $F_{P} = F_{P'}$, então temos que $P\big( (-\infty, x] \big) = P'\big( (-\infty, x] \big)$.
   Mas a classe de intervalos semi-infinitos da forma $(-\infty, x]$ forma um $\pi$-sistema que gera a $\sigma$-álgebra dos borelianos, logo $P = P'$.
 
-  Para construir uma $P$ tal que $F_P = F$, definiremos primeiramente a inversa generalizada de $F$, $S:(0,1) \to \mathbb{R}$ por
+  Para construir uma $P$ tal que $F_P = F$, definiremos $S:(0,1) \to \mathbb{R}$, a inversa generalizada de $F$, por
   \begin{equation}
     S(u) = \sup \{x \in \mathbb{R}; F(x) < u\}.
   \end{equation}
@@ -813,7 +873,7 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
     \label{e:pseudo_inversa}
     \{u; S(u) \leq x\} = \{u; u \leq F(x)\}, \text{ para todo $x \in \mathbb{R}$}.
   \end{equation}
-  Pois se tivermos a igualdade acima, $F_P(x) = U_{[0,1]}[S \leq x] = U_{[0,1]} [u \leq F(x)] = F(x)$.
+  Pois isso implicaria que $F_P(x) = U_{[0,1]}[S \leq x] = U_{[0,1]} [u \leq F(x)] = F(x)$.
 
   Vamos agora checar \eqref{e:pseudo_inversa} observando que:
   \begin{enumerate}[\quad a)]
@@ -823,8 +883,6 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
   \end{enumerate}
   Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
 \end{proof}
-
-\newpage
 
 \section{Espaços produto finito}
 
@@ -1042,6 +1100,8 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
 
 \subsection{Tópico: Lei dos pequenos números}
 
+\todo{dar motivação (telefonemas ou qq outra coisa) depois enunciar a lei dos pequenos números}
+
 Estudaremos agora processos de Poisson, que são limites naturais de somas de variáveis aleatórias, em um regime diferente daquele presente no Teorema Central do Limite.
 
 \begin{definition}
@@ -1210,8 +1270,6 @@ Sabemos que
 \end{equation}
 terminando a prova.
 \end{proof}
-
-\todo{enunciar a lei dos pequenos números}
 
 \index{Lei!dos Pequenos Numeros@dos Pequenos Números}
 
