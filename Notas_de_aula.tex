@@ -1,5 +1,5 @@
 \RequirePackage{nag}
-\documentclass[reqno, draft]{book}
+\documentclass[reqno]{book}
 \usepackage{amssymb, amsmath, amsthm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% TOC in odd pages only %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -75,6 +75,8 @@
 \newcolumntype{e}{>{\displaystyle}r @{\,} >{\displaystyle}c @{\,} >{\displaystyle}l}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\usepackage[notcite,notref]{showkeys}
+
 \usepackage{hyperref}
 \hypersetup{final}
 \usepackage{xcolor}
@@ -84,6 +86,39 @@
     citecolor={blue!50!black},
     urlcolor={blue!80!black}
 }
+
+%%%%%%%%%%%%%%%%%%%%%% Optional filling text %%%%%%%%%%%%%%%%%%%%%%%
+\newif\ifboxrepeat \boxrepeattrue
+\newcount\badnesspar
+\newcount\tmpnum
+\def\testbadnesspar#1{\par
+   \setbox0=\vbox{#1\par
+   \global\badnesspar=0
+   \loop
+      \setbox0=\lastbox
+      \ifvoid0 \boxrepeatfalse \else
+         \unskip \unpenalty \setbox0=\hbox to\hsize{\unhbox0}
+         \ifnum\badness > \badnesspar \global\badnesspar=\badness \fi
+      \fi
+      \ifboxrepeat \repeat
+   }
+}
+\def\choosepar{\par\def\tmp{}\tmpnum=2000000 \chooseparA}
+\def\chooseparA#1{\ifx^#1^\tmp \else
+   \testbadnesspar{#1}
+   \ifnum\tmpnum>\badnesspar \tmpnum=\badnesspar \def\tmp{#1}\fi
+   \expandafter\chooseparA \fi
+}
+\def\chooseoptpar#1{%
+   \def\opt##1##2{##1}
+   \testbadnesspar{#1}\tmpnum=\badnesspar
+   \def\opt##1##2{##2}
+       \testbadnesspar{#1}
+   \ifnum\badnesspar>\tmpnum \def\opt##1##2{##1}\fi
+   #1\par
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% New commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand*\1{\mathds{1}}
@@ -410,8 +445,6 @@ Mas futuramente, estaremos protos para introduzir medidas bem interessantes no e
 
 Imagine que jogamos todos os dias em uma loteria e que nossa probabilidade de ganhar no dia $i$ é $p_i$.
 Então se $\sum_i p_i < \infty$, sabemos que certamente não ganharemos infinitas vezes.
-
-\newpage
 
 \section{Sistemas \texorpdfstring{$\lambda$-$\pi$}{lambda-pi}}
 
@@ -797,13 +830,21 @@ Contudo, a função $F_P$ (ou $F_X$) é muito mais simples de ser compreendida o
 \begin{example}
   Não é difícil verificar que
   \begin{equation}
-  F_{U_{[0,1]}} =
-  \begin{cases}
-    0 & \text{ se $x \leq 0$,}\\
-    x & \text{ se $x \in [0,1]$ e}\\
-    1 & \text{ se $x \geq 1$.}
-  \end{cases}
-\end{equation}
+    F_{\delta_{x_0}} =
+    \begin{cases}
+      0 & \text{ se $x < x_0$,}\\
+      1 & \text{ se $x \geq x_0$}
+    \end{cases}
+  \end{equation}
+  e que
+  \begin{equation}
+    F_{U_{[0,1]}} =
+    \begin{cases}
+      0 & \text{ se $x \leq 0$,}\\
+      x & \text{ se $x \in [0,1]$ e}\\
+      1 & \text{ se $x \geq 1$.}
+    \end{cases}
+  \end{equation}
 \end{example}
 
 \begin{exercise}
@@ -871,7 +912,7 @@ Contudo, a função $F_P$ (ou $F_X$) é muito mais simples de ser compreendida o
   Para tanto, basta ver que
   \begin{equation}
     \label{e:pseudo_inversa}
-    \{u; S(u) \leq x\} = \{u; u \leq F(x)\}, \text{ para todo $x \in \mathbb{R}$}.
+    \{u \in [0,1]; S(u) \leq x\} = \{u \in [0,1]; u \leq F(x)\}, \text{ para todo $x \in \mathbb{R}$}.
   \end{equation}
   Pois isso implicaria que $F_P(x) = U_{[0,1]}[S \leq x] = U_{[0,1]} [u \leq F(x)] = F(x)$.
 
@@ -1038,33 +1079,6 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
   Mostre que se $X, Y$ são elementos aleatórios e se $X$ é constante quase certamente então $X$ e $Y$ são independentes.
 \end{exercise}
 
-\begin{lemma}[Borel-Cantelli - segunda parte]
-  Se $A_1, A_2, \dots \in \mathcal{F}$ são independentes e $p_i = P(A_i)$ satisfazem $\sum_i p_i = \infty$, então
-  \begin{equation}
-    P[A_i \text{ infinitas vezes}] = 1.
-  \end{equation}
-\end{lemma}
-
-\begin{proof}
-  Queremos mostrar que
-  \begin{equation}
-    P \Big( \big(\mcap_n \mcup_{i=n}^\infty A_i\big)^c \Big) = 0,
-  \end{equation}
-  mas
-  \begin{equation}
-    P \Big( \big(\mcap_n \mcup_{i=n}^\infty A_i\big)^c \Big) = P \Big(\mcup_n \mcap_{i=n}^\infty A_i^c \Big) \leq \sum\limits_n P \Big(\mcap_{i=n}^\infty A_i^c \Big).
-  \end{equation}
-  Logo basta mostrar que a probabilidade à direita é zero para todo $n$.
-  Mas
-  \begin{equation}
-    \begin{split}
-      P \Big(\mcap_{i=n}^\infty A_i^c \Big) & = \prod\limits_{i=n}^\infty P(A_i^c) = \prod\limits_{i=n}^\infty (1 - p_i)\\
-      & \leq \prod\limits_{i=n}^\infty \exp\{-p_i\} = \exp\big\{- \sum_{i=n}^\infty p_i\big\} = 0.
-    \end{split}
-  \end{equation}
-  Terminando a prova do lemma.
-\end{proof}
-
 \begin{exercise}
   Sejam $X$ e $Y$ variáveis aleatórias independentes com distribuição $\Exp(1)$, calcule a distribuição de
   \begin{enumerate}[\quad a)]
@@ -1098,41 +1112,69 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
   \end{enumerate}
 \end{exercise}
 
-\subsection{Tópico: Lei dos pequenos números}
+\todo{mandar para depois de produtos infinitos?}
 
-\todo{dar motivação (telefonemas ou qq outra coisa) depois enunciar a lei dos pequenos números}
-
-Estudaremos agora processos de Poisson, que são limites naturais de somas de variáveis aleatórias, em um regime diferente daquele presente no Teorema Central do Limite.
-
-\begin{definition}
-  Uma variável aleatória $X$ é dita ter distribuição de Poisson \index{distribuicao@distribuição!de Poisson} com parâmetro $\lambda$, se
+\begin{lemma}[Borel-Cantelli - segunda parte]
+  Se $A_1, A_2, \dots \in \mathcal{F}$ são independentes e $p_i = P(A_i)$ satisfazem $\sum_i p_i = \infty$, então
   \begin{equation}
-    P[X = k] = \frac{\lambda^k e^{-\lambda}}{k!}, \text{ para $k \geq 0$ inteiro.}
+    P[A_i \text{ infinitas vezes}] = 1.
   \end{equation}
-  Denotamos isso por $X \overset{d}\sim \Poisson(\lambda)$.
-\end{definition}
-
-A distribuição de Poisson se comporta bem com respeito a somas independentes, como mostra o seguinte
-\begin{lemma}
-\label{l:soma_poisson}
-Sejam $X \overset{d}\sim \Poisson(\lambda_1)$ e $Y \overset{d}\sim \Poisson(\lambda_2)$ independentes, então $X+Y \overset{d}\sim \Poisson(\lambda_1 + \lambda_2)$.
 \end{lemma}
 
 \begin{proof}
-Basta calcular
-\begin{equation}
-  \begin{split}
-    P[X+Y = k] & = \sum_{j = 0}^k P[X = j, Y = k-j] = \sum_{j = 0}^k \frac{\lambda_1^j e^{-\lambda_1} \lambda_2^{k-j} e^{-\lambda_2}}{j! (k-j)!}\\
-    & = e^{-(\lambda_1 + \lambda_2)} \frac{1}{k!} \sum_{j = 0}^k \frac{k!}{j! (k-j)!} \lambda_1^j \lambda_2^{k-j} = \frac{e^{(\lambda_1 + \lambda_2)} (\lambda_1 + \lambda_2)^k}{k!},
-  \end{split}
-\end{equation}
-mostrando o resultado.
+  Queremos mostrar que
+  \begin{equation}
+    P \Big( \big(\mcap_n \mcup_{i=n}^\infty A_i\big)^c \Big) = 0,
+  \end{equation}
+  mas
+  \begin{equation}
+    P \Big( \big(\mcap_n \mcup_{i=n}^\infty A_i\big)^c \Big) = P \Big(\mcup_n \mcap_{i=n}^\infty A_i^c \Big) \leq \sum\limits_n P \Big(\mcap_{i=n}^\infty A_i^c \Big).
+  \end{equation}
+  Logo basta mostrar que a probabilidade à direita é zero para todo $n$.
+  Mas
+  \begin{equation}
+    \begin{split}
+      P \Big(\mcap_{i=n}^\infty A_i^c \Big) & = \prod\limits_{i=n}^\infty P(A_i^c) = \prod\limits_{i=n}^\infty (1 - p_i)\\
+      & \leq \prod\limits_{i=n}^\infty \exp\{-p_i\} = \exp\big\{- \sum_{i=n}^\infty p_i\big\} = 0.
+    \end{split}
+  \end{equation}
+  Terminando a prova do lemma.
 \end{proof}
 
-Uma distinção importante distribuição poissoniana é que ela não se comporta bem com respeito à multiplicação por constantes. Mais precisamente, se $X \overset{d}\sim \Poisson(\lambda)$, então $\alpha X$ não tem distribuição poissoniana (exceto é claro se $\alpha = 0, 1$).
-Isso aparecerá novamente quando estudarmos outras distribuições.
+\vfill
+\newpage
 
-Agora, nos concentraremos em mostrar a convergência de somas de variáveis aleatórias para a distribuição de Poisson. Para tanto, utilizaremos uma noção mais forte de convergência do que a convergência de distribuições. Isso é possível pois o suporte de $\Poisson(\lambda)$ é enumerável.
+\subsection{Tópico: Lei dos pequenos números}
+
+Nessa seção estudaremos como se comportam limites de algumas variáveis aleatórias bastante importantes, mas primeiramente, uma breve intuição.
+
+Apesar de que descreveremos a nossa motivação a partir desse exemplo do estudo de um material radioativo, podemos encontrar aplicações com justificativas bastante semelhantes para outros problemas, como: chegada de carros em um sinal de trânsito, número de mutações em um gene, número de mortes por ano em uma faixa etária...
+
+Digamos que estamos observando um material radioativo que esporadicamente emite fótons que podemos detectar atravéz de um aparelho.
+A razão dessas emissões pode ser aproximada pelo seguinte modelo.
+Na amostra temos um número $n$ grande de átomos instáveis ($n \sim 10^{23}$) e em um determinado tempo de observação, cada um deles tem probabilidade muito baixa de decair emitindo um fóton (digamos $p \sim 10^{-23}$).
+Nesse caso, supondo que todos decidam emitir de maneira independente, temos para $p \in [0,1]$,
+\begin{equation}
+  \label{e:Poisson_setup}
+  \Omega_n = \{0,1\}^n, \quad \mathcal{F}_n = \mathcal{P}(\Omega) \quad \text{e} \quad P_p = \otimes_{i=1}^n Ber(p).
+\end{equation}
+Dessa forma, o número total de emissões observadas para $\omega = (\omega_1, \dots, \omega_n) \in \Omega$ é
+\begin{equation}
+  \label{e:Xn_Poisson}
+  X_n(\omega) = \sum_{i=1}^n \omega_i.
+\end{equation}
+E gostaríamos de entender como se comporta essa distribuição, que nada mais é que $\Bin(n,p)$.
+
+Uma primeira tentativa seria modelar esse processo dizendo que o número de átomos $n$ é tão grande, que somente estamos interessados no comportamento assimtótico quando $n$ vai para infinito.
+Mas para manter o número de emissões sob controle, também gostaríamos que $p = p_n$, que converge a zero.
+Poderíamos por exemplo escolher
+\begin{equation}
+  p_n = \frac \lambda n.
+\end{equation}
+Mas a discussão que se segue é muito mais geral que essa escolha específica.
+
+Como estaremos interessados em um regime assimtótico da distribuição de $X_p$ (lembre que apesar do espaço amostral de $X_n$ variar com $n$, sua distribuição é sempre uma probabilidade em $\mathbb{N}$).
+Mas para falar de regimes assimtóticos, precisamos de definir uma noção de distância entre duas distribuições em $\mathbb{N}$.
 
 \begin{definition}
 Dadas duas distribuições $\mu_1$ e $\mu_2$ em $(\Omega, \mathcal{A})$, definimos
@@ -1142,7 +1184,8 @@ Dadas duas distribuições $\mu_1$ e $\mu_2$ em $(\Omega, \mathcal{A})$, definim
 \index{mu1 - mu2@$\lVert \mu_1 - \mu_2 \rVert$} chamada de distância em variação total \index{variacao total@variação total} entre $\mu_1$ e $\mu_2$.
 \end{definition}
 
-Caso $\Omega$ seja enumerável, podemos reescrever a definição acima de modo a ver mais facilmente que se trata de uma distância no espaço de probabilidades em $\Omega$.
+No nosso caso, $\Omega$ é enumerável.
+Vamos ver que nesse caso é possível reescrever a definição acima de modo a ver mais facilmente que se trata de uma distância no espaço de probabilidades em $\Omega$.
 
 \begin{lemma}
 \label{l:vt_l1}
@@ -1204,7 +1247,8 @@ Basta expandir
 Onde acima nós usamos que $\mu_1$ e $\nu_2$ são probabilidades. Isso termina a prova do lema.
 \end{proof}
 
-Também gostaríamos de entender como se comportam somas de variáveis independentes com relação à distância de variação total. Isso estará ligado à convolução de distribuições:
+Finalmente, gostaríamos de entender como a distância de variação total se comporta com respeito à soma de variáveis independentes.
+Isso estará ligado à convolução de distribuições:
 
 \begin{definition}
 Dadas, $\mu$ e $\nu$ distribuições em $\mathbb{Z}$, definimos a distribuição
@@ -1214,19 +1258,16 @@ Dadas, $\mu$ e $\nu$ distribuições em $\mathbb{Z}$, definimos a distribuição
 \end{definition}
 
 Essa definição se relaciona com a soma de variáveis independentes graças ao seguinte
-\begin{lemma}
-Se $X \overset{d}\sim \mu$ e $Y \overset{d}\sim \nu$ são variáveis inteiras e independentes, então $X + Y \overset{d}\sim \mu \star \nu$.
-\end{lemma}
-
-\begin{proof}
-Basta condicionar no valor de $X_2$.
-\end{proof}
+\begin{exercise}
+Se $X \overset{d}\sim \mu$ e $Y \overset{d}\sim \nu$ são variáveis aleatórias inteiras e independentes, então $X + Y \overset{d}\sim \mu \star \nu$.
+Dica: particione o espaço amostral nos eventos $[X = j]$, para $j \in \mathbb{Z}$, como na prova do Lema~\ref{l:soma_poisson} abaixo.
+\end{exercise}
 
 \begin{corollary}
-Se $\mu$ e $\nu$ são distribuições em $\mathbb{Z}$, então $\mu \star \nu = \mu \star \nu$.
+Se $\mu$ e $\nu$ são distribuições em $\mathbb{Z}$, então $\mu \star \nu = \nu \star \mu$.
 \end{corollary}
 
-A convolução se relaciona com a variação total atravéz do
+Como prometido, obtemos a seguinte relação entre a convolução e a distância de  variação total.
 \begin{lemma}
 \label{l:vt_conv}
 Sejam $\mu_1, \mu_2, \nu_1, \nu_2$ distribuições em $\mathbb{Z}$. Então,
@@ -1248,9 +1289,37 @@ Como de costume, basta estimar
 provando o lema.
 \end{proof}
 
-O teorema principal de convergência dessa seção concerne a soma de variáveis Bernoulli. Em um regime bastante especial, a soma dessas variáveis converge para uma distribuição poissoniana. Mas antes, estimaremos a distância entre esses distribuições.
+Para enunciar o resultado principal dessa seção, vamos apresentar uma distribuição em $\mathbb{N}$ bastane importante, que em particular se comporta muito bem com respeito a somas de variáveis independentes, como veremos.
+
+\begin{definition}
+  Uma variável aleatória $X$ é dita ter distribuição de Poisson \index{distribuicao@distribuição!de Poisson} com parâmetro $\lambda$, se
+  \begin{equation}
+    P[X = k] = \frac{\lambda^k e^{-\lambda}}{k!}, \text{ para $k \geq 0$ inteiro.}
+  \end{equation}
+  Denotamos isso por $X \overset{d}\sim \Poisson(\lambda)$.
+\end{definition}
+
+A distribuição de Poisson se comporta bem com respeito a somas independentes, como mostra o seguinte
+\begin{lemma}
+\label{l:soma_poisson}
+Sejam $X \overset{d}\sim \Poisson(\lambda_1)$ e $Y \overset{d}\sim \Poisson(\lambda_2)$ independentes, então $X+Y \overset{d}\sim \Poisson(\lambda_1 + \lambda_2)$.
+\end{lemma}
+
+\begin{proof}
+Basta calcular
+\begin{equation}
+  \begin{split}
+    P[X+Y = k] & = \sum_{j = 0}^k P[X = j, Y = k-j] = \sum_{j = 0}^k \frac{\lambda_1^j e^{-\lambda_1} \lambda_2^{k-j} e^{-\lambda_2}}{j! (k-j)!}\\
+    & = e^{-(\lambda_1 + \lambda_2)} \frac{1}{k!} \sum_{j = 0}^k \frac{k!}{j! (k-j)!} \lambda_1^j \lambda_2^{k-j} = \frac{e^{(\lambda_1 + \lambda_2)} (\lambda_1 + \lambda_2)^k}{k!},
+  \end{split}
+\end{equation}
+mostrando o resultado.
+\end{proof}
+
+Nossa próxima tarefa é estimar a distância entre uma variável aleatória com distribuição $\Ber(p)$ e uma $\Poisson(p)$, como segue.
 
 \begin{lemma}
+\index{Lei!dos Pequenos Numeros@dos Pequenos Números}
 \label{l:vt_ber_poiss}
 Para $p \in [0,1]$, seja $\mu_1 = \Ber(p)$ e $\mu_2 = \Poisson(p)$, então,
 \begin{equation}
@@ -1271,7 +1340,39 @@ Sabemos que
 terminando a prova.
 \end{proof}
 
-\index{Lei!dos Pequenos Numeros@dos Pequenos Números}
+O teorema principal de convergência dessa seção concerne a soma de variáveis Bernoulli.
+
+\begin{theorem}[Lei dos Pequenos Números]
+  \label{t:lei_peq_numeros}
+  Dado, $n \geq 1$ e $p \in [0,1]$, suponha que $\Omega_n$, $\mathcal{F}_n$ e $P_p$ sejam dados como em \eqref{e:Poisson_setup}.
+  Então,
+  \begin{equation}
+    \lVert \Bin(n,p) - \Poisson(pn) \rVert_{\VT} \leq n p^2.
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  Basta observar que
+  \begin{equation}
+    \begin{split}
+      \lVert X_n \circ P_p - \Poisson(pn) \rVert_{\VT} & \overset{\text{Lema~\ref{l:soma_poisson}}}= \lVert \Ber(p)^{\star n} - \Poisson(p)^{\star n} \rVert_{\VT}\\
+      \overset{\text{Lema~\ref{l:vt_conv}}}\leq & \lVert \Ber(p)^{\otimes n} - \Poisson(p)^{\otimes n} \rVert_{\VT}\\
+      \overset{\text{Lema~\ref{l:vt_produto}}}\leq & n \lVert \Ber(p) - \Poisson(p) \rVert_{\VT} \overset{\text{Lema~\ref{l:vt_ber_poiss}}}\leq n p^2,
+    \end{split}
+  \end{equation}
+  provando o teorema.
+\end{proof}
+
+\begin{corollary}
+  No mesmo contexto do teorema acima, se $p = \lambda/n$, então a distância de variação total
+  \begin{equation}
+    \lVert \Bin(n,p) - \Poisson(pn) \rVert_{\VT} \leq \lambda^2 / n,
+  \end{equation}
+  logo converge a zero.
+\end{corollary}
+
+\vfill
+\newpage
 
 \section{Espaços produto infinito}
 \label{s:Omega_produto}
@@ -1908,10 +2009,11 @@ Mas obviamente o conjunto $\mathcal{A}_2$ pode ser muito complexo, então gostar
 Apesar de interessante, a definição acima ainda não nos permitiu definir espaços de probabilidade novos.
 Isso será possibilitado pelo próximo resultado, que pode ser visto como uma generalização do Teorema de Fubini.
 
+\chooseoptpar{
 \begin{theorem}[Fubini para Núcleos de Transição]
   \index{Teorema!de Fubini para Nucleos@de Fubini para Núcleos}
   \label{t:fubini}
-  Dado um núcleo $K$ de $(E_1, \mathcal{A}_1)$ para $(E_2, \mathcal{A}_2)$ e uma probabilidade $P_1$ em $E_1$, existe uma única probabilidade $P$ em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$ tal que
+  Dado um núcleo \opt{}{de transição} $K$ de $(E_1, \mathcal{A}_1)$ para $(E_2, \mathcal{A}_2)$ e uma probabilidade $P_1$ em $E_1$, existe uma única probabilidade $P$ em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$ tal que
   \begin{equation}
     \label{e:fubini}
     \int_{E_1 \times E_2} f dP = \int_{E_1} \int_{E_2} f(y,z) K(y, \d z) P_1 (\d y),
@@ -1920,6 +2022,7 @@ Isso será possibilitado pelo próximo resultado, que pode ser visto como uma ge
   Em particular, $P(A_1 \times A_2) = \int_{A_1} K(y, A_2) P_1 (\d y)$.
   Nesse caso escrevemos $P = P_1 \star K$.
 \end{theorem}
+}
 
 Antes de iniciar a prova do teorema, vamos ver que as integrais do lado direito de \eqref{e:fubini} estão bem definidas.
 Para isso, definimos para $y \in E_1$ a função fatiadora $\phi_y: E_2 \to E_1 \times E_2$ dada por $\phi_y(z) = (y, z)$.
@@ -3244,7 +3347,7 @@ Futuramente no curso estudaremos as probabilidades de que esse desvio seja de or
 \begin{theorem}[Princípio de Grandes Desvios - cota superior]
   \index{Principio@Princípio!de Grandes Desvios@de Grandes Desvios}
   \label{t:PGDleq}
-  Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid tais que $\phi_{X_1}(s) < \infty$, para todo $s \in (-\delta, \delta)$.
+  Consideramos variáveis aleatórias \iid $X_1, X_2, \dots$ tais que $\phi_{X_1}(s) < \infty$, para todo $s \in (-\delta, \delta)$.
   Então, para $a > 0$,
   \begin{equation}
     P\big[ X_1 + \dots + X_n \geq \big(m + a \big) n \big] \leq \ex{-\psi_{X_1}(m + a) n},
