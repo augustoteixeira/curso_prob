@@ -1460,7 +1460,7 @@ Mas antes iremos recordar o Teorema da Extensão de Caratheodory.
 
 Vamos lembrar o enunciado do Teorema da Extensão de Caratheodory \index{Teorema!da Extensao de Caratheodory@da Extensão de Caratheodory}.
 Antes, vamos relembrar uma definição definição importante.
-Uma família $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ é dita um anel de conjuntos \index{anel de conjuntos} se vale
+Uma família $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ é dita uma álgebra de conjuntos \index{anel de conjuntos} se valem
 \begin{enumerate}[\quad a)]
   \item $\Omega \in \mathcal{G}$,
   \item se $A \in \mathcal{G}$, então $A^c \in \mathcal{G}$ e
@@ -1483,21 +1483,24 @@ Mostraremos agora uma pequena simplificação do teorema acima, que é muito uti
   \index{continuidade no vazio}
   Seja $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ uma álgebra de conjuntos em $\Omega$ e suponha que $P: \mathcal{G} \to \mathbb{R}_+$ satisfaça as seguintes propriedades
   \begin{enumerate}[\quad a)]
+  \item $P(\Omega) = 1$,
     \item $P$ é finitamente aditiva e
     \item sempre que $B_1 \supseteq B_2 \supseteq \dots \in \mathcal{G}$ forem tais que $\cap_i B_i = \varnothing$ (denotamos isso por $B_i \downarrow \varnothing$), temos que $\lim_i \mu(B_i) = 0$.
   \end{enumerate}
-  Então existe uma medida $\widebar{P}: \sigma(\mathcal{G}) \to \mathbb{R}_+$ tal que $\widebar{P}(A) = P(A)$ para $A \in \mathcal{G}$.
+  Então existe uma única medida $\widebar{P}: \sigma(\mathcal{G}) \to \mathbb{R}_+$ tal que $\widebar{P}(A) = P(A)$ para $A \in \mathcal{G}$.
 \end{lemma}
 
-Observe que não supusemos $P(\Omega) = 1$, mas no contexto de medidas infinitas, não é de se esperar que $B_i \downarrow \varnothing$ implique $\lim_i \mu(B_i) = 0$, como foi assumido acima (relembre a Proposição~\ref{p:prob_continua}).
-Portanto escrevemos o enunciado com $P$ para lembrar que quase sempre utilizaremos esse lema para construir probabilidades.
+Observe que $P(\Omega) = 1$ somente é necessário para provar a unicidade de $\widebar{P}$, então poderíamos tentar mostrar uma versão mais geral desse lema.
+Mas no contexto de medidas infinitas, não é de se esperar que $B_i \downarrow \varnothing$ implique $\lim_i \mu(B_i) = 0$, como foi assumido acima (veja também a Proposição~\ref{p:prob_continua}).
+Portanto resolvemos escrever o enunciado com probabilidades.
 
 \begin{exercise}
   Dê um exemplo de medida que não satisfaz a segunda hipótese do Lema~\ref{l:extensao_vazio}.
 \end{exercise}
 
 \begin{proof}
-  Iremos mostrar que a propriedade \eqref{e:aditiva_na_algebra} é válida para $P$, logo tome $A_1, A_2, \dots \in \mathcal{G}$ disjuntos e tais que $A = \cup_i A_i \in \mathcal{G}$.
+  Primeiro observe que a unicidade segue da Proposição~\ref{p:P12_equal_pi}, já que $\mathcal{G}$ é um $\pi$-sistema.
+  Iremos agora mostrar que a propriedade \eqref{e:aditiva_na_algebra} é válida para $P$, logo tome $A_1, A_2, \dots \in \mathcal{G}$ disjuntos e tais que $A = \cup_i A_i \in \mathcal{G}$.
   Definimos o ``resto da união'' por
   \begin{equation}
     B_n = A \setminus \mcup_{i=1}^n A_i.
@@ -1522,7 +1525,7 @@ Antes precisaremos de introduzir algumas notações.
 
 Dada uma coleção de espaços $E_1, E_2, \dots$, definimos o espaço produto
 \begin{equation}
-  \Omega = \times_{i\geq 1} E_i = \big\{(\omega_1, \omega_2, \dots); \omega_i \in E_i \text{ para todo $i \geq 1$}\big\}.
+  \Omega = \bigtimes_{i\geq 1} E_i = \big\{(\omega_1, \omega_2, \dots); \omega_i \in E_i \text{ para todo $i \geq 1$}\big\}.
 \end{equation}
 e os mapas $X_i:\Omega \to E_i$, definidos para $i = 1, 2, \dots$ por
 \begin{equation}
@@ -1575,23 +1578,27 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 
 \begin{proof}
   Considere a classe de conjuntos
+  \begin{equation*}
+    \mathcal{S}_l = \Big\{ \mcup_{i=1}^k [a_1, b_1) \times \dots \times [a_l, b_l) \subseteq \mathbb{R}^l; \text{ onde $a_i \in \mathbb{R} \cup \{-\infty\}, b_i \in \mathbb{R} \cup \{\infty\}$} \Big\}.
+  \end{equation*}
+  Que é obviamente uma álgebra em $\mathbb{R}^l$ e seja também
   \begin{equation}
-    \mathcal{S} = \big\{ A \times \mathbb{R} \times \dots; \text{ onde } l \geq 1 \text{ e } A \in \mathcal{B}(\mathbb{R}^l) \big\}.
+    \mathcal{S} = \big\{ A \times \mathbb{R} \times \dots; \text{ onde } l \geq 1 \text{ e } A \in \mathcal{S}_l \big\}.
   \end{equation}
-  Claramente, $\mathcal{S}$ é uma álgebra.
+  Claramente, $\mathcal{S}$ também é uma álgebra.
 
-  Se $B = A \times \mathbb{R} \times \dots \in \mathcal{S}$ com $A \in \mathcal{B}(\mathbb{R}^l)$ como acima, definimos
+  Se $B = A \times \mathbb{R} \times \dots \in \mathcal{S}$ com $A \in \mathcal{S}_l$ como acima, definimos
   \begin{equation}
     P(B) = P_l(A).
   \end{equation}
   Note que por \eqref{e:consist_kolmog} essa definição independe da escolha da escolha de $l$ que usamos na definição de $B$.
 
   Gostaríamos agora de utilizar o Lemma~\ref{l:extensao_vazio}.
-  Para tanto, tome uma sequência encaixada $B_1 \supseteq B_2 \supseteq \dots \in \mathcal{S}$ e, supondo que $P(B_n) \geq \delta > 0$ para todo $n \geq 1$, gostaríamos de mostrar que sua interseção não pode ser vazia.
+  Para tanto, tome uma sequência encaixada $B_1 \supseteq B_2 \supseteq \dots \in \mathcal{S}$ e, supondo que $P(B_n) \geq \delta > 0$ para todo $n \geq 1$, temos de mostrar que sua interseção não pode ser vazia.
 
   Como $B_n \in \mathcal{S}$, podemos escrever
   \begin{equation}
-    B_n = A_n \times \mathbb{R} \times \dots, \text{ onde $A_n \in \mathcal{B}(\mathbb{R}^{l_n})$ e $n \geq 1$.}
+    B_n = A_n \times \mathbb{R} \times \dots, \text{ onde $A_n \in \mathcal{S}_{l_n}$ e $n \geq 1$.}
   \end{equation}
   Podemos obviamente supor que
   \begin{equation}
@@ -1602,7 +1609,7 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
   A fim de obter um ponto na interseção de $B_n$, gostaríamos de aproximá-lo usando conjuntos compactos encaixados.
   Para tanto definimos os conjuntos
   \begin{equation}
-    C_n = C_n^* \times \mathbb{R} \times \dots, \text{ com $C_n^* \in \mathcal{B}(\mathbb{R}^{l_n})$}
+    C_n = C_n^* \times \mathbb{R} \times \dots, \text{ com $C_n^* \in \mathcal{S}_{l_n}$}
   \end{equation}
   de forma que $C_n^*$ seja pré-compacto, $\widebar{C}_n^* \subseteq A_n$ e
   \begin{equation}
@@ -1619,7 +1626,7 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
   De forma que os $D_n$ são encaixados e não vazios.
 
   Nosso próximo obstáculo vem do fato de que os conjuntos $D_n$ estão definidos em $\mathbb{R}^\mathbb{N}$, e gostaríamos de ter conjuntos em espaços de dimensão finita.
-  Isso pode ser feito observando que podemos escrever $D_n = D_n^* \times \mathbb{R} \times \mathbb{R} \times \dots$, onde $D_n^* \in \mathcal{B}(\mathbb{R}^{l_n})$ e
+  Isso pode ser feito observando que podemos escrever $D_n = D_n^* \times \mathbb{R} \times \mathbb{R} \times \dots$, onde $D_n^* \in \mathcal{S}_{l_n}$ e
   \begin{equation}
     D_n^* = \underbrace{C_n^*}_{\mathclap{\text{pré-compacto}}} \mcap \Big( \mcap_{i=1}^{n-1} C_i^* \times \mathbb{R}^{l_n - l_i} \Big),
   \end{equation}
@@ -1649,7 +1656,7 @@ Contudo, não apresentamos essa versão mais geral aqui pois muito em breve vamo
   para todo $n \geq 1$ e $I_i = (-\infty, b_i]$, onde $b_i \in \mathbb{R}$, $i \leq n$.
 \end{exercise}
 
-Talvez o mais importante exemplo do uso deste teorema seja o seguinte.
+Um importante exemplo do uso deste teorema é o seguinte.
 
 \begin{example}
   Se $P_i$ são probabilidades em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$, podemos definir $\mathbb{P}_n = \bigotimes_{i=1}^n P_i$ (relembrando, $\mathbb{P}_n$ é a única distribuição em $\mathbb{R}^n$ tal que $\mathbb{P}_n(A_1 \times \dots \times A_n) = \prod_{i=1}^n P_i(A_i)$).
@@ -1876,6 +1883,9 @@ Então a distribuição conjunta destes elementos aleatórios é $P_{(X_i)_{i \i
 \begin{exercise}
   Mostre que no caso acima, se $P_{(X_i)_{i \in J}} = P_{(X'_i)_{i \in J}}$ para todo $J \subseteq I$ finito, então $P_{(X_i)_{i \in I}} = P_{(X'_i)_{i \in I}}$.
 \end{exercise}
+
+\vfill
+\newpage
 
 \section{Probabilidades condicionais}
 
