@@ -1,6 +1,82 @@
 \RequirePackage{nag}
-\documentclass[reqno]{book}
+\documentclass[reqno, final]{book}
 \usepackage{amssymb, amsmath, amsthm}
+
+\usepackage{wasysym}
+
+%%%%%%%%%%%%%%%%%%% Define self-sufficient widebar %%%%%%%%%%%%%%%%%
+\makeatletter
+\let\save@mathaccent\mathaccent
+\newcommand*\if@single[3]{%
+  \setbox0\hbox{${\mathaccent"0362{#1}}^H$}%
+  \setbox2\hbox{${\mathaccent"0362{\kern0pt#1}}^H$}%
+  \ifdim\ht0=\ht2 #3\else #2\fi
+  }
+%The bar will be moved to the right by a half of \macc@kerna, which is computed by amsmath:
+\newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
+%If there's a superscript following the bar, then no negative kern may follow the bar;
+%an additional {} makes sure that the superscript is high enough in this case:
+\newcommand*\widebar[1]{\@ifnextchar^{{\wide@bar{#1}{0}}}{\wide@bar{#1}{1}}}
+%Use a separate algorithm for single symbols:
+\newcommand*\wide@bar[2]{\if@single{#1}{\wide@bar@{#1}{#2}{1}}{\wide@bar@{#1}{#2}{2}}}
+\newcommand*\wide@bar@[3]{%
+  \begingroup
+  \def\mathaccent##1##2{%
+%Enable nesting of accents:
+    \let\mathaccent\save@mathaccent
+%If there's more than a single symbol, use the first character instead (see below):
+    \if#32 \let\macc@nucleus\first@char \fi
+%Determine the italic correction:
+    \setbox\z@\hbox{$\macc@style{\macc@nucleus}_{}$}%
+    \setbox\tw@\hbox{$\macc@style{\macc@nucleus}{}_{}$}%
+    \dimen@\wd\tw@
+    \advance\dimen@-\wd\z@
+%Now \dimen@ is the italic correction of the symbol.
+    \divide\dimen@ 3
+    \@tempdima\wd\tw@
+    \advance\@tempdima-\scriptspace
+%Now \@tempdima is the width of the symbol.
+    \divide\@tempdima 10
+    \advance\dimen@-\@tempdima
+%Now \dimen@ = (italic correction / 3) - (Breite / 10)
+    \ifdim\dimen@>\z@ \dimen@0pt\fi
+%The bar will be shortened in the case \dimen@<0 !
+    \rel@kern{0.6}\kern-\dimen@
+    \if#31
+      \overline{\rel@kern{-0.6}\kern\dimen@\macc@nucleus\rel@kern{0.4}\kern\dimen@}%
+      \advance\dimen@0.4\dimexpr\macc@kerna
+%Place the combined final kern (-\dimen@) if it is >0 or if a superscript follows:
+      \let\final@kern#2%
+      \ifdim\dimen@<\z@ \let\final@kern1\fi
+      \if\final@kern1 \kern-\dimen@\fi
+    \else
+      \overline{\rel@kern{-0.6}\kern\dimen@#1}%
+    \fi
+  }%
+  \macc@depth\@ne
+  \let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
+  \mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
+  \macc@set@skewchar\relax
+  \let\mathaccentV\macc@nested@a
+%The following initialises \macc@kerna and calls \mathaccent:
+  \if#31
+    \macc@nested@a\relax111{#1}%
+  \else
+%If the argument consists of more than one symbol, and if the first token is
+%a letter, use that letter for the computations:
+    \def\gobble@till@marker##1\endmarker{}%
+    \futurelet\first@char\gobble@till@marker#1\endmarker
+    \ifcat\noexpand\first@char A\else
+      \def\first@char{}%
+    \fi
+    \macc@nested@a\relax111{\first@char}%
+  \fi
+  \endgroup
+}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% TOC in odd pages only %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{afterpage}
@@ -60,7 +136,7 @@
 %\usepackage{fontspec}
 %\setmainfont{TeX Gyre Bonum}
 %\def\mathds{}
-\def\widebar{\bar}
+%\def\widebar{\bar}
 %\usepackage{newtxtext,newtxmath}
 \usepackage{mathpazo}
 \usepackage{dsfont} % includes bb 1
@@ -143,7 +219,7 @@
 \DeclareMathOperator{\VT}{VT}
 
 \def \iid{i.i.d.~}
-\def \distr{\overset{d}{\sim}}
+\def \distr{\sim_d}
 \renewcommand*\d{\mathop{}\!\mathrm{d}}
 \DeclareMathOperator*{\mcup}{{\textstyle \bigcup}}
 \DeclareMathOperator*{\mcap}{{\textstyle \bigcap}}
@@ -933,9 +1009,9 @@ Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebr
 \end{equation}
 
 \begin{proposition}
-  Se $(\Omega_1, \mathcal{F}_1, P_1), \dots, (\Omega_n, \mathcal{F}_n, P_n)$ são espaços de probabilidade, então existe uma única probabilidade $\bar{P}$ no espaço mensurável $(\bar{\Omega}, \bar{\mathcal{F}})$ tal que
+  Se $(\Omega_1, \mathcal{F}_1, P_1), \dots, (\Omega_n, \mathcal{F}_n, P_n)$ são espaços de probabilidade, então existe uma única probabilidade $\widebar{P}$ no espaço mensurável $(\bar{\Omega}, \bar{\mathcal{F}})$ tal que
   \begin{equation}
-    \bar{P}(A_1 \times \cdots, \times A_n) = \prod_{i=1}^n P_i(A_i), \text{ para todos $A_i \in \mathcal{F}_i$, $i \leq n$.}
+    \widebar{P}(A_1 \times \cdots, \times A_n) = \prod_{i=1}^n P_i(A_i), \text{ para todos $A_i \in \mathcal{F}_i$, $i \leq n$.}
   \end{equation}
   Essa probabilidade é chamada probabilidade produto.
 \end{proposition}
@@ -949,7 +1025,6 @@ Note que a unicidade do produto pode ser concluída por exemplo usando o Corolá
 \begin{exercise}
   Mostre que o produto de $n$ cópias de $(\{0,1\}, \mathcal{P}(\{0,1\}), \Ber(1/2))$ é a distribuição uniforme em $\{0,1\}^n$.
 \end{exercise}
-
 
 \section{Independência}
 
@@ -979,6 +1054,8 @@ Note que a unicidade do produto pode ser concluída por exemplo usando o Corolá
 \end{exercise}
 
 \subsection{Coleções de eventos}
+
+\todo{discutir a alternativa $I = \{1,\dots, k\}$ que é ruim (basta adicionar $\varnothing$ que qq coisa fica indep).}
 
 \begin{definition}
   Sejam $A_1, A_2, \dots, A_k$ eventos.
@@ -1141,8 +1218,7 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
   Terminando a prova do lemma.
 \end{proof}
 
-\vfill
-\newpage
+\todosec{Tópico: Uma dinâmica em \texorpdfstring{$[0,1]$}{[0,1]}}{fazer dinâmica 2x mod 1 e relações Lebesgue[0,1] com produtos de bernoulli}
 
 \subsection{Tópico: Lei dos pequenos números}
 
@@ -1377,6 +1453,9 @@ O teorema principal de convergência dessa seção concerne a soma de variáveis
 \section{Espaços produto infinito}
 \label{s:Omega_produto}
 
+Nessa seção estudaremos $\Omega$ que são dados por produtos enumeráveis de outros espaços de probabilidade.
+Mas antes iremos recordar o Teorema da Extensão de Caratheodory.
+
 \subsection{Recordar é viver...}
 
 Vamos lembrar o enunciado do Teorema da Extensão de Caratheodory \index{Teorema!da Extensao de Caratheodory@da Extensão de Caratheodory}.
@@ -1391,21 +1470,61 @@ Uma família $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ é dita um anel de conj
 \begin{theorem}[Teorema da Extensão de Caratheodory]
   Seja $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ uma álgebra de conjuntos em $\Omega$ e suponha que $\mu: \mathcal{G} \to \mathbb{R}_+$ satisfaça a seguinte propriedade
   \begin{display}
+    \label{e:aditiva_na_algebra}
     sempre que $A_1, A_2, \dots \in \mathcal{G}$ forem disjuntos e tais que $\cup_i A_i \in \mathcal{G}$,\\temos $\mu(\cup_i A_i) = \sum_i \mu(A_i)$.
   \end{display}
   Nesse caso, existe uma medida $\bar{\mu}: \sigma(\mathcal{G}) \to \mathbb{R}_+$ tal que $\bar{\mu}(A) = \mu(A)$ para todo $A \in \mathcal{G}$.
 \end{theorem}
 
-\todo{Fazer Caratheodory com continuidade no vazio. Por exemplo simplifica um pouco a extensão de Kolmogorov.}
+Mostraremos agora uma pequena simplificação do teorema acima, que é muito utilizada em probabilidade.
+
+\begin{lemma}[Extensão por continuidade no vazio]
+  \label{l:extensao_vazio}
+  \index{continuidade no vazio}
+  Seja $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ uma álgebra de conjuntos em $\Omega$ e suponha que $P: \mathcal{G} \to \mathbb{R}_+$ satisfaça as seguintes propriedades
+  \begin{enumerate}[\quad a)]
+    \item $P$ é finitamente aditiva e
+    \item sempre que $B_1 \supseteq B_2 \supseteq \dots \in \mathcal{G}$ forem tais que $\cap_i B_i = \varnothing$ (denotamos isso por $B_i \downarrow \varnothing$), temos que $\lim_i \mu(B_i) = 0$.
+  \end{enumerate}
+  Então existe uma medida $\widebar{P}: \sigma(\mathcal{G}) \to \mathbb{R}_+$ tal que $\widebar{P}(A) = P(A)$ para $A \in \mathcal{G}$.
+\end{lemma}
+
+Observe que não supusemos $P(\Omega) = 1$, mas no contexto de medidas infinitas, não é de se esperar que $B_i \downarrow \varnothing$ implique $\lim_i \mu(B_i) = 0$, como foi assumido acima (relembre a Proposição~\ref{p:prob_continua}).
+Portanto escrevemos o enunciado com $P$ para lembrar que quase sempre utilizaremos esse lema para construir probabilidades.
+
+\begin{exercise}
+  Dê um exemplo de medida que não satisfaz a segunda hipótese do Lema~\ref{l:extensao_vazio}.
+\end{exercise}
+
+\begin{proof}
+  Iremos mostrar que a propriedade \eqref{e:aditiva_na_algebra} é válida para $P$, logo tome $A_1, A_2, \dots \in \mathcal{G}$ disjuntos e tais que $A = \cup_i A_i \in \mathcal{G}$.
+  Definimos o ``resto da união'' por
+  \begin{equation}
+    B_n = A \setminus \mcup_{i=1}^n A_i.
+  \end{equation}
+  Claramente
+  \begin{enumerate}[\quad a)]
+  \item $B_n \downarrow \varnothing$ e
+  \item $B_n \in \mathcal{G}$, pois $\mathcal{G}$ é uma álgebra.
+  \end{enumerate}
+
+  Logo podemos escrever $A$ como a união disjunta $A = \bigcup_{i=1}^n A_i \cup B_n$ e já que $P$ é finitamente aditiva,
+  \begin{equation}
+    P(A) = \sum_{i=1}^n P(A_i) + P(B_n),
+  \end{equation}
+  mas como $\lim_n P(B_n) = 0$, temos $P(\cup_i A_i) = \sum_i P(A_i)$, mostrando a propriedade \eqref{e:aditiva_na_algebra} e concluindo o teorema.
+\end{proof}
 
 \subsection{Teorema da Extensão de Kolmogorov}
+
+O objetivo desta seção é provar um resultado que nos permitirá construir probabilidades em espaços produtos infinitos.
+Antes precisaremos de introduzir algumas notações.
 
 Dada uma coleção de espaços $E_1, E_2, \dots$, definimos o espaço produto
 \begin{equation}
   \Omega = \times_{i\geq 1} E_i = \big\{(\omega_1, \omega_2, \dots); \omega_i \in E_i \text{ para todo $i \geq 1$}\big\}.
 \end{equation}
-
-Sejam $X_i:\Omega \to E_i$, definidos para $i = 1, 2, \dots$ por
+e os mapas $X_i:\Omega \to E_i$, definidos para $i = 1, 2, \dots$ por
 \begin{equation}
   X_i(\omega_1, \omega_2, \dots) = \omega_i,
 \end{equation}
@@ -1433,134 +1552,113 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
   Verifique que,
   \begin{enumerate}[\quad a)]
   \item $\mathcal{F} = \sigma\big(A_1 \times \dots \times A_k \times E_{k+1} \times E_{k+2} \times \dots; k \geq 1, A_i \in \mathcal{A}_i, i \leq k\big)$, os chamados eventos retangulares e
-  \item $\mathcal{F} = \sigma\big(A \times E_{k+1} \times E_{k+2} \times \dots; k \geq 1, A \in \mathcal{A}_i \otimes \dots \otimes \mathcal{A}_k\big)$ eventos cilíndricos.
+  \item $\mathcal{F} = \sigma\big(A \times E_{k+1} \times E_{k+2} \times \dots; k \geq 1, A \in \mathcal{A}_i \otimes \dots \otimes \mathcal{A}_k\big)$, conhecidos como eventos cilíndricos.
   \end{enumerate}
 \end{exercise}
 
 \begin{definition}
+  \label{d:marginal}
   Seja $\Omega = \times E_i$ um espaço produto (infinito ou finito) dotado de uma probabilidade $P$.
   Se $X_i$ é uma coordenada canônica, então chamamos a probabilidade $X_i \circ P$ de \emph{distribuição marginal} \index{distribuicao@distribuição!marginal} de $P$ na coordenada $i$.
 \end{definition}
 
-\todo{mandar Kolmogorov para o final (próximo a núcleos de transição, talvez) e dar produtos de espaços não canonicos no início}
-
 \begin{theorem}[Extensão de Kolmogorov]
   \index{Teorema!da Extensao de Kolmogorov@da Extensão}
   \label{t:extens_kolmog}
-  Seja para cada $n \geq 1$ uma medida de probabilidade $P_n$ em $\mathbb{R}^n$ tal que seja satisfeita a seguinte condição de compatibilidade \index{compatibilidade}
+  Seja para cada $n \geq 1$ uma medida de probabilidade $P_n$ em $\mathbb{R}^n$ tal que seja satisfeita a seguinte condição de compatibilidade \index{condicao de compatibilidade@condição de compatibilidade}
   \begin{equation}
     \label{e:consist_kolmog}
-    P_{n+1} (I_1 \times I_n \times \mathbb{R}) = P_n (I_1 \times \dots \times I_n), \text{ para $I_i = (-a_i, b_i]$, $i \leq n$}.
+    P_{n+1} (A \times \mathbb{R}) = P_n (A), \text{ para todo $A \in \mathcal{B}(\mathbb{R}^n)$}.
   \end{equation}
-  Note que os intervalos do tipo $(-\infty, b_i]$, $(a_i, \infty)$ e $\mathbb{R}$ também são permitidos.
   Então existe uma única probabilidade $P$ no espaço produto infinito $(\Omega, \mathcal{F})$ tal que $P(A \times \mathbb{R} \times \dots) = P_n (A)$ para todo $n$ e todo boreliano $A$ de $\mathbb{R}^n$.
 \end{theorem}
 
-\todo{mudar a prova do teorema da extensão de Kolmogorov: trocar retângulos por cilindros do tipo AxRxRx... (para o enunciado podemos até usar semiretas, depois Dynkin). o espaço mensuravel (E,A) vai para o final, sempre denotando canonicos.}
-
 \begin{proof}
-  Seja a seguinte classe de conjuntos
+  Considere a classe de conjuntos
   \begin{equation}
-    \mathcal{S} = \big\{I_1 \times \dots \times I_n \times \mathbb{R} \times \dots; n \geq 1 \text{ e } I_i = (a_i, b_i] \text{ para $i \leq n$} \big\}.
+    \mathcal{S} = \big\{ A \times \mathbb{R} \times \dots; \text{ onde } l \geq 1 \text{ e } A \in \mathcal{B}(\mathbb{R}^l) \big\}.
   \end{equation}
-  Claramente, $\mathcal{S}$ é uma semi-álgebra, isto é, \index{semi-algebra@semi-álgebra}
-  \begin{enumerate}[\quad a)]
-  \item se $A, B \in \mathcal{S}$, então $A \cap B \in \mathcal{S}$ e
-  \item se $A \in S$, então $A^c = \bigcup_{i = 1}^k A_i$ para algum $k$ e $A_i \in \mathcal{S}$
-  \end{enumerate}
+  Claramente, $\mathcal{S}$ é uma álgebra.
 
-  Definimos portanto $\mathcal{S}' = \big\{ \bigcup_{i=1}^k A_i; k \geq 1 \text{ e $A_i \in S$ disjuntos}\big\}$ que claramente é uma álgebra.
-  Podemos agora colocar
+  Se $B = A \times \mathbb{R} \times \dots \in \mathcal{S}$ com $A \in \mathcal{B}(\mathbb{R}^l)$ como acima, definimos
   \begin{equation}
-    P(A) = \sum_{i=1}^k P(A_i), \quad \text{para $A = \mcup_{i=1}^n A_i \in \mathcal{S}'$}.
+    P(B) = P_l(A).
   \end{equation}
-  Note que essa definição independe da escolha da decomposição de $A$, já que $P_k$ é uma probabilidade em $\mathbb{R}^k$.
+  Note que por \eqref{e:consist_kolmog} essa definição independe da escolha da escolha de $l$ que usamos na definição de $B$.
 
-  Gostaríamos agora de utilizar o teorema da extensão de Carathéodory.
-  Para tanto, precisamos mostrar que
-  \begin{equation}
-    \text{se $A = \mcup_{i=1}^\infty A_i \in \mathcal{S}' \;\;$ é uma união disjunta, então $\;\; \textstyle{P(A) = \sum\limits_{i=1}^\infty P(A_i)}$}.
-  \end{equation}
+  Gostaríamos agora de utilizar o Lemma~\ref{l:extensao_vazio}.
+  Para tanto, tome uma sequência encaixada $B_1 \supseteq B_2 \supseteq \dots \in \mathcal{S}$ e, supondo que $P(B_n) \geq \delta > 0$ para todo $n \geq 1$, gostaríamos de mostrar que sua interseção não pode ser vazia.
 
-  Definimos o ``resto da união'' por
+  Como $B_n \in \mathcal{S}$, podemos escrever
   \begin{equation}
-    B_n = A \setminus \mcup_{i=1}^n A_i.
+    B_n = A_n \times \mathbb{R} \times \dots, \text{ onde $A_n \in \mathcal{B}(\mathbb{R}^{l_n})$ e $n \geq 1$.}
   \end{equation}
-  Claramente
-  \begin{enumerate}[\quad a)]
-  \item $B_n \downarrow \varnothing$ e
-  \item $B_n \in \mathcal{S}'$, pois $\mathcal{S}'$ é uma álgebra.
-  \end{enumerate}
-
-  Logo podemos escrever a união disjunta $A = \bigcup_{i=1}^n A_i \cup B_n$ e por definição
-  \begin{equation}
-    P(A) = \sum_{i=1}^n P(A_i) + P(B_n),
-  \end{equation}
-  de forma que basta mostrar que
-  \begin{equation}
-    \label{e:B_n_cont_vazio}
-    \lim_n P(B_n) = 0.
-  \end{equation}
-
-  Supondo por contradição que $P(B_n) \downarrow \delta > 0$, gostaríamos de mostrar que sua interseção não pode ser vazia.
-  Como $B_n \in \mathcal{S}'$, podemos escrever
-  \begin{equation}
-    B_n = \mcup_{i=1}^{l_n} \;\; (a_1^i, b_1^i] \times \dots \times (a_{l_n}^i, \dots, b_{l_n}^i] \times \mathbb{R} \times \dots
-  \end{equation}
-  onde a união acima é disjunta e os intervalos são possivelmente ilimitados.
   Podemos obviamente supor que
   \begin{equation}
     \label{e:l_n_monotona}
-    \text{$l_n$ são não-decrescentes e tendem a infinito.}
+    \text{$l_n$ são estritamente crescentes.}
   \end{equation}
 
-  A fim de obter um ponto na interseção de $B_n$, gostaríamos de aproximá-lo usando conjuntos compactos.
-  Para tanto definimos os conjuntos $C_n$ tais que $\widebar{C_n} \subseteq B_n$ e
+  A fim de obter um ponto na interseção de $B_n$, gostaríamos de aproximá-lo usando conjuntos compactos encaixados.
+  Para tanto definimos os conjuntos
   \begin{equation}
-    C_n = \mcup_{i=1}^{l_n} \;\; \big(\tilde a_1^i, \tilde b_1^i\big] \times \dots \times \big(\tilde a_{l_n}^i, \tilde b_{l_n}^i\big] \times \mathbb{R} \times \dots
+    C_n = C_n^* \times \mathbb{R} \times \dots, \text{ com $C_n^* \in \mathcal{B}(\mathbb{R}^{l_n})$}
   \end{equation}
-  com $\tilde a_j^i$ e $\tilde b_j^i$ finitos, de forma que
+  de forma que $C_n^*$ seja pré-compacto, $\widebar{C}_n^* \subseteq A_n$ e
   \begin{equation}
     P(B_n \setminus C_n) \leq \frac{\delta}{2^{l_n + 1}},
   \end{equation}
-  o que pode ser feito graças à continuidade de $P_{l_n}$.
+  o que pode ser feito graças à continuidade de $P_{l_n}$, que é uma probabilidade.
 
-
-  Introduzindo $D_n = \bigcap_{i=1}^n C_i$, temos
+  Temos ainda um problema, pois os conjuntos $C_n$ não são encaixados, e isso nos impede de utilizar resultados sobre interseções de compactos.
+  Introduzimos pois $D_n = \bigcap_{i=1}^n C_i$, que obviamente pertence à álgebra $\mathcal{S}$, e estimamos
   \begin{equation}
-    P(B_n \setminus D_n) \leq \sum_{i=1}^n P(B_n \setminus C_i) \leq \frac{\delta}2,
+    P(B_n \setminus D_n) = P \big( \mcup\nolimits_{i=1}^n (B_n \setminus C_i) \big) \leq \sum_{i=1}^n P(B_n \setminus C_i) \leq \frac{\delta}2,
   \end{equation}
-  donde $\lim_n P(D_n) \geq \delta/2$.
+  donde $P(D_n) = P(B_n) - P(B_n \setminus D_n) \geq \delta/2$.
   De forma que os $D_n$ são encaixados e não vazios.
 
-  Escrevemos,
-  \begin{equation}
-    \begin{split}
-      C_n & = C_n^* \times \mathbb{R} \times \mathbb{R} \times \dots\\
-      D_n & = D_n^* \times \mathbb{R} \times \mathbb{R} \times \dots,
-    \end{split}
-  \end{equation}
-  onde $C_n^*, D_n^* \subseteq \mathbb{R}^{l_n}$ e
+  Nosso próximo obstáculo vem do fato de que os conjuntos $D_n$ estão definidos em $\mathbb{R}^\mathbb{N}$, e gostaríamos de ter conjuntos em espaços de dimensão finita.
+  Isso pode ser feito observando que podemos escrever $D_n = D_n^* \times \mathbb{R} \times \mathbb{R} \times \dots$, onde $D_n^* \in \mathcal{B}(\mathbb{R}^{l_n})$ e
   \begin{equation}
     D_n^* = \underbrace{C_n^*}_{\mathclap{\text{pré-compacto}}} \mcap \Big( \mcap_{i=1}^{n-1} C_i^* \times \mathbb{R}^{l_n - l_i} \Big),
   \end{equation}
-  de forma que os $D_n^*$ são pré-compactos e não vazios.
+  de forma que os $D_n^* \subseteq \mathbb{R}^{l_n}$ são pré-compactos e não vazios.
 
   Para cada $n \geq 1$ considere um $\omega^n \in D_n^* \subseteq \mathbb{R}^{l_n}$.
-  Usando um argumento de diagonal de Cantor, podemos obter um $\omega \in \Omega$ e uma sub-sequência de $\omega^{n_j}$ que convirja para $\omega \in \Omega$ coordenada a coordenada (observe que $\omega^{n_j} \in \mathbb{R}^{l_{n_j}}$).
+  Usando um argumento de diagonal de Cantor, podemos obter um $\omega \in \Omega$ e uma sub-sequência de $\omega^{n_j}$ que convirja para $\omega \in \Omega$ coordenada a coordenada (observe que $\omega^{n_j} \in \mathbb{R}^{\smash{l_{n_j}}}$).
   % Tomando subsequências se necessário, podemos supor que $\omega^n$ converge coordenada a coordenada a um certo $\omega \in \Omega$.
 
-  Para terminar a contradição, vamos mostrar que $\omega \in \bigcap_m B_m$.
-  Fixado $m \geq 1$, para obter $\omega = (\omega_1, \omega_2, \dots) \in B_m$, basta ver que $\omega \in \widebar{C_m} = \widebar{C_m^*} \times \mathbb{R} \times \dots$
-  Mas como $(\omega_1, \dots, \omega_{l_m})$ são o limite (com $n_j \geq m$) de $(\omega^{n_j}_1, \dots, \omega^{n_j}_{l_m}) \in C_m^*$, então é óbvio que $\omega \in \widebar{C_m}$, terminando a prova do teorema por contradição.
+  Para concluir a prova, veremos que $\omega \in \bigcap_m B_m$.
+  Mais ainda, veremos que
+  \begin{equation*}
+    \text{para todo $m \geq 1$, temos $\omega = (\omega_1, \omega_2, \dots) \in \widebar{C}_m = \widebar{C}_m^* \times \mathbb{R} \times \dots \subseteq B_m$.}
+  \end{equation*}
+  Mas como os pontos $(\omega_1, \dots, \omega_{l_m})$ são o limite de $(\omega^{n_j}_1, \dots, \omega^{n_j}_{l_m}) \in C_m^*$ (com $n_j \geq m$), então é óbvio que $\omega \in \widebar{C}_m$, terminando a prova do teorema.
 \end{proof}
 
+Observe que usamos muito poucos atributos de $\mathbb{R}$ na prova.
+Poderíamos na verdade substituir $\mathbb{R}$ por qualquer espaço métrico sequencialmente compacto e $\sigma$-compacto.
+Contudo, não apresentamos essa versão mais geral aqui pois muito em breve vamos utilizar o caso da reta para mostrar uma versão bem mais geral do Teorema de Kolmogorov.
+
+\begin{exercise}
+  Mostre que a hipótese \eqref{e:consist_kolmog} pode ser substituida por
+  \begin{equation}
+    P_{n+1} (I_1 \times \dots, \times I_n \times \mathbb{R}) = P_n (I_1 \times \dots \times I_n),
+  \end{equation}
+  para todo $n \geq 1$ e $I_i = (-\infty, b_i]$, onde $b_i \in \mathbb{R}$, $i \leq n$.
+\end{exercise}
+
+Talvez o mais importante exemplo do uso deste teorema seja o seguinte.
+
 \begin{example}
-  Se $(\Omega_i, \mathcal{F}_i, P_i)$ são espaços de probabilidade, podemos definir $\mathbb{P}_n = \bigotimes_{i=1}^n P_i$ (relembrando, $\mathbb{P}_n$ é a única distribuição em $\Omega_1 \times \dots \times \Omega_n$ tal que $\mathbb{P}_n(A_1 \times \dots \times A_n) = \prod_{i=1}^n P_i(A_i)$).
+  Se $P_i$ são probabilidades em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$, podemos definir $\mathbb{P}_n = \bigotimes_{i=1}^n P_i$ (relembrando, $\mathbb{P}_n$ é a única distribuição em $\mathbb{R}^n$ tal que $\mathbb{P}_n(A_1 \times \dots \times A_n) = \prod_{i=1}^n P_i(A_i)$).
   Não é difícil verificar que essa lei satisfaz as equações de consistência \eqref{e:consist_kolmog}.
-  Desta forma, podemos construir uma única $\mathbb{P}$ em $\times_{i \geq 1} \Omega_i$ para os quais as coordenadas canônicas $X_i$ são independentes e possuem distribuições marginais $P_i$.
+  Desta forma, podemos construir uma única $\mathbb{P}$ em $\mathbb{R}^\mathbb{N}$ para os quais as coordenadas canônicas $X_i$ são independentes e possuem distribuições marginais $P_i$.
   Denotamos nesse caso $\mathbb{P} = \bigotimes_{i \geq 1} P_i$.
 \end{example}
+
+Mais adiante no texto daremos outros exemplos bastante interessantes do uso do Teorema~\ref{t:extens_kolmog}.
 
 \begin{exercise}
   Mostre que se $p > 0$ e $\mathbb{P} = \bigotimes_{i \geq 1} \Ber(p)$ em $\mathbb{R}^\mathbb{N}$, então
@@ -1737,12 +1835,51 @@ De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2
 
 \todosec{Tópico: Teorema de Uma Série}{fazer...}
 
-\todosec{Tópico: Uma dinâmica em \texorpdfstring{$[0,1]$}{[0,1]}}{fazer dinâmica 2x mod 1 e relações Lebesgue[0,1] com produtos de bernoulli}
+\vfill
+\newpage
 
 \section{Distribuições conjuntas}
 
+Um caso bastante importante de distribuição de um elemento aleatório é o caso de vetores.
+Digamos por exemplo que temos dois elementos aleatórios $X:\Omega \to E$ e $Y:\Omega \to E'$.
+Já sabemos a definição de $P_X$ e $P_{Y}$ que nada mais são que as distribuições de $X$ e $Y$ respectivamente.
+
+Mas podemos considerar o vetor $(X, Y)$ que será um elemento aleatório tomando valores em $E \times E'$ e possui também sua própria distribuição dada por $(X, Y) \circ P$ (também denotada por $P_{(X, Y)}$).
+A essa probabilidade em $E \times E'$ damos o nome de distribução conjunta deste par. \index{distribuicao@distribuição!conjunta}.
+
+Vejamos as relações que existem entre $P_X$, $P_Y$ e $P_{(X,Y)}$.
+Primeiramente, é fácil ver que a distribução conjunta nos fornece as demais, pois para todo $A \subseteq E$ mensurável
+\begin{equation}
+  P_{(X,Y)}(A \times E') = P[(X, Y) \in A \times E'] = P[X \in A] = P_X(A)
+\end{equation}
+e analogamente para $P_Y$.
+De acordo com a Definição~\ref{d:marginal}, as distribuições $P_X$ e $P_Y$ nada mais são do que as marginais da distribuição conjunta.
+
+Apesar de podermos extrair as marginais $P_X$ e $P_Y$ de $P_{(X,Y)}$, o contrário não é sempre possível como mostra o seguinte exemplo.
+\begin{example}
+  Sejam $X, Y$ \iid com distribuição $\Ber(1/2)$.
+  Então $(X, Y)$ não tem a mesma distribuição de $(X, X)$, apesar de que esses vetores possuem as mesmas marginais.
+\end{example}
+
+\begin{exercise}
+  Mostre que se $X$ e $Y$ são independentes, então $P_{(X,Y)} = P_X \otimes P_Y$.
+\end{exercise}
+
+\begin{exercise}
+  Sejam $X, Y$ \iid com distribuição $U_{[0,1]}$ e calcule $P_{(X, X + Y)}$.
+\end{exercise}
+
+Note que a discussão acima se extende naturalmente para coleções maiores de elementos aleatórios.
+Mais precisamente, considere um conjunto $I$ qualquer (finito, enumerável ou não enumerável) de índices e seja $(X_i)_{i \in I}$ uma coleção de elementos aleatórios tomando valores em $(E_i)_{i \in I}$.
+Então a distribuição conjunta destes elementos aleatórios é $P_{(X_i)_{i \in I}}$.
+
+\begin{exercise}
+  Mostre que no caso acima, se $P_{(X_i)_{i \in J}} = P_{(X'_i)_{i \in J}}$ para todo $J \subseteq I$ finito, então $P_{(X_i)_{i \in I}} = P_{(X'_i)_{i \in I}}$.
+\end{exercise}
+
 \section{Probabilidades condicionais}
 
+Uma outra maneira de se construir espaços de probabilidade é atravéz de condicionamento, como mostra a seguinte definição.
 \begin{definition}
   Se $(\Omega, \mathcal{F}, P)$ é espaço de probabilidade e $B \in \mathcal{F}$ é tal que $P(B) > 0$, então definimos a probabilidade \index{probabilidade!condicional} $P(\cdot | B): \mathcal{F} \to [0,1]$ por
   \begin{equation}
@@ -1755,18 +1892,18 @@ De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2
 Obviamente $P(\cdot | B)$ é uma probabilidade em $(\Omega, \mathcal{F})$ e podemos entendê-la de duas formas: como uma normalização ou como uma tentativa de sucesso.
 Explicaremos abaixo cada uma dessas interpretações.
 
-Quando restringimos o espaço amostral $\Omega$ ao conjunto $B$ (como em $P(A \cap B)$), temos uma sub-probabilidade, isto é possivelmente $P(\Omega \cap B) < 1$.
+Quando restringimos o espaço amostral $\Omega$ ao conjunto $B$ (e associamos a $A \in \mathcal{F}$ o valor $P(A \cap B)$), temos uma sub-probabilidade, isto é possivelmente $P(\Omega \cap B) < 1$.
 Logo podemos entender o denominador de \eqref{e:P_condicional} como uma normalização para obtermos novamente uma probabilidade.
 
 Mas a interpretação mais natural de \eqref{e:P_condicional} é dada pela seguinte proposição.
 Para enunciá-la, considere $(\Omega, \mathcal{F}, P)$ um espaço de probabilidade e defina o produto
 \begin{equation}
-  \bar{\Omega} = \times_{i=1}^\infty \Omega, \qquad \bar{\mathcal{F}} = \bigotimes_{i=1}^\infty \mathcal{F} \quad \text{e} \quad \bar P = \bigotimes_{i=1}^\infty P.
+  \widebar{\Omega} = \bigtimes_{i=1}^\infty \Omega, \qquad \widebar{\mathcal{F}} = \bigotimes_{i=1}^\infty \mathcal{F} \quad \text{e} \quad \widebar P = \bigotimes_{i=1}^\infty P.
 \end{equation}
-Na verdade tal produto está bem definido mesmo quando $\Omega$ não é canônico, mas deixaremos isso pra uma outra vez.
+Na verdade somente definimos esse produto para $\Omega = \mathbb{R}$, mas como mencionamos abaixo do Teorema da Extensão de Kolmogorov, isso pode ser fácilmente generalizado e o faremos posteriormente.
 
 \begin{proposition}
-  Na situação acima, seja $B \in \mathcal{F}$ com $P(B) > 0$ e defina $T:\bar{\Omega} \to \mathbb{N}$ por $T(\omega) = \inf \{n \geq 1; X_n(\omega) \in B\}$, onde os $X_n$ são as coordenadas canônicas. Então $T < \infty$ quase certamente e
+  Na situação acima, seja $B \in \mathcal{F}$ com $P(B) > 0$ e defina $T:\widebar{\Omega} \to \mathbb{N}$ por $T(\omega) = \inf \{n \geq 1; X_n(\omega) \in B\}$, onde os $X_n$ são as coordenadas canônicas. Então $T < \infty$ quase certamente e
   \begin{equation}
     \text{$X_{T(\omega)}(\omega)$ é um elemento aleatório em $\Omega$ com distribuição $P(\cdot | B)$.}
   \end{equation}
@@ -1775,8 +1912,8 @@ Na verdade tal produto está bem definido mesmo quando $\Omega$ não é canônic
 A intuição desta proposição é que se repetimos o experimento $(\Omega, \mathcal{F}, P)$ independentemente até obter uma amostra em $B$, essa terá a distribuição condicional.
 
 \begin{proof}
-  Sejam os eventos $A_n = [X_n \in B]$, $n \geq 1$ que são claramente independentes segundo $\bar{P}$.
-  Logo, como $\sum_n \bar{P}(A_n) = \sum_n P(B) = \infty$, temos pelo Lema de Borel-Cantelli (segunda parte) que $\bar{P}(\text{$A_n$ infinitas vezes}) = 1$, logo $T < \infty$ quase certamente.
+  Sejam os eventos $A_n = [X_n \in B]$, $n \geq 1$ que são claramente independentes segundo $\widebar{P}$.
+  Logo, como $\sum_n \widebar{P}(A_n) = \sum_n P(B) = \infty$, temos pelo Lema de Borel-Cantelli (segunda parte) que $\widebar{P}(\text{$A_n$ infinitas vezes}) = 1$, logo $T < \infty$ quase certamente.
 
   Para ver que $X_{T(\omega)}(\omega)$ é um elemento aletório, basta escrever
   \begin{equation}
@@ -1787,8 +1924,8 @@ A intuição desta proposição é que se repetimos o experimento $(\Omega, \mat
   Finalmente podemos usar a decomposição (disjunta) acima para calcular
   \begin{equation}
     \begin{split}
-      \bar{P}[X_T \in A] & = \sum_{t=1}^\infty \bar{P} [X_t \in A, T = t]\\
-      & = \sum_{t=1}^\infty \bar{P} [X_t \in A, X_t \in B, X_s \not \in B \text{ for $s < t$}]\\
+      \widebar{P}[X_T \in A] & = \sum_{t=1}^\infty \widebar{P} [X_t \in A, T = t]\\
+      & = \sum_{t=1}^\infty \widebar{P} [X_t \in A, X_t \in B, X_s \not \in B \text{ for $s < t$}]\\
       & = \sum_{t=1}^\infty P(A \cap B) P(B^c)^{t-1} = \frac{P(A \cap B)}{1-P(B^c)} = P(A | B),
     \end{split}
   \end{equation}
@@ -1828,12 +1965,30 @@ Definimos a distribuição geométrica \index{distribuicao@distribuição!geomet
   Barry James: Cap. 2-5, Ex: 5, 10, 21, 22 (a) e (b).
 \end{exercise}
 
-\begin{exercise}
-  Porta dos desesperados...
+\begin{exercise}[Porta dos desesperados]
+  Nas tardes da década de 80, as crianças tinham poucas opções de entretenimento além de assistir Sérgio Malandro, que todos os dias apresentava o seguinte jogo.
+  O participante era apresentado a três portas ($\Omega = \{1,2,3\}$) e apenas uma delas (chamada de $X$) continha um prêmio $X \distr U_{\Omega}$ e o jogo seguia três fases:
+  \begin{enumerate}[\quad a)]
+  \item O participante escolhia uma porta arbitrariamente (digamos $y \in \Omega$),
+  \item o Sérgio Malandro abria uma porta $X'$ que não fosse a escolhida nem a premiada ($X' \distr U_{\Omega \setminus \{y, X\}}$)
+  \item ao participante era dada a oportunidade de trocar sua porta $X$ pela porta restante em $\Omega \setminus \{X, X'\}$.
+  \end{enumerate}
+  Mostre que o participante sempre aumenta suas chances ao trocar sua escolha.
+  Tente interpretar esse aparente paradoxo tomando o número de portas para infinito.
 \end{exercise}
 
 \begin{exercise}
-  $P(\cdot|A|B) = P(\cdot|B|A)$.
+  Emílio e Cristina tiveram dois filhos cujos sexos $X, X'$ são \iid e distribuidos como $U_{\{\male, \female\}}$.
+  Calcule
+  \begin{enumerate}[\quad a)]
+  \item $P[X, X' = \male | \text{ pelo menos um é $\male$}]$ e
+  \item $P[X, X' = \male | \text{ pelo menos um é $\male$ e nasceu em uma segunda-feira}]$.
+  \end{enumerate}
+  Interprete esses resultados trocando ``segunda-feira'' por ``primeiro de abril''.
+\end{exercise}
+
+\begin{exercise}
+  Mostre que $P(\cdot|A|B) = P(\cdot|B|A)$.
 \end{exercise}
 
 \begin{exercise}
@@ -1867,7 +2022,7 @@ Isso não pode ser dito das probabilidades de pontos individuais em $\Omega$.
 
 Agora fica fácil construir nosso espaço de probabilidade escrevendo, para $r \in \{+, -\}$ e $e \in \{\text{saudável}, \text{doente}\}$,
 \begin{equation}
-  P(\{(r,e)\}) = P(r \cap e) = P(r | e) P(e).
+  P(r \cap e) = P(r | e) P(e).
 \end{equation}
 E as probabilidades do lado direito da equação acima estão todas determinadas em \eqref{e:exame_medico} (possivelmente tomando complementos).
 
@@ -2166,18 +2321,18 @@ Nesse caso, é conveniente escrever
     \bar{P_n} = \psi_n \circ P_n, \text{ em $\mathbb{R}^n$}.
   \end{equation}
   É fácil verificar que as $\bar P_n$ são consistentes como em \eqref{e:consist_kolmog}.
-  Logo, existe $\bar{P}$ em $(\mathbb{R}^\mathbb{N}, \mathcal{F})$ extendendo $\bar{P_n}$.
+  Logo, existe $\widebar{P}$ em $(\mathbb{R}^\mathbb{N}, \mathcal{F})$ extendendo $\bar{P_n}$.
 
   Finalmente, consideramos o mapa $\Phi: \times_{i=1}^\infty \phi_i(E_i) \to \Omega$ dado por
   \begin{equation}
     \Phi(\phi_1(\omega_1), \phi_2(\omega_2), \dots) = (\omega_1, \omega_2, \dots).
   \end{equation}
-  Resta mostrar que a medida $P = \Phi \circ \bar{P}$ extende as probabilidades $P_n$:
+  Resta mostrar que a medida $P = \Phi \circ \widebar{P}$ extende as probabilidades $P_n$:
   \begin{equation}
     \begin{split}
-      P\big(A_1 \times \dots & \times A_n \times E_{n+1} \times \dots\big) = \bar{P} \big(\Phi^{-1}(A_1 \times \dots \times A_n \times E_{n+1} \times \dots)\big)\\
-      & = \bar{P} \big( \phi_1(A_1) \times \dots \times \phi_n(A_n) \times \phi_{n+1}(E_{n+1}) \times \dots \big)\\
-      & = \bar{P}_n (\phi_1(A_1) \times \dots \times \phi_n(A_n))\\
+      P\big(A_1 \times \dots & \times A_n \times E_{n+1} \times \dots\big) = \widebar{P} \big(\Phi^{-1}(A_1 \times \dots \times A_n \times E_{n+1} \times \dots)\big)\\
+      & = \widebar{P} \big( \phi_1(A_1) \times \dots \times \phi_n(A_n) \times \phi_{n+1}(E_{n+1}) \times \dots \big)\\
+      & = \widebar{P}_n (\phi_1(A_1) \times \dots \times \phi_n(A_n))\\
       & = P_n \big(\psi_n^{-1}\big(\phi_1(A_1) \times \dots \times \phi_n(A_n)\big)\big) = P_n(A_1 \times \dots \times A_n),
     \end{split}
   \end{equation}
