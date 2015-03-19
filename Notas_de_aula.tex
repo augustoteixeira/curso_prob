@@ -862,7 +862,7 @@ Observe que o caso discreto pode ser definido em termos de uma densidade, onde $
   Alguns exemplos importantes são:
   \begin{enumerate}[\quad a)]
   \item Para $a < b \in \mathbb{R}$, definimos a medida $U[a,b]$ \index{distribuicao@distribuição!uniforme} usando $\rho(x) = \tfrac{1}{b-a}\1_{[a,b]}(x)$.
-  \item Para $\lambda > 0$, definimos a medida $\Exp(\lambda)$ \index{distribuicao@distribuição!exponencial} (chamada exponencial de parâmetro $\lambda$) por meio da densidade $\rho(x) = \tfrac{1}{\lambda} \exp\{-\lambda x\}$ em $[0,\infty)$.
+  \item Para $\lambda > 0$, definimos a medida $\Exp(\lambda)$ \index{distribuicao@distribuição!exponencial} (chamada exponencial de parâmetro $\lambda$) por meio da densidade $\rho(x) = \lambda \exp\{-\lambda x\}$ em $[0,\infty)$.
   \end{enumerate}
 \end{example}
 
@@ -1645,8 +1645,8 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 \end{proof}
 
 Observe que usamos muito poucos atributos de $\mathbb{R}$ na prova.
-Poderíamos na verdade substituir $\mathbb{R}$ por qualquer espaço métrico sequencialmente compacto e $\sigma$-compacto.
-Contudo, não apresentamos essa versão mais geral aqui pois muito em breve vamos utilizar o caso da reta para mostrar uma versão bem mais geral do Teorema de Kolmogorov.
+Poderíamos na verdade substituir $\mathbb{R}$ por um espaço métrico que satisfaça certas propriedades, como por exemplo a existência de uma álgebra cujos conjuntos possam ser aproximados por pré-compactos.
+Contudo, decidimos não apresentar essa versão mais geral aqui porque muito em breve obteremos uma versão bem mais geral do Teorema de Kolmogorov usando o resultado para $\mathbb{R}$.
 
 \begin{exercise}
   Mostre que a hipótese \eqref{e:consist_kolmog} pode ser substituida por
