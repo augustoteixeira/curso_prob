@@ -1,8 +1,80 @@
 \RequirePackage{nag}
-\documentclass[reqno, final]{book}
+\documentclass[reqno, draft]{book}
 \usepackage{amssymb, amsmath, amsthm}
 
 \usepackage{wasysym}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% TOC including bibliog %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[nottoc]{tocbibind}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% TOC in odd pages only %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{afterpage}
+\AtBeginDocument{\addtocontents{toc}{\protect\afterpage\protect\cleardoublepage}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Headers %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\headheight}{16pt}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[LE]{\leftmark}
+\fancyhead[LO]{}
+\fancyhead[RO]{\rightmark}
+\fancyhead[RE]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Mark badboxes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\overfullrule=5pt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[final]{microtype}
+
+\usepackage{titlesec}
+\titleformat
+{\chapter} [display]
+{\bfseries\LARGE\itshape} {\chaptername~\thechapter} {0.5ex}
+{ \vspace{2ex}
+  \rule{\textwidth}{1pt}
+  \vspace{2ex}
+  \centering
+}[\vspace{-0.5ex}\rule{\textwidth}{0.3pt}]
+
+\usepackage[margin=10pt,font=small,labelfont=bf]{caption}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+%\pgfplotsset{compat=1.11}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+
+\usepackage{ifthen}
+\usepackage{ifdraft}
+
+
+\usepackage{makeidx}
+\makeindex
+%\usepackage{imakeidx}
+%\makeindex[columns=2, title=Alphabetical Index]
+
+\usepackage[obeyDraft]{todonotes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% trying lualatex %%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[charter]{mathdesign}  % sets the math font
+%\usepackage{fontspec}
+%\setmainfont{TeX Gyre Bonum}
+%\def\mathds{}
+%\def\widebar{\bar}
+%\usepackage{newtxtext,newtxmath}
+\usepackage{mathpazo}
+\usepackage{dsfont} % includes bb 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{calc}
 
 %%%%%%%%%%%%%%%%%%% Define self-sufficient widebar %%%%%%%%%%%%%%%%%
 \makeatletter
@@ -76,76 +148,6 @@
 \makeatother
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%% TOC in odd pages only %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{afterpage}
-\AtBeginDocument{\addtocontents{toc}{\protect\afterpage\protect\cleardoublepage}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Headers %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\setlength{\headheight}{16pt}
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhead[LE]{\leftmark}
-\fancyhead[LO]{}
-\fancyhead[RO]{\rightmark}
-\fancyhead[RE]{}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Mark badboxes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\overfullrule=5pt
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\usepackage[final]{microtype}
-
-\usepackage{titlesec}
-\titleformat
-{\chapter} [display]
-{\bfseries\LARGE\itshape} {\chaptername~\thechapter} {0.5ex}
-{ \vspace{2ex}
-  \rule{\textwidth}{1pt}
-  \vspace{2ex}
-  \centering
-}[\vspace{-0.5ex}\rule{\textwidth}{0.3pt}]
-
-\usepackage[margin=10pt,font=small,labelfont=bf]{caption}
-
-\usepackage{graphicx}
-\usepackage{tikz}
-\usepackage{pgfplots}
-%\pgfplotsset{compat=1.11}
-
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[brazil]{babel}
-
-\usepackage{ifthen}
-\usepackage{ifdraft}
-
-
-\usepackage{makeidx}
-\makeindex
-%\usepackage{imakeidx}
-%\makeindex[columns=2, title=Alphabetical Index]
-
-\usepackage[obeyDraft]{todonotes}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%% trying lualatex %%%%%%%%%%%%%%%%%%%%%%%%%
-%\usepackage[charter]{mathdesign}  % sets the math font
-%\usepackage{fontspec}
-%\setmainfont{TeX Gyre Bonum}
-%\def\mathds{}
-%\def\widebar{\bar}
-%\usepackage{newtxtext,newtxmath}
-\usepackage{mathpazo}
-\usepackage{dsfont} % includes bb 1
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\usepackage{enumerate}
-\usepackage{color}
-\usepackage{calc}
-
 %%%%%%%%%%%%%%%% array for equations alignment %%%%%%%%%%%%%%%%%%%%%
 \usepackage{array}
 \newcolumntype{e}{>{\displaystyle}r @{\,} >{\displaystyle}c @{\,} >{\displaystyle}l}
@@ -203,6 +205,7 @@
 \newtheorem{corollary}[theorem]{Corolário}
 \newtheorem{lemma}[theorem]{Lema}
 \newtheorem{proposition}[theorem]{Proposição}
+\newtheorem{scholia}[theorem]{Escólio}
 \newtheorem{definition}[theorem]{Definição}
 \newtheorem{question}[theorem]{Questão}
 \newtheorem{notation}[theorem]{Notação}
@@ -327,7 +330,7 @@ Vamos agora formalizar a discussão acima com mais calma, sob a ótica dessa teo
 \section{Espaços mensuráveis}
 
 Denotaremos sempre por $\Omega$ o nosso \emph{espaço amostral} \index{espaco@espaço!amostral} (à princípio qualquer conjunto).
-Um ponto nsse espaço corresponde por exemplo a um possível resultado do nosso experimento aleatório.
+Um ponto nesse espaço corresponde por exemplo a um possível resultado do nosso experimento aleatório.
 
 \begin{example} Possíveis exemplos de espaço amostral
   \label{x:espacos_amostrais}
@@ -375,7 +378,7 @@ Um exemplo importante é dado pela \emph{$\sigma$-álgebra de Borel} \index{sigm
 \end{exercise}
 
 \begin{notation}
-  Se $Q$ for uma condição qualquer sobre candidatos $\omega \in \Omega$, escreveremos $[\text{$\omega$ satisfaz $Q$}]$ \index{[omega satisfaz Q]@$[\text{$\omega$ satisfaz $Q$}]$} para denotar $\{\omega \in \Omega; \text{$\omega$ stisfaz $Q$}\}$.
+  Se $Q$ for uma condição qualquer sobre candidatos $\omega \in \Omega$, escreveremos $[\text{$\omega$ satisfaz $Q$}]$ \index{[omega satisfaz Q]@$[\text{$\omega$ satisfaz $Q$}]$} para denotar $\{\omega \in \Omega; \text{ $\omega$ satisfaz $Q$}\}$.
 \end{notation}
 
 Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) > 0\}$ pode ser escrita simplesmente como $[f(1) > 0]$.
@@ -954,6 +957,9 @@ Contudo, a função $F_P$ (ou $F_X$) é muito mais simples de ser compreendida o
   Se $F$ satisfaz as três propriedades listadas na Proposição~\ref{p:propried_F}, então existe uma única $P$ em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ tal que $F = F_P$.
 \end{theorem}
 
+Poderíamos usar o Teorema da Extensão de Caratheodory para provar tal resultado, de maneira similar ao que foi feito no caso da Medida de Lebesgue.
+Mas escolhemos abaixo um método mais simples, que parte da existência de $U_{[0,1]}$.
+
 \begin{proof}
   A unicidade de tal $P$ segue da Proposição~\ref{p:P12_equal_pi} (consequêcia do Teorema de Dynkin), pois se $P$ e $P'$ são tais que $F_{P} = F_{P'}$, então temos que $P\big( (-\infty, x] \big) = P'\big( (-\infty, x] \big)$.
   Mas a classe de intervalos semi-infinitos da forma $(-\infty, x]$ forma um $\pi$-sistema que gera a $\sigma$-álgebra dos borelianos, logo $P = P'$.
@@ -1001,6 +1007,10 @@ Contudo, a função $F_P$ (ou $F_X$) é muito mais simples de ser compreendida o
   Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
 \end{proof}
 
+\begin{exercise}
+  Mostre o resultado acima usando o Teorema de Extensão de Caratheodory.
+\end{exercise}
+
 \section{Espaços produto finito}
 
 Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebras $\mathcal{F}_1, \dots, \mathcal{F}_n$, podemos definir o espaço mensurável produto $(\bar{\Omega}, \bar{\mathcal{F}})$ da seguinte forma
@@ -1028,8 +1038,13 @@ Note que a unicidade do produto pode ser concluída por exemplo usando o Corolá
 
 \section{Independência}
 
+Nossa intuição nos diz que quando jogamos duas moedas, o resultado de cada uma delas não deve depender um do outro.
+Dessa forma, a probabilidade de obtermos um determinado resultado (como por exemplo duas caras) deve ser um quarto, ou seja meio vezes meio.
+
+Em geral, definimos dois eventos como independentes da seguinte forma.
+
 \begin{definition}
-  Dados dois eventos $A, B \in \mathcal{F}$, dizemos que eles são \emph{independentes} \index{independencia@independência!de eventos} se
+  Dizemos que dois eventos $A, B \in \mathcal{F}$, são \emph{independentes} \index{independencia@independência!de eventos} se
   \begin{equation}
     P(A \cap B) = P(A) P(B).
   \end{equation}
@@ -1219,6 +1234,9 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
 \end{proof}
 
 \todosec{Tópico: Uma dinâmica em \texorpdfstring{$[0,1]$}{[0,1]}}{fazer dinâmica 2x mod 1 e relações Lebesgue[0,1] com produtos de bernoulli}
+
+\vfill
+\newpage
 
 \subsection{Tópico: Lei dos pequenos números}
 
@@ -1440,11 +1458,11 @@ O teorema principal de convergência dessa seção concerne a soma de variáveis
 \end{proof}
 
 \begin{corollary}
-  No mesmo contexto do teorema acima, se $p = \lambda/n$, então a distância de variação total
+  No mesmo contexto do teorema acima, se $p = \lambda/n$, então temos
   \begin{equation}
     \lVert \Bin(n,p) - \Poisson(pn) \rVert_{\VT} \leq \lambda^2 / n,
   \end{equation}
-  logo converge a zero.
+  que converge a zero com $n$.
 \end{corollary}
 
 \vfill
@@ -1646,7 +1664,7 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 
 Observe que usamos muito poucos atributos de $\mathbb{R}$ na prova.
 Poderíamos na verdade substituir $\mathbb{R}$ por um espaço métrico que satisfaça certas propriedades, como por exemplo a existência de uma álgebra cujos conjuntos possam ser aproximados por pré-compactos.
-Contudo, decidimos não apresentar essa versão mais geral aqui porque muito em breve obteremos uma versão bem mais geral do Teorema de Kolmogorov usando o resultado para $\mathbb{R}$.
+Contudo, decidimos não apresentar essa versão mais geral aqui porque muito em breve obteremos uma versão bem mais geral do Teorema de Kolmogorov usando apenas o resultado para $\mathbb{R}$.
 
 \begin{exercise}
   Mostre que a hipótese \eqref{e:consist_kolmog} pode ser substituida por
@@ -1837,8 +1855,8 @@ Na verdade, é possível mostrar que para $d = 2$,
     & \text{$\theta(p) > 0$ para todo $p > 1/2$,}
   \end{split}
 \end{equation}
-veja ???.
-De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2$.
+como foi mostrado por Harris e Kesten, veja por exemplo \cite{Gri99} e \cite{bollobas2006percolation}.
+De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2$, como nos mostrou o trabalho de grandes matemáticos, como: Oded Schramm, Wendelin Werner, Stanislav Smirnov, entre outros.
 
 \todosec{Tópico: Teorema de Uma Série}{fazer...}
 
@@ -1995,6 +2013,7 @@ Definimos a distribuição geométrica \index{distribuicao@distribuição!geomet
   \item $P[X, X' = \male | \text{ pelo menos um é $\male$ e nasceu em uma segunda-feira}]$.
   \end{enumerate}
   Interprete esses resultados trocando ``segunda-feira'' por ``primeiro de abril''.
+  \footnote{Gratos ao Ricardo Misturini por sugerir esse problema}
 \end{exercise}
 
 \begin{exercise}
@@ -2065,9 +2084,7 @@ Isso nos é fornecido em geral pela regra de Bayes enunciada na seguinte
 
 \todosec{Tópico: Distribuições de Extremos}{fazer...}
 
-\section{Acoplamentos}
-
-Talvez valha a pena escrever sobre acoplamentos de maneira geral. Talvez pegando algo do Pascal Massart. Vale a pena tentar escrever algo sobre: composiçao de acoplamentos, quando um acoplamento ``dá errado''...
+\todosec{Acoplamentos}{Talvez valha a pena escrever sobre acoplamentos de maneira geral. Talvez pegando algo do Pascal Massart. Vale a pena tentar escrever algo sobre: composiçao de acoplamentos, quando um acoplamento ``dá errado''...}
 
 \section{Núcleos de transição}
 
@@ -2077,12 +2094,18 @@ Agora passaremos a estudar elementos aleatórios dependentes e o primeiro passo 
 
 Definiremos agora um núcleo de transição.
 Intuitivamente, ele nos dá um meio de usar um elemento aleatório em um espaço para induzir uma probabilidade em outro espaço.
-Um exemplo em que poderíamos utilizar essa construção seria intuitivamente o seguinte.
-Digamos que uma moeda foi danificada acidentalmente, e isso fez com que sua probabilidade retornar \emph{cara} tenha se modificado para algum $P \in [0,1]$.
-Como modelaríamos um lançamento dessa moeda, se $P$ também fosse aleatório?
+Um exemplo em que poderíamos utilizar essa construção seria o seguinte.
+
+Digamos que estamos preocupados com a possibilidade de um deslizamento de terra em uma determinada região.
+A ocorrência desse deslizamento é algo aleatório, mas que certamente depende da quantidade de chuva no período, que também podemos modelar como sendo aleatória.
+
+Após estudarmos alguns trabalhos anteriores, descobrimos uma função $F:\mathbb{R}_+ \to [0,1]$ que nos dá a probabilidade de um deslizamento como função da quantidade de chuva em milímetros.
+
+Lendo o histórico pluvial na região, podemos estimar a distribuição $Q$ em $\mathbb{R}_+$ da quantidade de chuva que esperamos naquele período.
+A lei $F \circ Q$ (também chamada de $Q_F$) é uma lei em $[0,1]$ que nos dá a distribuição da probabilidade de deslizamento, mas como seguimos em frente para obter a probabilidade de deslizamento (um número entre zero e um)?
+Saberemos como fazer isso ao terminar essa seção.
 
 Sejam $(E_1, \mathcal{A}_1)$ e $(E_2, \mathcal{A}_2)$ espaços mensuráveis.
-
 \begin{definition}
   Um núcleo de transição entre $E_1$ e $E_2$ é uma função \index{nucleo de transicao@núcleo de transição}
   \begin{equation}
@@ -2096,8 +2119,8 @@ Sejam $(E_1, \mathcal{A}_1)$ e $(E_2, \mathcal{A}_2)$ espaços mensuráveis.
 \end{definition}
 
 \begin{example}
-  \label{x:moeda_danificada}
-  Daremos agora o exemplo de uma moeda danificada de maneira arbitrária (possivelmente aleatóriamente).
+  \label{x:chance_deslizamento}
+  Daremos agora o exemplo da probabilidade de deslizamento como função de $F$ (que será possivelmente uma variável aleatória).
   Nesse caso, seja $E_1 = [0,1]$ e $E_2 = \{0,1\}$ com as $\sigma$-álgebras naturais e defina
   \begin{equation}
     K(p, A) = \big( (1-p)\delta_0 + p \delta_1 \big) (A).
@@ -2142,7 +2165,7 @@ Isso prova que esse $K$ específico é um núcleo
 
 Tipicamente, definimos os núcleos de transição introduzindo $K(y, \cdot)$ como sendo uma medida que depende de $y$.
 Nesse caso, uma das condições para que $K$ seja um núcleo está automaticamente satisfeita, restando apenas mostrar que $K(\cdot, A)$ é mensurável para quaisquer $A \in \mathcal{A}_2$.
-Mas obviamente o conjunto $\mathcal{A}_2$ pode ser muito complexo, então gostaríamos de nos restringir a verificar que $K(\cdot, A)$ é mensurável para os conjuntos $A$ em uma classe rica o suficiente.
+Mas obviamente o conjunto $\mathcal{A}_2$ pode ser muito complexo, então gostaríamos de apenas verificar que $K(\cdot, A)$ é mensurável para os conjuntos $A$ em uma classe rica o suficiente.
 
 \begin{proposition}
   \label{p:K_nucleo_na_classe}
@@ -2256,7 +2279,7 @@ Estamos prontos agora para fornecer a
 \end{exercise}
 
 \begin{exercise}
-  Considere o núcleo do Exemplo~\ref{x:moeda_danificada} e calcule:
+  Considere o núcleo do Exemplo~\ref{x:chance_deslizamento} e calcule:
   \begin{enumerate}[\quad a)]
   \item $U_{[0,1]} \star K [X_2 = 1]$,
   \item $P_1 \star K [X_2 = 1]$, onde $\d P_1 = 2x \d x$ e
@@ -2289,7 +2312,7 @@ Posteriormente extenderemos o resultado acima para o caso $P_1(\{y\}) = 0$, mas 
 
 Vamos introduzir uma última notação com respeito a núcleos de transição.
 Muitas vezes, não estamos interessados na distribuição conjunta de $P_1 \star K$ em $E_1 \times E_2$, mas apenas na distribuição marginal da segunda coordenada.
-No exemplo do martelo, talvez poderíamos estar interessados apenas na distribuição final da moeda.\todo{trocar o exemplo moeda/martelo para marcador/doença.}
+No nosso problema da chuva por exemplo, talvez poderíamos estar interessados apenas na probabilidade final de ocorrer um desmoronamento.
 Nesse caso, é conveniente escrever
 \begin{equation}
   \label{e:P1_K}
@@ -2309,17 +2332,22 @@ Nesse caso, é conveniente escrever
 
 \section{Espaços canônicos}
 
+Em várias áreas da matemática, existe um importante conceito de equivalência entre duas estruturas, como por exemplo: homeomorfismos, isometrias e isomorfismos.
+Nessa seção estudaremos o caso análogo para espaços mensuráveis, que nos trará uma grande surpresa.
+
 \begin{definition}
   Uma função $\phi:E \to E'$ entre dois espaços mensuráveis é dita bi-mensurável \index{bi-mensuravel@bi-mensurável} quando $\phi$ é mensurável e injetiva, $\phi(E)$ for mensurável e a sua inversa $\phi^{-1}:f(E) \to E$ também for mensurável.
 \end{definition}
 
-\todo{olhar a questão: todo boreliano de um polonês é canônico?}
+Ao tentar classificar espaços mensuráveis à partir da possibilidade de que possam ser imersos bi-mensuravelmente em outros, descobrimos que uma classe apenas inclui praticamente todos os espaços que podemos estar interessados.
 
 \begin{definition}
   Dizemos que o espaço mensurável $(E, \mathcal{A})$ é canônico \index{espaco@espaço!canonico@canônico} se existe uma função $\phi: E \to \mathbb{R}$ bi-mensurável.
 \end{definition}
 
-\begin{theorem}
+Antes de mostrar que essa classe de espaços canônicos inclui muitíssimos exemplos, vamos motivar a definição acima atravéz do seguinte.
+
+\begin{theorem}[Extensão de Kolmogorov Extendida]
   \index{Teorema!da Extensao de Kolmogorov@da Extensão}
   Se $E_1, E_2, \dots$ espaços mensuráveis canônicos, então o Teorema~\ref{t:extens_kolmog} (da extensão de Kolmogorov) também é válido no espaço produto $\Omega = E_1 \times E_2 \times \dots$ se a condição de consistência \eqref{e:consist_kolmog} for válida com $I_j$ substituídos por eventos quaiquer em $E_j$.
 \end{theorem}
@@ -2362,7 +2390,12 @@ A seguir daremos um exemplo de espaço canônico que é importante para a seçã
     \label{e:hamming_distance}
     d(x,y) = \sum_{i \geq 1} \frac{1}{2^{i + 1}} \1_{x_i \neq y_i}.
   \end{equation}
-  Fica como exercício mostrar um homeomorfismo entre $(E,d)$ e um boreliano de $\mathbb{R}$.
+  Fica como exercício mostrar que a $\sigma$-álgebra dos borelianos induzida por essa métrica coincide com a $\sigma$-álgebra produto em $E$.
+  Definimos agora o mapa $\phi:E \to \mathbb{R}$ dado por
+  \begin{equation}
+    \phi(n_1, n_2, \dots) = 2^{-n_1} + 2^{-1 - n_1 - n_2} + \dots + 2^{-n - \sum_{i=1}^n n_i} + \dots
+  \end{equation}
+  Também deixamos a cargo do leitor mostrar que $\phi$ define um homeomorfismo entre $(E,d)$ e um boreliano de $\mathbb{R}$.
 \end{proof}
 
 \subsection{Espaços poloneses}
@@ -2380,18 +2413,15 @@ Nessa seção mostraremos que uma grande coleção de espaços conhecidos são c
   \end{enumerate}
 \end{example}
 
-\begin{lemma}
-  Se $(E_i, d_i)$ são espaços métricos poloneses para $i = 1, 2, \dots$ então $E = \times_i E_i$ com a métrica
+\begin{exercise}
+  Se $(E_i, d_i)$ são espaços métricos poloneses para $i = 1, 2, \dots$, mostre que $E = \bigtimes_i E_i$ com a métrica
   \begin{equation}
     \label{e:metrica_produto}
     d(x,y) = \sum_i \frac{1}{2^{i+1}} \frac{d_i(x_i, y_i)}{1 + d_i(x_i, y_i)}
   \end{equation}
   também é polonês.
-\end{lemma}
-
-\begin{proof}
-  Exercício.
-\end{proof}
+  Mostre também que a topologia induzida por essa métrica é equivalente à topologia produto em $E$.
+\end{exercise}
 
 Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também será útil para provar o resultado principal desta seção.
 
@@ -2422,8 +2452,8 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   \item $F \cap G$ é separável quando dotado da métrica $d'$,
   \item $(F \cap G, d')$ é completo.
   \end{enumerate}
+  Isso termina a prova do lema.
 \end{proof}
-
 
 \begin{example}
   Um importante exemplo é dado por espaços produto.
@@ -2533,6 +2563,34 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   \end{enumerate}
   Isso conclui por indução a prova de \eqref{e:x_in_Aw} e consequentemente do teorema.
 \end{proof}
+
+Terminamos essa seção com esse importante corolário, que confirma nossa afirmação de que quase todos os espaços mensuráveis que podemos nos interessar são canônicos.
+\begin{corollary}
+  \label{c:borel_de_polones}
+  Se $(E, d)$ é um espaço polonês e $B \in \mathcal{B}(E)$, então $(B, d)$ é canônico.
+\end{corollary}
+
+\begin{proof}
+  Seja $\phi: E \to \mathbb{R}$ a função bi-mensurável que mostra que $E$ é polonês.
+  Consideramos $\phi': B \to \mathbb{R}$ dada pela restrição de $\phi$ a $B$ e precisamos mostrar as seguintes afirmativas:
+  \begin{enumerate}[\quad a)]
+  \item $\phi'$ é injetiva
+  \item $\phi'$ é mensurável
+  \item $\phi'(B)$ é mensurável e
+  \item a inversa $\psi': \phi'(B) \to B$ é mensurável.
+  \end{enumerate}
+  Vejamos,
+  \begin{enumerate}[\quad a)]
+  \item $\phi$ ser injetiva implica que $\phi'$ também o é.
+  \item dado $A \in \mathcal{B}(R)$, $\phi'^{-1}(A) = B \cap \phi^{-1}(A) \in \mathcal{B}(B)$.
+  \item denotando por $\psi: \phi(E) \to E$ a inversa de $\phi$ em sua imagem, temos que $\phi(B) = \psi^{-1}(B) \in \mathcal{B}(\mathbb{R})$ pois $\psi$ é mensurável e
+  \item finalmente, se $D \in \mathcal{B}(B)$, então $\psi'^{-1}(D) = \psi^{-1}(D) \in \mathcal{B}(\mathbb{R})$, novamente pela mensurabilidade de $\psi$.
+  \end{enumerate}
+  Concluindo portanto a bi-mensurabilidade de $\phi'$.
+\end{proof}
+
+\vfill
+\newpage
 
 \subsection{Tópico: Cadeias de Markov}
 
@@ -2654,6 +2712,8 @@ Essa analogia é real se $E$ for um espaço enumerável.
 
 \chapter{Somas de variáveis independentes}
 
+Nesse capítulo introduziremos várias técnicas e resultados que serão úteis em geral, mas que aparecem naturalmente no estudo de somas de variáveis aleatórias independentes, que por sua vez é um assunto de extrema importância em teoria e aplicações de probabilidade.
+
 \section{Esperança}
 
 \begin{definition}
@@ -2681,7 +2741,7 @@ Não demonstraremos algumas propriedades conhecidas da integração de Lebesgue,
   A esperança de uma variável aleatória $X \in \mathcal{L}^1$ depende somente de sua distribuição.
   Mais precisamente
   \begin{equation}
-    E(X) = \int x (X \circ P) (\d x).
+    E(X) = \int x \; P_X (\d x).
   \end{equation}
 \end{lemma}
 
@@ -2802,6 +2862,7 @@ Se $d(X \circ P) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), 
 \subsection{Desigualdade de Markov}
 
 \begin{theorem}
+  \label{t:markov}
   \index{Desigualdade de Markov}
   Se $X \geq 0$ $P$-q.c., então para todo $x > 0$,
   \begin{equation}
@@ -2817,7 +2878,12 @@ Se $d(X \circ P) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), 
   que termina a prova.
 \end{proof}
 
-\todo{dar explicação sobre: aproximações no lugar de igualdades nos permite estudar problemas mais complexos.}
+O próximo exemplo serve muito bem para mostrar porque estamos interessados em desigualdades como a do Teorema~\ref{t:markov} acima.
+
+Em vários exemplos importantes, podemos ter dificuldade de calcular probabilidades explicitamente.
+Nesses casos, poderíamos gastar nossas energias tentando calculá-las a qualquer custo, ou podemos nos contentar em obter cotas superiores e inferiores para as probabilidades nas quais estamos interessados.
+
+Em vários casos, a segunda estratégia tem uma grande vantagem sobre a primeira, por possibilitar que estudemos problemas mais complexos (e consequentemente mais importantes/interessantes) e muitas vezes sem nos afastarmos da realidade (em vários exemplos as cotas superiores e inferiores são próximas o suficiente para que não nos preocupemos).
 
 \begin{example}
   Sejam $n$ patos e $m$ caçadores.
@@ -2868,7 +2934,9 @@ Se $d(X \circ P) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), 
   Mostre que $E(XY)$, $E(X/Y)$, $E(X + Y)$... dependem apenas da distribuição de $(X,Y) \in \mathbb{R}^2$.
 \end{exercise}
 
-\todo{colocar como exercício o que acontece com E(XY) = E(X)E(Y) com X, Y independentes mas apenas em $L^1$?}
+\begin{exercise}
+  Mostre que se $X, Y \in \mathcal{L}^1$, então também vale $E(XY) = E(X) E(Y)$.
+\end{exercise}
 
 \section{Variância}
 
@@ -2880,7 +2948,7 @@ Esse método é chamado de \emph{método do primeiro momento}, \index{momento!pr
 
 Então, por exemplo, se $X \in \mathcal{L}^k$ e $X \geq 0$, podemos estimar
 \begin{equation}
-  P[X \geq x] = P [X^k \geq x^k] \leq \frac{E(X^k)}{x^k}, \text{ para qualquer $k \geq 1$.}
+  P[X \geq x] = P [X^k \geq x^k] \leq \frac{E(X^k)}{x^k}, \text{ para quaisquer $k \geq 1$.}
 \end{equation}
 Observe que quando o $k$-ésimo momento de $X$ é finito, a razão acima decai mais rápido quando $x$ diverge.
 
@@ -2955,8 +3023,9 @@ A seguinte proposição mostra que a variância é uma maneira de estimar o quan
   \begin{enumerate}[\quad a)]
   \item $|X - E(X)| \geq 0$,
   \item $|X - E(X)| > a$ se e somente se $|X - E(X)|^2 > a^2$ e
-  \item $E\big(|X - E(X)|^2\big) = E\big((X - E(X))^2\big) = \Var(X)$.
+  \item $E\big(|X - E(X)|^2\big) = E\big((X - E(X))^2\big) = \Var(X)$,
   \end{enumerate}
+  mostrando a proposição.
 \end{proof}
 
 Para variáveis aleatórias de média zero, a variância nada mais é que $E(X^2)$, ou em outras palavras $\lVert X \rVert^2_2$, o quadrado de sua norma em $\mathcal{L}^2$.
@@ -2989,6 +3058,7 @@ Uma outra propriedade bastante importante da variância é que ela se comporta b
   \end{equation}
   Em particular, se as variáveis $X_i$ forem independentes duas a duas, então
   \begin{equation}
+    \label{e:var_linear}
     \Var(X_1 + \dots + X_n) = \sum_{i=1}^n \Var(X_i).
   \end{equation}
 \end{proposition}
@@ -3013,6 +3083,21 @@ Uma outra propriedade bastante importante da variância é que ela se comporta b
   Calcule $E(X)$ quando $X \overset{d}\sim \Geo(p)$.
 \end{exercise}
 
+Um dito popular muito comum no Brasil é que não devemos deixar todos os ``ovos no mesmo cesto'', o que nos remete à possibilidade de perdermos todos eles caso o cesto caia.
+Uma outra maneira de pensar nas vantagens de se dividir nossos riscos entre várias fontes independentes de incerteza, vem da equação \eqref{e:var_linear}, melhor explicada no exercício abaixo.
+
+\begin{exercise}
+  Imagine que $X_1, \dots, X_n$ são variáveis \iid, tomando valores em $[0,1]$ e que temos um certo valor $s \in \mathbb{R}_+$ que temos que guardar em $n$ caixas (dividindo como quisermos em $s_1, \dots, s_n$).
+  Ao fim da semana, obteremos $S = \sum_i s_i X_i$.
+
+  Calcule $E(S)$ e $\Var(S)$,
+  \begin{enumerate}[\quad a)]
+  \item se $s_1 = s$ e $s_i = 0$ para todo $i \geq 2$ e
+  \item se $s_i = s/n$ para todo $i$.
+  \end{enumerate}
+  Compare os resultados.
+\end{exercise}
+
 \begin{exercise}
   Calcule $\lim_{p \to 0} F_p(x)$ onde $F_p$ é a função de distribuição acumulada de $p X_p$ com $X_p \overset{d}\sim \Geo(p)$.
   Você reconhece esse limite?
@@ -3020,7 +3105,14 @@ Uma outra propriedade bastante importante da variância é que ela se comporta b
 
 \section{Lei fraca dos grandes números}
 
-\todo{fazer lei dos grandes números fraca quantitativa (deixar a cota na prob.)}
+Nessa seção iremos mostrar um dos resultados mais importantes da Teoria da Probabilidade.
+O que nossa intuição tem a nos dizer sobre a probabilidade de obtermos um resultado em um dado é $1/6$?
+Uma possível explicação seria por simetria, mas e o que podemos dizer no caso de um dado viciado?
+
+Se dizemos a alguém que a probabilidade de obter $6$ em um certo dado é $1/10$, naturalmente a pessoa pode se perguntar como descobrimos isso.
+Um bom jeito de obter tal medida seria jogar o dado várias vezes independentemente e calcular em qual proporção dos ensaios ele retornou um seis.
+
+O objetivo desta seção é confirmar a validade desse experimento de maneira quantitativa.
 
 \begin{theorem}
   \index{Lei!Fraca dos Grandes Numeros@Fraca dos Grandes Números}
@@ -3043,10 +3135,23 @@ Uma outra propriedade bastante importante da variância é que ela se comporta b
   \end{equation}
   pois $E(S_n/n) = 1/n E(X_1 + \dots + X_n) = E(X_1)$.
 
-  Mas como $\Var(S_n/n) = 1/n^2 \Var (X_1 + \dots + X_n) = n/n^2 \Var(X_1)$, temos o resultado.
+  Mas como $\Var(S_n/n) = 1/n^2 \Var (X_1 + \dots + X_n) = (n/n^2) \Var(X_1)$, temos o resultado.
 \end{proof}
 
 Observe que nós apenas utilizamos que as variáveis $X_i$ eram independentes duas a duas.
+
+Além disso, obtivemos o seguinte resultado quantitativo que vale mesmo para valores finitos de $n$:
+
+\begin{scholia}
+  Se $X_1, X_2, \dots$ são i.i.d.s em $\mathcal{L}^2$ e definimos $S_n = \sum_{i=1}^n X_i$ como acima, então, para todo $\varepsilon > 0$ e $n \geq 1$, temos
+  \begin{equation}
+    P \Big[\Big| \frac{S_n}{n} - E(X_1)\Big| > \varepsilon \Big] \leq \frac{\Var(X_1)}{\varepsilon^2 n}.
+  \end{equation}
+\end{scholia}
+
+
+
+
 
 \begin{corollary}
   Se $A_1, A_2, \dots$ são eventos independentes dois a dois com $P(A_i) = p \in [0,1]$ para todo $i$, então
@@ -3066,8 +3171,6 @@ Observe que nós apenas utilizamos que as variáveis $X_i$ eram independentes du
     \lim_{N \to \infty} \frac 1N \sum_{i = 1}^N X_i X_{i+1} = p^2, \text{ em probabilidade.}
   \end{equation}
 \end{exercise}
-
-\todo{explicar o ditado dos ``ovos no mesmo cesto''}
 
 \section{Método do segundo momento}
 
@@ -3155,7 +3258,7 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
 
 \todosec{Tópico: Análise de DNA}{fazer "computational molecular biology" - Pevzner seção 5.5...}
 
-\todosec{Tópico: Contando triângulos}{números de triângulos em grafos (olhar alon spencer)...}
+\todosec{Tópico: Método Probabilístico Revisitado}{usando segundo momento agora}
 
 \section{Lei forte dos grandes números}
 
@@ -3272,7 +3375,7 @@ Estamos agora em posição de finalizar a
   Consequentemente, obtemos o Teorema~\ref{t:LFGN} via o Lema~\ref{l:lim_Z_n_LFGN}.
 \end{proof}
 
-\todo{provar o teorema de Weierstrass de aproximação de funções contínuas por polinômios (prova probabilística). Ele é usado em convergência fraca em $\mathbb{R}$}
+\todosec{Tópico: Teorema de Weierstrass}{provar o teorema de Weierstrass de aproximação de funções contínuas por polinômios (prova probabilística). Ele é usado em convergência fraca em $\mathbb{R}$}
 
 \todosec{Tópico: Entropia de Shannon}{fazer...}
 
@@ -3491,9 +3594,10 @@ Resta agora tentar entender qual é o expoente correto para o decaimento da prob
   \end{equation}
   Sabendo que $k$ é par e $k_1 = k/2$, então
   \begin{enumerate}[\quad a)]
-  \item use o método do segundo momento para obter um $n$ tal que $\text{Err}_{n}(0.01) < 0.02$ e
-  \item use o método do momento exponencial para obter um $n$ tal que $\text{Err}_{n}(0.01) < 10^{-12}$.
+  \item use o método do segundo momento para obter um $n$ tal que $\text{Err}_{n}(0.01) < 0.02$ e um $n$ tal que $\text{Err}_{n}(0.01) < 10^{-12}$,
+  \item use o método do momento exponencial para obter resolver o ítem acima.
   \end{enumerate}
+  Compare os quatro resultados obtidos acima.
 \end{exercise}
 
 \todosec{Tópico: Processos de ramificação}{fazer...}
@@ -4935,7 +5039,7 @@ No próximo resultado, veremos como o conceito abstrato de probabilidade condici
 
 \todosec{Tópico: Sistemas de partículas}{fazer...}
 
-\chapter{Solução de exercícios}
+\chapter{Soluções de exercícios}
 
 \emph{Solução de \ref{x:casas_tempestade}}
 Primeiramente, vamos ver qual é a distribuição de $R_0$.
@@ -5003,7 +5107,13 @@ Finalizando a cota para a covariância.
 
 \clearpage
 
+\nocite{}
+\bibliographystyle{jcamsalpha}
+\bibliography{bibliography}
+
 \addcontentsline{toc}{chapter}{Index}
 \printindex
+
+
 
 \end{document}
