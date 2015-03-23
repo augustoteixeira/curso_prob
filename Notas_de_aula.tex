@@ -1,9 +1,11 @@
 \RequirePackage{nag}
-\documentclass[reqno, draft]{book}
+\documentclass[reqno, final]{book}
 
 \usepackage{mybookstyle}
 
-\ifdraft{\includeonly{./capitulos/espacos}}{}
+\ifdraft{
+  \includeonly{./capitulos/espacos}
+}{}
 
 \begin{document}
 
@@ -43,6 +45,8 @@
 \nocite{}
 \bibliographystyle{jcamsalpha}
 \bibliography{bibliography}
+
+\include{contribuidores}
 
 \addcontentsline{toc}{chapter}{Index}
 \printindex

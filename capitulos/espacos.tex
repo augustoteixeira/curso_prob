@@ -219,7 +219,7 @@ Mas escolhemos abaixo um método mais simples, que parte da existência de $U_{[
   \begin{equation}
     S(u) = \sup \{x \in \mathbb{R}; F(x) < u\}.
   \end{equation}
-  \begin{figure}[htbp]
+  \begin{figure}[tb]
     \centering
     \begin{tikzpicture}[scale=.8]
       \draw (0,1) -- (10,1);
@@ -1341,15 +1341,15 @@ Por exemplo, estudamos em detalhes o que acontece com a soma de tais variáveis.
 Agora passaremos a estudar elementos aleatórios dependentes e o primeiro passo para isso é obter um método geral de construí-los.
 
 Definiremos agora um núcleo de transição.
-Intuitivamente, ele nos dá um meio de usar um elemento aleatório em um espaço para induzir uma probabilidade em outro espaço.
+Intuitivamente, ele nos dá uma maneira de usar um elemento aleatório em um espaço para induzir uma probabilidade em outro espaço.
 Um exemplo em que poderíamos utilizar essa construção seria o seguinte.
 
 Digamos que estamos preocupados com a possibilidade de um deslizamento de terra em uma determinada região.
 A ocorrência desse deslizamento é algo aleatório, mas que certamente depende da quantidade de chuva no período, que também podemos modelar como sendo aleatória.
 
-Após estudarmos alguns trabalhos anteriores, descobrimos uma função $F:\mathbb{R}_+ \to [0,1]$ que nos dá a probabilidade de um deslizamento como função da quantidade de chuva em milímetros.
+Após estudarmos alguns trabalhos anteriores, descobrimos uma função $F:\mathbb{R}_+ \to [0,1]$ que nos dá a probabilidade de um deslizamento ocorrer, como função da quantidade de chuva em milímetros.
 
-Lendo o histórico pluvial na região, podemos estimar a distribuição $Q$ em $\mathbb{R}_+$ da quantidade de chuva que esperamos naquele período.
+Lendo o histórico pluvial da região, podemos estimar a distribuição $Q$ em $\mathbb{R}_+$ correspondente à quantidade de chuva naquele período.
 A lei $F \circ Q$ (também chamada de $Q_F$) é uma lei em $[0,1]$ que nos dá a distribuição da probabilidade de deslizamento, mas como seguimos em frente para obter a probabilidade de deslizamento (um número entre zero e um)?
 Saberemos como fazer isso ao terminar essa seção.
 
@@ -1379,7 +1379,7 @@ Vamos verificar que $K$ definido acima é um núcleo.
 De fato,
 \begin{enumerate}[\quad i)]
 \item $K(p, \cdot)$ é a distribuição Bernoulli com parâmetro $p$, que obviamente é uma probabilidade,
-\item além disso, $K(\cdot, \{0\}) = 1-p = 1 - K(\cdot,\{1\})$, que obviamente é mensurável.
+\item além disso, $K(\cdot, \Omega) = 1$, $K(\cdot, \varnothing) = 1$ e $K(\cdot, \{0\}) = 1-p = 1 - K(\cdot,\{1\})$, que obviamente são mensuráveis.
 Isso prova que esse $K$ específico é um núcleo
 \end{enumerate}
 
@@ -1430,11 +1430,11 @@ Mas obviamente o conjunto $\mathcal{A}_2$ pode ser muito complexo, então gostar
   \begin{enumerate}[\quad a)]
   \item $\Omega \in \mathcal{B}$, pois a função constante igual a um é mensurável.
   \item Se $B \in \mathcal{B}$, então $B^c \in \mathcal{B}$, pois $1 - f$ é mensurável se $f$ o é.
-  \item E se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos, então $\cup_i B_i \in \mathcal{B}$, pois a soma de funções mensuráveis também é mensurável.
+  \item E se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos, então $\mcup_i B_i \in \mathcal{B}$, pois a soma de funções mensuráveis também é mensurável.
   \end{enumerate}
 
   A discussão acima mostra que $\mathcal{B}$ é um $\lambda$-sistema que contém o $\pi$-sistema $\mathcal{G}$.
-  Daí, vemos que $\mathcal{A}_2 = \sigma(\mathcal{G}) \subseteq \mathcal{B}$, provando a proposição.
+  Daí, vemos pelo Teorema~\ref{t:dynkin} que $\mathcal{A}_2 = \sigma(\mathcal{G}) \subseteq \mathcal{B}$, provando a proposição.
 \end{proof}
 
 \begin{exercise}
@@ -1472,7 +1472,7 @@ Obviamente essa função é mensurável, pois
 \end{equation}
 Dessa forma, para definirmos $\int f(y,z) K(y, \d z)$, introduzimos $f_y: A_2 \to \mathbb{R}_+$ dada por $f(z) = f(y,z)$, que é mensurável pois $f_y = f \circ \phi_y$.
 
-Assim, a integral que gostaríamos de definir se torna $\int f_y(z) K(y, \d z)$, que está obviamente bem definida.
+Assim, gostaríamos de integrar a função $y \mapsto \int f_y(z) K(y, \d z)$, que está obviamente bem definida.
 Porém resta a pergunta, será que essa expressão define uma função mensurável de $y$?
 
 \begin{lemma}
@@ -1499,7 +1499,6 @@ Estamos prontos agora para fornecer a
 
 
   Só nos resta mostrar que
-  Isto é
   \begin{equation}
     P(B) = \int_{E_1} \int_{E_2} \1_{B} K(y, \d z) P_1 (\d y),
   \end{equation}
@@ -1507,7 +1506,7 @@ Estamos prontos agora para fornecer a
 
   De fato,
   \begin{enumerate}[\quad a)]
-  \item $P(\Omega) = \int_{E_1} \int_{E_2} 1 K(y, \d z) = 1$ obviamente e
+  \item obviamente $P(\Omega) = \int_{E_1} \int_{E_2} 1 K(y, \d z) P_1(\d y) = 1$ e
   \item se $B_1, B_2, \dots \in \mathcal{A}_1 \otimes \mathcal{A}_2$ são disjuntos, então definimos $f^i = \1_{B_i}$ e $f = \sum_i f^i$ e observamos o seguinte.
     A função fatiadora $f_y$ é igual a $\sum_i f^i_y$, donde
     \begin{equation}
@@ -1560,11 +1559,11 @@ Posteriormente extenderemos o resultado acima para o caso $P_1(\{y\}) = 0$, mas 
 
 Vamos introduzir uma última notação com respeito a núcleos de transição.
 Muitas vezes, não estamos interessados na distribuição conjunta de $P_1 \star K$ em $E_1 \times E_2$, mas apenas na distribuição marginal da segunda coordenada.
-No nosso problema da chuva por exemplo, talvez poderíamos estar interessados apenas na probabilidade final de ocorrer um desmoronamento.
+No nosso problema da chuva por exemplo, talvez poderíamos estar interessados apenas na probabilidade final de ocorrer um deslizamento.
 Nesse caso, é conveniente escrever
 \begin{equation}
   \label{e:P1_K}
-  P_1 K := X_2 \circ (P_1 \star K).
+  P_1 K := X_2 \circ (P_1 \star K) = (P_1 \star K)_{X_2}.
 \end{equation}
 
 \begin{exercise}
@@ -1577,6 +1576,9 @@ Nesse caso, é conveniente escrever
   \item Mostre que $P[X_1 + X_2 \geq z] = \int_0^z \exp \{-x(z-x+1)\} \d x + \exp\{-z\}$.
   \end{enumerate}
 \end{exercise}
+
+\vfill
+\pagebreak
 
 \section{Espaços canônicos}
 
@@ -1957,3 +1959,8 @@ Essa analogia é real se $E$ for um espaço enumerável.
 \todosec{Tópico: Urna de Pólya}{fazer...}
 
 \todosec{Tópico: Recorrência e transiência}{markov recorrência/transiência + periodicidade...}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../Notas_de_aula"
+%%% End:
