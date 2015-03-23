@@ -3,6 +3,10 @@
 
 \usepackage{mybookstyle}
 
+\newenvironment{topics}
+{\setcounter{secnumdepth}{0}\vfill\newpage}
+{\setcounter{secnumdepth}{2}\vfill\newpage}
+
 \ifdraft{
   \includeonly{./capitulos/espacos}
 }{}
