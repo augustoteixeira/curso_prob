@@ -1,0 +1,65 @@
+\chapter{Soluções de exercícios}
+
+\emph{Solução de \ref{x:casas_tempestade}}
+Primeiramente, vamos ver qual é a distribuição de $R_0$.
+Vamos escrever $R_0 = E_0 + D_0$, onde $E_0$ é o número de casas acessíveis à esquerda e $D_0$ à direita.
+Note que $E_0$ e $D_0$ são independentes e identicamente distribuídas, com
+\begin{equation}
+  P[D_0 = l] = P[X_l = 1, X_i = 0 \text{ para $i = 0, \dots, l-1$}] = p (1-p)^l.
+\end{equation}
+Podemos agora calcular
+\begin{equation}
+  P[R_0 = k] = \sum_{l=0}^k P[D_0 = l, E_0 = k-l] = \sum_{l=0}^k p^2 (1-p)^{k} = p^2 k (1-p)^k.
+\end{equation}
+Além disso,
+\begin{equation}
+  E(R_0) = 2 E(D_0) = \sum_{l=0}^\infty l P[D_0 = l] = 2 p \sum_{l=0}^\infty l (1-p)^l = \frac{2(1-p)}{p} =: m.
+\end{equation}
+O que resolve o primeiro ítem.
+
+O grande problema do segundo ítem é que as variáveis $R_i$ não são independentes, veja por exemplo que $P[R_0=0,R_1=2,R_2=0] = 0$.
+Nesse caso, o método do segundo momento deve ser feito com atenção.
+Chamando de $S_n = \sum_{i=1}^n R_i$, temos
+\begin{equation}
+  P \Big[ \Big| \frac{1}{n} S_n - E(R_0) \Big| > a \Big] \leq \frac{\text{Var}(S_n)}{a^2 n^2},
+\end{equation}
+mas a variância da soma não se torna a soma das variâncias.
+De fato
+\begin{equation}
+  \begin{split}
+    \text{Var}(S_n) & = E \Big( \big(\sum_{i=1}^n (R_i - E(R_i)) \big)^2\Big) = \sum_{i=1}^n \sum_{j=1}^n E \Big(\big(R_i - E(R_i)\big) \big(R_j - E(R_j) \big)\Big)\\
+    & = \sum_{i=1}^n \sum_{j=1}^n \text{Cov}(R_i, R_j) = n \text{Var}(R_0) + 2 \sum_{k=1}^{n-1} (n-k) \text{Cov}(R_0, R_k).
+  \end{split}
+\end{equation}
+Aqui já temos metade da estimativa resolvida, mas ainda falta obter uma estimativa explícita.
+
+Então precisamos estimar superiormente $\text{Cov}(R_i, R_j) = \text{Cov}(R_0, R_{j-1})$.
+Podemos calcular essa quantidade explicitamente, mas vamos evitar contas chatas fazendo uma estimativa do tipo
+\begin{equation}
+  \text{Cov}(R_0, R_k) \leq c \exp\{-c' k\}, \text{ para todo $k \geq 1$}.
+\end{equation}
+O que nos daria que
+\begin{equation}
+  \text{Var}(S_n) \leq n \text{Var}(R_0) + 2 \sum_{k=1}^{n-1} (n-k) c \exp\{-c' k\} \leq c'' n.
+\end{equation}
+Donde a probabilidade que queríamos estimar é no máximo ${c}/{a^2 n}$, como no caso independente.
+
+Para obter a prometida cota para a covariância, observe que podemos truncar $D_0$ e $E_k$ para obter independência.
+Definindo
+\begin{equation}
+  \tilde{R_0} = E_0 + ( D_0 \wedge \lfloor k/2 \rfloor ) \text{ e } \tilde{R}_k = D_k + ( E_k \wedge \lfloor k/2 \rfloor ),
+\end{equation}
+temos que $\tilde{R}_0$ e $\tilde{R}_k$ são independentes (pois dependem de elos disjuntos).
+Daí
+\begin{equation}
+  \begin{split}
+    \text{Cov}(R_0, R_k) & = E(R_0 R_k) - m^2\\
+    & = E(\tilde{R}_0 \tilde{R_k}) + E(R_0 R_k \1{[R_0 \neq \tilde{R}_0] \cup [R_k \neq \tilde{R}_k]}) - m^2\\
+    & \leq E(\tilde{R}_0)^2 - m^2 + E\big( (E_0 + D_0) (E_k + D_k) \1{[R_0 \neq \tilde{R}_0] \cup [R_k \neq \tilde{R}_k]}\big)\\
+    & \leq E\big( (E_0 + k + D_k)^2 \1{[R_0 \neq \tilde{R}_0] \cup [R_k \neq \tilde{R}_k]}\big)\\
+    & = E\big( (E_0 + k + D_k)^2 \big) P\big([R_0 \neq \tilde{R}_0] \cup[R_k \neq \tilde{R}_k]\big)\\
+    & \leq \big( 2 E(E_0^2) + k^2 + 2k E(E_0) + E(E_0)^2 \big) \cdot 2 \cdot P[R_0 \neq \tilde{R}_0]\\
+    & \leq c k^2 (1-p)^{\lfloor k/2 \rfloor} \leq c \exp \{-c' k\}.
+  \end{split}
+\end{equation}
+Finalizando a cota para a covariância.

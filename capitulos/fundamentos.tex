@@ -1,0 +1,441 @@
+\chapter{Fundamentos}
+
+A probabilidade moderna se baseia fortemente na Teoria da Medida e supomos durante esse curso que o leitor esteja bem familiarizado com conceitos tais como: Medida de Lebesgue, extensões de medida e teoremas de convergência.
+Iremos agora justificar brevemente a escolha da Teoria da Medida para o estudo de probabilidade.
+
+No início da Teoria da Probabilidade, a maioria dos fenômenos estudados apresentava apenas um número finito de resultados possíveis, como por exemplo ao se jogar um dado de seis lados ou sortear uma carta em um baralho.
+Em tais casos é desnecessário o uso de ferramentas sofisticadas pra modelar tais situações.
+Por exemplo, podemos simplesmente dizer que a probabilidade de se obter cada um dos lados do dado é igual a $1/6$.
+
+Mas digamos por exemplo que queremos um modelo para estudar o volume de chuva em uma cidade durante um ano.
+Obviamente, esse volume poderia ser qualquer número real positivo e não podemos simplesmente atribuir valores positivos de probabilidade a cada número real (lembramos que somas não enumeráveis de termos positivos são sempre infinitas).
+Mas como podemos continuar nossa modelagem se nem ao menos podemos dizer qual é a probabilidade de chover um determinado volume esse ano, por exemplo $(\pi/19)mm$?
+
+A solução para tal dilema, se baseia no fato de que na verdade nunca estamos interessados no exato resultado do nosso experimento.
+Gostaríamos sim de responder perguntas do tipo: qual é a probabilidade de que chova entre zero e $37mm$?
+Estamos portanto interessados em atribuir probabilidades não a valoers exatos do experimento, mas a certos conjuntos de possíveis valores.
+Chamamos tais conjuntos de \emph{eventos}. \index{evento}
+
+Voltando ao caso do dado de seis lados, poderíamos nos interessar por exemplo pela probabilidade dos seguintes eventos: o lado sorteado foi ímpar ($P(\{1,3,5\}) = 1/2$) ou o lado serteado foi dois ($P(\{2\}) = 1/6$).
+E percebemos rapidamente que para eventos disjuntos a probabilidade de sua união é a soma de suas probabilidades (no caso acima, $P(\{1,2,3,5\}) = 1/2 + 1/6 = 2/3$).
+Esse caráter aditivo da probabilidade certamente nos remete aos conceitos básicos de Teoria da Medida.
+Vamos agora formalizar a discussão acima com mais calma, sob a ótica dessa teoria.
+
+\section{Espaços mensuráveis}
+
+Denotaremos sempre por $\Omega$ o nosso \emph{espaço amostral} \index{espaco@espaço!amostral} (à princípio qualquer conjunto).
+Um ponto nesse espaço corresponde por exemplo a um possível resultado do nosso experimento aleatório.
+
+\begin{example} Possíveis exemplos de espaço amostral
+  \label{x:espacos_amostrais}
+  \begin{enumerate}[\quad a)]
+  \item $\Omega_1 = \{1, 2, \dots, 6\}$,
+  \item $\Omega_2 = \mathbb{R}_+$,
+  \item $\Omega_3 = \{f:[0,1] \to \mathbb{R}; \text{$f$ é contínua}\}$.
+  \end{enumerate}
+\end{example}
+Os exemplos acima poderiam ser usados em modelar por exemplo: o resultado de um dado, o volume anual de chuva em uma cidade e o comportamento ao longo do dia do preço de uma ação na bolsa de valores.
+
+Consideraremos sempre $\Omega$'s equipados com uma \emph{$\sigma$-álgebra} \index{sigma-algebra@$\sigma$-álgebra} denotada por $\mathcal{F}$.
+Mais precisamente
+\begin{definition}
+  Dizemos que $\mathcal{F} \subseteq \mathcal{P}(\Omega)$ é uma $\sigma$-álgebra se
+  \begin{enumerate}[\quad a)]
+  \item $\Omega \in \mathcal{F}$,
+  \item $A \in \mathcal{F}$ implica que $A^c \in \mathcal{F}$ e
+  \item se $A_1, A_2, \dots \in \mathcal{F}$, então $\cup_i A_i \in \mathcal{F}$.
+  \end{enumerate}
+\end{definition}
+Nesse caso, dizemos que $(\Omega, \mathcal{F})$ é um \emph{espaço mensurável} \index{epaco@espaço!mensuravel@mensurável} e os elementos $A \in \mathcal{F}$ são chamados de \emph{eventos}. \index{evento}
+
+Se $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ (que chamamos de uma classe ou família), denotamos por $\sigma(\mathcal{G})$ a \emph{$\sigma$-álgebra gerada por $\mathcal{G}$} \index{sigma-algebra@$\sigma$-álgebra!gerada por G@gerada por $\mathcal{G}$}, que é a menor $\sigma$-álgebra contendo $\mathcal{G}$.
+Um exemplo importante é dado pela \emph{$\sigma$-álgebra de Borel} \index{sigma-algebra@$\sigma$-álgebra!de borel}, gerada pelos abertos de uma topologia em $\Omega$.
+
+\begin{example} Típicos exemplos de $\sigma$-álgebra correspondentes aos espaços amostrais do Exemplo~\ref{x:espacos_amostrais}
+  \begin{enumerate}[\quad a)]
+  \item $\mathcal{F}_1 = \mathcal{P}(\Omega_1)$,
+  \item $\mathcal{F}_2 = \mathcal{B}([0,1])$ e
+  \item $\mathcal{F}_3 = \mathcal{B}(C[0,1])$.
+  \end{enumerate}
+\end{example}
+
+\begin{example} Alguns eventos de $\mathcal{F}_1, \mathcal{F}_2$ e $\mathcal{F}_3$ acima
+  \begin{enumerate}[\quad a)]
+  \item $\{\text{$x$ é ímpar}\}, \{1\} \subset \Omega_1$
+  \item $[0,1/2], \{0\}, (\mathbb{Q} \cap [0,1]) \subset \Omega_2$ e
+  \item $\{f:[0,1] \to \mathbb{R}; f(1) > 0\} \subset \Omega_3$.
+  \end{enumerate}
+\end{example}
+
+\begin{exercise}
+  Mostre que $\{f:[0,1] \to \mathbb{R}; f(t) \geq 0 \text{ para todo $t \in [0,1]$}\} \subset \Omega_3$ é um evento (ou seja, pertence a $\mathcal{F}_3$).
+\end{exercise}
+
+\begin{notation}
+  Se $Q$ for uma condição qualquer sobre candidatos $\omega \in \Omega$, escreveremos $[\text{$\omega$ satisfaz $Q$}]$ \index{[omega satisfaz Q]@$[\text{$\omega$ satisfaz $Q$}]$} para denotar $\{\omega \in \Omega; \text{ $\omega$ satisfaz $Q$}\}$.
+\end{notation}
+
+Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) > 0\}$ pode ser escrita simplesmente como $[f(1) > 0]$.
+
+\section{Espaços de probabilidade}
+
+Agora estamos prontos para introduzir o conceito moderno do que é uma probabilidade.
+
+\begin{definition}
+  Dado $(\Omega, \mathcal{F})$ espaço mensurável, dizemos que $P:\mathcal{F} \to [0,1]$ é uma \emph{probabilidade} \index{probabilidade} se
+  \begin{enumerate}[\quad a)]
+  \item $P(\Omega) = 1$ e
+  \item sempre que $A_1, A_2, \dots \in \mathcal{F}$ forem disjuntos ($A_i \cap A_j = \varnothing$ se $i \neq j$), temos
+    \begin{equation}
+      P\big({\mcup\nolimits_i} A_i\big) = \sum_i P(A_i).
+    \end{equation}
+  \end{enumerate}
+\end{definition}
+
+Obviamente, isso nada mais é que uma medida que associa massa um ao espaço todo.
+
+\begin{example} Probabilidades nos espaços do Exemplo~\ref{x:espacos_amostrais}
+  \begin{enumerate}[\quad a)]
+  \item $P_1(A) = (\#A)/6$ em $(\Omega_1, \mathcal{F}_1)$.
+    Ou mais geralmente $P_1'(A) = \sum_{i \in A} p_i$, onde $p_i \geq 0$ e $\sum_i p_i = 1$.
+  \item $P_2$ pode ser a medida de Lebesgue em $([0,1], \mathcal{B}([0,1]))$.
+    Mais geralmente também podemos ter $P_2'(A) = \int_A \rho(x) \d x$, onde $\rho:[0,1] \to \mathbb{R}_+$, chamada densidade, é tal que $\int_{[0,1]} \rho (x) \d x = 1$.
+  \item $P_3 = \delta_{0}$, que atribui o valor um se o evento contém a função identicamente nula ($f \equiv 0$) e zero caso contrário.
+  \end{enumerate}
+\end{example}
+Obviamente o terceiro exemplo é bastante artificial (e inútil).
+Mas futuramente, estaremos protos para introduzir medidas bem interessantes no espaço $(\Omega_3, \mathcal{F}_3)$.
+
+\begin{proposition}
+  Valem as afirmativas
+  \begin{enumerate}[\quad a)]
+  \item Se $A \subseteq B$ então $P(A) = P(B) - P(B \setminus A) \leq P(B)$,
+  \item A cota da união:
+    \begin{equation}
+      P\big(\mcup\nolimits_i A_i\big) \leq \smash{\sum\limits_i} P(A_i)
+    \end{equation}
+  \item e o que chamamos de princípio da \emph{inclusão e exclusão} \index{inclusao e exclusao@inclusão e exclusão}
+    \begin{equation}
+      P\big(\mcup\nolimits_{i \leq n} A_i\big) = \smash{\sum\limits_{k = 1}^n} (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k}).
+    \end{equation}
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  $a)$ Como $A \cap (B \setminus A) = \varnothing$, então
+    \begin{equation}
+      \begin{split}
+        P(A \cup (B \setminus A)) & = P(A \cup (B \setminus A) \cup \varnothing \cup \dots)\\
+        & = P(A) + P(B \setminus A) + 0 + \dots = P(A) + P(B \setminus
+        A).
+      \end{split}
+    \end{equation}
+
+  $b)$ $P(A \cup B) = P (A \cup (B \setminus A)) = P(A) + P(B \setminus
+    A) \leq P(A) + P(B)$.
+    Deixamos o caso enumerável como exercício abaixo.
+
+  $c)$ Basta mostrar a validade da equação abaixo e depois integrar com
+    respeito a $P$.
+    \begin{equation}
+      \label{e:indicadora_como_produto}
+      \1_A(\omega) = \sum_{k=1}^n (-1)^{k - 1} \sum_{\substack{I \subseteq \{1, \dots, n\}\\|I| = k}} \prod_{i \in I} \1_{A_i}(\omega).
+    \end{equation}
+    Para tanto, observe que para todo $\omega \in \Omega$,
+    \begin{equation}
+      (\1_A - \1_{A_1}) \cdot \dots \cdot (\1_A - \1_{A_n})(\omega) = 0.
+    \end{equation}
+    Logo, expandindo o produto acima obtemos
+    \begin{equation}
+      \1_A + \sum_{k = 1}^n \sum_{\substack{I \subseteq \{1, \dots, n\}\\|I| = k}} (-1)^k \1_{A_k}(\omega) = 0,
+    \end{equation}
+    que equivale a \eqref{e:indicadora_como_produto}.
+\end{proof}
+
+\begin{exercise}
+  Mostre que $P\big(\mcup\nolimits_i A_i\big) \leq \sum_i P(A_i)$ no caso enumerável.
+\end{exercise}
+
+\begin{exercise}
+  Mostre que
+  \begin{equation*}
+    \begin{split}
+      P\big( \mcup\nolimits_{i=1}^n A_i \big) & \leq \sum\limits_{k = 1}^m (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k}) \text{ se $m$ é ímpar e}\\
+      P\big( \mcup\nolimits_{i=1}^n A_i \big) & \geq \sum\limits_{k = 1}^m (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k}) \text{ se $m$ é par.}
+    \end{split}
+  \end{equation*}
+\end{exercise}
+
+
+
+\begin{exercise}
+  Seja $n \geq 1$ um número inteiro e considere $\Omega = \{0, 1\}^n$, o hipercubo de dimensão $n$ (cada $\omega \in \Omega$ pode ser visto como uma função $\omega:\{1, \dots, n\} \to \{0,1\}$).
+  Para cada $i \in \{1, \dots, n\}$, definimos o evento $A_i = \{ \omega \in \Omega; \omega(i) = 1 \}$.
+  Dadas duas probabilidades $P$ e $P'$ em $(\Omega, \mathcal{P}(\Omega))$, mostre que se $P(B) = P'(B)$ para todos conjuntos $B$ dados por interseções de $A_i$'s, então $P = P'$.
+\end{exercise}
+
+\begin{proposition}
+  \label{p:prob_continua}
+  Toda probabilidade $P$ é contínua, isto é:
+  \begin{enumerate}[\quad a)]
+  \item Se $A_1 \subseteq A_2 \subseteq \dots \in \mathcal{F}$, então $\lim_n P(A_n) = P(\mcup\nolimits_n A_n)$.
+  \item Também, se $A_1 \supseteq A_2 \supseteq \dots \in \mathcal{F}$, temos $\lim_n P(A_n) = P(\mcap\nolimits_n A_n)$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  $a)$ Observe que
+  \begin{equation}
+    \mcup_{m = 1}^\infty A_n = \mcup_{n = 1}^\infty \Big( A_n \setminus \big( \mcup_{i=1}^{n-1} A_i \big) \Big),
+  \end{equation}
+  que são disjuntos.
+  Logo
+  \begin{equation}
+    \begin{split}
+      P\big(\mcup\nolimits_{n = 1}^\infty A_n\big) & = \sum_{n = 1}^\infty P\Big( A_n \setminus \big(\mcup\nolimits_{i=1}^{n-1} A_i \big) \Big)\\
+      & = \lim_n P({\mcup\nolimits_{i = 1}^n} A_i) = \lim_n P(A_n).
+    \end{split}
+  \end{equation}
+
+  $b)$ A prova é análoga à de 1.
+\end{proof}
+
+\begin{lemma}[Borel-Cantelli - primeira parte]
+  Sejam $A_1, A_2, \dots \in \mathcal{F}$ satisfazendo $\sum_{i = 1}^\infty P(A_i) < \infty$.
+  Então
+  \begin{equation}
+    P[\text{$A_i$ para infinitos $i$}] := P\big({\mcap\nolimits_{n = 1}^\infty} ({\mcup\nolimits_{i \geq n}} A_i)\big) = 0.
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  Estimamos
+  \begin{equation}
+    P \Big( {\mcap_{n = 1}^\infty} \big({\mcup\nolimits_{i \geq n}} A_i \big) \Big) = \lim_n P \big( {\mcup\nolimits_{i \geq n}} A_i \big) \leq \lim_n {\textstyle\sum\limits_{i \geq n}} P(A_i) = 0.
+  \end{equation}
+  O que termina a prova do lemma.
+\end{proof}
+
+Imagine que jogamos todos os dias em uma loteria e que nossa probabilidade de ganhar no dia $i$ é $p_i$.
+Então se $\sum_i p_i < \infty$, sabemos que certamente não ganharemos infinitas vezes.
+
+\section{Sistemas \texorpdfstring{$\lambda$-$\pi$}{lambda-pi}}
+
+Uma importante ferramenta para provar fatos teóricos sobre probabilidades é o Teorema de Dynkin que apresentaremos nessa seção.
+Ele trata de classes de eventos que não são necessariamente $\sigma$-álgebras, mas sistemas $\sigma$ ou $\pi$ como definidos abaixo.
+
+\begin{definition}
+  Dizemos que uma classe $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\pi$-sistema \index{pi sistema@$\pi$-sistema} se for fechado por interseções finitas, isto é: para todos $A, B \in \mathcal{A}$ temos $A \cap B \in \mathcal{A}$.
+\end{definition}
+
+\begin{definition}
+  Dizemos que $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\lambda$-sistema, \index{lambda sistema@$\lambda$-sistema} se
+  \begin{enumerate}[\quad a)]
+  \item $\Omega \in \mathcal{A}$,
+  \item Sempre que $A \in \mathcal{A}$ temos $A^c \in \mathcal{A}$ e
+  \item para $A_1, A_2, \dots \in \mathcal{A}$ disjuntos dois a dois, temos $\cup_i A_i \in \mathcal{A}$.
+  \end{enumerate}
+\end{definition}
+
+\begin{exercise}
+  \label{x:lambda_nao_sigma}
+  Dê um exemplo de $\lambda$-sistema que não seja uma $\sigma$-álbebra.
+\end{exercise}
+
+Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistema contendo $\mathcal{A}$, ou seja
+\begin{equation}
+  \lambda(\mathcal{A}) = \bigcap_{\substack{\text{$\mathcal{B}$ $\lambda$-sistema}\\\mathcal{A} \subseteq \mathcal{B}}} \mathcal{B}.
+\end{equation}
+É fácil ver que $\lambda(\mathcal{A})$ é sempre um $\lambda$-sistema.
+
+\begin{theorem}[Dynkin]
+  \index{Teorema!de Dynkin}
+  \label{t:dynkin}
+  Se $\mathcal{A}$ é um $\pi$-sistema, então $\lambda(\mathcal{A}) = \sigma(\mathcal{A})$.
+\end{theorem}
+
+Note pelo Exercício~\ref{x:lambda_nao_sigma} que a hipótese de que $\mathcal{A}$ é um $\pi$-sistema é necessária em geral.
+
+\begin{proof}
+  Obviamente, basta mostrar é que $\lambda(\mathcal{A})$ é fechado por uniões não necessariamente disjuntas.
+  Na verdade, vamos ver que é suficiente provar que
+  \begin{equation}
+    \label{e:lambda_is_pi}
+    \lambda(\mathcal{A}) \text{ é um $\pi$-sistema}.
+  \end{equation}
+  De fato, caso isso seja provado teremos que $\lambda(\mathcal{A})$ é fechado por diferenças (pois $A \setminus B = A \cap B^c$).
+  Assim, podemos mostrar que $\lambda(\mathcal{A})$ é fechado por uniões enumeráveis, pois se $A_1, A_2, \dots \in \lambda(\mathcal{A})$, definimos $B_n = \cup_{i=1}^n A_i = (\cap_{i=1}^n A_i^c)^c \in \lambda(\mathcal{A})$ e escrevemos
+  \begin{equation}
+    \mcup_n A_n = \mcup_n \big(A_n \setminus B_{n-1} \big),
+  \end{equation}
+  que é uma união disjunta de termos em $\lambda(\mathcal{A})$, logo está em $\lambda(\mathcal{A})$.
+  Isso mostra que $\lambda(\mathcal{A})$ é uma $\sigma$-álgebra e que de fato é suficiente demonstrar \eqref{e:lambda_is_pi}.
+
+  Vamos primeiramente mostrar que $\lambda(\mathcal{A})$ é fechado por interseções com $\mathcal{A}$.
+  Para tanto, definimos $\mathcal{B} = \big\{B \in \lambda(\mathcal{A}); \text{$B \cap A \in \lambda(\mathcal{A})$ para todo $A \in \mathcal{A}$})\big\}$ e veremos que
+  \begin{equation}
+    \label{e:B_igual_lambda}
+    B = \lambda(\mathcal{A}).
+  \end{equation}
+  Obviamente, $\mathcal{A} \subseteq \mathcal{B}$, pois $\mathcal{A}$ é um $\pi$-sistema.
+  Então basta mostrar que $\mathcal{B}$ é um $\lambda$-sistema.
+  \begin{enumerate}[\quad a)]
+  \item $\Omega$ obviamente pertence a $\mathcal{B}$.
+  \item Se $B \in \mathcal{B}$ e $A \in \mathcal{A}$, então $B^c \cap A = A \setminus(B \cap A) = (A^c \cup (B \cap A))^c$.
+    Mas como $B \in \mathcal{B}$, $(B \cap A) \in \lambda(\mathcal{A})$ e usando o fato que $\lambda$-sistemas são fechados por complementos e uniões disjuntas, $B^c \cap A \in \lambda(\mathcal{A})$.
+    Como isso vale para todo $A \in \mathcal{A}$, temos $B^c \in \mathcal{B}$ por definição.
+  \item Se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos e $A \in \mathcal{A}$, então
+    \begin{equation}
+      \big(\mcup\nolimits_i B_i \big) \cap A = \mcup_i \big(B_i \cup A\big) \in \lambda(\mathcal{A}),
+    \end{equation}
+    pois a união acima é disjunta.
+    Logo $\mcup_i B_i \in \mathcal{B}$.
+  \end{enumerate}
+  Isso mostra que $\mathcal{B}$ é um $\lambda$-sistema com $\mathcal{A} \subseteq \mathcal{B} \subseteq \lambda(\mathcal{A})$, mostrando \eqref{e:B_igual_lambda}.
+
+  No próximo passo, definimos $\bar{\mathcal{B}} = \{A \in \lambda(A); \text{$B \cap A \in \lambda(A), \; \forall B \in \lambda(A)$}\}$ e mostraremos que
+  \begin{equation}
+    \label{e:Bbar_igual_lambda}
+    \bar{\mathcal{B}} = \lambda(\mathcal{A}),
+  \end{equation}
+  que vai na direção de provar \eqref{e:lambda_is_pi}.
+
+  Primeiramente, observe que $\mathcal{A} \subseteq \bar{\mathcal{B}}$ pois $\mathcal{B} = \lambda(\mathcal{A})$ (veja a definição de $\mathcal{B}$).
+  Mostraremos agora que
+  \begin{equation}
+    \label{e:B_barra_lambda}
+    \text{$\bar{\mathcal{B}}$ é um $\lambda$-sistema}.
+  \end{equation}
+  Para tanto, verificaremos
+  \begin{enumerate}[\quad a)]
+  \item $\Omega \in \bar{\mathcal{B}}$, que é claro.
+  \item Tomando $A \in \bar{\mathcal{B}}$ e $B \in \lambda(\mathcal{A})$, $A^c \cap B = B \setminus (A \cap B) = \big(B^c \cup (A \cap B)\big)^c \in \lambda(\mathcal{A})$, por um argumento análogo ao apresentado para $\mathcal{B}$.
+    Logo $A^c \in \bar{\mathcal{B}}$.
+  \item Também o caso de uniões disjuntas é bastante análogo ao feito para $\mathcal{B}$.
+  \end{enumerate}
+  Isso mostra que $\bar{\mathcal{B}}$ é um $\lambda$-sistema com $\mathcal{A} \subseteq \bar{\mathcal{B}} \subseteq \lambda(\mathcal{A})$, estabelecendo \eqref{e:B_barra_lambda}.
+
+  Finalmente mostraremos que
+  \begin{equation}
+    \label{e:B_barra_pi}
+    \text{$\bar{\mathcal{B}}$ é um $\pi$-sistema}.
+  \end{equation}
+  De fato, sejam $A_1, A_2 \in \bar{\mathcal{B}}$ e $B \in \lambda(A)$.
+  Então $(A_1 \cap A_2) \cap B = (A_1 \cap B) \cap A_2 \in \lambda(\mathcal{A})$, donde $A_1 \cap A_2$ pertence a $\bar{\mathcal{B}}$.
+  Logo temos por \eqref{e:B_barra_pi} e \eqref{e:B_barra_lambda} que $\lambda(\mathcal{A})$ é um $\pi$-sistema, ou seja \eqref{e:lambda_is_pi}, terminando a prova do teorema.
+\end{proof}
+
+\subsection{Igualdade de probabilidades}
+
+\begin{proposition}
+  \label{p:P12_equal_pi}
+  Se $P_1$ e $P_2$ são probabilidades em $(\Omega, \mathcal{F})$, tais que $P_1(A) = P_2(A)$ para todo $A \in \mathcal{A}$ e $\mathcal{A}$ é um $\pi$-sistema, então $P_1(B) = P_2(B)$ para todo $B \in \lambda(\mathcal{A})$.
+\end{proposition}
+
+\begin{proof}
+  Seja $\mathcal{B} = \{A \in \mathcal{F}; P_1(A) = P_2(A)\}$.
+  É fácil ver que $\mathcal{B}$ é um $\lambda$-sistema.
+  Logo $\mathcal{B}$ contém $\lambda(\mathcal{A})$ que é igual a $\sigma(\mathcal{A})$ por Dynkin.
+\end{proof}
+
+\begin{corollary}
+  \label{c:produto_e_unico}
+  Se $P_1$ e $P_2$ são probabilidades em $(\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2)$, tais que
+  \begin{equation}
+    P_1(A_1 \times A_2) = P_2(A_1 \times A_2), \text{ para todos $A_1 \in \mathcal{F}_1$, $A_2 \in \mathcal{F}_2$,}
+  \end{equation}
+  então $P_1 = P_2$.
+\end{corollary}
+
+\begin{proof}
+  Obviamente as caixas do tipo $A_1 \times A_2$ formam um $\pi$-sistema que gera $\mathcal{F}_1 \otimes \mathcal{F}_2$ (por definição).
+\end{proof}
+
+\begin{example}
+  Observe portanto que é importante que $\mathcal{A}$ seja um $\pi$-sistema na Proposição~\ref{p:P12_equal_pi}.
+  Imagine por exemplo que $\Omega = \{0,1\}^2$ e $P_1 = \tfrac 14 \sum_{x \in \Omega} \delta_x$ e $P_2 = \tfrac 12 (\delta_{(0,0)} + \delta_{(1,1)})$.
+  Nesse caso
+  \begin{equation}
+    P_1(A) = P_2(A) = 1/2 = P_1(B) = P_2(B),
+  \end{equation}
+  com $A = \{(0,0), (0,1)\}$ e $B = \{(0,0), (1,0)\}$.
+  Contudo, $P_1 \neq P_2$, mesmo tendo $\mathcal{P}(\Omega) = \sigma(\{A,B\})$.
+\end{example}
+
+
+\section{Elementos aleatórios}
+
+Muitas vezes não estamos interessados no resultado exato do nosso experimento aleatório, mas sim em uma determinada medição ou função de $\omega \in \Omega$.
+Por exemplo, no caso do Exemplo~\ref{x:espacos_amostrais} $c)$, talvez não nos interesse toda a função $f$, mas apenas o seu valor no fim do dia $f(1)$.
+Essas medições são ditas elementos aleatórios que definimos à seguir.
+
+Seja $(E,\mathcal{A})$ um espaço mensurável.
+Nesse caso, se $X: \Omega \to E$ é uma função $(\mathcal{F}, \mathcal{A})$-mensurável, dizemos que $X$ é um \emph{elemento aleatório} \index{elemento aleatorio@elemento aleatório} em $(\Omega, \mathcal{F})$ tomando valores em $E$, ou um $E$-elemento aleatório.
+
+\begin{example} Consideramos os casos
+  \begin{enumerate}[\quad a)]
+  \item $X:\Omega \to \mathbb{R}$ mensurável é dita variável aleatória. \index{variavel aleatoria@variável aleatória}
+  \item $X:\Omega \to \mathbb{R}^d$ mensurável é dito vetor aleatório ($d$-dimensional).
+  \item $X:\Omega \to C[0,1]$ mensurável é dita função aleatória.
+  \end{enumerate}
+\end{example}
+Seguindo a motivação do Exemplo~\ref{x:espacos_amostrais} $c)$, poderia ser que, por exemplo, estivéssemos interessados apenas na variável aleatória $X:\Omega_3 \to \mathbb{R}$ dada por $X(f) = f(1)$.
+
+\begin{exercise}
+  Mostre que $X:\Omega_3 \to \mathbb{R}$ dada por $X(f) = f(1)$ é uma variável aleatória.
+\end{exercise}
+
+Citando Kingman em seu livro Poisson Processes: ``\emph{a random elephant is a function from $\Omega$ into a suitable space of elephants.}''
+
+Relembrando a nossa notação: $P[X \in A] = P(\{\omega \in \Omega; X(\omega) \in A\})$.
+
+\begin{proposition}
+  Seja $X:\Omega \to E$ onde $(E, \mathcal{A})$ é um espaço mensurável com $\mathcal{A} = \sigma(\mathcal{G})$.
+  Então para verificar que $X$ é um elemento aleatório, basta provar que $X^{-1}(G) \in \mathcal{F}$ para todo $G \in \mathcal{G}$.
+\end{proposition}
+
+\begin{proof}
+  Teoria da Medida.
+\end{proof}
+
+\begin{example}
+  Se $\Omega$ e $E$ são espaços topológicos dotados das correspondentes $\sigma$-álgebras de Borel, então toda função contínua é um $E$-elemento aleatório.
+\end{example}
+
+\subsection{Distribuição de elementos aleatórios}
+
+\begin{definition}
+  Se $X:\Omega \to E$ é um elemento aleatório e $\Omega$ é dotado de uma probabilidade $P$, então denotamos por $X \circ P$, a chamada \emph{distribuição de $X$} \index{distribuicao@distribuição}, a medida de probabilidade
+  \begin{equation}
+    (X \circ P)(A) := P\big( \{\omega \in \Omega; X(\omega) \in A\} \big) = P[X \in A].
+  \end{equation}
+  no espaço mensurável $(E,\mathcal{A})$.
+\end{definition}
+
+Fica como exercício verificar que $X \circ P$ é de fato uma probabilidade em $E$.
+
+\begin{exercise}
+  Seja $X:[0,1] \to \{0,1\}$ dada por $X(\omega) = \1_A (\omega)$.
+  Nesse caso, mostre que $X \circ P = \Ber(p)$ para algum $p \in [0,1]$.
+  Calcule o valor de $p$.
+\end{exercise}
+
+Duas notações importantes nesse contexto são:
+\begin{enumerate}[\quad a)]
+\item Dizemos que $X \distr Y$, \index{X d Y@$X \distr Y$} quando $X \circ P = Y \circ P'$.
+Note que $X$ e $Y$ nem ao menos precisam pertencer ao mesmo espaço de probabilidade para dizermos que são \emph{igualmente distribuídos}, mas precisam ser elementos aleatórios de mesmo tipo (ou seja, possuir o mesmo contradomínio).
+\item Escrevemos $X \distr \mu$, \index{X d mu@$X \distr \mu$} que lê-se \emph{$X$ é distribuída como $\mu$}, onde $\mu$ é uma probabilidade em $E$, caso $X \circ P = \mu$.
+\end{enumerate}
+
+\begin{exercise}
+  Sejam $X$ e $Y$ variáveis aleatórias tais que $X$ é nula quase certamente.
+  Mostre que $X + Y$ tem a mesma distribuição de $Y$.
+\end{exercise}
+
+O exercício acima é bastante simples, mas o usaremos para fazer uma importante observação sobre como são enunciados tipicamente os resultados de probabilidade.
+
+Raramente encontramos teoremas que explicitam qual é o espaço de probabilidades $\Omega$ em questão.
+Como no exercício acima, o contexto de um teorema frequentemente é dado apenas em termos de elementos aleatórios em $\Omega$ e de suas distribuições.
+Dessa forma, podemos utilizar o resultado em vários contextos diferentes, desde que possamos encontrar elementos aleatórios que satisfaçam as hipóteses.
+Com o tempo, passamos até mesmo a considerar menos relevante a escolha específica do espaço amostral, focando cada vez mais na distribuição de seus elementos aleatórios.
+

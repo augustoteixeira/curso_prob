@@ -1,0 +1,277 @@
+\ProvidesPackage{mybookstyle}
+
+\usepackage{amssymb, amsmath, amsthm}
+\usepackage{wasysym}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% TOC including bibliog %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[nottoc]{tocbibind}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% TOC in odd pages only %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{afterpage}
+\AtBeginDocument{\addtocontents{toc}{\protect\afterpage\protect\cleardoublepage}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Headers %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\headheight}{16pt}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[LE]{\leftmark}
+\fancyhead[LO]{}
+\fancyhead[RO]{\rightmark}
+\fancyhead[RE]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Mark badboxes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\overfullrule=5pt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[final]{microtype}
+
+\usepackage{titlesec}
+\titleformat
+{\chapter} [display]
+{\bfseries\LARGE\itshape} {\chaptername~\thechapter} {0.5ex}
+{ \vspace{2ex}
+  \rule{\textwidth}{1pt}
+  \vspace{2ex}
+  \centering
+}[\vspace{-0.5ex}\rule{\textwidth}{0.3pt}]
+
+\usepackage[margin=10pt,font=small,labelfont=bf]{caption}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+%\pgfplotsset{compat=1.11}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+
+\usepackage{ifthen}
+\usepackage{ifdraft}
+
+
+\usepackage{makeidx}
+\makeindex
+%\usepackage{imakeidx}
+%\makeindex[columns=2, title=Alphabetical Index]
+
+\usepackage[obeyDraft]{todonotes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% trying lualatex %%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[charter]{mathdesign}  % sets the math font
+%\usepackage{fontspec}
+%\setmainfont{TeX Gyre Bonum}
+%\def\mathds{}
+%\def\widebar{\bar}
+%\usepackage{newtxtext,newtxmath}
+\usepackage{mathpazo}
+\usepackage{dsfont} % includes bb 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{calc}
+
+%%%%%%%%%%%%%%%%%%% Define self-sufficient widebar %%%%%%%%%%%%%%%%%
+\makeatletter
+\let\save@mathaccent\mathaccent
+\newcommand*\if@single[3]{%
+  \setbox0\hbox{${\mathaccent"0362{#1}}^H$}%
+  \setbox2\hbox{${\mathaccent"0362{\kern0pt#1}}^H$}%
+  \ifdim\ht0=\ht2 #3\else #2\fi
+  }
+%The bar will be moved to the right by a half of \macc@kerna, which is computed by amsmath:
+\newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
+%If there's a superscript following the bar, then no negative kern may follow the bar;
+%an additional {} makes sure that the superscript is high enough in this case:
+\newcommand*\widebar[1]{\@ifnextchar^{{\wide@bar{#1}{0}}}{\wide@bar{#1}{1}}}
+%Use a separate algorithm for single symbols:
+\newcommand*\wide@bar[2]{\if@single{#1}{\wide@bar@{#1}{#2}{1}}{\wide@bar@{#1}{#2}{2}}}
+\newcommand*\wide@bar@[3]{%
+  \begingroup
+  \def\mathaccent##1##2{%
+%Enable nesting of accents:
+    \let\mathaccent\save@mathaccent
+%If there's more than a single symbol, use the first character instead (see below):
+    \if#32 \let\macc@nucleus\first@char \fi
+%Determine the italic correction:
+    \setbox\z@\hbox{$\macc@style{\macc@nucleus}_{}$}%
+    \setbox\tw@\hbox{$\macc@style{\macc@nucleus}{}_{}$}%
+    \dimen@\wd\tw@
+    \advance\dimen@-\wd\z@
+%Now \dimen@ is the italic correction of the symbol.
+    \divide\dimen@ 3
+    \@tempdima\wd\tw@
+    \advance\@tempdima-\scriptspace
+%Now \@tempdima is the width of the symbol.
+    \divide\@tempdima 10
+    \advance\dimen@-\@tempdima
+%Now \dimen@ = (italic correction / 3) - (Breite / 10)
+    \ifdim\dimen@>\z@ \dimen@0pt\fi
+%The bar will be shortened in the case \dimen@<0 !
+    \rel@kern{0.6}\kern-\dimen@
+    \if#31
+      \overline{\rel@kern{-0.6}\kern\dimen@\macc@nucleus\rel@kern{0.4}\kern\dimen@}%
+      \advance\dimen@0.4\dimexpr\macc@kerna
+%Place the combined final kern (-\dimen@) if it is >0 or if a superscript follows:
+      \let\final@kern#2%
+      \ifdim\dimen@<\z@ \let\final@kern1\fi
+      \if\final@kern1 \kern-\dimen@\fi
+    \else
+      \overline{\rel@kern{-0.6}\kern\dimen@#1}%
+    \fi
+  }%
+  \macc@depth\@ne
+  \let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
+  \mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
+  \macc@set@skewchar\relax
+  \let\mathaccentV\macc@nested@a
+%The following initialises \macc@kerna and calls \mathaccent:
+  \if#31
+    \macc@nested@a\relax111{#1}%
+  \else
+%If the argument consists of more than one symbol, and if the first token is
+%a letter, use that letter for the computations:
+    \def\gobble@till@marker##1\endmarker{}%
+    \futurelet\first@char\gobble@till@marker#1\endmarker
+    \ifcat\noexpand\first@char A\else
+      \def\first@char{}%
+    \fi
+    \macc@nested@a\relax111{\first@char}%
+  \fi
+  \endgroup
+}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%% array for equations alignment %%%%%%%%%%%%%%%%%%%%%
+\usepackage{array}
+\newcolumntype{e}{>{\displaystyle}r @{\,} >{\displaystyle}c @{\,} >{\displaystyle}l}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[notcite,notref]{showkeys}
+
+\usepackage{hyperref}
+\hypersetup{final}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+%%%%%%%%%%%%%%%%%%%%%% Optional filling text %%%%%%%%%%%%%%%%%%%%%%%
+\newif\ifboxrepeat \boxrepeattrue
+\newcount\badnesspar
+\newcount\tmpnum
+\def\testbadnesspar#1{\par
+   \setbox0=\vbox{#1\par
+   \global\badnesspar=0
+   \loop
+      \setbox0=\lastbox
+      \ifvoid0 \boxrepeatfalse \else
+         \unskip \unpenalty \setbox0=\hbox to\hsize{\unhbox0}
+         \ifnum\badness > \badnesspar \global\badnesspar=\badness \fi
+      \fi
+      \ifboxrepeat \repeat
+   }
+}
+\def\choosepar{\par\def\tmp{}\tmpnum=2000000 \chooseparA}
+\def\chooseparA#1{\ifx^#1^\tmp \else
+   \testbadnesspar{#1}
+   \ifnum\tmpnum>\badnesspar \tmpnum=\badnesspar \def\tmp{#1}\fi
+   \expandafter\chooseparA \fi
+}
+\def\chooseoptpar#1{%
+   \def\opt##1##2{##1}
+   \testbadnesspar{#1}\tmpnum=\badnesspar
+   \def\opt##1##2{##2}
+       \testbadnesspar{#1}
+   \ifnum\badnesspar>\tmpnum \def\opt##1##2{##1}\fi
+   #1\par
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% New commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*\1{\mathds{1}}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{corollary}[theorem]{Corolário}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{proposition}[theorem]{Proposição}
+\newtheorem{scholia}[theorem]{Escólio}
+\newtheorem{definition}[theorem]{Definição}
+\newtheorem{question}[theorem]{Questão}
+\newtheorem{notation}[theorem]{Notação}
+\newtheorem{example}{Exemplo}[section]
+\newtheorem{exercise}[example]{Exercício}
+
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Poisson}{Poisson}
+\DeclareMathOperator{\Ber}{Ber}
+\DeclareMathOperator{\Geo}{Geo}
+\DeclareMathOperator{\Bin}{Bin}
+\DeclareMathOperator{\Exp}{Exp}
+\DeclareMathOperator{\VT}{VT}
+
+\def \iid{i.i.d.~}
+\def \distr{\sim_d}
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator*{\mcup}{{\textstyle \bigcup}}
+\DeclareMathOperator*{\mcap}{{\textstyle \bigcap}}
+\newcommand*\bigtimes{\tikz[baseline=0, scale=.3]{
+\draw[opacity=0] (-.1,-.1) rectangle (1.1, 1.1);
+\draw[line width=.5pt] (0,0) -- (1,1) (1,0) -- (0,1);}
+}
+
+
+\newcommand{\todosec}[2]{\ifdraft{\vfill \pagebreak \subsection{#1} #2 \vfill \pagebreak}{}}
+
+%%%%%%%%%%%%%%%%%%%%%%% array paragraph %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{calc}
+\def\arraypar#1{\parbox[c]{\textwidth - 2cm}{\centering #1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% create text displays %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{environ}
+\NewEnviron{display}{
+\begin{equation}\begin{array}{c}
+  \arraypar{\BODY}
+\end{array}\end{equation}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%% Make automatic exp{x} or e^x %%%%%%%%%%%%%%%%%%%%%%
+\usepackage{etoolbox}
+\makeatletter
+\def\mathsettoheight#1#2%
+  {\setbox\@tempboxa\hbox{{#2}}%
+   #1=\ht\@temboxa
+   \setbox\@temboxa\box\voidb@x}
+\def\mathsettoheight#1#2%
+  {\setbox\@tempboxa\hbox{$\m@th\mathpalette{}{#2}$}%
+   #1=\ht\@tempboxa
+   \setbox\@tempboxa\box\voidb@x}
+\makeatother
+\newlength\heightin
+\newcommand{\ex}[1]{
+\mathsettoheight\heightin{#1}
+\ifdimless{\heightin}{8pt}{e^{#1}}{\exp\big\{#1\big\}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% mathclap %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\clap#1{\hbox to 0pt{\hss#1\hss}}
+\def\mathllap{\mathpalette\mathllapinternal}
+\def\mathrlap{\mathpalette\mathrlapinternal}
+\def\mathclap{\mathpalette\mathclapinternal}
+\def\mathllapinternal#1#2{\llap{$\mathsurround=0pt#1{#2}$}}
+\def\mathrlapinternal#1#2{\rlap{$\mathsurround=0pt#1{#2}$}}
+\def\mathclapinternal#1#2{\clap{$\mathsurround=0pt#1{#2}$}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

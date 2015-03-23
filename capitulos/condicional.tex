@@ -1,0 +1,708 @@
+\chapter{Esperança condicional}
+
+\section{Esperança condicional}
+
+Como já foi dito anteriormente, a estrutura de $\sigma$-álgebra tem um papel muito importante na área de probabilidade.
+Durante o curso de Teoria da Medida, muitas vezes o conceito de $\sigma$-álgebra parece uma tecnicalidade que simplesmente dificulta nosso acesso ao conteúdo realmente interessante do curso.
+Em alguns momentos, chegamos a desejar que tudo fosse mensurável e não tivéssemos que nos preocupar com tais formalidades.
+
+No estudo que iniciaremos agora, nos restringiremos a sub-$\sigma$-álgebras $\mathcal{F}'$ próprias de $\mathcal{F}$ propositalmente.
+Ficará claro portanto, que o estudo de $\sigma$-álgebras e mensurabilidade não é uma mera tecnicalidade, mas sim uma ferramenta importante.
+
+Em algum sentido (que ficará claro no decorrer do texto) essas sub-$\sigma$-ál\-ge\-bras representarão uma forma de ``informação incompleta''.
+Daremos sentido a frases como ``nós temos conhecimento apenas da $\sigma$-álgebra $\mathcal{F}'$''.
+
+Mas antes lembraremos um lema básico de Teoria da Medida.
+
+\begin{lemma}
+  \label{l:f_igual_fp}
+  Se $f, f'$ são funções mensuráveis tais que
+  \begin{equation}
+    \int_A f \d \mu = \int_A f' \d \mu, \text{ para todo $A \in \mathcal{F}'$,}
+  \end{equation}
+  então $f = f'$ $\mu$-quase certamente.
+\end{lemma}
+
+\begin{proof}
+  Aplicando a hipótese para $A = [f > f']$, vemos que
+  \begin{equation}
+    \int_A f - f' \d \mu = 0,
+  \end{equation}
+  mas no conjunto $A$ acima, o integrando é positivo.
+  Portanto, $f = f'$, $\mu$-quase certamente em $A$.
+  Aplicando o mesmo raciocínio para $[f < f']$ obtemos que $f = f'$ quase certamente.
+\end{proof}
+
+O lema acima nos diz que se soubermos integrar $f$ em todos os eventos $A$, então podemos recuperar a função $f$ propriamente dita.
+O que aconteceria se soubéssemos integrar $f$ apenas para eventos $A$ em uma sub-$\sigma$-álgebra?
+É isso que estudaremos à partir de agora.
+
+\begin{definition}
+  \label{d:esperanca_condicional}
+  Seja uma variável aleatória $X \in \mathcal{L}^1(P)$ e uma sub-$\sigma$-álgebra $\mathcal{F}' \subseteq \mathcal{F}$.
+  Dizemos que uma variável aleatória $Y$ é a esperança condicional \index{esperanca@esperança!condicional} de $X$ com respeito a $\mathcal{F}'$ (ou dada $\mathcal{F}'$) se
+  \begin{enumerate}[\quad a)]
+  \item $Y$ é $\mathcal{F}'$-mensurável e
+  \item $E(X \1_{A}) = E(Y \1_{A})$ para todo $A \in \mathcal{F}'$.
+  \end{enumerate}
+  Nesse caso, escrevemos
+  \begin{equation}
+    Y = E(X | \mathcal{F}').
+  \end{equation}
+\end{definition}
+
+Observe que faz sentido escrever $E\big(Y|\mathcal{F}'\big)(\omega)$, pois $E(X|\mathcal{F}')$ é uma variável aleatória.
+
+Interpretamos informalmente a definição acima como ``$Y$ é a melhor aproximação $\mathcal{F}'$-mensurável de $X$''.
+Ou $Y$ é a melhor aproximação que podermos fazer de $X$ se ``conhecemos apenas $\mathcal{F}'$''.
+
+\begin{example}
+  \label{x:EXF_trivial}
+  Se $\mathcal{F}' = \{\varnothing, \Omega\}$, então $Y = E(X)$ (uma variável aleatória constante) é esperança condicional de $X$ dado $\mathcal{F}'$, pois
+  \begin{enumerate}[\quad a)]
+  \item $Y$ é $\mathcal{F}'$-mensurável (por ser constante). Além disso
+  \item $E(X \1_\varnothing) = 0 = E(Y \1_\varnothing)$ e $E(X \1_\Omega) = E(X) = E(Y \1_\Omega)$.
+  \end{enumerate}
+\end{example}
+
+Uma propriedade muito importante que segue da Definição~\ref{d:esperanca_condicional} é dada pela seguinte
+
+\begin{proposition}
+  \label{p:ec_em_L1}
+  Se $Y$ satisfaz as $a)$ e $b)$ em Definição~\ref{d:esperanca_condicional}, então $Y \in \mathcal{L}^1(P)$.
+\end{proposition}
+
+\begin{proof}
+  Tomamos $A = [Y \geq 0]$ e $A' = [Y \leq 0]$ que estão em $\mathcal{F}'$ e estimamos
+  \begin{equation}
+    \int |Y| \d P = \int_A Y \d P + \int_{A'} Y \d P = \int_A X \d P + \int_{A'} X \d P \leq \int |X| \d P < \infty
+  \end{equation}
+  O que mostra a proposição.
+\end{proof}
+
+Além do Exemplo~\ref{x:EXF_trivial} trivial acima, quando podemos esperar que existam esperanças condicionais?
+
+\begin{theorem}
+  Dada $X \in \mathcal{L}^1(P)$ e $\mathcal{F}' \subseteq \mathcal{F}$ uma $\sigma$-álgebra, então existe a esperança condicional $E(X|\mathcal{F}')$.
+  Além disso ela é única $P$-quase certamente.
+\end{theorem}
+
+\begin{proof}
+  Vamos primeiro mostrar a unicidade quase certa.
+  Para isso, supomos que existam $Y$ e $Y'$ satisfazendo as condições da Definição~\ref{d:esperanca_condicional} (logo em $\mathcal{L}^1$).
+  Iremos proceder como no Lema~\ref{l:f_igual_fp} acima, definindo $A = [Y > Y']$, donde concluímos que
+  \begin{equation}
+    E\big( (Y - Y')\1_{A} \big) = E(Y \1_{A}) - E(Y' \1_{A}) = 0.
+  \end{equation}
+  Mas como $Y > Y'$ em $A$, vemos que $Y \leq Y'$ quase certamtente.
+  A prova da unicidade pode ser completa trocando os papéis de $Y$ e $Y'$ acima.
+
+  Vamos agora para a prova da existência.
+  Como $X \in \mathcal{L}^1(P)$, podemos introduzir
+  \begin{equation}
+    \mu(A) = E(X \1_{A}),
+  \end{equation}
+  que define uma medida com sinal em $(\Omega, \mathcal{F})$, com variação total finita.
+
+  Caso o leitor não se sinta familiarizado com o conceito de medida com sinal, poderá decompor $X$ em partes positiva e negativa e proceguir sem problemas.
+
+  Um passo importante da prova é observar que $\mu$ também define uma medida no espaço $(\Omega, \mathcal{F}')$.
+  Estamos portanto propositalmente restringindo nossa $\sigma$-álgebra.
+  Como $P(A) = 0$ implica que $\mu(A) = 0$, temos que $\mu \ll P$ e podemos aplicar o Teorema de Radon-Nikodim para obter uma derivada $Y:\Omega \to \mathbb{R}$ tal que
+  \begin{enumerate}[\quad a)]
+  \item $Y$ é $\mathcal{F}'$-mensurável e
+  \item $\mu(A) = \int_A Y \d P$.
+  \end{enumerate}
+  Agora é só observar que as afirmações acima correspondem às condições da Definição~\ref{d:esperanca_condicional}.
+\end{proof}
+
+
+Observe que a condição de $\mathcal{F}'$-mensurabilidade é essencial para a unicidade.
+De fato, $X$ obviamente satisfaz a segunda condição da Definição~\ref{d:esperanca_condicional}, mas não necessariamente a primeira.
+
+\section{Propriedades básicas da esperança condicional}
+
+Nessa seção justificaremos, em certa medida, a nomenclatura ``esperança condicional''.
+Faremos isso mostrando que ela satisfaz várias propriedades que já conhecemos para a esperança tradicional.
+
+Mas como podemos mostrar propriedades simples tais como a linearidade da esperança condicional?
+Vamos começar com um exemplo
+
+\begin{proposition}
+  \index{esperanca@esperança!condicional!aditividade}
+  Se $X, X' \in \mathcal{L}^1(P)$, então
+  \begin{equation}
+    E(X + X'|\mathcal{F}') = E(X|\mathcal{F}') + E(X'|\mathcal{F}'), \text{ $P$-quase certamente.}
+  \end{equation}
+\end{proposition}
+
+Note que a igualdade acima é uma igualdade entre variáveis aleatórias.
+
+\begin{proof}
+  Sabemos que $Y = E(X|\mathcal{F}') + E(X'|\mathcal{F}')$ é uma variável aleatória bem definida.
+  Mais do que isso, sabemos que ela é uma candidata muito boa a $E(X + X'|\mathcal{F}')$.
+  Logo, por unicidade da esperança condicional, basta verificar que $Y$ satisfaz as condições da Definição~\ref{d:esperanca_condicional} com respeito a $X + X'$.
+  De fato
+  \begin{enumerate}[\quad a)]
+  \item $Y$ é $\mathcal{F}'$-mensurável, por ser uma soma de duas variáveis $\mathcal{F}'$-mensuráveis e
+  \item por linearidade da esperança (não da esperança condicional), temos
+    \begin{equation}
+      \begin{split}
+        E(Y \1_A) & = E\big( E(X|\mathcal{F}')\1_A + E(X'|\mathcal{F}')\1_A \big)\\
+        & = E\big( E(X|\mathcal{F}')\1_A\big) + E\big(E(X'|\mathcal{F}')\1_A \big)\\
+        & = E(X \1_A) + E(X' \1_A) = E\big( (X + X') \1_A \big).
+      \end{split}
+    \end{equation}
+  \end{enumerate}
+  Isso termina a prova do proposição.
+\end{proof}
+
+\begin{exercise}
+  Dados $X \in \mathcal{L}^1$ e $\alpha \in \mathbb{R}$, mostre que $E(\alpha X|\mathcal{F}') = \alpha E(X|\mathcal{F}')$.
+\end{exercise}
+
+Uma outra propriedade bem simples da esperança condicional é a monotonicidade.
+
+\begin{lemma}
+  \index{esperanca@esperança!condicional!monotonicidade}
+  \label{l:ec_mono}
+  Se $X \geq X'$ em $\mathcal{L}^1(P)$, então
+  \begin{equation}
+    E(X|\mathcal{F}') \geq E(X'|\mathcal{F}'), \text{$P$-quase certamente.}
+  \end{equation}
+  Em particular, se $X \geq 0$, então $E(X|\mathcal{F}') \geq 0$ quase certamente.
+\end{lemma}
+
+\begin{proof}
+  Seja $A = [E(X'|\mathcal{F}') - E(X|\mathcal{F}') > 0]$, que pertence a $\mathcal{F}'$.
+  Então
+  \begin{equation}
+    0 \leq E\big( (E(X'|\mathcal{F}') - E(X|\mathcal{F}')) \1_A \big) = E\big((X' - X) \1_A\big) \leq 0,
+  \end{equation}
+  o que implica que $P(A) = 0$.
+\end{proof}
+
+
+
+\begin{proposition}
+  \label{p:EZX_ZEX}
+  Se $X, ZX \in \mathcal{L}^1(P)$, com $Z \in \mathcal{F}'$, temos
+  \begin{equation}
+    E(XZ|\mathcal{F}') = Z E(X|\mathcal{F}') \text{ $P$-quase certamente}.
+  \end{equation}
+  Em particular, $E(\alpha X|\mathcal{F}') = \alpha E(X|\mathcal{F}')$, para todo $\alpha \in \mathbb{R}$.
+  Uma outra consequência interessante é que $Z E(X|\mathcal{F}')$ estará automaticamente em $\mathcal{L}^1$.
+\end{proposition}
+
+De maneira bastante informal, vamos dar uma intuição para o resultado acima.
+Ao considerarmos a esperança condicional dada $\mathcal{F}'$, nós já conhecemos as variáveis aleatórias $\mathcal{F}'$-mensuráveis, portanto elas se comportam como constantes.
+
+\begin{proof}
+  Mais uma vez, basta verificar que $Z E(X|\mathcal{F}')$ satisfaz as condições que definem a esperança condicional.
+  A primeira é trivial, pois $Z E(X|\mathcal{F}')$ é $\mathcal{F}'$-mensurável por ser um produto de funções $\mathcal{F}'$-mensuráveis.
+
+  Para provar a segunda condição, começamos com o caso $Z = \1_B$, implicando que $B \in \mathcal{F}'$, donde
+  \begin{equation*}
+    E\big(ZE(X|\mathcal{F}') \1_A \big) = E\big( E(X|\mathcal{F}') \1_{A \cap B}\big) = E(X \1_{A \cap B}) = E(ZX \1_A).
+  \end{equation*}
+  Por linearidade, já sabemos que o resultado vale para funções $Z$ simples e gostaríamos de extender para quaisquer $Z$ positivas via Teorema da Convergência Monótona.
+  Um problema aqui é que mesmo que $Z$ seja positiva, não sabemos se $E(X|\mathcal{F}')$ também será positiva.
+
+  Portanto, trataremos primeiramente do caso $X \geq 0$.
+  Para tais $X$, sabemos pelo Lema~\ref{l:ec_mono} que $E(X|\mathcal{F}') \geq 0$ quase certamente.
+  Daí, podemos concluir que $Z E(X|\mathcal{F}') = E(ZX|\mathcal{F}')$ para toda $Z \geq 0$, podemos aproximá-la por baixo por $Z_n$ simples e, pelo Teorema da Convergência Monótona,
+  \begin{equation}
+    \begin{array}{e}
+      E\big( Z E(X|\mathcal{F}') \big) & \overset{\text{TCM}}= & \lim_n E\big( Z_n E(X|\mathcal{F}') \big)\\
+      & = & \lim_n E\big( E(Z_n X|\mathcal{F}') \big) \overset{\text{TCM}}= E\big( E(ZX|\mathcal{F}') \big).
+    \end{array}
+  \end{equation}
+  O que mostra o resultado sempre que $X \geq 0$.
+
+  Além disso, pela Proposição~\ref{p:ec_em_L1}, sabemos que $Z E(X|\mathcal{F}') \in \mathcal{L}^1$.
+  Podemos finalmente concluir a prova decompondo $X = X_+ - X_-$ e a linearidade.
+\end{proof}
+
+Para corroborar nossa afirmação que a esperança condicional é uma aproximação da variável aleatória, fornecemos o seguinte
+
+\begin{lemma}
+  Se $X \in \mathcal{L}^2(P)$ e $\mathcal{F}' \subseteq \mathcal{F}$, então $E(X|\mathcal{F}')$ é a projeção ortogonal de $X$ no espaço vetorial $H_{\mathcal{F}'}$.
+  Onde $H_{\mathcal{F}'} = \{Y \in \mathcal{L}^2; Y \text{ é $\mathcal{F}'$-mensurável}\}$.
+\end{lemma}
+
+\begin{proof}
+  Temos que verificar que $X - E(X|\mathcal{F}')$ é ortogonal a $H_{\mathcal{F}'}$.
+  Ou seja, mostrar que para todo $Z \in H_{\mathcal{F}'}$, temos
+  \begin{equation}
+    E\big( XZ - E(X|\mathcal{F}') Z \big) = 0.
+  \end{equation}
+  Note que não é claro que essa esperança faz sentido, pois não sabemos que $ZE(X|\mathcal{F}') \in \mathcal{L}^1$.
+  Mas isso segue facilmente da Proposição~\ref{p:EZX_ZEX}.
+
+  Agora sim, se $Z = \1_{A}$ para algum $A \in \mathcal{F}'$, essa afirmação segue da definição de $E(X|\mathcal{F}')$.
+  Finalmente podemos extender esse resultado a funções simples, positivas e finalmente a todas $Z \in H_{\mathcal{F}'}$.
+\end{proof}
+
+Vimos acima uma metodologia que se repete frequentemente.
+Digamos que queremos provar que uma determinada expressão nos dá a esperança condicional de algo.
+Podemos começar provando esse resultado para funções indicadoras, depois para funções simples usando a linearidade provada acima.
+
+Porém ainda falta um ingrediente bastante importante para construir ou verificar que determinadas variáveis são esperanças condicionais.
+
+\begin{theorem}[Convergência Monótona para Esperanças Condicionais]
+  \index{esperanca@esperança!condicional!T.C.M.}
+  \label{t:TCM_EC}
+  Se as variáveis $X_n$ satisfazem $X_n \uparrow X$ e estão todas em $\mathcal{L}^1(P)$, então
+  \begin{equation}
+    \lim_n E(X_n|\mathcal{F}') = E(X|\mathcal{F}').
+  \end{equation}
+\end{theorem}
+
+\begin{proof}[Demonstração do Teorema~\ref{t:TCM_EC}]
+  Sabemos que $E(X_{n+1} | \mathcal{F}') \geq E(X_n|\mathcal{F}')$, donde concluímos que $E(X_n|\mathcal{F}') \uparrow Y$.
+  Vamos demosntrar que $Y = E(X|\mathcal{F}')$.
+  \begin{enumerate}[\quad a)]
+  \item Por ser um limite de funções $\mathcal{F}'$ mensuráveis, $Y$ é $\mathcal{F}'$-mensurável.
+  \item Dado $A \in \mathcal{F}'$, temos
+    \begin{equation}
+      \begin{split}
+        E(Y \1_A) & = E(\lim_n E(X_n |\mathcal{F}') \1_A) \overset{\text{TCM}}= \lim_n E\big( E(X_n|\mathcal{F}') \1_A \big)\\
+        & = \lim_n E(X_n \1_A) \overset{\text{TCM}}= E(X \1_A).
+      \end{split}
+    \end{equation}
+  \end{enumerate}
+  O que termina a prova do teorema.
+\end{proof}
+
+No que segue, muitas vezes escreveremos $E(X|Z)$ para representar a esperança condicional $E(X|\sigma(Z))$.
+
+\begin{exercise}
+  Sejam $X_1$ e $X_2$ as coordenadas canônicas em $E_1 \times E_2$ e definimos a probabilidade $\d P = \rho(x,y) \d \mu_1 \d \mu_2$, onde $\rho:E_1 \times E_2 \to \mathbb{R}_+$ é uma densidade.
+  Dê sentido à expressão abaixo e mostre que elá é $E(X_1|X_2)$:
+  \begin{equation}
+     \frac{\int x\rho(x, X_2) \mu_1(\d x)}{\int \rho(x, X_2) \mu_1(\d x)}.
+  \end{equation}
+\end{exercise}
+
+\begin{exercise}
+  Seja $E$ enumerável com uma $\sigma$-álgebra $\mathcal{F}'$.
+  Mostre que
+  \begin{equation}
+    \mathcal{F}' = \sigma(A_i, i \geq 1), \text{ com $A_i \subseteq E$ disjuntos}.
+  \end{equation}
+  Suponha que todos conjuntos $A_i$ tem probabilidade positiva e mostre que
+  \begin{equation}
+    E(X|\mathcal{F}') = \sum_i E^i(X) \1_{A_i},
+  \end{equation}
+  onde $E^i$ é a esperança com respeito à probabilidade $P(\cdot|A_i)$.
+  Em breve extenderemos esse tipo de resultado a espaços quaisquer.
+\end{exercise}
+
+Uma outra propriedade que a esperança condicional herda da integral é a
+
+\begin{proposition}[Desigualdade de Jensen]
+  \index{esperanca@esperança!condicional!desigualdade de Jensen}
+  Se $\phi:\mathbb{R} \to \mathbb{R}$ é convexa, $X, \phi(X) \in \mathcal{L}^1(P)$, então
+  \begin{equation}
+    \phi\big( E(X|\mathcal{F}') \big) \leq E\big( \phi(X) | \mathcal{F}' \big).
+  \end{equation}
+\end{proposition}
+
+\begin{proof}
+  Se $\phi$ for uma função linear, o resultado segue da linearidade que já provamos para a esperança condicional.
+  Além disso, se temos uma função $\psi:\mathbb{R} \to \mathbb{R}$ linear e tal que $\psi(x) \leq \phi(x)$ para todo $x \in \mathbb{R}$, então
+  \begin{equation}
+    E\big( \phi(X) | \mathcal{F}' \big) \geq E\big( \psi(X) | \mathcal{F}' \big) = \psi \big( E(X|\mathcal{F}') \big).
+  \end{equation}
+  Tomamos finalmente o supremo em todas as $\psi$ lineares com $\psi \leq \phi$ dos dois lados da desigualdade acima, obtendo
+  \begin{equation}
+    E\big( \phi(X) | \mathcal{F}' \big) \geq \sup_{\substack{\psi \leq \phi\\\psi \text{ linear}}} \psi \big( E(X|\mathcal{F}') \big) = \phi \big( E(X|\mathcal{F}') \big),
+  \end{equation}
+  terminando a prova da proposição.
+\end{proof}
+
+\begin{corollary}
+  Se $X \in \mathcal{L}^1(P)$, então $\big| E(X|\mathcal{F}') \big| \leq E\big(|X| \big| \mathcal{F}' \big)$.
+\end{corollary}
+
+Uma outra propriedade interessante da esperança condicional diz respeito a sua relação com independência.
+
+\begin{proposition}
+  Se $X \in \mathcal{L}^1(P)$ é independente de $\mathcal{F}'$, então
+  \begin{equation}
+    E(X|\mathcal{F}') = E(X) \text{ $P$-quase certamente.}
+  \end{equation}
+\end{proposition}
+
+\begin{proof}
+  Funções constantes são sempre mensuráveis. Além disso, se $A \in \mathcal{F}'$, então
+  \begin{equation}
+    E(X \1_A) = E(X) P(A) = E\big( E(X) \1_A \big),
+  \end{equation}
+  concluindo a prova.
+\end{proof}
+
+Terminamos essa seção com o que chamamos da propriedade de torre da esperança condicional.
+
+\begin{proposition}
+  \index{esperanca@esperança!condicional!torre}
+  Se $\mathcal{F}' \subseteq \mathcal{F}''$ são ambas sub-$\sigma$-álgebras de $\mathcal{F}$, então para $X \in \mathcal{L}^1(P)$, temos
+  \begin{equation}
+    \label{e:ec_torre}
+    E\big( E(X|\mathcal{F}') \big| \mathcal{F}'' \big) = E(X|\mathcal{F}') = E\big( E(X|\mathcal{F}'') \big| \mathcal{F}' \big),
+  \end{equation}
+  ou em outras palavras, independentemente da ordem, prevalece a condição na menor $\sigma$-álgebra.
+  Consequentemente, $E\big( E(X|\mathcal{F}') \big) = E(X)$.
+\end{proposition}
+
+\begin{proof}
+  Como $E(X|\mathcal{F}')$ é $\mathcal{F}''$-mensurável, a Proposição~\ref{p:EZX_ZEX}, aplicada com $X = 1$, mostra a primeira igualdade em \eqref{e:ec_torre}.
+
+  Falta mostrar que $E\big( E(X|\mathcal{F}'') \big| \mathcal{F}'\big)$ é a esperança condicional de $X$ dada $\mathcal{F}'$.
+  Obviamente ela é $\mathcal{F}'$-mensurável, e nos resta verificar a segunda condição.
+  Mas para todo $A \in \mathcal{F}'$, lembrando que $A$ também pertence a $\mathcal{F}''$ e usando a definição de esperança condicional duas vezes,
+  \begin{equation}
+    E\Big( E\big( E(X|\mathcal{F}'') \big| \mathcal{F}' \big) \1_A \Big) = E\big( E(X | \mathcal{F}'')  \1_A \big) = E(X \1_A).
+  \end{equation}
+  O que termina a prova da proposição.
+\end{proof}
+
+\begin{lemma}
+  \label{l:f_g_circ_X}
+  Se $X: \Omega \to E$ é um elemento aleatório e $f:\Omega \to \mathbb{R}$ é $\sigma(X)$-mensurável, então existe uma $g:E \to \mathbb{R}$ mensurável tal que $f = g \circ X$.
+\end{lemma}
+
+\begin{proof}
+  Como de costume, consideramos primeiramente o caso $f = \1_A$
+  Claramente $A$ tem que pertencer a $\sigma(X)$, ou seja $A = X^{-1}(B)$ para algum $B \in \mathcal{A}$.
+  Neste caso colocamos $g = \1_B$, donde obtemos $f(\omega) = 1 \Leftrightarrow \omega \in A \Leftrightarrow X(\omega) \in B \Leftrightarrow g \circ X = 1$.
+
+  No caso em que $f$ é simples, temos $f = \sum_i a_i (g_i \circ X) = (\sum_i a_i g_i) \circ X$.
+  Se $f$ é positiva, então ela é um limite crescente de funções do tipo $g_n \circ X$, além disso podemos tomar $g_n$ crescentes, pois
+  \begin{equation}
+    f_{n+1} = f_{n+1} \vee f_{n} = (g_{n+1} \circ X) \vee (g_n \circ X) = (g_n \vee g_{n+1}) \circ X.
+  \end{equation}
+
+  Finalmente usamos a linearidade da composição novamente para resolver o caso geral $f = f_+ - f_-$.
+\end{proof}
+
+Se $X: \Omega \to E$ é elemento aleatório, então $E(Y|\sigma(X))$ é obviamente $\sigma(X)$-mensurável.
+Pelo lema anterior, $E(Y|\sigma(X)) = g \circ X$ para alguma $g: E \to \mathbb{R}$.
+Nesse caso denotamos
+\begin{equation}
+  E(Y|X = x) = g(x).
+\end{equation}
+
+\begin{exercise}
+  Mostre que $g$ é única $X \circ P$-quase certamente.
+\end{exercise}
+
+Gostaríamos de dizer que $E(Y|X = x)$ satisfaz alguma propriedade que justifique essa notação.
+Apesar de que apenas na próxima seção poderemos justificar completamente essa nomenclatura, nesse momento já podemos mostrar a seguinte relação
+\begin{equation*}
+  E(Y) = E\big( E(Y | X) \big) = E\big( E(Y | X = x) \circ X \big) = \int E(Y| X = x) (X \circ P) (\d x).
+\end{equation*}
+Em outras palavras, para integrar $Y$, basta conhecermos a distribuição de $X$ e a esperança condicional de $Y$, dado que $X = x$.
+
+\begin{exercise}
+  Sejam $X$ e $Y$ as coordenadas canônicas em $E_1 \times E_2$, com a probabilidade $P = \mu_1 \otimes \mu_2$ e seja $f:E_1 \times E_2 \to \mathbb{R}$ em $\mathcal{L}^1(P)$.
+  Mostre que
+  \begin{equation}
+     E(f|X = x) = \int f(x, y) \mu_2(\d y).
+  \end{equation}
+\end{exercise}
+
+\begin{exercise}
+  Se $K$ é um núcleo de transição entre $E_1$ e $\mathbb{R}$ e $P_1$ é uma probabilidade em $E_1$, mostre que em $P_1 \star K$ temos
+  \begin{equation}
+    E(X_2|X_1 = x_1) = \int x_2 K(x_1, \d x_2).
+  \end{equation}
+\end{exercise}
+
+Um outro resultado bastante importante é o seguinte
+
+\begin{theorem}[Teorema da Convergência Dominada para Esperanças Condicionais]
+  \index{esperanca@esperança!condicional!T.C.D.}
+  Se $X_n \to X$ e existe $Y \in \mathcal{L}^1(P)$ tal que $|X_n| \leq Y$ para todo $n$, então
+  \begin{equation}
+    E(X_n | \mathcal{F}) \to E(X|\mathcal{F}) \text{ $P$-quase certamente.}
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  Seja $Z_n = \sup_{k \geq n} |X_k - X|$ o erro máximo à partir de $n$.
+  Claramente, $Z_n \downarrow 0$ quase certamente e além disso
+  \begin{equation}
+    |Z_n| \leq \sup_{k \geq 1} |X_k| + |X| \leq 2 Y,
+  \end{equation}
+  donde $E(Z_n) \to E(0) = 0$, quase certamente pelo Teorema da Convergência Dominada.
+
+  Obviamente $E(Z_n|\mathcal{F})$ é uma sequência positiva e não-crescente, logo decresce quase certamtente para algum $Z$.
+  Daí,
+  \begin{equation}
+    \big| E(X_n | \mathcal{F}) - E(X | \mathcal{F}) \big| \leq E(Z_n | \mathcal{F}) \downarrow Z \geq 0.
+  \end{equation}
+  Mas $E(Z) \leq E\big( E(Z_n|\mathcal{F}) \big) = E(Z_n)$.
+  Como $E(Z_n)$ vai a zero pelo Teorema da Convergência Dominada, temos que $Z = 0$ quase certamente como gostaríamos.
+\end{proof}
+
+\begin{exercise}
+  Sejam $Z_1, Z_2, \dots$ variáveis aleatórias \iid em $\mathcal{L}^1(P)$ com $E(Z_1) = 0$.
+  \begin{enumerate}[\quad a)]
+  \item Defina $X_0 = 0$ e
+    \begin{equation}
+      X_n = \sum_{i = 1}^n Z_i, \text{ para $n \geq 1$.}
+    \end{equation}
+    Mostre que $E(X_{n + 1} | Z_1, \dots, Z_n) = X_n$.
+  \item Supondo agora que $Z_1 \in \mathcal{L}^2(P)$ e $E(Z) = 0$, defina $Y_0 = 0$ e
+    \begin{equation}
+      Y_n = \Big( \sum_{i = 1}^n Z_i \Big)^2 - n E(Z_1^2)
+    \end{equation}
+    Mostre que $E(Y_{n + 1} | Z_1, \dots, Z_n) = Y_n$.
+  \end{enumerate}
+\end{exercise}
+
+\todosec{Tópico: Martingais a tempo discreto}{fazer...}
+
+\todosec{Tópico: Propriedade fraca de Markov}{mostrar que cadeias = processos...}
+
+\section{Probabilidade Condicional Regular}
+
+Já sabemos definir por exemplo $E(\1_A|X = x)$.
+Gostaríamos porém de garantir que essa expressão definisse uma probabilidade em $A$, e chamaríamos essa probabilidade de $P(A|X = x)$.
+Mas certamente gostaríamos que $P(\cdot|X = x)$ fosse uma função $\sigma$-aditiva.
+Essa especulação parece promissora, por exemplo se $A$ e $B$ são disjuntos,
+\begin{equation*}
+  P(A \cup B |\mathcal{F}') = E(\1_{A \cup B} | \mathcal{F}') = E(\1_A|\mathcal{F}') + E(\1_{B}|\mathcal{F}') = P(A|\mathcal{F}') + P(B|\mathcal{F}').
+\end{equation*}
+Ótimo, mas ainda temos o seguinte problema.
+
+Lembramos que a equação acima está bem definida apenas quase certamente.
+Poderíamos portanto garantir que para uma classe enumerável de conjuntos $A \in \mathcal{F}$, essa aditividade fosse satisfeita.
+Porém, a $\sigma$-álgebra $\mathcal{F}$ é frequentemente não enumerável, portanto não conseguimos a $\sigma$-aditividade plena.
+Isso pode ser contornado se o espaço for canônico, como afirma o nosso próximo resultado.
+
+\todo{Tirar o teorema \ref{t:prob_cond_reg_F} e fazer direto o \ref{t:prob_cond_reg_X} com $q \in \mathbb{Q}$... (quem precisa do \ref{t:prob_cond_reg_F} anyway???)}
+
+\begin{theorem}
+  \label{t:prob_cond_reg_F}
+  Seja $X: \Omega \to E$ um elemento aleatório tomando valores em um espaço canônico $E$ e $\mathcal{F}'$ uma sub-$\sigma$-álgebra qualquer.
+  Então existe um núcleo $K$ entre $\Omega$ e $E$, tal que para todo $B$
+  \begin{equation}
+    K(\omega, B) = E\big(\1_{[X \in B]} | \mathcal{F}'\big) (\omega) \text{ $P$-quase certamente.}
+  \end{equation}
+  A esse núcleo, damos o nome Probabilidade Condicional Regular \index{probabilidade!condicional!regular}(dada $\mathcal{F}'$), que é denotada por $P(X \in \cdot|\mathcal{F}')$.
+\end{theorem}
+
+\todo{melhorar a prova da existência de Prob Cond Regular. Em particular, $\hat F = F$ nos racionais?}
+
+\begin{proof}
+  Primeiramente observamos que podemos assumir sem perda de generalidade que $E = \mathbb{R}$.
+  De fato, suponha que já conhecemos o resultado pra variáveis aleatórias e somos dados $X$ tomando valores em $E$ canônico.
+  Como $E$ é canônico, existe uma bijeção $\phi:E \to \mathbb{R}$ bi-mensurável, com imagem mensurável logo $\phi \circ X$ é variável aletória.
+
+  Dessa forma, existe o núcleo $K'(\omega, \cdot) = P(\phi \circ X \in \cdot | \mathcal{F}')(\omega)$ e podemos definir
+  \begin{equation}
+    K(\omega, \cdot) = \phi^{-1} \circ K'(\omega, \cdot),
+  \end{equation}
+  que será um núcleo entre $\Omega$ e $E$ pois $\phi^{-1}$ é mensurável.
+  Para mostrar que $K = P(X \in \cdot|\mathcal{F}')$, tome $B \in \mathcal{A}$ e observe que
+  \begin{equation}
+    \begin{split}
+      K(\omega, B) & = K'\big(\omega, (\phi^{-1})^{-1}(B)\big) = K'\big(\omega, \phi(B)\big)\\
+      & = E \big( \1_{[\phi \circ X \in \phi(B)]} | \mathcal{F} \big) = E \big( \1_{[X \in B]} | \mathcal{F} \big),
+    \end{split}
+  \end{equation}
+  terminando a prova de que é suficiente considerar o caso $E = \mathbb{R}$.
+
+  Vamos agora considerar $X$ uma variável aleatória e definimos para cada $q \in \mathbb{Q}$,
+  \begin{equation}
+    F(\omega, q) = E(\1_{[X \leq q]} | \mathcal{F}')(\omega),
+  \end{equation}
+  que é mensurável e bem definida quase certamente.
+
+  Observamos que
+  \begin{enumerate}[\quad a)]
+  \item $F(\omega, q) \in [0,1]$, $P$-quase certamente para todo $q \in \mathbb{Q}$, pois $\1_{[X \leq q]} \in [0,1]$.
+  \item Se $q \leq q'$, então $F(\omega, q) \leq F(\omega, q')$, $P$-quase certamente, pois $\1_{[X \leq q]} \leq \1_{[X \leq q']}$.
+  \item Se escolhemos $q_n = n$ (analogamente $q_n = -n$), então $F(\omega, n) \to 1$ (analogamente $F(\omega, -n) \to 0$), $P$-quase certamente, pois $[X \leq n] \uparrow \Omega$ e pelo Teorema da Convergência Monótona para esperanças condicionais.
+  \end{enumerate}
+  Tomando a interseção de todos $q \in \mathbb{Q}$ para o ítem $a)$, todos $q, q' \in \mathbb{Q}$ no ítem $b)$ e os dois casos do ítem $c)$, encontramos um evento quase certo $\Omega'$ onde valem os três ítens acima.
+  Para os pontos de medida nula $\omega \in \Omega \setminus \Omega'$, podemos redefinir $F(\omega, p)$ como uma função de distribuição acumulada fixa $F_0$.
+  Dessa forma valem os ítens $a)$, $b)$ e $c)$ para todos pontos de $\Omega$.
+  Note também que após essa redefinição, ainda obtemos $F(\cdot, q)$ mensurável para todo $q \in \mathbb{Q}$, pois redefinimos $F$ como sendo uma constante em um conjunto mensurável.
+
+  Vamos agora extender as definições acima para $\hat{F}:\Omega \times \mathbb{Q}$
+  \begin{equation}
+    \hat{F}(\omega, x) = \lim_{q \downarrow x} F(\omega, q),
+  \end{equation}
+  que existe pois $F$ é monótona e limitada.
+  Assim obtivemos que $\hat{F}(\omega, x)$ satisfaz as três condicões acima para todo ponto, o que caracteriza uma função acumulada de distribuição.
+  Existe portanto para todo $\omega \in \Omega$ uma medida $\mu_\omega$ na reta tal que
+  \begin{equation}
+    \mu_\omega\big((-\infty, x]\big) = \hat{F}(\omega,x),
+  \end{equation}
+  e definimos $K(\omega, A) = \mu_\omega(A)$.
+
+  Exercício: mostre que $\hat{F}$ é contínua à direita.
+
+  Pela Proposição~\ref{p:K_nucleo_na_classe}, já sabemos que $K$ é um núcleo de transição, pois $K\big(\cdot, (-\infty, q]\big)$ é mensurável para todo $q$ e esses conjuntos formam um $\pi$-sistema que gera $\mathcal{B}(\mathbb{R})$.
+
+  Finalmente, precisamos verificar que $K$ é a prometida esperança condicional.
+  Para tanto, fixado $B \in \mathcal{B}(\mathbb{R})$, gostaríamos de ver que
+  \begin{equation}
+    K(\omega, B) = E(\1_{[X \in B]} | \mathcal{F}')(\omega), \text{ $P$-quase certamente.}
+  \end{equation}
+  Definindo como $\mathcal{G} \subseteq \mathcal{B}(\mathbb{R})$ a classe onde isso vale, já vimos que $\mathcal{G}$ contém $(-\infty, q]$ para $q \in \mathbb{Q}$ pois $K(\omega, B) = \hat{F}(\omega, q)$ quase certamtente.
+  Mas $\mathcal{G}$ é um $\lambda$-sistema pelo Teorema da Convergência Monótona para esperanças condicionais.
+  Já que $\mathcal{G}$ contém um $\pi$-sistema que gera $\mathcal{B}(\mathbb{R})$, terminamos a prova do teorema.
+\end{proof}
+
+Interpretamos $P(X \in \cdot| \mathcal{F}')$ da seguinte forma.
+Se alguém tiver acesso à $\sigma$-álgebra $\mathcal{F}'$ (por exemplo se $\mathcal{F}' = \sigma(Y)$ e o pessoa for capaz de observar o valor de $Y(\omega)$), ela pode não saber o valor de $X(\omega)$, mas já sabe a nova distribuição condicional de $X$: $P(X \in \cdot|\mathcal{F}')(\omega)$.
+
+\begin{exercise}
+  Se $X$ é variável aleatória então
+  \begin{equation}
+    E(X|\mathcal{F}') = \int x P(X \in \d x|\mathcal{F}'), \text{ $P$-q.c.}
+  \end{equation}
+\end{exercise}
+
+\begin{exercise}
+  Se $\Omega = E_1 \times E_2$ com $E_2$ canônico é dotado da probabilidade $\d P = \rho(x_1, x_2) \mu_1 \otimes \mu_2 (\d x_1 \d x_2)$, então
+  \begin{equation}
+    P(X_2 \in A|X_1) = \frac{\int_A \rho(X_1, x_2) \mu_2(\d x_2)}{\int \rho(X_1, x_2) \mu_2(\d x_2)},
+  \end{equation}
+  $P$-quase certamtente.
+\end{exercise}
+
+Uma das grandes vantagens de ter um núcleo de transição a determinar uma distribuição conjunta, como é o caso quando obtemos uma probabilidade condicional regular, é que podemos usar a versão generalizada de Fubini.
+Antes, nós somente podiamos usar Fubini para espaços produto.
+
+Vamos introduzir nosso último conceito de condicionais.
+
+\begin{definition}
+  Dado $X:\Omega \to E$ um elemento aleatório, dizemos que um núcleo $K: E \times \mathcal{F} \to [0,1]$ é uma \emph{probabilidade condicional regular dado $X$} se
+  \begin{equation}
+    \label{e:K_prob_cond_reg_X}
+    K\big( X(\omega), A\big) = E(\1_A|\sigma(X)), \text{ $P$-quase certamente.}
+  \end{equation}
+  Nesse caso escrevemos $K(x, A) = P(A|X = x)$.
+\end{definition}
+
+A existência de tais condicionais não decorre somente do Teorema~\ref{t:prob_cond_reg_F}, já que o Lema~\ref{l:f_g_circ_X} não se aplica para núcleos de transição.
+A principal dificuldade de adaptarmos esse lema para núcleos vem do fato de que a imagem de uma função mensurável não é necessariamente mensurável.
+
+Contudo, não estamos muito longe de obter a existência das condicionais definidas acima.
+
+\begin{theorem}
+  \label{t:prob_cond_reg_X}
+  Sejam $\Omega$ e $E$ espaços mensuráveis e $X: \Omega \to E$ um elemento aleatório.
+  Então se $\Omega$ é canônico, existe $P(A|X = x)$, a probabilidade condicional regular dada $X$.
+\end{theorem}
+
+Observe que a hipótese de ser canônico é sobre $\Omega$!
+
+\begin{proof}
+  Definimos o elemento aleatório $X^\star: \Omega \to \Omega \times E'$ dado por $X^\star (\omega) = (\omega, X(\omega))$.
+  Como $X^\star$ é claramente mensurável, ele induz uma probabilidade natural em $\Omega \times E$, mais precisamente $P^\star = X^\star \circ P$.
+
+  Introduzimos também em $\Omega \times E$ as projeções canônicas $\pi_\Omega$ e $\pi_E$.
+  Utilizamos agora o Teorema~\ref{t:prob_cond_reg_F} para obter um núcleo $K^\star$ de $\Omega \times E$ em $\Omega$ que dá a probabilidade condicional regular de $\pi_\Omega$ (com respeito a $P^\star$) dada $\sigma(\pi_E)$, ou seja
+  \begin{equation}
+    K^\star(\cdot, A) = E^\star \big(\1_{[\pi_\Omega \in A]} | \sigma(\pi_E) \big) \text{ $P^\star$-q.c.}
+  \end{equation}
+  Mas como $K^\star(\cdot, A)$ é $\sigma(\pi_E)$-mensurável, podemos usar o Lema~\ref{l:f_g_circ_X} para obter uma $g_A: E \to \Omega \times E$ tal que
+  \begin{equation}
+    K^\star\big( (\omega, x), A \big) = g_A (\pi_E(\omega, x)) = g_A(x).
+  \end{equation}
+  Em particular, o lado esquerdo da equação acima não depende de $\omega$.
+  Podemos finalmente definir $K(x, A) = g_A(x)$.
+
+  Vemos facilmente que $K$ é um núcleo, pois toda $g_A$ é mensurável e $K(x, \cdot) = K^\star\big( (\omega, x), \cdot \big)$, que é uma medida.
+  Finalmente, temos que verificar \eqref{e:K_prob_cond_reg_X}.
+  \begin{equation}
+    \begin{split}
+      K(X(\omega), A) & = g_A(X(\omega)) = K^\star \big( (\omega, X(\omega)), A \big) = K^\star (X^\star(x), A)\\
+      & \overset{\text{$P^\star$-q.c.}}= E^\star \big(\1_{[\pi_\Omega \in A]} | \sigma(\pi_E) \big) \circ X^\star.
+    \end{split}
+  \end{equation}
+  Agora somente resta nos ver que essa é uma versão de $E(\1_A|\sigma(X))$, que segue da conta
+  \begin{equation}
+    \begin{split}
+      E\big( E^\star(& \1_{[\pi_\Omega \in A]} | \sigma(\pi_E)) \circ X^\star \1_{[X \in B]}\big)\\
+      & = E^\star \big( E^\star(\1_{[\pi_\Omega \in A]} | \sigma(\pi_E)) \1_{[\pi_E \in B]}\big)\\
+      & = E^\star ( \1_{[\pi_\Omega \in A, pi_E \in B]} ) = E(\1_A \1_{[X \in B]}),
+    \end{split}
+  \end{equation}
+  como gostaríamos.
+\end{proof}
+
+\begin{exercise}
+  Considere em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ as projeções canônicas $X_1$ e $X_2$.
+  Calcule, em cada um dos exemplos abaixo, a probabilidade condicional regular $P[X_1 \in \cdot|X_2 = x_2]$, justificando sua resposta,
+  \begin{enumerate}[\quad a)]
+  \item Quando $P$ é a medida uniforme em $T = \{(x,y) \in [0,1]^2; x \leq y\}$ (ou seja, a medida de Lebesgue em $\mathbb{R}^2$ restrita a $T$ e normalizada para ser uma probabilidade).
+  \item Quando $P$ é a medida $U_{S^1}$ (uniforme em $S^1$).
+  \end{enumerate}
+\end{exercise}
+
+\section{Princípio da substituição}
+
+No próximo resultado, veremos como o conceito abstrato de probabilidade condicional regular pode nos ajudar a fazer cálculos envolvendo variáveis dependentes.
+
+\begin{theorem}
+  \index{Principio@Princípio!da Substituicao@da Substituição}
+  Dado $X: \Omega \to E$ um elemento aleatório, se existe $P(\cdot | X = x)$ (em particular se $\Omega$ é canônico), então a medida $P(\cdot | X = x)$ tem suporte no conjunto $[X = x] \subseteq \Omega$, $X \circ P$-quase certamente.
+\end{theorem}
+
+\begin{proof}
+  Seja $G \in \Omega \times E$ dado por $G = \{(\omega, x); X(\omega) \neq x\}$.
+  Como $G = [\pi_\Omega \neq X \circ \pi_E]$, sabemos que $G$ é mensurável.
+  Para $x \in E$, denotamos por $G'_x$ as fatias $\{\omega \in \Omega; (\omega, x) \in G\}$ (que coincidem com $[X = x]^c$) e que são $\mathcal{F}$-mensuráveis para quase todo $x \in E$, como foi visto no Teorema de Fubini.
+
+  Com essa notação, vemos que
+  \begin{equation}
+    \begin{split}
+      0 = E^\star (\1_G) & = \int P^\star(G | \pi_E = x) (\pi_E \circ P^\star) (\d x)\\
+      & = \int K(x, G'_x) (X \circ P) (\d x)\\
+      & = \int P\big( [X = x]^c | X = x \big) (X \circ P) (\d x).
+    \end{split}
+  \end{equation}
+  Mas como o integrando acima é não-negativo, ele deve ser zero $(X \circ P)$-quase certamente, finalizando a prova do teorema.
+\end{proof}
+
+
+\begin{exercise}
+  Considere as medidas
+  \begin{equation}
+    \mu_a = \frac{\delta_{-1} + \delta_1}{2}, \qquad \text{e} \qquad \mu_b = \mathcal{N}(0, 1).
+  \end{equation}
+  e $K:\mathbb{R} \times \mathcal{B}(\mathbb{R}) \to [0,1]$ dada por
+  \begin{equation}
+    K(x, A) =
+    \begin{cases}
+      \mu_a (A - x), & \text{ se $x < 0$,}\\
+      \mu_b (A - x), & \text{ se $x \geq 0$,}
+    \end{cases}
+  \end{equation}
+  Mostre que
+  \begin{enumerate}[\quad a)]
+  \item $K$ define um núcleo de transição entre $\mathbb{R}$ em $\mathbb{R}$.
+  \item Se $X_1, X_2, \dots$ for uma cadeia de Markov em $\mathbb{R}$ com núcleo de transição $K$, então calcule
+    \begin{enumerate}[\qquad i)]
+    \item $E(X_i)$, para todo $i \geq 1$ e
+    \item $\text{Var}(X_i)$, para todo $i \geq 1$.
+    \item Mostre que
+      \begin{equation}
+        \frac{\sum_{i = 1}^n X_i}{\sqrt{n}} \Rightarrow \mathcal{N}(0,1).
+      \end{equation}
+    \end{enumerate}
+  \end{enumerate}
+\end{exercise}
+
+\todosec{Tópico: Processos de Poisson em \texorpdfstring{$\mathbb{R}$}{R}}{fazer...}
+
+\todosec{Tópico: Processos de Markov em tempo contínuo}{fazer...}
+
+\todosec{Tópico: Sistemas de partículas}{fazer...}
