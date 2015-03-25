@@ -229,9 +229,13 @@
 \draw[opacity=0] (-.1,-.1) rectangle (1.1, 1.1);
 \draw[line width=.5pt] (0,0) -- (1,1) (1,0) -- (0,1);}
 }
+\newcommand*\mtimes{\tikz[baseline=0, scale=.25]{
+\draw[opacity=0] (-.1,-.1) rectangle (1.1, 1.1);
+\draw[line width=.5pt] (0,0) -- (1,1) (1,0) -- (0,1);}
+}
 
 
-\newcommand{\todosec}[2]{\ifdraft{\vfill \pagebreak \subsection{#1} #2 \vfill \pagebreak}{}}
+\newcommand{\todosec}[2]{\ifdraft{\begin{topics} \section{#1} #2 \end{topics}}{}}
 
 %%%%%%%%%%%%%%%%%%%%%%% array paragraph %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{calc}

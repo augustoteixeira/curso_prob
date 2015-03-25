@@ -39,7 +39,7 @@ De fato, nesse caso definimos $P(A) = \sum_{\omega \in A} p_\omega$ que claramen
 
 \begin{topics}
 
-\subsection{Tópico: Método Probabilístico}
+\section{Tópico: Método Probabilístico}
 
 Uma importante ferramenta em várias áreas da matemática, tais como Teoria dos Números, Combinatória e Teoria da Computação é o que chamamos de Método Probabilístico. \index{Metodo Probabilistico@Método Probabilístico}
 
@@ -257,13 +257,13 @@ Mas escolhemos abaixo um método mais simples, que parte da existência de $U_{[
 
 \section{Espaços produto finito}
 
-Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebras $\mathcal{F}_1, \dots, \mathcal{F}_n$, podemos definir o espaço mensurável produto $(\bar{\Omega}, \bar{\mathcal{F}})$ da seguinte forma
+Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebras $\mathcal{F}_1, \dots, \mathcal{F}_n$, podemos definir o espaço mensurável produto $(\widebar{\Omega}, \widebar{\mathcal{F}})$ da seguinte forma
 \begin{equation}
-  \bar{\Omega} = \bigtimes_{i=1}^n \Omega_i \quad \text{e} \quad \bar{\mathcal{F}} = \sigma \Big( A_1 \times \cdots \times A_n; \; A_i \in \mathcal{F}_i, \text{ para $i \leq n$} \Big).
+  \widebar{\Omega} = \bigtimes_{i=1}^n \Omega_i \quad \text{e} \quad \widebar{\mathcal{F}} = \sigma \Big( A_1 \times \cdots \times A_n; \; A_i \in \mathcal{F}_i, \text{ para $i \leq n$} \Big).
 \end{equation}
 
 \begin{proposition}
-  Se $(\Omega_1, \mathcal{F}_1, P_1), \dots, (\Omega_n, \mathcal{F}_n, P_n)$ são espaços de probabilidade, então existe uma única probabilidade $\widebar{P}$ no espaço mensurável $(\bar{\Omega}, \bar{\mathcal{F}})$ tal que
+  Se $(\Omega_1, \mathcal{F}_1, P_1), \dots, (\Omega_n, \mathcal{F}_n, P_n)$ são espaços de probabilidade, então existe uma única probabilidade $\widebar{P}$ no espaço mensurável $(\widebar{\Omega}, \widebar{\mathcal{F}})$ tal que
   \begin{equation}
     \widebar{P}(A_1 \times \cdots, \times A_n) = \prod_{i=1}^n P_i(A_i), \text{ para todos $A_i \in \mathcal{F}_i$, $i \leq n$.}
   \end{equation}
@@ -374,8 +374,8 @@ Mais precisamente
   Em um espaço produto $(\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2, P_1 \otimes P_2)$, podemos definir
   \begin{equation}
     \begin{split}
-      \bar{\mathcal{F}}_1 & = \{A \times \Omega_2; A \in \mathcal{F}_1\},\\
-      \bar{\mathcal{F}}_2 & = \{\Omega_2 \times B; B \in \mathcal{F}_2\}.
+      \widebar{\mathcal{F}}_1 & = \{A \times \Omega_2; A \in \mathcal{F}_1\},\\
+      \widebar{\mathcal{F}}_2 & = \{\Omega_2 \times B; B \in \mathcal{F}_2\}.
     \end{split}
   \end{equation}
   Mostre que essas $\sigma$-álgebras são independentes.
@@ -481,7 +481,7 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
 
 \begin{topics}
 
-\subsection{Tópico: Lei dos pequenos números}
+\section{Tópico: Lei dos pequenos números}
 
 Nessa seção estudaremos como se comportam limites de algumas variáveis aleatórias bastante importantes, mas primeiramente, uma breve intuição.
 
@@ -733,7 +733,7 @@ Uma família $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ é dita uma álgebra de
     \label{e:aditiva_na_algebra}
     sempre que $A_1, A_2, \dots \in \mathcal{G}$ forem disjuntos e tais que $\cup_i A_i \in \mathcal{G}$,\\temos $\mu(\cup_i A_i) = \sum_i \mu(A_i)$.
   \end{display}
-  Nesse caso, existe uma medida $\bar{\mu}: \sigma(\mathcal{G}) \to \mathbb{R}_+$ tal que $\bar{\mu}(A) = \mu(A)$ para todo $A \in \mathcal{G}$.
+  Nesse caso, existe uma medida $\widebar{\mu}: \sigma(\mathcal{G}) \to \mathbb{R}_+$ tal que $\widebar{\mu}(A) = \mu(A)$ para todo $A \in \mathcal{G}$.
 \end{theorem}
 
 Mostraremos agora uma pequena simplificação do teorema acima, que é muito utilizada em probabilidade.
@@ -950,7 +950,7 @@ Mais adiante no texto daremos outros exemplos bastante interessantes do uso do T
 
 \begin{topics}
 
-\subsection{Tópico: Percolação}
+\section{Tópico: Percolação}
 
 Imagine que gostaríamos de modelar o movimento de um líquido em um meio poroso, como uma rocha ou uma esponja.
 A primeira tarefa nesse estudo seria modelar esse meio poroso de maneira matematicamente rigorosa, que é o que faremos a seguir.
@@ -1575,48 +1575,90 @@ Em várias áreas da matemática, existe um importante conceito de equivalência
 Nessa seção estudaremos o caso análogo para espaços mensuráveis, que nos trará uma grande surpresa.
 
 \begin{definition}
-  Uma função $\phi:E \to E'$ entre dois espaços mensuráveis é dita bi-mensurável \index{bi-mensuravel@bi-mensurável} quando $\phi$ é mensurável e injetiva, $\phi(E)$ for mensurável e a sua inversa $\phi^{-1}:f(E) \to E$ também for mensurável.
+  Uma função $\phi:E \to E'$ entre dois espaços mensuráveis é dita bi-mensurável \index{bi-mensuravel@bi-mensurável} quando $\phi$ é uma bijeção mensurável, com inversa mensurável.
+%mensurável, injetiva, sua imagem $\phi(E)$ for mensurável e a sua inversa $\phi^{-1}:\phi(E) \to E$ também for mensurável.
 \end{definition}
 
-Ao tentar classificar espaços mensuráveis à partir da possibilidade de que possam ser imersos bi-mensuravelmente em outros, descobrimos que uma classe apenas inclui praticamente todos os espaços que podemos estar interessados.
+Vamos agora tentar classificar os espaços a menos de bi-mensurabilidade.
+Descobriremos que na verdade os borelianos da reta incluem praticamente tudo que podemos estar interessados.
+Começamos com a seguinte definição.
 
 \begin{definition}
-  Dizemos que o espaço mensurável $(E, \mathcal{A})$ é canônico \index{espaco@espaço!canonico@canônico} se existe uma função $\phi: E \to \mathbb{R}$ bi-mensurável.
+  Dizemos que o espaço mensurável $(E, \mathcal{A})$ é canônico \index{espaco@espaço!canonico@canônico} se existe uma função $\phi: E \to B$ bi-mensurável para algum $B \in \mathcal{B}(\mathbb{R})$.
 \end{definition}
 
-Antes de mostrar que essa classe de espaços canônicos inclui muitíssimos exemplos, vamos motivar a definição acima atravéz do seguinte.
+Antes de mostrar que essa classe de espaços canônicos inclui muitíssimos exemplos, vamos motivar a definição acima exemplificando como esse conceito pode ser utilizado.
 
 \begin{theorem}[Extensão de Kolmogorov Extendida]
   \index{Teorema!da Extensao de Kolmogorov@da Extensão}
-  Se $E_1, E_2, \dots$ espaços mensuráveis canônicos, então o Teorema~\ref{t:extens_kolmog} (da extensão de Kolmogorov) também é válido no espaço produto $\Omega = E_1 \times E_2 \times \dots$ se a condição de consistência \eqref{e:consist_kolmog} for válida com $I_j$ substituídos por eventos quaiquer em $E_j$.
+  Se $E_1, E_2, \dots$ espaços mensuráveis canônicos, então o Teorema~\ref{t:extens_kolmog} (da extensão de Kolmogorov) também é válido no espaço produto $\Omega = E_1 \times E_2 \times \dots$ se a condição de consistência \eqref{e:consist_kolmog} for válida com $I_j$ substituídos por eventos da $\sigma$-álgebra de $E_j$.
 \end{theorem}
 
 \begin{proof}
-  Sejam $\phi_i: E_i \to \mathbb{R}$ bijeções bi-mensuráveis e defina $\psi_n: E_1 \times \dots \times E_n \to \mathbb{R}^n$ por $\psi_n(\omega_1, \dots, \omega_n) = \big(\phi_1(\omega_1), \dots, \phi_n(\omega_n)\big)$.
+  Sejam $\phi_i: E_i \to B_i \in \mathcal{B}(\mathbb{R})$ bijeções bi-mensuráveis e defina $\widebar{\phi}_n: E_1 \times \dots \times E_n \to \mathbb{R}^n$ por $\widebar{\phi}_n(\omega_1, \dots, \omega_n) = \big(\phi_1(\omega_1), \dots, \phi_n(\omega_n)\big)$.
   Assim podemos introduzir as medidas de probabilidade
   \begin{equation}
-    \bar{P_n} = \psi_n \circ P_n, \text{ em $\mathbb{R}^n$}.
+    \widebar{P}_n = \widebar{\phi}_n \circ P_n, \text{ em $\mathbb{R}^n$}.
   \end{equation}
-  É fácil verificar que as $\bar P_n$ são consistentes como em \eqref{e:consist_kolmog}.
-  Logo, existe $\widebar{P}$ em $(\mathbb{R}^\mathbb{N}, \mathcal{F})$ extendendo $\bar{P_n}$.
+  É fácil verificar que as $\widebar{P}_n$ são consistentes como em \eqref{e:consist_kolmog}.
+  Logo, existe $\widebar{P}$ em $(\mathbb{R}^\mathbb{N}, \mathcal{F})$ extendendo $\widebar{P}_n$.
 
-  Finalmente, consideramos o mapa $\Phi: \times_{i=1}^\infty \phi_i(E_i) \to \Omega$ dado por
+  Vamos agora definir uma medida em $\mtimes_i E_i$.
+  Para tanto, primeiramente fixamos para cada $i \geq 1$ um elemento arbitrário $w_i$ de $E_i$ e definimos $\psi_i :\mathbb{R} \to E_i$ por
+  \begin{equation*}
+    \psi_i(x) =
+    \begin{cases}
+      \phi^{-1}(x), \quad & \text{se $x \in B_i$ e}\\
+      w_i & \text{caso contrário}.
+    \end{cases}
+  \end{equation*}
+  Como $B_i \in \mathcal{B}(\mathbb{R})$, concluimos que $\psi_i$ é mensurável.
+
+  Finalmente, consideramos o mapa $\Psi: \mathbb{R}^\mathbb{N} \to \Omega$ dado por
   \begin{equation}
-    \Phi(\phi_1(\omega_1), \phi_2(\omega_2), \dots) = (\omega_1, \omega_2, \dots).
+    \Psi(x_1, x_2, \dots) = (\psi_1(x_1), \psi_2(x_2), \dots).
   \end{equation}
-  Resta mostrar que a medida $P = \Phi \circ \widebar{P}$ extende as probabilidades $P_n$:
-  \begin{equation}
+  Resta mostrar que a medida $P = \Psi \circ \widebar{P}$ extende as probabilidades $P_n$.
+  Observe que em concordância com nossa notação, nós nunca denotamos inversas de funções por $f^{-1}$, deixando essa notação para pré-imagens.
+  \begin{equation*}
     \begin{split}
-      P\big(A_1 \times \dots & \times A_n \times E_{n+1} \times \dots\big) = \widebar{P} \big(\Phi^{-1}(A_1 \times \dots \times A_n \times E_{n+1} \times \dots)\big)\\
-      & = \widebar{P} \big( \phi_1(A_1) \times \dots \times \phi_n(A_n) \times \phi_{n+1}(E_{n+1}) \times \dots \big)\\
-      & = \widebar{P}_n (\phi_1(A_1) \times \dots \times \phi_n(A_n))\\
-      & = P_n \big(\psi_n^{-1}\big(\phi_1(A_1) \times \dots \times \phi_n(A_n)\big)\big) = P_n(A_1 \times \dots \times A_n),
+      P\big(A_1 \times \dots \times A_n \times & E_{n+1} \times \dots\big) = \widebar{P} \big(\Psi^{-1}(A_1 \times \dots \times A_n \times E_{n+1} \times \dots)\big)\\
+      & = \widebar{P} \big( \psi^{-1}_1(A_1) \times \dots \times \psi^{-1}_n(A_n) \times \mathbb{R} \times \dots \big)\\
+      & = \widebar{P}_n (\psi^{-1}_1(A_1) \times \dots \times \psi^{-1}_n(A_n))\\
+      & = P_n \big(\phi^{-1}_1\big(\psi^{-1}_1(A_1)) \times \dots \times \phi^{-1}_n\big(\psi_n^{-1}(A_n)\big)\big)\\
+      & = P_n(A_1 \times \dots \times A_n),
     \end{split}
-  \end{equation}
+  \end{equation*}
   concluindo a prova do teorema.
 \end{proof}
 
-A seguir daremos um exemplo de espaço canônico que é importante para a seção seguinte.
+Uma ferramenta importante para construirmos espaços canônicos é a seguinte.
+
+\begin{lemma}
+  \label{l:mensur_de_canonico}
+  Seja $(E, \mathcal{A})$ é um espaço canônico e $A \in \mathcal{A}$, então $A$ também é canônico quando dotado da $\sigma$-álgebra $\{A \cap C; C \in \mathcal{A}\}$ induzida por $\mathcal{A}$ em $A$.
+\end{lemma}
+
+\begin{proof}
+  Seja $\phi: E \to B \in \mathcal{B}(\mathbb{R})$ uma função bi-mensurável que mostra que $E$ é canônico.
+  Consideramos $\phi': A \to \mathbb{R}$ dada pela restrição de $\phi$ a $A$ e precisamos mostrar as seguintes afirmativas:
+  \begin{enumerate}[\quad a)]
+  \item $\phi'$ é injetiva
+  \item $\phi'$ é mensurável
+  \item $\phi'(A)$ é mensurável e
+  \item a inversa $\psi': \phi'(A) \to A$ é mensurável.
+  \end{enumerate}
+  Vejamos,
+  \begin{enumerate}[\quad a)]
+  \item $\phi$ ser injetiva implica que $\phi'$ também o é.
+  \item dado $D \in \mathcal{B}(\mathbb{R})$, $\phi'^{-1}(D) = A \cap \phi^{-1}(D) \in \{A \cap C; C \in \mathcal{A}\}$.
+  \item denotando por $\psi: B \to E$ a inversa de $\phi$, temos que $\phi'(A) = \psi^{-1}(A) \in \mathcal{B}(B)$ pois $\psi$ é mensurável e
+  \item finalmente, se $D \in \mathcal{B}(A)$, então $\psi'^{-1}(D) = \psi^{-1}(D) \in \mathcal{B}(B)$, novamente pela mensurabilidade de $\psi$.
+  \end{enumerate}
+  Concluindo portanto a bi-mensurabilidade de $\phi'$ quando o seu contra-domínio é restrito a sua imagem.
+\end{proof}
+
+A seguir daremos um exemplo de espaço canônico que será importante na seção seguinte.
 
 \begin{lemma}
   \label{l:NN_canonico}
@@ -1624,22 +1666,22 @@ A seguir daremos um exemplo de espaço canônico que é importante para a seçã
 \end{lemma}
 
 \begin{proof}
-  Primeiramente definimos em $E$ a métrica de Hamming:
+  Primeiramente definimos em $E$ a Métrica de Hamming:
   \begin{equation}
     \label{e:hamming_distance}
-    d(x,y) = \sum_{i \geq 1} \frac{1}{2^{i + 1}} \1_{x_i \neq y_i}.
+    d_H(x,y) = \sum_{i \geq 1} \frac{1}{2^{i + 1}} \1_{x_i \neq y_i}.
   \end{equation}
   Fica como exercício mostrar que a $\sigma$-álgebra dos borelianos induzida por essa métrica coincide com a $\sigma$-álgebra produto em $E$.
   Definimos agora o mapa $\phi:E \to \mathbb{R}$ dado por
   \begin{equation}
     \phi(n_1, n_2, \dots) = 2^{-n_1} + 2^{-1 - n_1 - n_2} + \dots + 2^{-n - \sum_{i=1}^n n_i} + \dots
   \end{equation}
-  Também deixamos a cargo do leitor mostrar que $\phi$ define um homeomorfismo entre $(E,d)$ e um boreliano de $\mathbb{R}$.
+  Também deixamos a cargo do leitor mostrar que $\phi$ define um homeomorfismo entre $(E,d_H)$ e um boreliano de $\mathbb{R}$.
 \end{proof}
 
 \subsection{Espaços poloneses}
 
-Nessa seção mostraremos que uma grande coleção de espaços conhecidos são canônicos.
+Nessa seção mostraremos que todos espaços chamados poloneses são canônicos.
 
 \begin{definition}
   Um espaço métrico $(E,d)$ é dito polonês \index{espaco@espaço!polones@polonês} se é separável e completo.
@@ -1669,17 +1711,17 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   Seja $(E,d)$ um espaço polonês e $G, F \subseteq E$ um aberto e um fechado de $E$ respectivamente.
   Então, existe uma métrica $d'$ em $F \cap G$ tal que
   \begin{enumerate}[\quad a)]
-  \item $d$ e $d'$ são equivalentes (induzem a mesma noção de convergência),
+  \item $d$ e $d'$ são equivalentes em $F \cap G$ (induzem a mesma noção de convergência),
   \item $d(x,y) \leq d'(x,y)$ para todo $x, y \in F \cap G$ e
   \item $(F \cap G, d')$ é polonês.
   \end{enumerate}
 \end{lemma}
 
 \begin{proof}
-  A primeira observação simple é que $F \cap G$ é separável com respeito a $d$.
+  A primeira observação que faremos é que $F \cap G$ é separável com respeito a $d$.
   Isso segue do fato de separabilidade ser equivalente à existência de uma base enumerável.
 
-  Vamos definir em $G \times G$
+  Vamos definir para $x, y$ em $G$,
   \begin{equation}
     d'(x,y) = d(x,y) + \Big| \frac{1}{d(x,G^c)} - \frac{1}{d(y,G^c)} \Big|,
   \end{equation}
@@ -1702,10 +1744,13 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   Além disso tais métricas podem ser escolhidas satisfazendo as hipóteses do Lema~\ref{l:sub_polones}
 \end{example}
 
+O próximo lema é o ingrediente chave para provarmos o resultado principal dessa seção.
+Ele nos dá uma maneira de fatiar um espaço polonês em uma partição de espaços poloneses pequenos.
+
 \begin{lemma}
   \label{l:particao_polones}
   Seja $(E, d)$ um espaço polonês e $r > 0$.
-  Então existe uma partição $A_0, A_1, \dots$ de $A$ e métricas $d_0, d_1, \dots$ nesses respectivos subconjuntos de forma que para todo $i \geq 0$,
+  Então existe uma partição $A_1, A_2, \dots$ de $A$ e métricas $d_1, d_2, \dots$ nesses respectivos subconjuntos de forma que para todo $i \geq 1$,
   \begin{enumerate}[\quad a)]
   \item $(A_i, d_i)$ são espaços poloneses disjuntos,
   \item $d_i$ e $d$ são equivalentes em $A_i$ e $d_i \geq d$ e finalmente
@@ -1715,25 +1760,32 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
 \end{lemma}
 
 \begin{proof}
-  Obtemos atravéz da separabilidade de $E$, uma coleção de bolas $(B_i)_{i \geq 0}$ com diâmetros limitados por $r$ e cobrindo $E$.
+  Obtemos atravéz da separabilidade de $E$, uma coleção de bolas $(B_i)_{i \geq 1}$ com diâmetros limitados por $r$ e cobrindo $E$.
   Então definimos
   \begin{equation}
-    A_0 = B_0, \quad \text{e} \quad A_n = B_n \setminus \mcup_{i=0}^{n-1} B_i \quad \text{para $n \geq 1$.}
+    A_1 = B_1, \quad \text{e} \quad A_n = B_n \setminus \mcup_{i=0}^{n-1} B_i \quad \text{para $n \geq 1$.}
   \end{equation}
 
   Agora podemos dotar cada um dos $A_i$ com a métrica $d_i$ obtida atravéz do Lema~\ref{l:sub_polones} (observe para tanto que os $A_i$ são dados por interseções de um aberto com um fechado).
   As propriedades enunciadas no lema são trivialmente satisfeitas.
 \end{proof}
 
+Terminamos essa seção com esse importante resultado, que confirma nossa afirmação de que quase todos os espaços mensuráveis que podemos nos interessar são canônicos.
+
 \begin{theorem}
-  Todo espaço polonês $(E, d)$ é canônico.
+  Todo sub-conjunto boreliano de espaço polonês $(E, d)$ é canônico.
 \end{theorem}
 
 \begin{proof}
-  Pelo Lema~\ref{l:NN_canonico}, basta construir uma função bi-mensurável $\phi:E \to \mathbb{N}^\mathbb{N}$ e depois compô-la com uma função bi-mensurável $\phi':\mathbb{N}^\mathbb{N}$.
+  Primeiramente, pelo Lema~\ref{l:mensur_de_canonico}, basta mostrar que todo espaço $E$ polonês é canônico.
+  Pelo Lema~\ref{l:NN_canonico} e novamente o Lema~\ref{l:mensur_de_canonico},
+  \begin{display}
+    basta construir uma função bi-mensurável $\phi:E \to B \in \mathcal{B}(\mathbb{N}^\mathbb{N})$
+  \end{display}
+  e depois compô-la com uma função bi-mensurável $\phi': B \to C \in \mathcal{B}(\mathbb{R})$.
 
   Para começar, construiremos uma partição encaixada de $E$.
-  Mais precisamente, defina os conjuntos de índice
+  Mais precisamente, defina os conjuntos $M_n$ que serão utilizados como índices
   \begin{equation}
     M_n = \mathbb{N}^n \quad \text{para $n \geq 1$ e} \quad M = \cup_n M_n.
   \end{equation}
@@ -1742,7 +1794,7 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   Faremos isso da seguinte forma:
   \begin{enumerate}[\quad a)]
   \item se $m = i \in M_1$, então definimos $A_1, A_2, A_3, \dots$ e $d_1, d_2, d_3, \dots$ como no Lema~\ref{l:particao_polones} com $r = 1$,
-  \item se $(A_m, d_m)$ já foi definido para algum $m \in I_n$, então utilizamos também o Lema~\ref{l:particao_polones} com $r = 1/n$ para particionar o conjunto $A_m$ (com a métrica $d_m$) em $A_{(m,1)}, A_{(m,2)}, \dots$ com suas respectivas métricas $d_{(m,1)}, d_{(m,2)}, \dots$
+  \item se $(A_m, d_m)$ já foi definido para algum $m \in M_n$, então utilizamos também o Lema~\ref{l:particao_polones} com $r = 1/n$ para particionar o conjunto $A_m$ (com a métrica $d_m$) em $A_{(m,1)}, A_{(m,2)}, \dots$ com suas respectivas métricas $d_{(m,1)}, d_{(m,2)}, \dots$
   \end{enumerate}
   Obviamente suporemos que são válidas as propriedades de tais métricas garantidas pelo Lema~\ref{l:particao_polones}.
 
@@ -1753,8 +1805,7 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   \item se já encontramos $\phi_1(x), \dots, \phi_n(x)$ tal que $x \in A_{(\phi_1(x), \dots \phi_n(x))}$, então o fato que particionamos o último conjunto na definição de $A_m$, $m \in M_{n+1}$ nos garante que podemos definir unicamente $\phi_{n+1}(x)$ de forma a continuar a indução.
   \end{enumerate}
   Da maneira acima já obtivemos $\phi(x) = (\phi_1(x), \phi_2(x), \dots)$.
-
-  Para terminar, devemos mostrar que $\phi$ é bi-mensurável.
+  Para terminar, devemos mostrar que $\phi$ é bi-mensurável quando seu contra-domínio é restrito à sua imagem.
 
   Isso começa com a prova de que $\phi$ é injetiva.
   Se $\phi(x) = \phi(y)$, então existe uma sequência $m_n \in M_n$ tal que $x, y \in A_{m_n}$ para todo $n$.
@@ -1766,71 +1817,49 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   Seja $w \in \mathbb{N}^\mathbb{N}$ tal que $\phi(x) = w$ e tome $G \subseteq \mathbb{N}^\mathbb{N}$ com $G = \{(w_1, \dots, w_l)\} \times \mathbb{N}^\mathbb{N}$ (esses conjuntos geram a $\sigma$-álgebra canônica em $\mathbb{N}^\mathbb{N}$).
   Claramente, $\phi^{-1}(G) = A_{(\phi_1(x), \dots, \phi_l(x))}$, de forma que mostramos que $\phi$ é mensurável.
 
-  Para mostrar que $\phi^{-1}:\phi(E) \to E$ é mensurável, veremos que ela é de fato contínua.
+  Para mostrar que sua inversa $\psi:\phi(E) \to E$ é mensurável, veremos que ela é de fato contínua com respeito à Métrica de Hamming definida em \eqref{e:hamming_distance}.
   Dado $n \geq 1$, tomamos $\delta < 2^{-n}$.
-  Se $w, w' \in \phi(E)$ são tais que $d(w, w') < \delta$ em $\mathbb{N}^\mathbb{N}$, então $w_i = w'_i$ para todo $i \leq n$, de forma que $\phi^{-1}(w)$ e $\phi^{-1}(w')$ pertencem a $A_{(w_1, \dots, w_n)}$.
+  Se $w, w' \in \phi(E)$ são tais que $d_H(w, w') < \delta$ em $\mathbb{N}^\mathbb{N}$, então $w_i = w'_i$ para todo $i \leq n$, de forma que $\phi^{-1}(w)$ e $\phi^{-1}(w')$ pertencem a $A_{(w_1, \dots, w_n)}$.
   A continuidade de $\phi^{-1}$ segue do fato que o diâmetro de $A_{(w_1, \dots, w_n)}$ é no máximo $1/n$ (com respeito a $d_{(w_1, \dots, w_n)}$ e portanto com respeito a $d$).
 
-  Vale lembrar que precisamos mostrar que $\phi(E)$ é mensurável.
+  Mas atenção, apesar de que parece que provamos o teorema, ainda falta mostrar que $\phi(E)$ é mensurável.
   Para tanto, afirmamos que
   \begin{equation}
     \label{e:phiE_mensur}
-    \phi(E) = \mathbb{N}^\mathbb{N} \setminus \mcup_{w_1, \dots, w_k} \{w_1\} \times \{w_k\} \times \mathbb{N} \times \dots,
+    \phi(E) = \mathbb{N}^\mathbb{N} \setminus \Big( \bigcup_{k, w_1, \dots, w_k} \{w_1\} \times \{w_k\} \times \mathbb{N} \times \dots \Big),
   \end{equation}
   onde a união acima é tomada sobre todos $k \geq 1$ e $w_1, \dots, w_k$ tais que $A_{w_1, \dots, w_k}$ é vazio.
-  A igualdade acima implica a mensurabilidade de $\phi$ instantaneamente.
+  A igualdade acima será mostrada no que segue.
 
   Dado $w \in \phi(E)$ existe $x \in E$ tal que $\phi(x) = w$.
   Como $x \in A_{w_1, \dots, w_n}$ para todo $n \geq 1$, esses conjuntos não são vazios.
   Logo $w$ não pertence à união em \eqref{e:phiE_mensur}, mostrando o lado ($\subseteq$) da inclusão.
   Finalmente, suponha que $w = (w_1, w_2, \dots)$ é tal que para todo $k \geq 1$, $A_{w_1, \dots, w_k} \neq \varnothing$.
-  Tomamos portanto $x_k \in A_{w_1, \dots, w_k}$, com $k \geq 1$ e vamos mostrar que
+  Tomamos portanto para todo $k \geq 1$ um ponto $x_k \in A_{w_1, \dots, w_k}$.
+
+  Afirmamos que
   \begin{equation}
-    \text{$(x_k)_{k \geq n}$ é Cauchy em $A_{w_1, \dots, w_n}$ para todo $n$.}
+    \text{para todo $n$, $(x_k)_{k \geq n}$ é Cauchy em $(A_{w_1, \dots, w_n}, d_{w_1, \dots, w_n})$.}
   \end{equation}
-  De fato, dado $n \geq 1$, temos que, para todo $k \geq n + 1$, $x_k \in A_{w_1, \dots, w_{n+1}}$ (cujo $d_{w_1, \dots, w_{n}}$-diâmetro é menor que $1/n$), logo $x_k$ é uma sequência de Cauchy em $A_{w_1, \dots, w_n}$ com sua respectiva distância.
+  De fato, para todo $k \geq n$, $x_k \in A_{w_1, \dots, w_{k}}$ (cujo $d_{w_1, \dots, w_{n}}$-diâmetro é menor que $1/k$), logo $x_k$ é uma sequência de Cauchy em $A_{w_1, \dots, w_n}$ com sua respectiva distância.
   Tomamos $x = \lim_n x_k$ com respeito à distância $d$ e para terminar a prova do teorema, basta motrar que $\phi(x) = w$, ou em outras palavras,
   \begin{equation}
     \label{e:x_in_Aw}
-    x \in \mcap_n A_{w_1, \dots, w_n}, \text{ para todo $n \geq 1$.}
+    x \in \mcap\nolimits_n A_{w_1, \dots, w_n}, \text{ para todo $n \geq 1$.}
   \end{equation}
   Mas claramente
   \begin{enumerate}[\quad a)]
   \item $x \in A_\varnothing = E$ e
   \item se $x \in A_{w_1, \dots, w_n}$, então como $x_k$ é Cauchy em $A_{w_1, \dots, w_{n+1}}$, temos que $x_k$ converge a um certo $x' \in A_{w_1, \dots, w_{n+1}}$ na métrica $d_{w_1, \dots, w_{n+1}}$.
-    Como essa métrica é equivalente a tanto $d_{w_1, \dots, w_n}$ quanto $d$ em $A_{w_1, \dots, w_n}$, temos que $x = x' \in A_{w_1, \dots, w_n}$.
+    Como essa métrica é equivalente a tanto $d_{w_1, \dots, w_n}$ quanto $d$ em $A_{w_1, \dots, w_n}$, temos que $x = x' \in A_{w_1, \dots, w_{n+1}}$.
   \end{enumerate}
   Isso conclui por indução a prova de \eqref{e:x_in_Aw} e consequentemente do teorema.
 \end{proof}
 
-Terminamos essa seção com esse importante corolário, que confirma nossa afirmação de que quase todos os espaços mensuráveis que podemos nos interessar são canônicos.
-\begin{corollary}
-  \label{c:borel_de_polones}
-  Se $(E, d)$ é um espaço polonês e $B \in \mathcal{B}(E)$, então $(B, d)$ é canônico.
-\end{corollary}
-
-\begin{proof}
-  Seja $\phi: E \to \mathbb{R}$ a função bi-mensurável que mostra que $E$ é polonês.
-  Consideramos $\phi': B \to \mathbb{R}$ dada pela restrição de $\phi$ a $B$ e precisamos mostrar as seguintes afirmativas:
-  \begin{enumerate}[\quad a)]
-  \item $\phi'$ é injetiva
-  \item $\phi'$ é mensurável
-  \item $\phi'(B)$ é mensurável e
-  \item a inversa $\psi': \phi'(B) \to B$ é mensurável.
-  \end{enumerate}
-  Vejamos,
-  \begin{enumerate}[\quad a)]
-  \item $\phi$ ser injetiva implica que $\phi'$ também o é.
-  \item dado $A \in \mathcal{B}(R)$, $\phi'^{-1}(A) = B \cap \phi^{-1}(A) \in \mathcal{B}(B)$.
-  \item denotando por $\psi: \phi(E) \to E$ a inversa de $\phi$ em sua imagem, temos que $\phi(B) = \psi^{-1}(B) \in \mathcal{B}(\mathbb{R})$ pois $\psi$ é mensurável e
-  \item finalmente, se $D \in \mathcal{B}(B)$, então $\psi'^{-1}(D) = \psi^{-1}(D) \in \mathcal{B}(\mathbb{R})$, novamente pela mensurabilidade de $\psi$.
-  \end{enumerate}
-  Concluindo portanto a bi-mensurabilidade de $\phi'$.
-\end{proof}
-
 \begin{topics}
 
-\subsection{Tópico: Cadeias de Markov}
+\section{Tópico: Cadeias de Markov}
+\label{s:cadeias_Markov}
 
 Um exemplo de como usar núcleos de transição é a construção de Cadeias de Markov.
 Esse tipo de processo é bastante útil em diversas aplicações, desde a biologia até a computação.
@@ -1851,7 +1880,7 @@ Gostaríamos agora que $x_1$ determinasse a distribuição de $x_2$ via $K$, com
 \begin{equation}
   \mu_2(A_0 \times A_1 \times A_2) = \int_{A_0} \int_{A_1} \int_{A_2} K(x_1, \d x_2) K(x_0, \d x_1) \mu_0 (\d x_0).
 \end{equation}
-Mas essa notação é bastante carregada à medida que iteramos.
+Mas essa notação fica bastante carregada à medida que iteramos.
 
 Para tornar essa notação mais simples, definimos a projeção $\phi_n:E^n \to E$ por $\phi_n(x_0, \dots, x_{n-1}) = x_{n-1}$.
 Também precisamos de $K_n: E^n \times \mathcal{A} \to [0,1]$ dado por
@@ -1869,7 +1898,7 @@ Podemos finalmente definir
   \label{e:Pn_Markov}
   \mu_{n+1} = \mu_n \star K^n, \text{ para todo $n \geq 1$}.
 \end{equation}
-Mas resta a questão sobre a existência de uma $\mu^\infty$ que será respondida com ajuda do próximo
+Mas resta a questão sobre a existência de uma $\mu^\infty$ que será respondida com ajuda do próximo resultado.
 
 \begin{lemma}
   As probabilidades $\mu_n$ definidas em \eqref{e:Pn_Markov} são compatíveis, mais precisamente $\mu_{n+1}(A \times E) = \mu_n(A)$ para todo $A \in \mathcal{A}^{\otimes n}$.
@@ -1887,11 +1916,12 @@ Logo, o Teorema da Extensão de Kolmogorov (lembre que $(E, \mathcal{A})$ foi su
 \begin{equation}
   (X_0, \dots, X_n) \circ P = \mu_n, \text{ para todo $n \geq 0$}.
 \end{equation}
-Lembramos que $X_i$ denotam as projeções canônicas em $\Omega = \times_{i=1}^\infty E$.
+Lembramos que $X_i$ denotam as projeções canônicas em $\Omega = \mtimes_{i=1}^\infty E$.
 
 Chamamos o processo $X_1, X_2, \dots$ sob a lei $P$ de Cadeia de Markov \index{Cadia de Markov} com distribuição inicial $\mu_0$ e núcleo de transição $K$.
 
 \begin{example}
+  \label{x:Markov_p_xy}
   Suponha que $E$ seja enumerável.
   Nesse caso recordamos do Exemplo~\ref{x:nucleo_discreto} que o núcleo pode ser representado por uma matriz $\big(p(x,y)\big)_{x,y \in E}$ que nos retorna a probabilidade de saltar de $x$ a $y$.
   Além disso, a distribuição inicial $\mu_0$ é determinada por $P(\{x\}) = p_0(x)$, para alguma sequência $\big(p_0(x)\big)_{x \in E}$.
@@ -1917,8 +1947,8 @@ Chamamos o processo $X_1, X_2, \dots$ sob a lei $P$ de Cadeia de Markov \index{C
 \end{exercise}
 
 \begin{exercise}
-  Mostre que para qualquer núcleo de transição $K$ entre $E$ e $E$, existe um núcleo de transição $\bar K$ entre $E$ e $\Omega = \prod_{i=1}^\infty$, tal que para toda medida inicial $\mu_0$, temos que $\mu_0 \star K$ é a distribuição de uma Cadeia de Markov começando de $\mu_0$ e com transição dada por $K$.
-  Esse núcleo é útil se quisermos mudar a distribuição inicial $\mu_0$ e uma notação bastante comum para esse núcleo é $P_{x}(\cdot) = \bar K(x, \cdot)$.
+  Mostre que para qualquer núcleo de transição $K$ entre $E$ e $E$, existe um núcleo de transição $\widebar{K}$ entre $E$ e $\Omega = \prod_{i=1}^\infty$, tal que para toda medida inicial $\mu_0$, temos que $\mu_0 \star K$ é a distribuição de uma Cadeia de Markov começando de $\mu_0$ e com transição dada por $K$.
+  Esse núcleo é útil se quisermos mudar a distribuição inicial $\mu_0$ e uma notação bastante comum para esse núcleo é $P_{x}(\cdot) = \widebar{K}(x, \cdot)$.
 \end{exercise}
 
 Vamos terminar essa seção dando uma interpretação bastante interessante para os núcleos de transição em analogia à álgebra linear.
@@ -1944,13 +1974,98 @@ Essa analogia é real se $E$ for um espaço enumerável.
   \end{enumerate}
 \end{exercise}
 
-\todosec{Tópico: Urna de Pólya}{fazer...}
+\end{topics}
 
-\todosec{Tópico: Recorrência e transiência}{markov recorrência/transiência + periodicidade...}
+\begin{topics}
+
+\section{Tópico: Urna de Pólya}
+
+Um excelente exemplo de como Cadeias de Markov podem gerar interessantes modelos de situações reais são as chamadas Urnas de Pólya.
+Esse processo modela sistemas de física, biologia, computação e economia que apresentam o que chamamos de reforço.
+
+Tome por exemplo duas empresas que competem pelo mercado de aviões.
+Inicialmente, não temos nenhuma razão para escolher uma em detrimento da outra, portanto compramos nosso primeiro avião de cada empresa com probabilidade meio.
+Porém, depois que já compramos diversos aviões de uma determinada empresa, ela já recebeu bastante dinheiro que pode ser reinvestido para gerar melhor tecnologia e aumentar as chances que ela seja escolhida novamente no futuro.
+Isso é o que chamamos de reforço.
+
+Vamos agora apresentar rigorosamente um modelo para situações desse tipo.
+O nosso modelo começa com uma urna contendo duas bolas, uma vermelha e uma azul.
+No cada passo do processo, escolheremos uma bola da urna ao acaso, olharemos sua cor e retornaremos essa bola para dentro urna junto com mais uma bola da mesma cor.
+Isso pode ser formalizado da seguinte forma:
+
+Seja $K$ um núcleo de transição entre $\mathbb{N}^2$ e ele próprio dado pelas probabilidades de transição $p(\cdot, \cdot)$ como no Exemplo~\ref{x:Markov_p_xy}.
+As probabilidades de transição são dadas pelas seguintes fórmulas
+\begin{equation}
+  \label{e:p_xy_Polya}
+  p\big( (x,y), (x + 1, y) \big) = \frac{x}{x + y} \quad \text{ e } \quad p\big( (x,y), (x, y + 1) \big) = \frac{y}{x + y},
+\end{equation}
+para todos $x, y \geq 1$ e $p(\cdot, \cdot) = 0$ em todos os outros casos.
+
+Agora que definimos as probabilidades de transição $p(\cdot, \cdot)$, podemos definir o núcleo $K$ associado.
+Com a notação da Seção~\ref{s:cadeias_Markov}, introduzimos uma probabilidade $P_{(1,1)}$ em $\{0,1\}^{\mathbb{N}}$ que nos dá a Cadeia de Markov começando de $(1,1)$ e associada às probabilidades de transição $p(\cdot, \cdot)$ acima.
+
+Podemos agora fazer perguntas como por exemplo: será que escolheremos bolas de ambas as cores para sempre, ou a partir de um certo momento escolheremos bolas de apenas uma cor com certa probabilidade.
+
+Para responder perguntas desse tipo, iremos mostrar algo muito curioso, que pode ser entendido como uma outra maneira de representar o modelo descrito acima.
+
+Dado $u \in [0,1]$, seja $P_u = \otimes_{n \geq 1} \Ber(u)$, ou seja a probabilidade que nos dá uma sequência infinita de moedas independentes com probabilidade $u$ de sucesso.
+Definimos agora $\widebar{K}: [0,1] \times (\otimes_{n \geq 1} \mathcal{P}(\{0,1\})) \to [0,1]$ dada por
+\begin{equation}
+  \widebar{K}(u,A) = P_u(A).
+\end{equation}
+
+\begin{lemma}
+  A função $\widebar{K}$ definida acima é um núcleo entre $[0,1]$ e $\{0,1\}^{\mathbb{N}}$.
+\end{lemma}
+
+\begin{proof}
+  Usando a Proposição~\ref{p:K_nucleo_na_classe}, basta ver que
+  \begin{display}
+    para todo $k \geq 1$ e $w_1, \dots, w_k \in \{0,1\}$, temos que $P_u(X_1 = w_1, \dots, X_k = w_k)$ é uma função mensurável de $u \in [0,1]$.
+  \end{display}
+  Mas se definimos o número de valores um $N_1(w_1, \dots, w_k) = |\{i \leq k; w_i = 1\}|$ e zero $N_0(w_1, \dots, w_k) = |\{i \leq k; w_i = 0\}|$ de uma sequência, é fácil ver que
+  \begin{equation}
+    \label{e:Polya_binomial}
+    P_u(X_1 = w_1, \dots, X_k = w_k) = u^{N_1(w_1, \dots, w_k)} (1 - u)^{N_0(w_1, \dots, w_k)},
+  \end{equation}
+  que obviamente é mensurável, provando assim o lema.
+\end{proof}
+
+O resultado muito curioso que relaciona a contrução acima com a Urna de Pólya é o seguinte.
+
+\begin{lemma}
+  A lei $P_{(1,1)}$ definida a partir de \eqref{e:p_xy_Polya} é igual a $U_[0,1] \widebar{K}$.
+\end{lemma}
+
+Em outras palavras, digamos que realizamos os seguintes experimentos.
+Primeiramente João realiza o processo da Urna de Pólya e anota a sequência das cores obtidas.
+Depois Maria sorteia uma variável aleatória $X$ de distribuição uniforme em $[0,1]$ e depois joga infinitas vezes uma moeda de probabilidade $X$ de obter vermelho e $(1-X)$ de obter azul, anotando também quais cores foram obtidas.
+Finalmente, não seríamos capazes de distinguir essas duas sequências pois elas tem a mesma distribuição em $\{0,1\}^{\mathbb{N}}$.
+
+\begin{proof}
+  Fixamos $k \geq 1$ e uma sequência $w_1, \dots, w_k \in \{0,1\}$ para calcular a probabilidade do evento $A = \{w_1\} \times \dots \times \{w_k\} \times \{0,1\} \times \dots$
+  Note que os eventos desse tipo (junto com o evento $\varnothing$) formam um $\pi$-sistema que gera a $\sigma$-álgebra canônica de $\{0,1\}^\mathbb{N}$, de forma que basta mostrar a igualdade das probabilidades acima para tais eventos.
+
+  Mas de fato, sabemos do Teorema de Fubini para Núcleos que
+  \begin{equation}
+    \begin{split}
+      U \widebar{K}(A) & = \int_0^1 K(u, A) \d u \overset{\eqref{e:Polya_binomial}}= \int_0^1 u^{N_1(w_1, \dots, w_k)} (1 - u)^{N_0(w_1, \dots, w_k)} \d u\\
+    \end{split}
+  \end{equation}
+
+
+\end{proof}
+
+\begin{exercise}
+  Mostre que a probabilidade, segundo o modelo da Urna de Pólya, de que observemos infinitas bolas de ambas as cores é um.
+\end{exercise}
+
+
+
+\end{topics}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../Notas_de_aula"
 %%% End:
 
-\end{topics}
