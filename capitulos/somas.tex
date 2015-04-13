@@ -671,7 +671,7 @@ Estamos agora em posição de finalizar a
 
 \section{Lei \texorpdfstring{$\{0, 1\}$}{\{0,1\}} de Kolmogorov}
 
-Ao estudarmos o Lema de Borel-Cantelli, vimos que, se os eventos $(A_i)_{i \geq 1}$ são independentes, então a probabilidade de $[A_i \text{ infinitas vezes}]$ somente pode assumir os valores zero ou um (dependendo da somabilidade de $P(A_i)$).
+Ao estudarmos o Lema de Borel-Cantelli, vimos que se os eventos $(A_i)_{i \geq 1}$ são independentes então a probabilidade de $[A_i \text{ infinitas vezes}]$ somente pode assumir os valores zero ou um (dependendo da somabilidade de $P(A_i)$).
 Nessa seção iremos estudar outros tipos de evento que assumem apenas esses dois valores.
 Esperamos que esse fenômeno se torne intuitivo ao final dessa discussão.
 
@@ -693,7 +693,7 @@ Para tanto, basta observar que para todo $n \geq 1$, temos que
 \begin{equation*}
   [A_i \text{ infinitas vezes}] = \big[\#\{i \geq 1; \omega \in A_i\} = \infty\big] = \big[\#\{i \geq n; \omega \in A_i\} = \infty\big],
 \end{equation*}
-que obviamente pertence a $\sigma(X_i; i \geq n)$.
+que obviamente pertence a $\sigma(X_i; i \geq n)$ para todo $n \geq 1$.
 
 \begin{exercise}
   Mostre que em $\Omega = \mathbb{R}^{\infty}$, são caudais os seguintes eventos
@@ -760,8 +760,8 @@ Um exemplo disso foi visto na estimativa
 Em geral, quanto maior o momento, melhor a estimativa do decaimento para a probabilidade de que uma variável se desvie de sua esperança.
 Nessa seção iremos para momentos exponenciais, que em um certo sentido produzem estimativas ótimas para o comportamento assintótico da probabilidade de desvio.
 
-Note que se quisermos um erro pequeno mas considerável (como por exemplo $\sim 0.01$), o método do segundo momento é muito bom, como veremos posteriormente.
-Mas se quisermos um erro realmente muito pequeno (em situações concretas, algo como $10^{-12}$ por exemplo), certamente teremos que aumentar bastante o valor de $n$, mas quanto?
+Note que se quisermos uma pequena probabilidade de erro (como por exemplo $\sim 0.01$), o método do segundo momento é muito bom, como veremos posteriormente.
+Mas se quisermos uma probabilidade de erro minúscula (em situações concretas, algo como $10^{-12}$ por exemplo), certamente teremos que aumentar bastante o valor de $n$, mas quanto?
 As cotas de segundo momento são muito ruins para esse tipo de estimativa, nos levando a escolher um $n$ maior que o necessário.
 Abaixo, desenvolveremos um método mais eficiente para responder a essa pergunta, obviamente sob certas hipóteses na distribuição das variáveis aleatórias.
 
@@ -789,7 +789,7 @@ Abaixo, desenvolveremos um método mais eficiente para responder a essa pergunta
   \end{enumerate}
 \end{proposition}
 
-A última conclusão da proposição acima justifica a nomenclatura função geradora de momentos.
+A última conclusão da proposição acima justifica a nomenclatura função geradora de momentos pois $\phi_X^{(n)}(0) = E(X^n)$.
 
 \begin{proof}
   Obviamente, para todo $p \geq 1$ existe $c > 0$ tal que $\ex{\delta |x|} \geq c |x|^p$, donde $X \in \mathcal{L}^p$.
@@ -797,20 +797,18 @@ A última conclusão da proposição acima justifica a nomenclatura função ger
 
   Fixando $s \in \mathbb{R}$, vamos agora calcular
   \begin{equation}
-    \begin{split}
-      \frac{\phi_X(s + h) - \phi_X(s)}{h} & = \frac{E\big(\ex{(s+h)X} - \ex{sX}\big)}{h}\\
-      & = E\Big(\ex{sX} \frac{\ex{hX} - 1}{h}\Big).
-    \end{split}
+      \frac{\phi_X(s + h) - \phi_X(s)}{h} = \frac{E\big(\ex{(s+h)X} - \ex{sX}\big)}{h} = E\Big(\ex{sX} \frac{\ex{hX} - 1}{h}\Big).
   \end{equation}
-  Lembrando que $|\tfrac{1}{y}(e^y - 1)| \leq c e^{|y|}$, para todo $y \in \mathbb{R}$, temos que para $h < (\delta - |s|)/2$, o integrando acima é dominado por $c |X| \ex{\smash{\tfrac{\delta + |s|}{2} |X|}} \in \mathcal{L}^1$, logo podemos usar o Teorema da Convergência Dominada para trocar o limite $h \to 0$ com a esperança, obtendo
+  Lembrando que $|\tfrac{1}{y}(e^y - 1)| \leq e^{|y|}$, para todo $y \in \mathbb{R}$, temos que para todos os $h < (\delta - |s|)/2$, o integrando acima é dominado por $|X| \ex{(|s| + h) |X|} \leq |X| \ex{\smash{\tfrac{\delta + |s|}{2} |X|}}$ que pertence a $\mathcal{L}^1$.
+  Logo podemos usar o Teorema da Convergência Dominada para trocar o limite $h \to 0$ com a esperança, obtendo
   \begin{equation}
     \phi_X'(s) = E(X \ex{sX}).
   \end{equation}
 
-  Note que para todo $\varepsilon > 0$ e $k \geq 1$, $|x|^k \leq c(k) \ex{\varepsilon |x|}$, isso nos permite repetir o argumento acima indutivamente para obter \textit{3.} e \textit{4.}
+  Note que para todo $\varepsilon > 0$ e $k \geq 1$, $|x|^k \leq c(k) \ex{\varepsilon |x|}$, isso nos permite repetir o argumento acima indutivamente para obter \textit{c)} e \textit{d)}.
 \end{proof}
 
-Lembramos que ao usarmos o método do segundo momento, nos foi bastante útil o fato que a variância se comporta bem com relação a somas independentes.
+Lembramos que ao usar o método do segundo momento, nos foi bastante útil o fato que a variância se comporta bem com relação a somas independentes.
 Mais precisamente, $\Var(X_1 + \dots + X_k) = \Var(X_1) + \dots + \Var(X_k)$.
 
 Uma outra propriedade importante da função geradora de momentos é que ela também se comporta bem com respeito à somas independentes.
@@ -848,7 +846,7 @@ Sabemos que $\phi_{X_1}(s)$ é diferenciável em zero e que $\phi'_{X_1}(0) = E(
 Logo, existe $s > 0$ tal que $\phi_{X_1}(s) < 1 + (E(X_1) + \tfrac{a}{2}) s$, donde
 \begin{equation*}
   \begin{split}
-    P \Big[ & \frac{X_1 + \dots + X_n}{n} - E(X_1) \geq a \Big] = P \Big[ X_1 + \dots + X_n \geq (E(X_1) + a) n \Big]\\
+    P \Big[ & \frac{X_1 + \dots + X_n}{n} - E(X_1) \geq a \Big] \leq \phi_{X_1}^n(s) \ex{-s (a + E(X_1))n }\\
     & \quad \leq \big(1 + (E(X_1) + \frac{a}{2})s \big)^n \ex{-s (E(X_1) + a)n }\\
     & \quad \leq \exp\Big\{ s \Big( E(X_1 + \frac{a}{2} - E(X_1) - a) n \Big) \Big\} = \ex{-san/2}.
   \end{split}
@@ -869,7 +867,7 @@ Nesse caso temos por exemplo
 \end{equation}
 Dessa forma, sabemos que não podemos esperar um decaimento melhor que exponencial, mesmo para variáveis bem simples (como Bernoulli) que satisfazem $\phi_X(s) < \infty$ para todo $s \in \mathbb{R}$.
 
-Note que para variáveis com distribuição $\Ber(1/2)$, temos cotas exponenciais em $n$ (superior e inferior), mas elas possuem expoentes diferentes.
+Note que para variáveis com distribuição $\Ber(1/2)$, obtivemos acima cotas exponenciais em $n$ (superior e inferior), mas elas possuem expoentes diferentes.
 Resta agora tentar entender qual é o expoente correto para o decaimento da probabilidade $P[X_1 + \dots + X_n \geq n(E(X_1) + a)]$, o que será feito na próxima seção.
 
 \begin{exercise}
