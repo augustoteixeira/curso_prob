@@ -870,34 +870,16 @@ Dessa forma, sabemos que não podemos esperar um decaimento melhor que exponenci
 Note que para variáveis com distribuição $\Ber(1/2)$, obtivemos acima cotas exponenciais em $n$ (superior e inferior), mas elas possuem expoentes diferentes.
 Resta agora tentar entender qual é o expoente correto para o decaimento da probabilidade $P[X_1 + \dots + X_n \geq n(E(X_1) + a)]$, o que será feito na próxima seção.
 
-\begin{exercise}
-  Na Nova Caledônia, temos $k$ habitantes.
-  Seja $f:\{1, \dots, k\} \to \{0,1\}$ uma função que indica a intenção de voto de cada cidadão.
-  Mais precisamente, para cada habitante $i \in \{1, \dots, k\}$, se $f(i) = 0$, então $i$ vota no candidato $0$, enquanto se $f(i) = 1$, o cidadão $i$ vota no candidato $1$.
-  Para estimar o número $k_1 = \# f^{-1}(\{1\})$ de pessoas que votam em $1$, nós escolhemos variáveis aleatórias $Y_i$ i.i.d. com distribuição uniforme em $\{1, \dots, k\}$ e queremos estimar
-  \begin{equation}
-    \text{Err}_n(\epsilon) = P \Big[ \Big| \frac{1}{n} \sum_{i=1}^n f(Y_i) - \frac{k_1}{k} \Big| > \epsilon \Big].
-  \end{equation}
-  Sabendo que $k$ é par e $k_1 = k/2$, então
-  \begin{enumerate}[\quad a)]
-  \item use o método do segundo momento para obter um $n$ tal que $\text{Err}_{n}(0.01) < 0.02$ e um $n$ tal que $\text{Err}_{n}(0.01) < 10^{-12}$,
-  \item use o método do momento exponencial para obter resolver o ítem acima.
-  \end{enumerate}
-  Compare os quatro resultados obtidos acima.
-\end{exercise}
-
 \todosec{Tópico: Processos de ramificação}{fazer...}
+
+\newpage
 
 \section{Princípio de Grandes Desvios}
 \label{s:PGD}
 
-\todo{lim vira liminf ou limsup}
-
 A primeira tarefa nossa será otimizar a estimativa grosseira feita na seção anterior.
 Essas estimativas são chamadas de \emph{estimativas de grandes desvios}, pois se referem a probabilidades que a média empírica de $X_i$ se desvie de sua esperança por um valor constante $a$.
 Futuramente no curso estudaremos as probabilidades de que esse desvio seja de ordem $a_n \to 0$ que são chamados de \emph{desvios moderados} ou \emph{flutuações}, dependendo se a probabilidade de desvio converge a zero ou não.
-
-\todo{o limite dos grandes desvios existe}
 
 \begin{theorem}[Princípio de Grandes Desvios - cota superior]
   \index{Principio@Princípio!de Grandes Desvios@de Grandes Desvios}
@@ -909,12 +891,12 @@ Futuramente no curso estudaremos as probabilidades de que esse desvio seja de or
   \end{equation}
   onde $m = E(X_1)$ e
   \begin{equation}
-    \psi_{X_1}(b) = \sup_{s \geq 0} \big\{ bs - \log \big( \phi_{X_1}(s) \big) \big\}
+    \psi_{X_1}(x) = \sup_{s \geq 0} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\}
   \end{equation}
   é chamada função taxa. \index{funcao@função!taxa}
 \end{theorem}
 
-É importante observar que para estimar $P\big(X_1 + \dots + X_n \leq (m - a)n\big)$, basta considerarmos $X'_i = -X_i$ ao utilizar o teorema acima.
+É importante observar que para estimar $P\big[X_1 + \dots + X_n \leq (m - a)n\big]$, basta considerarmos $X'_i = -X_i$ ao utilizar o teorema acima.
 
 %Antes de provar o teorema, vamos fazer uma breve observação sobre como a função geradora de momentos se comporta com respeito a soma de constantes.
 %Isso nos permitirá centrar as variáveis para nossas estimativas.
@@ -951,15 +933,31 @@ Futuramente no curso estudaremos as probabilidades de que esse desvio seja de or
 \end{proof}
 
 \begin{exercise}
-  Calcule $\psi_X(a)$ quando $X$ é distribuída como $U_{[0,1]}$ e $\Exp(\lambda)$.
+  Calcule $\psi_X(a)$ quando $X$ é distribuída como $\Ber(p)$, $U_{[0,1]}$ e $\Exp(\lambda)$.
+\end{exercise}
+
+\begin{exercise}
+  Na Nova Caledônia, temos $k$ habitantes.
+  Seja $f:\{1, \dots, k\} \to \{0,1\}$ uma função que indica a intenção de voto de cada cidadão.
+  Mais precisamente, para cada habitante $i \in \{1, \dots, k\}$, se $f(i) = 0$, então $i$ vota no candidato $0$, enquanto se $f(i) = 1$, o cidadão $i$ vota no candidato $1$.
+  Para estimar o número $k_1 = \# f^{-1}(\{1\})$ de pessoas que votam em $1$, nós escolhemos variáveis aleatórias $Y_i$ i.i.d. com distribuição uniforme em $\{1, \dots, k\}$ e queremos estimar
+  \begin{equation}
+    \text{Err}_n(\epsilon) = P \Big[ \Big| \frac{1}{n} \sum_{i=1}^n f(Y_i) - \frac{k_1}{k} \Big| > \epsilon \Big].
+  \end{equation}
+  Sabendo que $k$ é par e $k_1 = k/2$, então
+  \begin{enumerate}[\quad a)]
+  \item use o método do segundo momento para obter um $n$ tal que $\text{Err}_{n}(0.01) < 0.02$ e um $n$ tal que $\text{Err}_{n}(0.01) < 10^{-12}$,
+  \item use o método do momento exponencial para obter resolver o ítem acima.
+  \end{enumerate}
+  Compare os quatro resultados obtidos acima.
 \end{exercise}
 
 Vamos agora tomar um exemplo concreto para análise.
 Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid com distribuição $\Ber(1/2)$, donde
 \begin{equation}
-  \phi_{X_1}(s) = \frac{1}{2} (1 + e^s) \quad \text{e} \quad \psi_{X_1}(b) = \sup_{s \geq 0} \{bs - \log(1 + e^s) + \log(2) \}.
+  \phi_{X_1}(s) = \frac{1}{2} (1 + e^s) \quad \text{e} \quad \psi_{X_1}(x) = \sup_{s \geq 0} \{xs - \log(1 + e^s) + \log(2) \}.
 \end{equation}
-Um cálculo simples nos mostra que, se $b < 1$, o mínimo acima é atingido no único ponto $s_{\text{max}} = \log(\tfrac{b}{1-b})$.
+Um cálculo simples nos mostra que, se $x < 1$, o mínimo acima é atingido no único ponto $s_{\text{max}} = \log(\tfrac{x}{1-x})$.
 Portanto, podemos concluir do Teorema~\ref{t:PGDleq} que
 \begin{equation}
   \begin{split}
@@ -998,22 +996,42 @@ Certamente, esse nem sempre é o caso, por exemplo se $X = m$ quase certamente, 
 \begin{lemma}
   \label{l:smax_PGD}
   Seja $X$ uma variável aleatória tal que $\phi_X(s) < \infty$ para todo $s \in (-\delta, \delta)$.
-  Supondo $a \geq 0$ é tal que $P[X > m + a] > 0$, então existe $s_{\text{max}} \geq 0$ tal que $\psi_X(m + a) = (m + a)s_{\text{max}} - \log\big(\phi_X(s_\text{max})\big)$.
+  Supondo $a \geq 0$ é tal que $P[X > m + a] > 0$, então existe $s_{\text{max}} \geq 0$ tal que
+  \begin{equation}
+    \psi_X(m + a) = (m + a)s_{\text{max}} - \log\big(\phi_X(s_\text{max})\big).
+  \end{equation}
 \end{lemma}
 
 \begin{proof}
-  Por hipótese, existe $b > m + a$ tal que $p = P[X \geq b] > 0$, donde $\phi_X(s) \geq p e^{s(m+a)}$.
-  Dessa forma, $(m + a)s - \log\big( \phi_X(s) \big) \leq (m + a - b)s - \log(p)$, que converge a menos infinito quando $s$ diverge.
+  Por hipótese, existe $x > m + a$ tal que $p = P[X \geq x] > 0$, donde $\phi_X(s) \geq p e^{s(m+a)}$.
+  Dessa forma, $(m + a)s - \log\big( \phi_X(s) \big) \leq (m + a - x)s - \log(p)$, que converge a menos infinito quando $s$ diverge.
   Isso, junto com a continuidade de $\phi_X$ implica a existência do $s_{\text{max}}$ desejado.
 \end{proof}
 
-\todo{provar que a função taxa é convexa, portanto contínua (está como exercício mas é usado)}
+\begin{lemma}
+  Seja $X$ uma variável aleatória tal que $\phi_X(s) < \infty$ para todo $s \in (-\delta, \delta)$.
+  Então o conjunto onde a função $\psi_X(s)$ é finita é um intervalo, na qual $\psi_X$ é convexa e portanto contínua.
+\end{lemma}
+
+\begin{proof}
+  Primeiramente, supomos que $a < b$ são tais que $\psi_X(a)$ e $\psi_X(b)$ são finitas.
+  Logo, para todo $c \in (a, b)$, temos que a função linear $cs$ é menor ou igual a $as \vee bs$, daí
+  \begin{equation}
+    \begin{split}
+      \psi_X(c) &= \sup_{s \geq 0} \{cs - \log(\phi_X(s))\} \leq  \sup_{s \geq 0} \{(as \vee bs) - \log(\phi_X(s))\}\\
+      & \leq \sup_{s \geq 0} \{as - \log(\phi_X(s))\} \vee \sup_{s \geq 0} \{bs - \log(\phi_X(s))\} < \infty.
+    \end{split}
+  \end{equation}
+  Para mostrar que $\psi_X$ é convexa, observe que $\psi_X(x)$ é dada pelo supremo (para $s \geq 0$) das funções afins $x \mapsto xs - \psi_X(s)$.
+  Como o supremo de funções convexas é também convexo, obtemos o enunciado do lemma.
+\end{proof}
+
 
 \begin{exercise}
   Suponha que se $\phi_{X}(s)$ é finita para todo $s \in (-\delta, \delta)$ e mostre que
   \begin{enumerate}[\quad a)]
   \item na definição de $\psi_{X}(a)$, poderíamos tomar o ínfimo em todos $s \in \mathbb{R}$ (ao invéz de $s \geq 0$) sem mudar o valor de $\psi_X(a)$,
-  \item a função $\psi_{X}(s)$ é não negativa, semi-contínua inferior e convexa em seu domínio e
+  \item a função $\psi_{X}(s)$ é não negativa, semi-contínua inferior e convexa em seu domínio
   \item $\psi_X(a)$ se anula somente em $a = 0$ e $\psi_X$ é crescente no seu domínio.
   \end{enumerate}
 \end{exercise}
@@ -1027,8 +1045,8 @@ Certamente não podemos obter algo como
 \end{equation}
 pois senão isso nos daria uma igualdade o que é impossível, pois perdemos um pouco de precisão ao utilizar a desigualdade de Markov na cota superior.
 
-Contudo, gostaríamos de entender se ao menos o expoente $\psi_{X_1}(a)$ na cota superior também desempenha algum papel na cota inferior.
-Isso é confirmado no seguinte resultado
+Contudo, gostaríamos de entender se ao menos o expoente $\psi_{X_1}(a)$ na cota superior também possui algum papel na cota inferior.
+Isso é confirmado no seguinte resultado.
 
 \begin{theorem}[Princípio de Grandes Desvios - cota inferior]
   \index{Principio de Grandes Desvios@Princípio de Grandes Desvios}
@@ -1038,17 +1056,26 @@ Isso é confirmado no seguinte resultado
   \begin{equation}
     \liminf_{n \to \infty} \frac{1}{n} \log P\big[ X_1 + \dots + X_n \geq \big(m + a \big) n \big] \geq -\psi_{X_1}(m + a),
   \end{equation}
-  onde novamente $m = E(X_1)$ e $\psi_{X_1}(b)$ é definida como no Teorema~\ref{t:PGDleq}.
+  onde novamente $m = E(X_1)$ e $\psi_{X_1}(x)$ é definida como no Teorema~\ref{t:PGDleq}.
 \end{theorem}
 
 Note que o resultado do teorema acima é mais fraco que o que vemos na equação \eqref{e:PGDgeq_falso}, mas mostra que $\psi_{X_1}(a)$ é realmente o expoente correto no decaimento da probabilidade de grandes desvios.
 
+Um corolário dos Teoremas~\ref{t:PGDleq} e \ref{t:PGDgeq} é o seguinte
+
+\begin{corollary}
+  Se $X_1, X_2, \dots$ variáveis aleatórias \iid com $\phi_{X_1}(s) < \infty$, para todo $s \in \mathbb{R}$, então
+  \begin{equation}
+    \lim_{n \to \infty} \frac{1}{n} \log P\big[ X_1 + \dots + X_n \geq \big(m + a \big) n \big] = -\psi_{X_1}(m + a).
+  \end{equation}
+\end{corollary}
+
 A idéia da prova é transformar a distribuição de $X_i$, usando uma exponencial como derivada de Radon-Nikodim.
 Essa nova distribuição possuirá esperança maior que $m + a$, de forma que se tomamos a média de variáveis \iid $X'_1, \dots, X'_n$ distribuídas dessa forma, obteremos algo que se concentra acima de $m + a$.
-Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_i$ será aproximadamente $\ex{-\psi_{X_1}(m + a)}$, como desejado para nossa cota inferior.
+Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_i$ será aproximadamente $\exp\{-\psi_{X_1}(m + a)\}$, como desejado para nossa cota inferior.
 
 \begin{proof}
-  Primeiramente, consideraremos o caso $P[X_1 \leq m + a] = 1$.
+  Primeiramente, consideraremos o caso $P[X_1 \leq m + a] = 1$, que se assemelha ao caso que analizamos acima $(\Ber(1/2) \leq 1)$.
   Nesse caso, temos
   \begin{equation*}
     \begin{split}
@@ -1057,7 +1084,6 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
     \end{split}
   \end{equation*}
   Donde o limite acima é igual a $\log(P[X_1 = m + a])$.
-
   Mas por outro lado,
   \begin{equation*}
     \begin{split}
@@ -1068,28 +1094,29 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
   pelo Teorema da Convergência Dominada, demonstrando o teorema nesse caso especial.
 
   Suponhamos agora que $P[X_1 > m + a] > 0$, o que implica que para $b > m + a$ suficientemente próximo de $m + a$, temos $P[X_1 > b] > 0$.
-  Observe que basta mostrar que para tais $b$ e para todo $\delta > 0$,
+  Observe que basta mostrar que para todo $b > a$ satisfazendo $P[X_1 > b] > 0$ e para todo $\delta > 0$, temos
   \begin{equation}
     \label{e:PGD_perto_b}
-    \lim_n \frac{1}{n} \log \Big(P\Big[\frac{X_1 + \dots + X_n}{n} \in (b - \delta, b + \delta) \Big]\Big) \geq -\psi_{X_1}(b),
+    \liminf_n \frac{1}{n} \log \Big(P\Big[\frac{X_1 + \dots + X_n}{n} \in (b - \delta, b + \delta) \Big]\Big) \geq -\psi_{X_1}(b),
   \end{equation}
-  pois a função $\psi_{X_1}(b)$ é convexa, portanto contínua.
+  pois a função $\psi_{X_1}(x)$ é convexa, portanto contínua.
 
   Vamos definir uma nova distribuição $\nu$ com derivada de Radon-Nikodim
   \begin{equation}
-    \d \nu = \frac{1}{Z_\sigma} \ex{\sigma x} (X_1 \circ P) (\d x).
+    \frac{\d \nu}{\d P_{X_1}} = \frac{1}{Z_\sigma} \ex{\sigma x}.
   \end{equation}
   Observamos primeiramente que o valor de $\sigma$ ainda não foi escolhido.
   Além disso após escolhido $\sigma$, teremos que calcular a constante de normalização $Z_{\sigma}$ de forma que $\nu$ seja uma probabilidade.
 
   Escolheremos $\sigma \geq 0$ como no Lema~\ref{l:smax_PGD}, isto é, tal que $\psi_{X_1}(b) = b\sigma - \log\big( \phi_{X_1}(\sigma) \big)$.
-  Isso nos dá imediatamente que $Z_\sigma = E[\ex{\sigma X_1}] = \phi_{X_1}(\sigma)$.
-  Por diferenciabilidade de $\phi_{X_1}$, o máximo deve ser assumido em um ponto de derivada zero, ou seja
+  Isso nos dá imediatamente que $Z_\sigma = E[\ex{\sigma X_1}] = \phi_{X_1}(\sigma)$ por definição.
+
+  Por diferenciabilidade de $\phi_{X_1}$, o máximo deve ser assumido em um ponto de derivada zero para a função $\psi_{X_1}$, ou seja
   \begin{equation}
     b = \frac{\phi_{X_1}'(\sigma)}{\phi_{X_1}(\sigma)} \overset{\text{Prop.~\ref{p:propried_phi}}}= \frac{E(X \ex{\sigma X})}{E(\ex{\sigma X})} = \frac{E(X \ex{\sigma X})}{Z_\sigma} = \int x \nu(\d x).
   \end{equation}
   Isso implica que se uma variável aleatória tem distribuição $\nu$, sua esperança é $b$.
-  Obviamente uma tal variável aleatória $X'$ satisfaz obrigatoriamente $\phi_{X'}(s) < \infty$ para todo $s \geq 0$, donde $X' \in \mathcal{L}^p$ para todo $p > 1$.
+  É possível verificar que uma tal variável aleatória $X'$ satisfaz obrigatoriamente $\phi_{X'}(s) < \infty$ para todo $s \geq 0$, donde $X' \in \mathcal{L}^p$ para todo $p > 1$.
 
   Como prometido, consideramos variáveis $X_1', X_2', \dots$ \iid com distribuição $\nu$.
   Pela lei fraca dos grandes números, para qualquer $\delta > 0$,
@@ -1115,10 +1142,11 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
   Como isso vale para todo $\delta > 0$, provamos \eqref{e:PGD_perto_b} o que conclui a prova do teorema.
 \end{proof}
 
-
 \begin{exercise}
   Mostre o Teorema~\ref{t:PGDgeq} no caso em que $\phi_{X_1}(s) < \infty$, para todo $s \in (-\delta, \delta)$.
 \end{exercise}
+
+\newpage
 
 \section{O Teorema Central do Limite}
 
