@@ -460,13 +460,39 @@ Além disso, obtivemos o seguinte resultado quantitativo que vale mesmo para val
   \end{equation}
 \end{exercise}
 
-\section{Método do segundo momento}
+\begin{exercise}
+  Sejam $X_1, \dots, X_n$ e $Y_1, \dots, Y_n$ variáveis independentes com distribuição $\Ber(p)$.
+  Defina agora $Z_{i,j} = X_i Y_j$, para $i, j \in \{1, \dots, n\}$ e
+  \begin{enumerate}[\quad a)]
+  \item calcule a esperança de $S_n = \tfrac{1}{n^2} \sum_{i=1}^n \sum_{j=1}^n Z_{i,j}$ e
+  \item estime $P[|S_n - E(S_n)| > a]$ usando o método do segundo momento. Como esse resultado se compara com o caso em que os $Z_{i,j}$ são i.i.d.?
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  \label{x:casas_tempestade}
+  Considere uma rua infinita com casas $i \in \mathbb{Z}$.
+  Para todo $i \in \mathbb{Z}$, existia uma rua entre as casas $i$ e $i+1$, mas após uma grande tempestade essas ruas foram danificadas.
+  Mais precisamente, para cada $i \in \mathbb{Z}$, temos variáveis aleatórias $X_i$ que são i.i.d. com distribuição $\text{Ber}(p)$, onde $X_i = 1$ indica que o trecho da rua entre as casas $i$ e $i + 1$ foi danificado e não pode ser utilizado.
+  Defina, para $i \in \mathbb{Z}$, $R_i$ como sendo o número de casas que continuaram acessíveis à casa $i$ após a tempestade.
+  Por exemplo, se $X_{-2}$ e $X_0 = 1$ e $X_{-1} = 0$, temos que a casa $0$ somente pode acessar a casa $-1$, logo $R_0 = 1$.
+  Nesse contexto,
+  \begin{enumerate}[\quad a)]
+  \item Calcule a distribuição e a esperança de $R_0$,
+  \item Use o método do segundo momento para estimar a probabilidade
+    \begin{equation}
+      P \Big[ \Big| \frac{1}{n} \sum_{i=1}^n R_i - E(R_0) \Big| > a \Big].
+    \end{equation}
+  \end{enumerate}
+\end{exercise}
+
+\begin{topics}
+
+\section{Tópico: Contando triângulos}
 
 Vimos como a Lei Fraca dos Grandes Números seguiu de uma estimativa de segundo momento \index{momento!segundo} (mais precisamente usando a variância).
 
 Nessa seção iremos mostrar como esse método é mais geral, se aplicando mesmo em situações onde as variáveis não são necessariamente independentes duas a duas.
-
-\subsection{Aplicação em grafos aleatórios}
 
 Seja $V_n = \{1, \dots, n\}$ com $n \geq 3$ e $\mathcal{E}_n = \big\{ \{x,y\} \subseteq V_n; x \neq y \big\}$.
 Chamamos o par $(V_n, \mathcal{E}_n)$ de grafo completo em $n$ vértices.
@@ -518,31 +544,7 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
   P^n\Big[ \Big|T_n - E^n(T_n)\Big| > \varepsilon n^3 \Big] \leq \frac{\Var^n(T_n)}{\varepsilon^2 n^6} \leq \frac{c}{\varepsilon^2 n}.
 \end{equation}
 
-\begin{exercise}
-  Sejam $X_1, \dots, X_n$ e $Y_1, \dots, Y_n$ variáveis independentes com distribuição $\Ber(p)$.
-  Defina agora $Z_{i,j} = X_i Y_j$, para $i, j \in \{1, \dots, n\}$ e
-  \begin{enumerate}[\quad a)]
-  \item calcule a esperança de $S_n = \tfrac{1}{n^2} \sum_{i=1}^n \sum_{j=1}^n Z_{i,j}$ e
-  \item estime $P[|S_n - E(S_n)| > a]$ usando o método do segundo momento. Como esse resultado se compara com o caso em que os $Z_{i,j}$ são i.i.d.?
-  \end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-  \label{x:casas_tempestade}
-  Considere uma rua infinita com casas $i \in \mathbb{Z}$.
-  Para todo $i \in \mathbb{Z}$, existia uma rua entre as casas $i$ e $i+1$, mas após uma grande tempestade essas ruas foram danificadas.
-  Mais precisamente, para cada $i \in \mathbb{Z}$, temos variáveis aleatórias $X_i$ que são i.i.d. com distribuição $\text{Ber}(p)$, onde $X_i = 1$ indica que o trecho da rua entre as casas $i$ e $i + 1$ foi danificado e não pode ser utilizado.
-  Defina, para $i \in \mathbb{Z}$, $R_i$ como sendo o número de casas que continuaram acessíveis à casa $i$ após a tempestade.
-  Por exemplo, se $X_{-2}$ e $X_0 = 1$ e $X_{-1} = 0$, temos que a casa $0$ somente pode acessar a casa $-1$, logo $R_0 = 1$.
-  Nesse contexto,
-  \begin{enumerate}[\quad a)]
-  \item Calcule a distribuição e a esperança de $R_0$,
-  \item Use o método do segundo momento para estimar a probabilidade
-    \begin{equation}
-      P \Big[ \Big| \frac{1}{n} \sum_{i=1}^n R_i - E(R_0) \Big| > a \Big].
-    \end{equation}
-  \end{enumerate}
-\end{exercise}
+\end{topics}
 
 \todosec{Tópico: Análise de DNA}{fazer "computational molecular biology" - Pevzner seção 5.5...}
 
@@ -872,8 +874,6 @@ Resta agora tentar entender qual é o expoente correto para o decaimento da prob
 
 \todosec{Tópico: Processos de ramificação}{fazer...}
 
-\newpage
-
 \section{Princípio de Grandes Desvios}
 \label{s:PGD}
 
@@ -1145,8 +1145,6 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
 \begin{exercise}
   Mostre o Teorema~\ref{t:PGDgeq} no caso em que $\phi_{X_1}(s) < \infty$, para todo $s \in (-\delta, \delta)$.
 \end{exercise}
-
-\newpage
 
 \section{O Teorema Central do Limite}
 
