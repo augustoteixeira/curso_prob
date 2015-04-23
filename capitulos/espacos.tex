@@ -1896,7 +1896,7 @@ Em alguns contextos essa propriedade é chamada de ausência de memória.
 Podemos finalmente definir
 \begin{equation}
   \label{e:Pn_Markov}
-  \mu_{n+1} = \mu_n \star K^n, \text{ para todo $n \geq 1$}.
+  \mu_{n+1} = \mu_n \star K_n, \text{ para todo $n \geq 1$}.
 \end{equation}
 Mas resta a questão sobre a existência de uma $\mu^\infty$ que será respondida com ajuda do próximo resultado.
 
@@ -1974,7 +1974,58 @@ Essa analogia é real se $E$ for um espaço enumerável.
   \end{enumerate}
 \end{exercise}
 
-\todo{Fazer s.r.w. e mostrar que é soma de \iid, dar $p \neq 1/2$ como exerc.}
+Vamos agora dar um exemplo simples de Cadeia de Markov que poderemos analisar em detalhes.
+
+Seja $E = \mathbb{Z}$ e considere $K: \mathbb{Z} \times \mathcal{P}(\mathbb{Z}) \to [0,1]$ dado por
+\begin{equation}
+  K(x, \cdot) = \frac{\delta_{x-1} + \delta_{x+1}}{2},
+\end{equation}
+que obviamente define um núcleo pois toda função em $\mathbb{Z}$ é mensurável na $\sigma$-álgebra das partes.
+
+Podemos portanto construir $P$ em $\mathbb{Z}^{\mathbb{N}}$ que nos fornece a lei de uma Cadeia de Markov em $\mathbb{Z}$ com distribuição inicial $\delta_0$ e núcleo de transição $K$.
+Chamamos esse processo de passeio aleatório simples simétrico. \index{passeio aleatorio simples@passeio aleatório simples}
+
+Poderíamos estar interessados em várias perguntas sobre esse processo, como por exemplo quão longe esperamos que o passeio aleatório pode ir depois de um determinado tempo?
+Para responder essa e várias outras questões, iremos mostrar outra construção do passeio simples simétrico atravéz de uma soma de variáveis aleatórias.
+
+Introduzimos um espaço de probabilidade $\tilde P$, variáveis $Y_1, Y_2, \dots$ \iid com distribuição $(\delta_{-1} + \delta_{1})/2$ e definimos $S_0 = 0$ e $S_n = Y_1 + \dots + Y_n$.
+
+\begin{lemma}
+  A distribuição da sequência infinita $(X_0, X_1, \dots)$ sob a lei $P$ do passeio aleatório simples e simétrico é igual à distribuição de $(S_0, S_1, \dots)$ sob $\tilde P$.
+\end{lemma}
+
+\begin{proof}
+  Observamos primeiramente que basta mostrar a igualdade de distribuições para cilindros do tipo $\{x_1\} \times \dots \times \{x_n\} \times \mathbb{Z}^\mathbb{N}$, pois tais eventos compõem um $\pi$-sistema que gera a $\sigma$-álgebra produto em $\mathbb{Z}^\mathbb{N}$.
+  Calculamos portanto
+  \begin{equation*}
+    \begin{split}
+      \qquad P & [X_1 = x_1, \dots, X_n = x_n]
+      \intertext{pela definição de Cadeia de Markov (via extensão de Kolmogorov),}
+      & = \mu_n [X_1 = x_1, \dots, X_n = x_n]\\
+      & = \mu_{n-1} \star K_n [X_1 = x_1, \dots, X_n = x_n]
+      \intertext{por Fubini para núcleos (Teorema~\ref{t:fubini}),}
+      & = \mu_{n-1}[X_1 = x_1, \dots, X_{n-1} = x_{n-1}] K_n\big( (x_1, \dots, x_{n-1}), \{x_n\} \big)\\
+      & = \mu_{n-1}[X_1 = x_1, \dots, X_{n-1} = x_{n-1}] K\big( x_{n-1}, \{x_n\} \big)\\
+      & = \frac 12 \mu_{n-1}[X_1 = x_1, \dots, X_{n-1} = x_{n-1}] \1_{\{|x_{n-1} - x_n| = 1\}}\\
+      & = \dots = 2^{-n} \prod_{i=1}^n \1_{\{|x_{i-1} - x_i| = 1\}}.
+    \end{split}
+  \end{equation*}
+  Faremos agora esse cálculo para a distribuição de $S_i$'s:
+  \begin{equation*}
+    \begin{split}
+      \qquad \tilde P & [S_1 = x_1, \dots, S_n = x_n]\\
+      & = \mu_n [Y_1 = x_1 - x_0, Y_2 = x_2 - x_1 \dots, Y_n = x_n - x_{n-1}]\\
+      & = \prod_{i = 1}^n \tilde P [Y_i = x_i - x_{i-1}] = 2^{-n} \prod_{i=1}^n \1_{\{|x_{i-1} - x_i| = 1\}}.
+    \end{split}
+  \end{equation*}
+  Isso mostra o enunciado do lemma.
+\end{proof}
+
+Podemos agora por exemplo estimar
+\begin{equation}
+  P[|X_n| \geq \varepsilon n] = \tilde P [|S_n| \geq \varepsilon n] \leq 2 \exp \{- \psi_{(\delta_{-1} + \delta_1)/2}(\varepsilon) n\},
+\end{equation}
+que responde nossa pergunta sobre a probabilidade de um passeio aleatório se distanciar muito da origem.
 
 \end{topics}
 
