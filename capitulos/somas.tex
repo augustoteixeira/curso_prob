@@ -665,6 +665,29 @@ Estamos agora em posição de finalizar a
   Consequentemente, obtemos o Teorema~\ref{t:LFGN} via o Lema~\ref{l:lim_Z_n_LFGN}.
 \end{proof}
 
+\begin{exercise}
+  Sejam $Y_k$ variáveis aleatórias independentes e com a seguinte distribuição:
+  \begin{equation}
+    P[Y_k = i] =
+    \begin{cases}
+      \frac 12 - \frac 1{k^2} \quad & \text{se $i = 1$ or $i = -1$},\\
+      \frac 2{k^2} & \text{se $i = 3$.}
+    \end{cases}
+  \end{equation}
+  Mostre que
+  \begin{equation}
+    P\Big[ \frac 1n \sum_{k=1}^n Y_k \text{ converge a zero} \Big] = 1.
+  \end{equation}
+\end{exercise}
+
+\begin{exercise}[Depende de \nameref{s:urna_polya}]
+  Mostre que segundo a lei $P$ construida no Exercício~\ref{x:constr_Polya}, vale que
+  \begin{equation}
+    P\big[ \tfrac 1n \sum_{i-1}^n X_i \text{ converge}] = 1.
+  \end{equation}
+  Além disso calcule a distribuição do limite acima.
+\end{exercise}
+
 \todosec{Tópico: Teorema de Weierstrass}{provar o teorema de Weierstrass de aproximação de funções contínuas por polinômios (prova probabilística). Ele é usado em convergência fraca em $\mathbb{R}$}
 
 \todosec{Tópico: Entropia de Shannon}{fazer...}
@@ -747,6 +770,38 @@ Uma outra maneira de enunciar a conclusão do teorema acima é dizer que a $\sig
   \end{equation}
   onde o supremo acima é tomado sobre $A \in \sigma(X_1, \dots, X_k)$ e $B \in \sigma(X_n, X_{n+1}, \dots)$.
   Mostre que nesse caso, a $\sigma$-álgebra dos eventos caudais é trivial.
+\end{exercise}
+
+
+\begin{exercise}[Depende de \nameref{s:percolacao}]
+  Considere o grafo $G = (\mathbb{Z}^2, E)$, onde $E = \big\{ \{x,y\}; |x - y|_2 = 1 \big\}$.
+  Dotamos agora o espaço $\{0,1\}^E$ com a $\sigma$-álgebra $\mathcal{A}$ gerada pelas projeções canônicas $Y_e(\omega) = \omega(e)$, onde $\omega \in \{0,1\}^E$ e $e \in E$.
+  Definimos o conjunto $A \subseteq \{0,1\}^E$ por
+  \begin{equation}
+    A = \Big[
+    \begin{array}{c}
+      \text{existe uma sequência de distintos $x_0, x_1, \dots \in \mathbb{Z}^2$,}\\
+      \text{tais que $e_i = \{x_i, x_{i+1}\} \in E$ e $Y_{e_i} = 1$ para cada $i \geq 0$}
+    \end{array}
+    \Big].
+  \end{equation}
+  \begin{enumerate}[\quad a)]
+  \item Mostre que $A$ é mensurável com respeito a $\mathcal{A}$.
+  \item Mostre que $A$ é um evento caudal, ou seja
+    \begin{equation}
+      A \in \bigcap_{K \subseteq E; \text{ finito}} \sigma\big( Y_e; e \not \in K \big).
+    \end{equation}
+  \item Conclua que $P(A) \in \{0,1\}$.
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Seja $\Omega = E^\mathbb{Z}$ um espaço produto infinito, dotado da $\sigma$-álgebra $\mathcal{A}$ gerada pelas projeções canônicas $(X_i)_{i \in \mathbb{Z}}$.
+  Consideramos agora em $(\Omega, \mathcal{A})$ a medida produto $\mathbb{P} = P^{\otimes \mathbb{Z}}$, onde $P$ é uma probabilidade fixada no espaço polonêns $(E, \mathcal{B}(E))$.
+  \begin{enumerate}[\quad a)]
+  \item Mostre que para qualquer evento $A \in \mathcal{A}$ e qualquer $\varepsilon > 0$, existe um $k \in \mathbb{Z}_+$ e um evento $A_k \in \sigma(X_i, |i| \leq k)$ tais que $\mathbb{P}[(A \setminus A_k) \cup (A_k \setminus A)] < \varepsilon$.
+  \item Considere o shift $\theta:\Omega \to \Omega$ dado por $\theta(\omega)(i) = \omega(i-1)$ e mostre que se $A = \theta(A)$, então $P(A) \in \{0,1\}$.
+  \end{enumerate}
 \end{exercise}
 
 \section{Momentos exponenciais}

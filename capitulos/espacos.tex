@@ -707,6 +707,18 @@ O teorema principal de convergência dessa seção concerne a soma de variáveis
   que converge a zero com $n$.
 \end{corollary}
 
+\begin{exercise}
+  Fixado $\lambda > 0$, seja $N$ uma variável aleatória com distribuição Poisson($\lambda$), isto é
+  \begin{equation}
+    P[N = k] = \frac{\lambda^k e^{-\lambda}}{k!} \text{ para $k = 0, 1, \dots$}
+  \end{equation}
+  Considere no mesmo espaço de probabilidade uma sequência de variáveis aleatórias $X_1, X_2, \dots$ que sejam \iid, com distribuição $\Ber(1/2)$ e independentes de $N$.
+  \begin{enumerate}[\quad a)]
+  \item Calcule a distribuição de $Z = \sum_{i=1}^N X_i$.
+  \item Mostre que $Z$ e $N - Z$ são independentes.
+  \end{enumerate}
+\end{exercise}
+
 \end{topics}
 
 \section{Espaços produto infinito}
@@ -950,6 +962,7 @@ Mais adiante no texto daremos outros exemplos bastante interessantes do uso do T
 \begin{topics}
 
 \section{Tópico: Percolação}
+\label{s:percolacao}
 
 Imagine que gostaríamos de modelar o movimento de um líquido em um meio poroso, como uma rocha ou uma esponja.
 A primeira tarefa nesse estudo seria modelar esse meio poroso de maneira matematicamente rigorosa, que é o que faremos a seguir.
@@ -1532,6 +1545,17 @@ Estamos prontos agora para fornecer a
 \end{exercise}
 
 \begin{exercise}
+  Para $0 \leq a < b \leq 1$, definimos a probabilidade $U_{[a,b]}$ em $([0,1], \mathcal{B}([0,1]))$ atravéz da seguinte fórmula $U_{[a,b]}(B) = \mathcal{L}(B \cap [a,b])/(b-a)$.
+  Consideramos também a função $K:[0,1] \times \mathcal{B}([0,1]) \to [0,1]$ dada por $K(x, \cdot) = U_{[0,x]} (\cdot)$, se $x > 0$ e $K(0, \cdot) = \delta_0(\cdot)$.
+  \begin{enumerate}[\quad a)]
+  \item Mostre que $K$ é um núcleo de transição.
+  \item Calcule $U_{[0,1]} \star K [X_1 < 1/2]$ e $U_{[0,1]} \star K [X_2 < 1/2]$, onde $X_1$ e $X_2$ são as projeções canônicas em $[0,1]^2$.
+  \item Mostre que $U_{[0,1]} \star K$ é absolutamente contínua com respeito à medida de Lebesgue em $[0,1]^2$ e calcule sua densidade.
+\end{enumerate}
+
+\end{exercise}
+
+\begin{exercise}
   Considere $K:E_1 \times \mathcal{A}_2 \to [0,1]$ dada por $K(p, \cdot) = \Exp(p)$.
   Mostre que $K$ é núcleo de transição e calcule $U_{[0,1]}[X_2 > 1] \star K$.
 \end{exercise}
@@ -2032,6 +2056,7 @@ que responde nossa pergunta sobre a probabilidade de um passeio aleatório se di
 \begin{topics}
 
 \section{Tópico: Urna de Pólya}
+\label{s:urna_polya}
 
 Um excelente exemplo de como Cadeias de Markov podem gerar interessantes modelos de situações reais são as chamadas Urnas de Pólya.
 Esse processo modela sistemas de física, biologia, computação e economia que apresentam o que chamamos de reforço.
