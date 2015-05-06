@@ -1201,10 +1201,44 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
   Mostre o Teorema~\ref{t:PGDgeq} no caso em que $\phi_{X_1}(s) < \infty$, para todo $s \in (-\delta, \delta)$.
 \end{exercise}
 
+\newpage
+
 \section{O Teorema Central do Limite}
 
-Até esse momento, já estudamos bastante somas de variáveis aleatórias independentes.
-Agora estudaremos esse tópico pela última vez, mas atravéz de uma técnica bastante elegante, que certamente inspira vários trabalhos em probabilidade.
+Até o presente momento, já sabemos por exemplo que médias de variáveis aleatórias \iid, suficientemente regulares convergem para sua esperança quase certamente.
+Vamos fazer contudo um experimento para visualizar esse fenômeno.
+
+Nesse experimento, jogamos $100$ moedas e contamos quantas caras obtivemos.
+Pelo que discutimos anteriormente, esperamos que esse número se encontre por volta de $50$, que é a esperança desta soma de variáveis \iid.
+Vamos portanto repetir esse experimento mil vezes e observar quantas vezes obtemos algo próximo de $50$, veja Figura~\ref{f:histograma_normal}.
+
+\begin{figure}[!ht]
+  \centering
+  \begin{tikzpicture}[scale=1]
+    \draw[<->] (0, 3.5) -- (0,0) -- (8, 0);
+    \foreach \x in {10, 20, 30, 40, 50, 60, 70}
+    { \draw (.1*\x, -.1) -- (.1*\x, .1);
+      \node[below] at (.1*\x, -.1) {$\x$};}
+    \foreach \x in {50, 100, 150, 200, 250, 300}
+    { \draw (-.1, .01*\x) -- (.1, .01*\x);
+      \node[left] at (-.1, .01*\x) {$\x$};}
+    \draw[fill, color=gray, opacity=.5] (3.40, 0) rectangle (3.72, 0.07);
+    \draw[fill, color=gray, opacity=.5] (3.72, 0) rectangle (4.04, 0.27);
+    \draw[fill, color=gray, opacity=.5] (4.04, 0) rectangle (4.36, 0.65);
+    \draw[fill, color=gray, opacity=.5] (4.36, 0) rectangle (4.68, 1.61);
+    \draw[fill, color=gray, opacity=.5] (4.68, 0) rectangle (5.00, 2.87);
+    \draw[fill, color=gray, opacity=.5] (5.00, 0) rectangle (5.32, 2.00);
+    \draw[fill, color=gray, opacity=.5] (5.32, 0) rectangle (5.64, 1.68);
+    \draw[fill, color=gray, opacity=.5] (5.64, 0) rectangle (5.96, 0.58);
+    \draw[fill, color=gray, opacity=.5] (5.96, 0) rectangle (6.28, 0.22);
+    \draw[fill, color=gray, opacity=.5] (6.28, 0) rectangle (6.6, 0.05);
+  \end{tikzpicture}
+  \caption{Vários ensaios de uma variável $\Bin(100,0.5)$, pra ser mais preciso $1000$ ensaios. Cada barra representa o número de ensaios que caíram no intervalo determinado pela base da barra. Note que apesar dos experimentos se concentrarem em torno da média, alguns se afastam um pouco (obviamente pois o experimento é aleatório). Nessa seção estudaremos esses desvios espontâneos, que são chamados de flutuaçãoes. \index{flutuacoes@flutuações}}
+  \label{f:histograma_normal}
+\end{figure}
+
+Nosso objetivo nessa seção será obter qual é o tamanho típico das flutuações em torno da média dessa soma de variáveis aleatórias.
+Ao contrário do que fizemos ao estudar Grandes Desvios, nós agora estamos buscando flutuações menores, que acontecem espontaneamente e não com baixa probabilidade.
 
 \subsection{A distribuição normal}
 
@@ -1250,6 +1284,7 @@ Então podemos nos perguntar se
   \begin{equation}
     \frac{X + Y}{\sqrt{2}} \distr \mu \; ?
   \end{equation}
+  Pelo menos sabemos agora que a variância atravéz dessa operação não muda.
 \end{question}
 
 Para tentar responder essa questão, vamos estudar mais a fundo qual é a distribuição da soma de duas variáveis aleatórias independentes.
@@ -1265,16 +1300,16 @@ Note também que a transformação linear $(x,y) \mapsto \tfrac{1}{\sqrt{2}}\big
 \end{question}
 
 Ainda estamos numa busca não rigorosa de tal distribuição, então vamos supor algumas outras propriedades, como por exemplo que $\mu$ seja absolutamente contínua com respeito a Lebesgue, isto é $\d \mu = f(x) \d x$.
-Nesse caso, já vimos que $(X, Y) \circ f(x) f(y) \d x \d y$ e no fundo estamos procurando uma função $f$ tal que
+Nesse caso, já vimos que $(X, Y) \distr f(x) f(y) \d x \d y$ e no fundo estamos procurando uma função $f$ tal que
 \begin{equation}
   f(x) f(y) = h(x^2 + y^2), \text{ para todo $x, y \in \mathbb{R}$ e alguma $h: \mathbb{R}_+ \to \mathbb{R}_+$.}
 \end{equation}
-Se $g = \log f$ e $k = \log h$, no fundo buscamos $g(x) + g(y) = k(x^2 + y^2)$.
-Como ainda não estamos preocupados com unicidade de $\mu$ por enquanto, apenas existência, podemos simplesmente tomar $g(x) = \alpha x^2 - \beta$.
+Para trasformar o produto $f(x) f(y)$ em uma soma, definimos $g = \log f$ e $k = \log h$ e o que gostaríamos que acontecesse é $g(x) + g(y) = k(x^2 + y^2)$.
+Como ainda não estamos preocupados com unicidade de $\mu$ e apenas com a existência, já podemos encontrar nossa resposta para nossa pergunta, escolhendo uma função quadrática, tal como $g(x) = \alpha x^2 - \beta$.
 
-Como gostaríamos que $f(x) = \ex{\alpha x^2 - \beta}$ fosse uma densidade, ou seja $\int f \d x = 1$.
+Mas temos ainda que cuidar para que $f(x) = \ex{\alpha x^2 - \beta}$ seja uma densidade, ou seja $\int f \d x = 1$.
 Para isso, precisamos que $\alpha$ seja negativo e, fixado $\alpha$, o valor de $\beta$ já estará determinado por normalização.
-Tudo isso motiva finalmente a seguinte
+Tudo isso motiva finalmente a seguinte definição.
 
 \begin{definition}
   Dizemos que $X$ tem distibuição normal canônica, se \index{distribuicao@distribuição!normal}
@@ -1282,13 +1317,12 @@ Tudo isso motiva finalmente a seguinte
     \label{e:normal_canonica}
     X \distr \frac{1}{\sqrt{2 \pi}} \exp \big\{-x^2/2\big\} \d x.
   \end{equation}
-  Além disso, para $m \in \mathbb{R}$ e $\sigma \geq 0$, dizemos que $Y \distr \mathcal{N}(m, \sigma^2)$ se $Y$ tem a mesma distribuição de $\sigma X + m$, onde $X$ tem distribuição normal canônica ($\mathcal{N}(0, 1)$).
+  Além disso, para $m \in \mathbb{R}$ e $\sigma \geq 0$, dizemos que $Y \distr \mathcal{N}(m, \sigma^2)$ se $Y$ tem a mesma distribuição de $\sigma X + m$, onde $X$ tem distribuição normal canônica $\mathcal{N}(0, 1)$. Note que $\mathcal{N}(m, 0) = \delta_m$.
+  Muitas vezes chamamos essa distribuição de gaussiana, obviamente em homenagem a Gauss.
 \end{definition}
 
-Muitas vezes chamamos essa distribuição de gaussiana, obviamente em homenagem a Gauss.
-Note que $\mathcal{N}(m, 0) = \delta_m$.
 
-Vamos rapidamente observar que a definição acima realmente descreve uma distribuição de probabilidade, ou seja que a integral da densidade acima é um.
+Vamos rapidamente observar que a definição acima realmente descreve uma distribuição de probabilidade, ou seja que a integral dessa densidade é um.
 Para tanto, vamos usar um truque conhecido, que consiste em retornar ao plano.
 Obviamente,
 \begin{equation}
@@ -1307,14 +1341,14 @@ Donde a constante em \eqref{e:normal_canonica} está de fato correta.
 \end{exercise}
 
 \begin{exercise}
-  Mostre que se $Y \distr \mathcal{N}(m, \sigma^2)$, então $Y$ tem esperança $m$ e variância $\sigma^2$.
+  Mostre que $Y \distr \mathcal{N}(m, \sigma^2)$ tem esperança $m$ e variância $\sigma^2$.
 \end{exercise}
 
 Para confirmar que de fato as distribuições normais se comportam bem com respeito a somas independentes, apresentamos o seguinte resultado.
 
 \begin{proposition}
   \label{p:soma_normais}
-  Se $X \distr \mathcal{N}(m, \sigma^2)$ e $Y \distr \mathcal{N}(\bar{m}, \bar{\sigma}^2)$ são independentes, então $X + Y$ tem distribuição $\mathcal{N}(m + \bar{m}, (\sigma + \bar{\sigma})^2)$.
+  Se $X \distr \mathcal{N}(m, \sigma^2)$ e $Y \distr \mathcal{N}(\bar{m}, \bar{\sigma}^2)$ são independentes, então $X + Y$ tem distribuição $\mathcal{N}(m + \bar{m}, \sigma^2 + \bar{\sigma}^2)$.
 \end{proposition}
 
 \begin{proof}
@@ -1346,9 +1380,7 @@ Para confirmar que de fato as distribuições normais se comportam bem com respe
   terminando a prova da proposição.
 \end{proof}
 
-\todo{Fazer as iteradas do operador convolução, isso nos dá a normalizada com $\sqrt{2^j}$, depois trocamos $2^j$ por $n$.}
-
-Podemos obter um corolário interessante sobre a soma de várias normais i.i.d.
+Podemos obter um corolário interessante sobre a soma de normais i.i.d.
 \begin{corollary}
   \label{c:normaliz_normais}
   Sejam $X_1, X_2, \dots$ variáveis \iid com distribuição $\mathcal{N}(m,\sigma^2)$, então
@@ -1373,21 +1405,20 @@ Uma outra maneira de entender o corolário acima é que a normal é um ponto fix
 \item considere $X_1, \dots, X_n$ \iid com distribuição $\mu$ e
 \item retorne a distribuição de
   \begin{equation}
-    \frac{X_1 + \dots + X_n - n E(X_1)}{\sqrt{\Var(X_1) n}}.
+    \frac{X_1 + \dots + X_n - n E(X_1)}{\sqrt{n}}.
   \end{equation}
 \end{enumerate}
 
-Na Questão~\ref{q:ponto_fixo_soma}, nos perguntamos quais seriam os outros possíveis pontos fixos dessa operação e será isso considerado depois.
+Na Questão~\ref{q:ponto_fixo_soma}, nos perguntamos quais seriam os outros possíveis pontos fixos dessa operação e isso será considerado depois.
 Mas uma outra questão bastante importante é se o ponto fixo $\mathcal{N}(0,1)$ é atrator, ou seja se começando com outras distribuições poderíamos nos aproximar de $\mathcal{N}(0,1)$ à medida que $n$ cresce.
 
 Isso é estudado no Teorema Central do Limite (TCL) que provaremos posteriormente.
-Mas antes, precisamos desenvolver uma boa definição de convergência para distribuições o que será o nosso próximo tópico.
-
-\todo{Mencionar que queremos saber se o ponto fixo $\mathcal{N}(0,1)$ é atrator.}
+Mas antes, precisamos desenvolver uma boa definição de convergência para distribuições, ou em outras palavras definir uma topologia.
+Esse será o nosso próximo tópico.
 
 \subsection{Convergência fraca}
 
-Em muitos casos é importante ter uma noção de convergência de medidas de probabilidade.
+Em muitos casos é importante termos bem definida uma noção de convergência de medidas de probabilidade.
 Supondo por exemplo no espaço mensurável $(E,\mathcal{A})$, tenhamos uma sequência de probabilidades $\mu_n$ e gostaríamos de saber se ela converge a uma determinada $\mu$.
 
 Um candidato natural para dara sentido a essa convergência poderia se a distância de variação total entre duas medidas
@@ -1414,7 +1445,7 @@ Esse porém não é o caso para $d_{\VT}$, pois se $x_n \neq x$ para todo $n$ e 
 \end{equation}
 
 Aqueles que já viram o conceito de convergência fraca acharão natural que a convergência de $\mu_n$ para $\mu$ seja definida em termos da convergência das integrais $\int f \d \mu_n$ para $\int f \d \mu$.
-Porém, como mencionamos no exemplo das medidas $\delta_{x_n}$ acima, gostaríamos também de a convergência respeitasse a topologia original do espaço $E$, o que torna natural a seguinte
+Porém, como mencionamos no exemplo das medidas $\delta_{x_n}$ acima, gostaríamos também de a convergência respeitasse a topologia original do espaço $E$, o que torna natural o seguinte conceito.
 
 \begin{definition}
   Dizemos que uma sequência de medidas de probabilidade $\mu_n$ converge fracamente (ou converge em distribuição) para uma probabilidade $\mu$ se \index{convergencia@convergência!fraca}
@@ -1425,14 +1456,14 @@ Porém, como mencionamos no exemplo das medidas $\delta_{x_n}$ acima, gostaríam
 \end{definition}
 
 Essa definição fica ainda mais natural para aqueles que conhecem o Teorema da Representação de Riesz.
-Com isso em mente, podemos relacionar a convergência em distribuição com a convergência fraca$^*$ no espaço de medidas finitas.
+Com isso em mente, podemos relacionar a convergência em distribuição com a convergência fraca-$\star$ no espaço de medidas finitas.
 
 \begin{exercise}
   Mostre que em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$, temos que $\tfrac{1}{n} \sum_{i=1}^n \delta_{i/n} \Rightarrow U_{[0,1]}$.
 \end{exercise}
 
 \begin{exercise}
-  Considere a função $\phi$ do espaço de medidas em $([0,1], \mathcal{B}([0,1]))$ nele mesmo, dada pelo seguinte:
+  Considere a função $\phi$ do espaço de medidas em $([0,1], \mathcal{B}([0,1]))$ nele mesmo, dada por:
   \begin{equation}
     \phi(\mu)(A) = \tfrac{1}{2} \big( \mu(3A) + \mu(3A - 2) \big).
   \end{equation}
@@ -1453,109 +1484,111 @@ Com isso em mente, podemos relacionar a convergência em distribuição com a co
   Observe que não precisamos dividir $M_n - \log(n)$ por nada para obter a convergência.
 \end{exercise}
 
-
-O próximo resultado é bastante útil para provar convergência fraca, pois nos fornece uma coleção de equivalências muitas vezes mais fáceis de verificar.
-
-\begin{theorem}[Teorema de Portmanteau]
-  \index{Teorema!de Portmanteau}
-  \label{t:portmanteau}
-  Sejam $(\mu_n)_{n \geq 1}$ e $\mu$ medidas de probabilidade em $(E, \mathcal{A})$.
-  São equivalentes:
-  \begin{enumerate}[\quad a)]
-  \item[a)] $\mu_n \Rightarrow \mu$,
-  \item[a')] $\int f \d \mu_n \to \int f \d \mu$, para toda $f$ unifmormemente contínua e limitada,
-  \item[b)] $\limsup_n \mu_n(F) \leq \mu(F),$ para todo $F \subseteq E$ fechado,
-  \item[b')] $\liminf_n \mu_n(G) \geq \mu(G),$ para todo $F \subseteq E$ aberto,
-  \item[c)] $\lim_n \mu_n(A) = \mu(A),$ para todo $A \in \mathcal{A}$ com $\mu(\partial A) = 0$.
-  \end{enumerate}
-\end{theorem}
-
-Para memorizar o teorema acima, é conveniente lembrar dos dois exemplos:
-\begin{enumerate}[\quad i)]
-  \item se $x_n \to x$ com $x_n \neq x$, $F = \{x\}$ e $G = B(x, \delta) \setminus \{x\}$ temos, para $n$ grande,
-    \begin{equation}
-      \mu_n(F) = \mu(G) = 0 < 1 = \mu(F) = \mu_n(G),
-    \end{equation}
-  \item em $(\mathbb{R},\mathcal{B}(\mathbb{R}))$, seja $\mu_{2n} = \delta_n$ e $\mu_{2n+1} = \mu = \delta_0$.
-    Obviamente $\mu_n$ não converge fracamente a $\mu$. Contudo, para todo $A \in \mathcal{B}(\mathbb{R})$,
-    \begin{equation}
-      \begin{split}
-        \liminf_n \mu_n (A) & \leq \liminf_n \mu_{2n}(A) = \mu(A) \text{ e}\\
-        \limsup_n \mu_n (A) & \geq \limsup_n \mu_{2n}(A) = \mu(A).
-      \end{split}
-    \end{equation}
-\end{enumerate}
-
-\begin{proof}[Prova do Teorema~\ref{t:portmanteau}]
-  Obviamente, $(a \Rightarrow a')$, pois $a')$ somente supõe a convergência das integrais para funções $f$ que sejam uniformemente contínuas, portanto é um requisito mais fraco que $a)$.
-
-  Observamos também que $(b \Leftrightarrow b')$.
-  De fato, basta tomarmos complementos e observar a mudança nos sinais das desigualdades.
-
-  Então, para a prova do teorema, basta mostrar que $(a' \Rightarrow b)$, $(b + b' \Rightarrow c)$ e $(c \Rightarrow a)$.
-
-  Começamos com $(a' \Rightarrow b)$ e para tanto, consideramos $F \subseteq E$ fechado.
-  Seja $\delta > 0$ e defina a função $f_\delta: E \to \mathbb{R}$ dada por
-  \begin{equation}
-    f_\delta (x) = \max \Big\{ 1 - \frac{d(x, F)}{\delta}, 0 \Big\}.
-  \end{equation}
-  Claramente, $f$ é uniformemente contínua e vale $\1{F} \leq f_\delta \leq \1{B(F,\delta)}$.
-  Dessa desigualdade, temos $\limsup_n \mu_n(F) \leq \limsup_n \int f_\delta \d \mu_n = \int f_\delta \d \mu \leq \mu(B(F,\delta))$.
-  Tomando agora o limite com $\delta \to 0$, obtemos $b)$ por continuidade da probabilidade $\mu$.
-
-
-  Para mostrar $(b + b' \Rightarrow c)$, seja $A \in \mathcal{A}$ tal que $\mu(\partial A) = 0$.
-  Nesse caso, sabemos que
-  \begin{equation*}
-    \begin{split}
-      \limsup_n \mu_n(A) & \leq \limsup_n \mu_n(\bar A) \leq \mu (\bar A) = \mu (\mathring{A})\\
-      & \leq \liminf \mu_n (\mathring{A}) \leq \liminf_n \mu_n (A),
-    \end{split}
-  \end{equation*}
-  o que mostra o limite em $c)$.
-
-  Finalmente, resta mostrar $(c \Rightarrow a)$ e, para tanto, consideramos uma função $f: E \to \mathbb{R}$ contínua e limitada.
-  Digamos, com $\lVert f \rVert_\infty = M$.
-
-  Sabemos que os conjuntos $\{f^{-1}(\{a\})\}_{a \in \mathbb{R}}$ são disjuntos, logo os conjuntos $f^{-1}(\{a\})$ podem ter medida $\mu$ positiva apenas para uma coleção enumerável de valores $a \in \mathbb{R}$.
-  Obtemos assim uma coleção finita $b_0 < b_1 < \dots < b_k$, tal que
-  \begin{equation}
-    \begin{array}{c}
-      b_0 < -M \text{ e } b_k > M, \quad b_{i+1} - b_i \leq \delta \text{ e}\\
-      \mu\big(f^{-1} (\{b_i\}) \big) = 0 \text{ para todo $i \leq k$}.
-    \end{array}
-  \end{equation}
-
-  \begin{figure}[!ht]
-    \centering
-    \begin{tikzpicture}[scale=3]
-      \draw[->,gray,very thin] (-1,0) -- (1.4,0) node[right,black] {$x$};
-      \draw[->,gray,very thin] (0.08,-0.2) -- (0.08,1.3) node[above,black] {$f(x)$};
-      \draw[domain=-.8:1.2,smooth,variable=\x,blue] plot ({\x},{ 1/(1 + 10 * \x * \x) });
-      \foreach \x in {5,7} { \draw[-,dashed,gray,very thin] ({-sqrt(1 / \x - 0.1)},0) -- ({-sqrt(1 / \x - 0.1)},0.1*\x) -- ({sqrt(1 / \x - 0.1)}, 0.1*\x) -- ({sqrt(1 / \x - 0.1)}, 0); }
-      \foreach \x in {-1,1,3,5,7,9,11} { \draw[thick] (.06,0.1*\x) -- (.1, 0.1*\x); }
-      \draw[thick] ({-sqrt(1 / 5 - 0.1)},0) -- ({-sqrt(1 / 7 - 0.1)},0);
-      \draw[thick] ({sqrt(1 / 5 - 0.1)},0) -- ({sqrt(1 / 7 - 0.1)},0);
-    \end{tikzpicture}
-    \caption{Uma função contínua e limitada $f$, os pontos $b_i$ e um conjunto $A_i$.}
-  \end{figure}
-
-  Iremos aproximar $f$ por uma função da forma $f_\delta = \sum_{i} b_i \1_{A_i}$, onde os conjuntos $A_i = f^{-1}\big( [b_i, b_{i+1}) \big)$ são disjuntos.
-  Obviamente $f_\delta \leq f \leq f_\delta + \delta$, donde
-  \begin{equation*}
-    \liminf \int f_\delta \d \mu_n \leq \liminf \int f \d \mu_n \leq \limsup \int f \d \mu_n \leq \liminf \int f_\delta \d \mu_n + \delta.
-  \end{equation*}
-  Mas como $\int f_\delta \d \mu_n = \sum_i b_i \mu_n (A_i)$, a prova estará concluida se mostrarmos que $\mu_n (A_i) \to \mu(A_i)$ para todo $i \leq k$.
-  Isso segue de $d)$, pois $\partial A_i \subseteq f^{-1}(\{b_i, b_{i+1}\})$, que tem medida zero.
-\end{proof}
-
-\begin{exercise}
-  Lembrando que em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$, temos $\tfrac{1}{n} \sum_{i=1}^n \delta_{i/n} \Rightarrow U_{[0,1]}$, use o ítem $d)$ do Teorema~\ref{t:portmanteau} para dar uma caracterização dos conjuntos Riemann-mensuráveis.
-  Mais precisamente, encontre os $A \subseteq \mathbb{R}$ tais que $\tfrac{1}{n} \sum_{i=1}^n \delta_{i/n}(A)$ converge para a medida de Lebesgue de $A$.
-\end{exercise}
-
 Nós algumas vezes denotamos $X_n \Rightarrow X$ quando $X_n$ e $X$ são elementos aleatórios de $(\Omega, \mathcal{F}, P)$ para descrever a convergência fraca de suas respectivas distribuições.
 Mais precisamente, $X_n \circ P \Rightarrow X \circ P$.
+
+\begin{topics}
+  \section{Tópico: O Teorema de Portmanteau}
+
+  O próximo resultado é bastante útil para provar convergência fraca, pois nos fornece uma coleção de equivalências muitas vezes mais fáceis de verificar.
+
+  \begin{theorem}[Teorema de Portmanteau]
+    \index{Teorema!de Portmanteau}
+    \label{t:portmanteau}
+    Sejam $(\mu_n)_{n \geq 1}$ e $\mu$ medidas de probabilidade em $(E, \mathcal{A})$.
+    São equivalentes:
+    \begin{enumerate}[\quad a)]
+    \item[a)] $\mu_n \Rightarrow \mu$,
+    \item[a')] $\int f \d \mu_n \to \int f \d \mu$, para toda $f$ unifmormemente contínua e limitada,
+    \item[b)] $\limsup_n \mu_n(F) \leq \mu(F),$ para todo $F \subseteq E$ fechado,
+    \item[b')] $\liminf_n \mu_n(G) \geq \mu(G),$ para todo $F \subseteq E$ aberto,
+    \item[c)] $\lim_n \mu_n(A) = \mu(A),$ para todo $A \in \mathcal{A}$ com $\mu(\partial A) = 0$.
+    \end{enumerate}
+  \end{theorem}
+
+  Para memorizar o teorema acima, é conveniente lembrar dos dois exemplos:
+  \begin{enumerate}[\quad i)]
+    \item se $x_n \to x$ com $x_n \neq x$, $F = \{x\}$ e $G = B(x, \delta) \setminus \{x\}$ temos, para $n$ grande,
+      \begin{equation}
+        \mu_n(F) = \mu(G) = 0 < 1 = \mu(F) = \mu_n(G),
+      \end{equation}
+    \item em $(\mathbb{R},\mathcal{B}(\mathbb{R}))$, seja $\mu_{2n} = \delta_n$ e $\mu_{2n+1} = \mu = \delta_0$.
+      Obviamente $\mu_n$ não converge fracamente a $\mu$. Contudo, para todo $A \in \mathcal{B}(\mathbb{R})$,
+      \begin{equation}
+        \begin{split}
+          \liminf_n \mu_n (A) & \leq \liminf_n \mu_{2n}(A) = \mu(A) \text{ e}\\
+          \limsup_n \mu_n (A) & \geq \limsup_n \mu_{2n}(A) = \mu(A).
+        \end{split}
+      \end{equation}
+  \end{enumerate}
+
+  \begin{proof}[Prova do Teorema~\ref{t:portmanteau}]
+    Obviamente, $(a \Rightarrow a')$, pois $a')$ somente supõe a convergência das integrais para funções $f$ que sejam uniformemente contínuas, portanto é um requisito mais fraco que $a)$.
+
+    Observamos também que $(b \Leftrightarrow b')$.
+    De fato, basta tomarmos complementos e observar a mudança nos sinais das desigualdades.
+
+    Então, para a prova do teorema, basta mostrar que $(a' \Rightarrow b)$, $(b + b' \Rightarrow c)$ e $(c \Rightarrow a)$.
+
+    Começamos com $(a' \Rightarrow b)$ e para tanto, consideramos $F \subseteq E$ fechado.
+    Seja $\delta > 0$ e defina a função $f_\delta: E \to \mathbb{R}$ dada por
+    \begin{equation}
+      f_\delta (x) = \max \Big\{ 1 - \frac{d(x, F)}{\delta}, 0 \Big\}.
+    \end{equation}
+    Claramente, $f$ é uniformemente contínua e vale $\1{F} \leq f_\delta \leq \1{B(F,\delta)}$.
+    Dessa desigualdade, temos $\limsup_n \mu_n(F) \leq \limsup_n \int f_\delta \d \mu_n = \int f_\delta \d \mu \leq \mu(B(F,\delta))$.
+    Tomando agora o limite com $\delta \to 0$, obtemos $b)$ por continuidade da probabilidade $\mu$.
+
+    Para mostrar $(b + b' \Rightarrow c)$, seja $A \in \mathcal{A}$ tal que $\mu(\partial A) = 0$.
+    Nesse caso, sabemos que
+    \begin{equation*}
+      \begin{split}
+        \limsup_n \mu_n(A) & \leq \limsup_n \mu_n(\bar A) \leq \mu (\bar A) = \mu (\mathring{A})\\
+        & \leq \liminf \mu_n (\mathring{A}) \leq \liminf_n \mu_n (A),
+      \end{split}
+    \end{equation*}
+    o que mostra o limite em $c)$.
+
+    Finalmente, resta mostrar $(c \Rightarrow a)$ e, para tanto, consideramos uma função $f: E \to \mathbb{R}$ contínua e limitada.
+    Digamos, com $\lVert f \rVert_\infty = M$.
+
+    Sabemos que os conjuntos $\{f^{-1}(\{a\})\}_{a \in \mathbb{R}}$ são disjuntos, logo os conjuntos $f^{-1}(\{a\})$ podem ter medida $\mu$ positiva apenas para uma coleção enumerável de valores $a \in \mathbb{R}$.
+    Obtemos assim uma coleção finita $b_0 < b_1 < \dots < b_k$, tal que
+    \begin{equation}
+      \begin{array}{c}
+        b_0 < -M \text{ e } b_k > M, \quad b_{i+1} - b_i \leq \delta \text{ e}\\
+        \mu\big(f^{-1} (\{b_i\}) \big) = 0 \text{ para todo $i \leq k$}.
+      \end{array}
+    \end{equation}
+
+    \begin{figure}[!ht]
+      \centering
+      \begin{tikzpicture}[scale=3]
+        \draw[->,gray,very thin] (-1,0) -- (1.4,0) node[right,black] {$x$};
+        \draw[->,gray,very thin] (0.08,-0.2) -- (0.08,1.3) node[above,black] {$f(x)$};
+        \draw[domain=-.8:1.2,smooth,variable=\x,blue] plot ({\x},{ 1/(1 + 10 * \x * \x) });
+        \foreach \x in {5,7} { \draw[-,dashed,gray,very thin] ({-sqrt(1 / \x - 0.1)},0) -- ({-sqrt(1 / \x - 0.1)},0.1*\x) -- ({sqrt(1 / \x - 0.1)}, 0.1*\x) -- ({sqrt(1 / \x - 0.1)}, 0); }
+        \foreach \x in {-1,1,3,5,7,9,11} { \draw[thick] (.06,0.1*\x) -- (.1, 0.1*\x); }
+        \draw[thick] ({-sqrt(1 / 5 - 0.1)},0) -- ({-sqrt(1 / 7 - 0.1)},0);
+        \draw[thick] ({sqrt(1 / 5 - 0.1)},0) -- ({sqrt(1 / 7 - 0.1)},0);
+      \end{tikzpicture}
+      \caption{Uma função contínua e limitada $f$, os pontos $b_i$ e um conjunto $A_i$.}
+    \end{figure}
+
+    Iremos aproximar $f$ por uma função da forma $f_\delta = \sum_{i} b_i \1_{A_i}$, onde os conjuntos $A_i = f^{-1}\big( [b_i, b_{i+1}) \big)$ são disjuntos.
+    Obviamente $f_\delta \leq f \leq f_\delta + \delta$, donde
+    \begin{equation*}
+      \liminf \int f_\delta \d \mu_n \leq \liminf \int f \d \mu_n \leq \limsup \int f \d \mu_n \leq \liminf \int f_\delta \d \mu_n + \delta.
+    \end{equation*}
+    Mas como $\int f_\delta \d \mu_n = \sum_i b_i \mu_n (A_i)$, a prova estará concluida se mostrarmos que $\mu_n (A_i) \to \mu(A_i)$ para todo $i \leq k$.
+    Isso segue de $d)$, pois $\partial A_i \subseteq f^{-1}(\{b_i, b_{i+1}\})$, que tem medida zero.
+  \end{proof}
+
+  \begin{exercise}
+    Lembrando que em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$, temos $\tfrac{1}{n} \sum_{i=1}^n \delta_{i/n} \Rightarrow U_{[0,1]}$, use o ítem $d)$ do Teorema~\ref{t:portmanteau} para dar uma caracterização dos conjuntos Riemann-mensuráveis.
+    Mais precisamente, encontre os $A \subseteq \mathbb{R}$ tais que $\tfrac{1}{n} \sum_{i=1}^n \delta_{i/n}(A)$ converge para a medida de Lebesgue de $A$.
+  \end{exercise}
+\end{topics}
 
 \subsection{Convergência fraca em \texorpdfstring{$\mathbb{R}$}{R}}
 
@@ -1577,7 +1610,7 @@ A primeira é dada pela seguinte
   \end{equation}
   concluimos que
   \begin{equation}
-    \mu_n \big( [-(M'+1), M'+1] \big) \geq 1 - \varepsilon/2,
+    \mu_n \big( [-M'-1, M'+1] \big) \geq 1 - \varepsilon/2,
   \end{equation}
   para todo $n$ suficientemente grande.
   Se tomamos $M \geq M'$ suficientemente grande, podemos obter a cota acima para todo $n$ (com $M$ no lugar de $M'+1$ e $\varepsilon$ no lugar de $\varepsilon/2$).
@@ -1596,6 +1629,8 @@ A primeira é dada pela seguinte
   \end{equation*}
   Como o último termo converge a zero e $\varepsilon$ foi escolhido arbitrariamente, isso conclui a prova da proposição.
 \end{proof}
+
+\newpage
 
 \subsection{O TCL para uma sequência i.i.d.}
 
