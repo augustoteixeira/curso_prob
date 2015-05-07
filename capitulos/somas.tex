@@ -1240,11 +1240,17 @@ Vamos portanto repetir esse experimento mil vezes e observar quantas vezes obtem
 Nosso objetivo nessa seção será obter qual é o tamanho típico das flutuações em torno da média dessa soma de variáveis aleatórias.
 Ao contrário do que fizemos ao estudar Grandes Desvios, nós agora estamos buscando flutuações menores, que acontecem espontaneamente e não com baixa probabilidade.
 
+Note também que apesar de observarmos uma aleatoriedade na Figura~\ref{f:histograma_normal}, também notamos uma certa regularidade que muitas vezes é chamada de 'forma de sino' no histograma apresentado.
+
 \subsection{A distribuição normal}
 
-Começaremos estudando de maneira sistemática o que acontece quando somamos duas variáveis aleatórias \iid em termos de distribuição.
-Isso pode ser visto como um operador no espaço de distribuições em $\mathbb{R}$ que definiremos a seguir.
-Estaremos interessados nos pontos fixos de tal operador, mas antes, vamos fazer uma observação simples que evitará trivialidades.
+Começaremos estudando qual poderia ser uma possível forma limite para o histograma da Figura~\ref{f:histograma_normal}.
+
+Como uma primeira tentativa, suponha que $\sum_{i=1}^\infty Z_i$ possui uma certa distribuição $\mu$ (veremos posteriormente que isso somente pode acontecer em casos triviais).
+Mas se esse fosse o caso, poderíamos dividir a soma nos termos pares e ímpares $X = \sum_{i \text{ par}} Z_i$ e $Y = \sum_{i \text{ ímpar}} Z_i$.
+Nesse caso teríamos $X$ e $Y$ independentes e também distribuídos como $\mu$ (pois são dados por uma soma que tem a mesma distribuição daquela que define $\mu$).
+
+O seguinte lema mostra que isso somente pode acontecer na situação trivial em que $\mu = \delta_0$.
 
 \begin{lemma}
   Sejam $X$ e $Y$ variáveis aleatórias em $\mathcal{L}^2$, \iid com distribuição $\mu$.
@@ -1268,9 +1274,9 @@ Estaremos interessados nos pontos fixos de tal operador, mas antes, vamos fazer 
 \end{proof}
 
 A intuição dessa prova é que quando somamos duas variáveis não determinísticas, a incerteza da soma (medida atravéz da variância) tende a aumentar.
-Dessa forma não podemos continuar com a mesma distribuição.
+Dessa forma não podemos obter a mesma distribuição após a soma.
 
-Mas existe uma maneira simples de tornar esse problema bastante interessante novamente.
+Mas existe uma maneira simples de tornar esse problema interessante novamente.
 Digamos que $X$ e $Y$ pertencem a $\mathcal{L}^2$ e são i.i.d.
 Então
 \begin{equation}
@@ -1284,10 +1290,10 @@ Então podemos nos perguntar se
   \begin{equation}
     \frac{X + Y}{\sqrt{2}} \distr \mu \; ?
   \end{equation}
-  Pelo menos sabemos agora que a variância atravéz dessa operação não muda.
+  Pelo menos sabemos agora que a variância não se altera atravéz dessa operação.
 \end{question}
 
-Para tentar responder essa questão, vamos estudar mais a fundo qual é a distribuição da soma de duas variáveis aleatórias independentes.
+Para tentar responder a essa questão, vamos estudar mais a fundo qual é a distribuição da soma de duas variáveis aleatórias independentes.
 Para isso, considere a distribuição $(X,Y) \circ P$ do par, que coincide com $\mu \otimes \mu$, nos dando
 \begin{equation}
   P\Big[ \frac{X + Y}{\sqrt{2}} \leq z \Big] = \mu \otimes \mu \big( \big\{(x, y); \tfrac{x + y}{\sqrt{2}} \leq z \big\} \big).
@@ -1296,7 +1302,7 @@ Para isso, considere a distribuição $(X,Y) \circ P$ do par, que coincide com $
 Note também que a transformação linear $(x,y) \mapsto \tfrac{1}{\sqrt{2}}\big(x + y, x - y\big)$ é uma rotação rígida em $\mathbb{R}^2$, o que nos motiva a propor a pergunta mais simples.
 
 \begin{question}
-  Existe alguma distribuição não trivial $\mu$ em $\mathcal{L}^2$ tal que, se $X$ e $Y$ são independentes e distribuídas de acordo com $\mu$, temos que a distribuição do par $(X,Y)$ é invariante por rotações?
+  Existe alguma distribuição não trivial $\mu$ em $\mathcal{L}^2$ tal que, se $X$ e $Y$ são independentes e distribuídas de acordo com $\mu$, a distribuição do par $(X,Y)$ é invariante por rotações?
 \end{question}
 
 Ainda estamos numa busca não rigorosa de tal distribuição, então vamos supor algumas outras propriedades, como por exemplo que $\mu$ seja absolutamente contínua com respeito a Lebesgue, isto é $\d \mu = f(x) \d x$.
@@ -1393,11 +1399,11 @@ Podemos obter um corolário interessante sobre a soma de normais i.i.d.
   \end{equation}
 \end{corollary}
 
-Lembrando da Lei dos Grandes Números, se dividimos a soma dos $X_i - E(X_i)$ por $n$, essa fração vai a zero quase certamente,
-O que concluímos acima é que podemos dividir por $\sqrt{n}$ e teremos um limite não trivial (nem zero, nem infinito).
+Lembrando da Lei dos Grandes Números, se dividimos a soma dos $X_i - E(X_i)$ por $n$, essa fração vai a zero quase certamente.
+O que concluímos acima é que ao dividir por $\sqrt{n}$ obtemos um limite não trivial (nem zero, nem infinito) e aleatório (não determinístico).
 
 Mais uma observação curiosa: nossa motivação para a definição da distribuição normal passou por invariância por rotações e podemos extender essa invariância para $n$ normais independentes.
-Note que a somar as coordenadas canônicas é equivalente a multiplicar pelo vetor $(1,1,\dots,1)$, que tem norma euclideana $\sqrt{n}$.
+Note que somar as coordenadas canônicas é equivalente a tomar o produdo escalar com o vetor $(1,1,\dots,1)$, que tem norma euclideana $\sqrt{n}$.
 
 Uma outra maneira de entender o corolário acima é que a normal é um ponto fixo da operação seguinte
 \begin{enumerate}[\quad a)]
