@@ -1493,6 +1493,154 @@ Com isso em mente, podemos relacionar a convergência em distribuição com a co
 Nós algumas vezes denotamos $X_n \Rightarrow X$ quando $X_n$ e $X$ são elementos aleatórios de $(\Omega, \mathcal{F}, P)$ para descrever a convergência fraca de suas respectivas distribuições.
 Mais precisamente, $X_n \circ P \Rightarrow X \circ P$.
 
+\subsection{Convergência fraca em \texorpdfstring{$\mathbb{R}$}{R}}
+
+No caso especial em que $E = \mathbb{R}$, temos vários outras maneiras de caracterizar convergência em distribuição.
+A primeira é dada pela seguinte
+
+\begin{proposition}
+  \label{p:conv_distr_suave}
+  Se $\int g \d \mu_n$ converge para $\int g \d \mu$ para toda $g \in C^3$ limitada e com as três primeiras derivadas limitadas, então $\mu_n \Rightarrow \mu$.
+\end{proposition}
+
+\begin{proof}
+  Primeiramente, vamos ver que podemos nos concentrar em um conjunto compacto da reta.
+
+  Para isso fixe um $\varepsilon > 0$ e tome $M'$ tal que $\mu\big( [-M', M'] \big) > 1 - \varepsilon / 3$.
+  Tomando uma função $g$ satisfazendo as hipóteses do teorema e tal que
+  \begin{equation}
+    \1{[-M',M']} \leq g \leq \1{[-M'-1,M'+1]},
+  \end{equation}
+  concluimos que
+  \begin{equation}
+    \mu_n \big( [-M'-1, M'+1] \big) \geq 1 - \varepsilon/2,
+  \end{equation}
+  para todo $n$ suficientemente grande.
+  Se tomamos $M \geq M'$ suficientemente grande, podemos obter a cota acima para todo $n$ (com $M$ no lugar de $M'+1$ e $\varepsilon$ no lugar de $\varepsilon/2$).
+
+  Fixamos agora uma $f: \mathbb{R} \to \mathbb{R}$ contínua e limitada.
+  Sabemos que é possível aproximar $f$ por uma função $g \in C^3$ de suporte compacto, com $\lVert g \rVert_\infty \leq 2 \lVert f \rVert_\infty$ e $|g - f| \leq \varepsilon/M$ uniformemente no intervalo $[-M,M]$.
+  Essa $g$ certamente satisfaz as hipóteses do teorema.
+
+  Portanto,
+  \begin{equation*}
+    \begin{split}
+      \Big| \int f \d \mu_n - \int f \d \mu\Big| & \leq 2 \varepsilon \lVert f \rVert_\infty + \Big| \int_{-M}^M f \d \mu_n - \int_{-M}^M f \d \mu\Big|\\
+      & \leq 2 \varepsilon \lVert f \rVert_\infty + \frac \varepsilon{M} 2 M + \Big| \int_{-M}^M g \d \mu_n - \int_{-M}^M g \d \mu\Big|\\
+      & \leq 2 \varepsilon \lVert f \rVert_\infty + 2 \varepsilon + \Big| \int g \d \mu_n - \int \d \mu\Big|.
+    \end{split}
+  \end{equation*}
+  Como o último termo converge a zero e $\varepsilon$ foi escolhido arbitrariamente, isso conclui a prova da proposição.
+\end{proof}
+
+\newpage
+
+\subsection{O TCL para uma sequência i.i.d.}
+
+\begin{theorem}[Teorema Central do Limite]
+  \index{Teorema!Central do Limite}
+  \label{t:tcl_iid}
+  Considere num espaço $(\Omega, \mathcal{F}, P)$, uma sequência $X_1, X_2, \dots$ de variáveis aleatórias \iid em $\mathcal{L}^3$.
+  Nesse caso, se definimos $m = E(X_1)$ e $\sigma^2 = \Var(X_1)$, temos
+  \begin{equation}
+    \frac{\sum_{i=1}^n (X_i - m)}{\sigma \sqrt{n}} \Rightarrow \mathcal{N}(0,1).
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  Primeiramente, observe que podemos supor que $m = 0$, pois de qualquer forma iremos subtrair a média da distribuição na qual nos interessamos.
+  Uma outra observação importante é que podemos supor $\sigma = 1$, pois no caso geral de qualquer forma estamos somando $X_i/\sigma$ no enunciado.
+
+  Como vimos na Proposição~\ref{p:conv_distr_suave}, basta mostrar a convergência das integrais de funções $g \in C^3$, que possuam todas as três primeiras derivadas limitadas.
+  Considerando a função
+  \begin{equation}
+    \phi^n(x_1, \dots, x_n) := g\Big(\frac{x_1 + \dots + x_n}{\sqrt{n}} \Big),
+  \end{equation}
+  nos basta provar a convergência das sequências de números reais
+  \begin{equation}
+    \label{e:tcl_limite_phi}
+    \lim_n \int \phi^n(X_1, \dots, X_n) \d P = \int g(s) \mathcal{N}(0,1)(\d s).
+  \end{equation}
+
+  Vale lembrar que no Corolário~\ref{c:normaliz_normais} já estabelecemos algo mais forte para variáveis normais.
+  Mais precisamente, suponha que extendemos nosso espaço de probabilidade para $(\Omega', \mathcal{F}', P')$, onde exista uma sequência $Y_1, Y_2, \dots$ de variáveis aleatórias \iid com distribuição $\mathcal{N}(0,1)$ independente de $X_1, X_2, \dots$
+  Então, para todo $n \geq 1$,
+  \begin{equation}
+    \int \phi^n(Y_1, \dots, Y_n) \d P' = \int g(s) \mathcal{N}(0,1) (\d s),
+  \end{equation}
+  o que tornaria o limite em \eqref{e:tcl_limite_phi} trivial para tais variáveis.
+  A nossa estratégia será aproximar $\phi^n(X_1, \dots, X_n)$ por $\phi(Y_1, \dots, Y_n)$, e faremos isso trocando uma variável de cada vez.
+
+  Para entender o que acontece quando trocamos uma das variáveis $X_i$ por $Y_i$, temos que expandir $g$ em série de potências, isto é, escrever
+  \begin{equation}
+    g(s) = g(s_0) + g'(s_0)(s - s_0) + g''(s_o)(s-s_0)^2/2 + r_{s_0}(s - s_0),
+  \end{equation}
+  onde $r_{s_0}(h)/h^3$ é limitada por $M$, uniformemente em $h$ e $s_0$ em consequência das nossas suposições sobre $g$.
+
+  Denotando $z_i = (y_1, \dots, y_{i-1}, x_i, \dots x_n)$, $z_i^o := (y_1, \dots, y_{n-1}, 0, x_{n+1}, \dots, x_n)$ e $s_i^o = y_1 + \dots + y_{n-1} + x_{n+1} + \dots x_n$, temos
+  \begin{equation}
+    \phi^n(z_i) %& = \phi^n(z_i^o) + \frac{\partial \phi^n}{\partial x_i} (z_i^o) x_i + \frac{\partial^2 \phi^n}{\partial x_i^2} (z_i^o) \frac{x_i^2}{2} + r_z(x_i)\\
+    = \phi^n(z_i^o) + g' \Big( \frac{s_i^o}{\sqrt{n}} \Big) \frac{x_i}{\sqrt{n}} + g'' \Big( \frac{s_i^o}{\sqrt{n}} \Big) \frac{x_i^2}{2n} + r_{\frac{s_i^o}{\sqrt{n}}} \Big( \frac{x_i}{\sqrt{n}} \Big),
+  \end{equation}
+  Nós propositalmente expandimos $\phi^n$ até ordem dois, pois $X_i$ e $Y_i$ possuem os mesmos momentos de ordem um ($m=0$) e dois ($\sigma^2=1$).
+
+  Integrando os dois lados da igualdade acima com respeito a $Z_i \circ P$ (denotamos como antes, $Z_i = (Y_1, \dots, Y_{i-1}, X_i, \dots, X_n)$ e $Z_i^o$, $S_i^o$ analogamente), teremos
+  \begin{equation}
+    \int \phi^n(Z_i) \d P' = \int \phi^n(Z_i^o) \d P' + \frac{1}{2n} v_i + k_i,
+  \end{equation}
+  onde as quantidades $v$ e $k$, se escrevem como
+  \begin{equation}
+    v_i = \int g'' \Big( \frac{S_i^o}{\sqrt{n}} \Big) \d P' \quad \text{ e } \quad k_i = \int r_{S_i^o/\sqrt{n}} \Big(\frac{X_i}{\sqrt{n}}\Big) \d P'.
+  \end{equation}
+  Note que $v_i$ não depende de $X_i$ e que
+  \begin{equation}
+    |k_i| \leq \Big| \int \Big(\frac{X_i^3}{n^{3/2}}\Big) \Big(\frac{n^{3/2}}{X_i^3}\Big) r_{S_i^o/\sqrt{n}} \Big(\frac{X_i}{\sqrt{n}}\Big) \d P' \Big| \leq \frac{M}{n^{3/2}} E(|X_i^3|).
+  \end{equation}
+
+  As observações acima são o ponto mais importante da prova de que essa aproximação funciona e uma outra maneira de colocá-las é a seguinte.
+  Como $X_i$ e $Y_i$ possuem os dois primeiros momentos iguais, os dois primeiros termos de Taylor coincidem após a integração (o primeiro se anula e o segundo é $v_i$ tanto para $X_i$ quanto para $Y_i$).
+  O resto é de ordem muito pequena para influir no limite.
+
+  De fato, se retiramos o termo $Y_i$ de $Z_{i+1}$, fazendo a mesma expansão que para $X_i$, obtemos
+  \begin{equation}
+    \int \phi^n(Z_{i+1}) \d P' = \int \phi^n(Z_i^o) \d P' + \frac{1}{2n} v_i + k'_i,
+  \end{equation}
+  com o termo de ordem superior $k'_i$ sendo definido exatamente como $k_i$, mas com $Y_i$ no lugar de $X_i$.
+
+  Estamos prontos agora para a computação final
+  \begin{equation*}
+    \begin{split}
+      \Big| \int \phi^n & (X_1, \dots, X_n) \d P - \int g(s) \mathcal{N}(0,1)(\d s) \Big|\\
+      & = \Big| \int \phi^n(Z_0) \d P' - \int \phi^n(Z_n) \d P' \Big|\\
+      & \leq \sum_{i=0}^{n-1} \Big| \int \phi^n(Z_{i}) \d P' - \int \phi^n(Z_{i+1}) \d P' \Big| = \sum_{i=0}^{n-1} |k_i - k'_i|\\
+      & \leq n \frac{M}{n^{3/2}} \big(E(|X_1|^3) + E(|Y_1|^3) \big),
+    \end{split}
+  \end{equation*}
+  que claramente converge a zero, provando o teorema.
+\end{proof}
+
+\begin{corollary}
+  A $\mathcal{N}(0,1)$ é a única distribuição $\mu$ que possui esperança zero, variância $1$ e é tal que se $X, Y$ são \iid com distribuição $\mu$, então $(X + Y)/\sqrt{2}$ também possuem distribuição $\mu$.
+\end{corollary}
+
+\begin{proof}
+  Usando a invariância enunciada acima, temos que
+  \begin{equation}
+    \frac{X_1 + \dots + X_{2^k}}{\sqrt{2^k}} \distr \mu.
+  \end{equation}
+  Mas pelo Teorema central do limite, a distribuição dessa combinação de $X_i$ deve convergir a $\mathcal{N}(0,1)$, logo temos $\mu = \mathcal{N}(0,1)$.
+\end{proof}
+
+Vamos terminar essa seção com uma aplicação do teorema acima.
+
+\begin{exercise}
+  Digamos que jogamos $100$ moedas honestas e independentes, como foi proposto no início da seção, obtendo finalmente uma variável aleatória $Y \distr \Bin(100, 1/2)$.
+  Usando o \nameref{t:tcl_iid}, estime $P[Y \geq 55]$ usando uma aproximação por uma $\mathcal{N}(0,1)$.
+  Calcule numericamente o valor real desta probabilidade e compare ambas as estimativas.
+\end{exercise}
+
+\todosec{Tópico: Funções características???}{funcoes caracteristicas e tomografia...}
+
 \begin{topics}
   \section{Tópico: O Teorema de Portmanteau}
 
@@ -1596,147 +1744,7 @@ Mais precisamente, $X_n \circ P \Rightarrow X \circ P$.
   \end{exercise}
 \end{topics}
 
-\subsection{Convergência fraca em \texorpdfstring{$\mathbb{R}$}{R}}
-
-No caso especial em que $E = \mathbb{R}$, temos vários outras maneiras de caracterizar convergência em distribuição.
-A primeira é dada pela seguinte
-
-\begin{proposition}
-  \label{p:conv_distr_suave}
-  Se $\int g \d \mu_n$ converge para $\int g \d \mu$ para toda $g \in C^3$ limitada e com as três primeiras derivadas limitadas, então $\mu_n \Rightarrow \mu$.
-\end{proposition}
-
-\begin{proof}
-  Primeiramente, vamos ver que podemos nos concentrar em um conjunto compacto da reta.
-
-  Para isso fixe um $\varepsilon > 0$ e tome $M'$ tal que $\mu\big( [-M', M'] \big) > 1 - \varepsilon / 3$.
-  Tomando uma função $g$ satisfazendo as hipóteses do teorema e tal que
-  \begin{equation}
-    \1{[-M',M']} \leq g \leq \1{[-M'-1,M'+1]},
-  \end{equation}
-  concluimos que
-  \begin{equation}
-    \mu_n \big( [-M'-1, M'+1] \big) \geq 1 - \varepsilon/2,
-  \end{equation}
-  para todo $n$ suficientemente grande.
-  Se tomamos $M \geq M'$ suficientemente grande, podemos obter a cota acima para todo $n$ (com $M$ no lugar de $M'+1$ e $\varepsilon$ no lugar de $\varepsilon/2$).
-
-  Fixamos agora uma $f: \mathbb{R} \to \mathbb{R}$ contínua e limitada.
-  Sabemos que é possível aproximar $f$ por uma função $g \in C^3$ de suporte compacto, com $\lVert g \rVert_\infty \leq 2 \lVert f \rVert_\infty$ e $|g - f| \leq \varepsilon/M$ uniformemente no intervalo $[-M,M]$.
-  Essa $g$ certamente satisfaz as hipóteses do teorema.
-
-  Portanto,
-  \begin{equation*}
-    \begin{split}
-      \Big| \int f \d \mu_n - \int f \d \mu\Big| & \leq 2 \varepsilon \lVert f \rVert_\infty + \Big| \int_{-M}^M f \d \mu_n - \int_{-M}^M f \d \mu\Big|\\
-      & \leq 2 \varepsilon \lVert f \rVert_\infty + \frac \varepsilon{M} 2 M + \Big| \int_{-M}^M g \d \mu_n - \int_{-M}^M g \d \mu\Big|\\
-      & \leq 2 \varepsilon \lVert f \rVert_\infty + 2 \varepsilon + \Big| \int g \d \mu_n - \int \d \mu\Big|.
-    \end{split}
-  \end{equation*}
-  Como o último termo converge a zero e $\varepsilon$ foi escolhido arbitrariamente, isso conclui a prova da proposição.
-\end{proof}
-
-\newpage
-
-\subsection{O TCL para uma sequência i.i.d.}
-
-\begin{theorem}
-  \index{Teorema!Central do Limite}
-  \label{:tcl_iid}
-  Considere num espaço $(\Omega, \mathcal{F}, P)$, uma sequência $X_1, X_2, \dots$ de variáveis aleatórias \iid em $\mathcal{L}^3$.
-  Nesse caso, se definimos $m = E(X_1)$ e $\sigma^2 = \Var(X_1)$, temos
-  \begin{equation}
-    \frac{\sum_{i=1}^n (X_i - m)}{\sigma \sqrt{n}} \Rightarrow \mathcal{N}(0,1).
-  \end{equation}
-\end{theorem}
-
-\begin{proof}
-  Primeiramente, observe que podemos supor que $m = 0$, pois de qualquer forma iremos subtrair a média da distribuição na qual nos interessamos.
-  Uma outra observação importante é que podemos supor $\sigma = 1$, pois no caso geral de qualquer forma estamos somando $X_i/\sigma$ no enunciado.
-
-  Como vimos na Proposição~\ref{p:conv_distr_suave}, basta mostrar a convergência das integrais de funções $g \in C^3$, que possuam todas as três primeiras derivadas limitadas.
-  Considerando a função
-  \begin{equation}
-    \phi^n(x_1, \dots, x_n) := g\Big(\frac{x_1 + \dots + x_n}{\sqrt{n}} \Big),
-  \end{equation}
-  nos basta provar a convergência de números reais
-  \begin{equation}
-    \label{e:tcl_limite_phi}
-    \lim_n \int \phi^n(X_1, \dots, X_n) \d P = \int g(s) \mathcal{N}(0,1)(\d s).
-  \end{equation}
-
-  Vale lembrar que no Corolário~\ref{c:normaliz_normais} já estabelecemos algo mais forte para variáveis normais.
-  Mais precisamente, suponha que extendemos nosso espaço de probabilidade para $(\Omega', \mathcal{F}', P')$, onde exista uma sequência $Y_1, Y_2, \dots$ de variáveis aleatórias \iid com distribuição $\mathcal{N}(0,1)$ independente de $X_1, X_2, \dots$
-  Então,
-  \begin{equation}
-    \int \phi^n(Y_1, \dots, Y_n) \d P' = \int g(s) \mathcal{N}(0,1) (\d s),
-  \end{equation}
-  o que tornaria o limite em \eqref{e:tcl_limite_phi} trivial para tais variáveis.
-  A nossa estratégia será aproximar $\phi^n(X_1, \dots, X_n)$ por $\phi(Y_1, \dots, Y_n)$, e faremos isso trocando uma variável de cada vez.
-
-  Para entender o que acontece quando trocamos uma das variáveis $X_i$ por $Y_i$, temos que expandir $g$ em série de potências, isto é, escrever
-  \begin{equation}
-    g(s) = g(s_0) + g'(s_0)(s - s_0) + g''(s_o)(s-s_0)^2/2 + r_{s_0}(s - s_0),
-  \end{equation}
-  onde $r_{s_0}(h)/h^3$ é limitada por $M$, uniformemente em $h$ e $s_0$ em consequência das nossas suposições sobre $g$.
-
-  Denotando $z_i = (y_1, \dots, y_{i-1}, x_i, \dots x_n)$, $z_i^o := (y_1, \dots, y_{n-1}, 0, x_{n+1}, \dots, x_n)$ e $s_i^o = y_1 + \dots + y_{n-1} + x_{n+1} + \dots x_n$, temos
-  \begin{equation}
-    \phi^n(z_i) %& = \phi^n(z_i^o) + \frac{\partial \phi^n}{\partial x_i} (z_i^o) x_i + \frac{\partial^2 \phi^n}{\partial x_i^2} (z_i^o) \frac{x_i^2}{2} + r_z(x_i)\\
-    = \phi^n(z_i^o) + g' \Big( \frac{s_i^o}{\sqrt{n}} \Big) \frac{x_i}{\sqrt{n}} + g'' \Big( \frac{s_i^o}{\sqrt{n}} \Big) \frac{x_i^2}{2n} + r_{\frac{s_i^o}{\sqrt{n}}} \Big( \frac{x_i}{\sqrt{n}} \Big),
-  \end{equation}
-  Nós propositalmente expandimos $\phi^n$ até ordem dois, pois $X_i$ e $Y_i$ possuem os mesmos momentos de ordem um ($m=0$) e dois ($\sigma^2=1$).
-
-  Integrando os dois lados da igualdade acima com respeito a $Z_i \circ P$ (denotamos como antes, $Z_i = (Y_1, \dots, Y_{i-1}, X_i, \dots, X_n)$ e $Z_i^o$, $S_i^o$ analogamente), teremos
-  \begin{equation}
-    \int \phi^n(Z_i) \d P' = \int \phi^n(Z_i^o) \d P' + \frac{1}{2n} v_i + k_i,
-  \end{equation}
-  onde as quantidades $v$ e $k$, se escrevem como
-  \begin{equation}
-    v_i = \int g'' \Big( \frac{S_i^o}{\sqrt{n}} \Big) \d P' \quad \text{ e } \quad k_i = \int r_{S_i^o/\sqrt{n}} \Big(\frac{X_i}{\sqrt{n}}\Big) \d P'.
-  \end{equation}
-  Note que $v_i$ não depende de $X_i$ e que
-  \begin{equation}
-    |k_i| \leq \Big| \int \Big(\frac{X_i^3}{n^{3/2}}\Big) \Big(\frac{n^{3/2}}{X_i^3}\Big) r_{S_i^o/\sqrt{n}} \Big(\frac{X_i}{\sqrt{n}}\Big) \d P' \Big| \leq \frac{M}{n^{3/2}} E(|X_i^3|).
-  \end{equation}
-
-  As observações acima são o ponto mais importante da prova de que essa aproximação funciona e uma outra maneira de colocá-las é a seguinte.
-  Como $X_i$ e $Y_i$ possuem os dois primeiros momentos iguais, os dois primeiros termos de Taylor coincidem após a integração (o primeiro se anula e o segundo é $v_i$ tanto para $X_i$ quanto para $Y_i$).
-  O resto é de ordem muito pequena para influir no limite.
-
-  De fato, se retiramos o termo $Y_i$ de $Z_{i+1}$, fazendo a mesma expansão que para $X_i$, obtemos
-  \begin{equation}
-    \int \phi^n(Z_{i+1}) \d P' = \int \phi^n(Z_i^o) \d P' + \frac{1}{2n} v_i + k'_i,
-  \end{equation}
-  com o termo de ordem superior $k'_i$ sendo definido exatamente como $k_i$, mas com $Y_i$ no lugar de $X_i$.
-
-  Estamos prontos agora para a computação final
-  \begin{equation*}
-    \begin{split}
-      \Big| \int \phi^n & (X_1, \dots, X_n) \d P - \int g(s) \mathcal{N}(0,1)(\d s) \Big|\\
-      & = \Big| \int \phi^n(Z_0) \d P' - \int \phi^n(Z_n) \d P' \Big|\\
-      & \leq \sum_{i=0}^{n-1} \Big| \int \phi^n(Z_{i}) \d P' - \int \phi^n(Z_{i+1}) \d P' \Big| = \sum_{i=0}^{n-1} |k_i - k'_i|\\
-      & \leq n \frac{M}{n^{3/2}} \big(E(|X_1|^3) + E(|Y_1|^3) \big),
-    \end{split}
-  \end{equation*}
-  que claramente converge a zero, provando o teorema.
-\end{proof}
-
-\begin{corollary}
-  A $\mathcal{N}(0,1)$ é a única distribuição $\mu$ que possui esperança zero, variância $1$ e é tal que se $X, Y$ são \iid com distribuição $\mu$, então $(X + Y)/\sqrt{2}$ possuem distribuição $\mu$.
-\end{corollary}
-
-\begin{proof}
-  Usando a invariância enunciada acima, temos que
-  \begin{equation}
-    \frac{X_1 + \dots + X_{2^k}}{\sqrt{2^k}} \distr \mu.
-  \end{equation}
-  Mas pelo Teorema central do limite, a distribuição dessa combinação de $X_i$ deve convergir a $\mathcal{N}(0,1)$, logo temos $\mu = \mathcal{N}(0,1)$.
-\end{proof}
-
 \todosec{Tópico: Análise de componentes principais}{variáveis gaussianas e principal component analysis...}
-
-\todosec{Tópico: Funções características???}{funcoes caracteristicas e tomografia...}
 
 %%% Local Variables:
 %%% mode: latex
