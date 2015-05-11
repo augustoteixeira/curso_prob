@@ -1280,7 +1280,7 @@ Mas existe uma maneira simples de tornar esse problema interessante novamente.
 Digamos que $X$ e $Y$ pertencem a $\mathcal{L}^2$ e são i.i.d.
 Então
 \begin{equation}
-  \Var(X + Y) = 2 \Var(X) = \Var(\sqrt{2} X).
+  \Var\Big(\frac{X + Y}{\sqrt{2}}\Big) = 2 \Var\Big( \frac X{\sqrt{2}} \Big) = \Var(X).
 \end{equation}
 Então podemos nos perguntar se
 
@@ -1292,6 +1292,13 @@ Então podemos nos perguntar se
   \end{equation}
   Pelo menos sabemos agora que a variância não se altera atravéz dessa operação.
 \end{question}
+
+Ou em outras palavras, queremos saber se existe algum ponto fixo para o operador $\Gamma$ que toma uma distribuição $\mu$ em $\mathbb{R}$ e retorna
+\begin{equation}
+  \label{e:Gamma_operador}
+  \Gamma(\mu) = \Big( \frac{X_1 + X_2}{\sqrt{2}} \Big) \circ \mu \otimes \mu.
+\end{equation}
+
 
 Para tentar responder a essa questão, vamos estudar mais a fundo qual é a distribuição da soma de duas variáveis aleatórias independentes.
 Para isso, considere a distribuição $(X,Y) \circ P$ do par, que coincide com $\mu \otimes \mu$, nos dando
@@ -1355,6 +1362,7 @@ Para confirmar que de fato as distribuições normais se comportam bem com respe
 \begin{proposition}
   \label{p:soma_normais}
   Se $X \distr \mathcal{N}(m, \sigma^2)$ e $Y \distr \mathcal{N}(\bar{m}, \bar{\sigma}^2)$ são independentes, então $X + Y$ tem distribuição $\mathcal{N}(m + \bar{m}, \sigma^2 + \bar{\sigma}^2)$.
+  Em particular, $\mu$ é um ponto fixo do operador $\Gamma$ definido em \eqref{e:Gamma_operador}.
 \end{proposition}
 
 \begin{proof}
@@ -1415,8 +1423,8 @@ Uma outra maneira de entender o corolário acima é que a normal é um ponto fix
   \end{equation}
 \end{enumerate}
 
-Na Questão~\ref{q:ponto_fixo_soma}, nos perguntamos quais seriam os outros possíveis pontos fixos dessa operação e isso será considerado depois.
-Mas uma outra questão bastante importante é se o ponto fixo $\mathcal{N}(0,1)$ é atrator, ou seja se começando com outras distribuições poderíamos nos aproximar de $\mathcal{N}(0,1)$ à medida que $n$ cresce.
+Na Questão~\ref{q:ponto_fixo_soma}, nos perguntamos quais seriam os outros possíveis pontos fixos de $\Gamma$ e isso será considerado depois.
+Mas uma outra questão bastante importante é se o ponto fixo $\mathcal{N}(0,1)$ é atrator, ou seja se começando com outras distribuições poderíamos nos aproximar de $\mathcal{N}(0,1)$ à medida que iteramos $\Gamma$.
 
 Isso é estudado no Teorema Central do Limite (TCL) que provaremos posteriormente.
 Mas antes, precisamos desenvolver uma boa definição de convergência para distribuições, ou em outras palavras definir uma topologia.
@@ -1540,7 +1548,7 @@ A primeira é dada pela seguinte
 \begin{theorem}[Teorema Central do Limite]
   \index{Teorema!Central do Limite}
   \label{t:tcl_iid}
-  Considere num espaço $(\Omega, \mathcal{F}, P)$, uma sequência $X_1, X_2, \dots$ de variáveis aleatórias \iid em $\mathcal{L}^3$.
+  Considere em $(\Omega, \mathcal{F}, P)$, uma sequência $X_1, X_2, \dots$ de variáveis aleatórias \iid em $\mathcal{L}^3$.
   Nesse caso, se definimos $m = E(X_1)$ e $\sigma^2 = \Var(X_1)$, temos
   \begin{equation}
     \frac{\sum_{i=1}^n (X_i - m)}{\sigma \sqrt{n}} \Rightarrow \mathcal{N}(0,1).
@@ -1621,6 +1629,7 @@ A primeira é dada pela seguinte
 
 \begin{corollary}
   A $\mathcal{N}(0,1)$ é a única distribuição $\mu$ que possui esperança zero, variância $1$ e é tal que se $X, Y$ são \iid com distribuição $\mu$, então $(X + Y)/\sqrt{2}$ também possuem distribuição $\mu$.
+  Em outras palavras, $\mathcal{N}(0, \sigma^2)$, para $\sigma \geq 0$, são os únicos pontos fixos de $\Gamma$ em $\mathcal{L}^3$.
 \end{corollary}
 
 \begin{proof}
@@ -1638,6 +1647,8 @@ Vamos terminar essa seção com uma aplicação do teorema acima.
   Usando o \nameref{t:tcl_iid}, estime $P[Y \geq 55]$ usando uma aproximação por uma $\mathcal{N}(0,1)$.
   Calcule numericamente o valor real desta probabilidade e compare ambas as estimativas.
 \end{exercise}
+
+\todo{falar de Tao Vu, se os momentos batem a distrib de auto-val é proxima + funcao zeta.}
 
 \todosec{Tópico: Funções características???}{funcoes caracteristicas e tomografia...}
 
