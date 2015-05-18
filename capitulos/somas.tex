@@ -245,7 +245,7 @@ Observe que quando o $k$-ésimo momento de $X$ é finito, a razão acima decai m
 \end{exercise}
 
 \begin{exercise}
-  Mostre que se a distribuição de $X \in \mathcal{L}^2$ tem densidade $\rho$, então
+  Mostre que se a distribuição de $X$ tem densidade $\rho$ e $E(|f(X)|) < \infty$, então
   \begin{equation}
     E(f(X)) = \int f(x) \rho(x) \d x.
   \end{equation}
@@ -256,6 +256,7 @@ Um caso bastante importante ocorre quando $k = 2$, por várias razões que descr
 Digamos que estamos interessados em aproximar uma variável aleatória por uma constante de forma a minimizar o erro da aproximação.
 Uma possível formulação desse problema é encontrar $a$ de forma a minimizar
 \begin{equation}
+  \label{e:EX_aproxima}
   E\Big( (X - a)^2 \Big) = E(X^2) - 2 a E(X) + a^2.
 \end{equation}
 Essa equação obviamente possui um único mínimo em $a = E(X)$.

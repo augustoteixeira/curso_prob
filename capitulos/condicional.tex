@@ -2,17 +2,31 @@
 
 \section{Esperança condicional}
 
-Como já foi dito anteriormente, a estrutura de $\sigma$-álgebra tem um papel muito importante na área de probabilidade.
+Como já foi dito anteriormente, a estrutura de $\sigma$-álgebra tem um papel muito importante em probabilidade.
 Durante o curso de Teoria da Medida, muitas vezes o conceito de $\sigma$-álgebra parece uma tecnicalidade que simplesmente dificulta nosso acesso ao conteúdo realmente interessante do curso.
 Em alguns momentos, chegamos a desejar que tudo fosse mensurável e não tivéssemos que nos preocupar com tais formalidades.
 
-No estudo que iniciaremos agora, nos restringiremos a sub-$\sigma$-álgebras $\mathcal{F}'$ próprias de $\mathcal{F}$ propositalmente.
-Ficará claro portanto, que o estudo de $\sigma$-álgebras e mensurabilidade não é uma mera tecnicalidade, mas sim uma ferramenta importante.
+Contudo, no estudo que iniciaremos agora, nos restringiremos a $\sigma$-álgebras menores de maneira proposital.
+Ficará claro em particular, que o estudo de mensurabilidade não é uma mera tecnicalidade, mas sim uma ferramenta importante.
 
-Em algum sentido (que ficará claro no decorrer do texto) essas sub-$\sigma$-ál\-ge\-bras representarão uma forma de ``informação incompleta''.
-Daremos sentido a frases como ``nós temos conhecimento apenas da $\sigma$-álgebra $\mathcal{F}'$''.
+Esse interesse, vem da necessidade de representar situações de ``informação incompleta'', onde podemos apenas observar uma parte da realidade.
+Isso certamente é de suma importância em diversas aplicações, desde a estatística, física e computação até a teoria de jogos.
+Vamos começar com um exemplo simples.
 
-Mas antes lembraremos um lema básico de Teoria da Medida.
+Suponha que $\Omega = \mathbb{R}^2$ é dotado da $\sigma$-álgebra de Borel e denotamos por $X_1, X_2$ as coordenadas canônicas.
+Como podemos representar matematicamente a afirmação ``uma pessoa somente conhece o valor de $X_1$ e não de $X_2$''?
+Digamos por exemplo que essa pessoa deverá tomar uma decisão (por exemplo escolher um elemento de $E$) baseando-se apenas nessa informação incompleta.
+A maneira que modelamos isso matemáticamente é dizendo que a decisão da pessoa deve ser uma função $f: \Omega \to E$ mensurável com respeito a $\sigma(X_1)$.
+
+Nossa primeira utilização desse conceito será feita agora ao introduzirmos a noção de esperaça condicional, que generaliza o conceito de esperança.
+Relembrando o cálculo \eqref{e:EX_aproxima}, nós podemos pensar em $E(X)$ como uma boa maneira de aproximar $X$ por um número real.
+Isso por exemplo poderia ser útil se não temos nenhuma informação sobre o que ocorreu, mas ainda sim temos que tentar adivinhar o valor de $X$.
+Mas vamos agora imaginar uma outra situação, onde temos um pouco de informação sobre o que ocorreu.
+
+Voltando ao exemplo em que $\Omega = \mathbb{R}^2$, digamos que nós podemos observar o valor de $X_1$, mas gostaríamos de estimar o valor de $X_2$.
+De acordo com o que discutimos acima, nossa estimativa agora não precisa mais ser apenas um número real, podendo ser qualquer função mensurável com respeito a $\sigma(X_1)$.
+
+Vamos no que segue tornar esse discussão rigorosa, mas antes lembramos um lema básico de Teoria da Medida.
 
 \begin{lemma}
   \label{l:f_igual_fp}
@@ -40,7 +54,7 @@ O que aconteceria se soubéssemos integrar $f$ apenas para eventos $A$ em uma su
 \begin{definition}
   \label{d:esperanca_condicional}
   Seja uma variável aleatória $X \in \mathcal{L}^1(P)$ e uma sub-$\sigma$-álgebra $\mathcal{F}' \subseteq \mathcal{F}$.
-  Dizemos que uma variável aleatória $Y$ é a esperança condicional \index{esperanca@esperança!condicional} de $X$ com respeito a $\mathcal{F}'$ (ou dada $\mathcal{F}'$) se
+  Dizemos que uma variável aleatória $Y$ é a esperança condicional \index{esperanca@esperança!condicional} de $X$ com respeito a $\mathcal{F}'$ (ou a esperança condicional de $X$ dada $\mathcal{F}'$) se
   \begin{enumerate}[\quad a)]
   \item $Y$ é $\mathcal{F}'$-mensurável e
   \item $E(X \1_{A}) = E(Y \1_{A})$ para todo $A \in \mathcal{F}'$.
@@ -73,14 +87,14 @@ Uma propriedade muito importante que segue da Definição~\ref{d:esperanca_condi
 \end{proposition}
 
 \begin{proof}
-  Tomamos $A = [Y \geq 0]$ e $A' = [Y \leq 0]$ que estão em $\mathcal{F}'$ e estimamos
+  Tomamos $A = [Y \geq 0]$ e $A' = [Y < 0]$ que estão em $\mathcal{F}'$ e estimamos
   \begin{equation}
     \int |Y| \d P = \int_A Y \d P + \int_{A'} Y \d P = \int_A X \d P + \int_{A'} X \d P \leq \int |X| \d P < \infty
   \end{equation}
   O que mostra a proposição.
 \end{proof}
 
-Além do Exemplo~\ref{x:EXF_trivial} trivial acima, quando podemos esperar que existam esperanças condicionais?
+Além caso trivial dado acima pelo Exemplo~\ref{x:EXF_trivial}, quando podemos esperar que existam esperanças condicionais?
 
 \begin{theorem}
   Dada $X \in \mathcal{L}^1(P)$ e $\mathcal{F}' \subseteq \mathcal{F}$ uma $\sigma$-álgebra, então existe a esperança condicional $E(X|\mathcal{F}')$.
@@ -116,9 +130,17 @@ Além do Exemplo~\ref{x:EXF_trivial} trivial acima, quando podemos esperar que e
   Agora é só observar que as afirmações acima correspondem às condições da Definição~\ref{d:esperanca_condicional}.
 \end{proof}
 
-
 Observe que a condição de $\mathcal{F}'$-mensurabilidade é essencial para a unicidade.
 De fato, $X$ obviamente satisfaz a segunda condição da Definição~\ref{d:esperanca_condicional}, mas não necessariamente a primeira.
+
+\begin{exercise}
+  Mostre que se $X \in \mathcal{F}'$, então $E(X|\mathcal{F}') = X$ quase certamente.
+\end{exercise}
+
+\begin{exercise}
+  Seja $P$ a probabilidade uniforme em $\{(x_1, x_2) \in [0,1]^2; x_1 \geq x_2\}$.
+  Calcule $E(X_2|X_1)$.
+\end{exercise}
 
 \section{Propriedades básicas da esperança condicional}
 
@@ -182,8 +204,6 @@ Uma outra propriedade bem simples da esperança condicional é a monotonicidade.
   o que implica que $P(A) = 0$.
 \end{proof}
 
-
-
 \begin{proposition}
   \label{p:EZX_ZEX}
   Se $X, ZX \in \mathcal{L}^1(P)$, com $Z \in \mathcal{F}'$, temos
@@ -220,10 +240,10 @@ Ao considerarmos a esperança condicional dada $\mathcal{F}'$, nós já conhecem
   O que mostra o resultado sempre que $X \geq 0$.
 
   Além disso, pela Proposição~\ref{p:ec_em_L1}, sabemos que $Z E(X|\mathcal{F}') \in \mathcal{L}^1$.
-  Podemos finalmente concluir a prova decompondo $X = X_+ - X_-$ e a linearidade.
+  Podemos finalmente concluir a prova por linearidade decompondo $X = X_+ - X_-$.
 \end{proof}
 
-Para corroborar nossa afirmação que a esperança condicional é uma aproximação da variável aleatória, fornecemos o seguinte
+O próximo resultado tenta corroborar nossa afirmação que a esperança condicional é uma boa maneira de aproximar uma variável aleatória.
 
 \begin{lemma}
   Se $X \in \mathcal{L}^2(P)$ e $\mathcal{F}' \subseteq \mathcal{F}$, então $E(X|\mathcal{F}')$ é a projeção ortogonal de $X$ no espaço vetorial $H_{\mathcal{F}'}$.
