@@ -554,7 +554,7 @@ Isso pode ser contornado se o espaço for canônico, como afirma o nosso próxim
   Dessa forma valem os ítens $a)$, $b)$ e $c)$ para todos pontos de $\Omega$.
   Note também que após essa redefinição, ainda obtemos $F(\cdot, q)$ mensurável para todo $q \in \mathbb{Q}$, pois redefinimos $F$ como sendo uma constante em um conjunto mensurável.
 
-  Vamos agora extender as definições acima para $\hat{F}:\Omega \times \mathbb{Q}$
+  Vamos agora extender as definições acima para $\hat{F}:\Omega \times \mathbb{R}$
   \begin{equation}
     \hat{F}(\omega, x) = \lim_{q \downarrow x} F(\omega, q),
   \end{equation}
@@ -566,7 +566,9 @@ Isso pode ser contornado se o espaço for canônico, como afirma o nosso próxim
   \end{equation}
   e definimos $K(\omega, A) = \mu_\omega(A)$.
 
-  Exercício: mostre que $\hat{F}$ é contínua à direita.
+  \begin{exercise}
+    Mostre que $\hat{F}$ é contínua à direita.
+  \end{exercise}
 
   Pela Proposição~\ref{p:K_nucleo_na_classe}, já sabemos que $K$ é um núcleo de transição, pois $K\big(\cdot, (-\infty, q]\big)$ é mensurável para todo $q$ e esses conjuntos formam um $\pi$-sistema que gera $\mathcal{B}(\mathbb{R})$.
 
@@ -581,7 +583,7 @@ Isso pode ser contornado se o espaço for canônico, como afirma o nosso próxim
 \end{proof}
 
 Interpretamos $P(X \in \cdot| \mathcal{F}')$ da seguinte forma.
-Se alguém tiver acesso à $\sigma$-álgebra $\mathcal{F}'$ (por exemplo se $\mathcal{F}' = \sigma(Y)$ e o pessoa for capaz de observar o valor de $Y(\omega)$), ela pode não saber o valor de $X(\omega)$, mas já sabe a nova distribuição condicional de $X$: $P(X \in \cdot|\mathcal{F}')(\omega)$.
+Se alguém tiver acesso à $\sigma$-álgebra $\mathcal{F}'$ (por exemplo se $\mathcal{F}' = \sigma(Y)$ e uma pessoa for capaz de observar o valor de $Y(\omega)$), ela pode não saber o valor de $X(\omega)$, mas já sabe a nova distribuição condicional de $X$: $P(X \in \cdot|\mathcal{F}')(\omega)$.
 
 \begin{exercise}
   Se $X$ é variável aleatória então
@@ -600,6 +602,8 @@ Se alguém tiver acesso à $\sigma$-álgebra $\mathcal{F}'$ (por exemplo se $\ma
 
 Uma das grandes vantagens de ter um núcleo de transição a determinar uma distribuição conjunta, como é o caso quando obtemos uma probabilidade condicional regular, é que podemos usar a versão generalizada de Fubini.
 Antes, nós somente podiamos usar Fubini para espaços produto.
+
+\newpage
 
 Vamos introduzir nosso último conceito de condicionais.
 
@@ -629,14 +633,14 @@ Observe que a hipótese de ser canônico é sobre $\Omega$!
   Definimos o elemento aleatório $X^\star: \Omega \to \Omega \times E'$ dado por $X^\star (\omega) = (\omega, X(\omega))$.
   Como $X^\star$ é claramente mensurável, ele induz uma probabilidade natural em $\Omega \times E$, mais precisamente $P^\star = X^\star \circ P$.
 
-  Introduzimos também em $\Omega \times E$ as projeções canônicas $\pi_\Omega$ e $\pi_E$.
-  Utilizamos agora o Teorema~\ref{t:prob_cond_reg_F} para obter um núcleo $K^\star$ de $\Omega \times E$ em $\Omega$ que dá a probabilidade condicional regular de $\pi_\Omega$ (com respeito a $P^\star$) dada $\sigma(\pi_E)$, ou seja
+  Introduzimos também em $\Omega \times E$ as projeções canônicas $X_\Omega$ e $X_E$.
+  Utilizamos agora o Teorema~\ref{t:prob_cond_reg_F} para obter um núcleo $K^\star$ de $\Omega \times E$ em $\Omega$ que dá a probabilidade condicional regular de $X_\Omega$ (com respeito a $P^\star$) dada $\sigma(X_E)$, ou seja
   \begin{equation}
-    K^\star(\cdot, A) = E^\star \big(\1_{[\pi_\Omega \in A]} | \sigma(\pi_E) \big) \text{ $P^\star$-q.c.}
+    K^\star(\cdot, A) = E^\star \big(\1_{[X_\Omega \in A]} | \sigma(X_E) \big) \text{ $P^\star$-q.c.}
   \end{equation}
-  Mas como $K^\star(\cdot, A)$ é $\sigma(\pi_E)$-mensurável, podemos usar o Lema~\ref{l:f_g_circ_X} para obter uma $g_A: E \to \Omega \times E$ tal que
+  Mas como $K^\star(\cdot, A)$ é $\sigma(X_E)$-mensurável, podemos usar o Lema~\ref{l:f_g_circ_X} para obter uma $g_A: E \to \Omega \times E$ tal que
   \begin{equation}
-    K^\star\big( (\omega, x), A \big) = g_A (\pi_E(\omega, x)) = g_A(x).
+    K^\star\big( (\omega, x), A \big) = g_A (X_E(\omega, x)) = g_A(x).
   \end{equation}
   Em particular, o lado esquerdo da equação acima não depende de $\omega$.
   Podemos finalmente definir $K(x, A) = g_A(x)$.
@@ -646,15 +650,15 @@ Observe que a hipótese de ser canônico é sobre $\Omega$!
   \begin{equation}
     \begin{split}
       K(X(\omega), A) & = g_A(X(\omega)) = K^\star \big( (\omega, X(\omega)), A \big) = K^\star (X^\star(x), A)\\
-      & \overset{\text{$P^\star$-q.c.}}= E^\star \big(\1_{[\pi_\Omega \in A]} | \sigma(\pi_E) \big) \circ X^\star.
+      & \overset{\text{$P^\star$-q.c.}}= E^\star \big(\1_{[X_\Omega \in A]} | \sigma(X_E) \big) \circ X^\star.
     \end{split}
   \end{equation}
   Agora somente resta nos ver que essa é uma versão de $E(\1_A|\sigma(X))$, que segue da conta
   \begin{equation}
     \begin{split}
-      E\big( E^\star(& \1_{[\pi_\Omega \in A]} | \sigma(\pi_E)) \circ X^\star \1_{[X \in B]}\big)\\
-      & = E^\star \big( E^\star(\1_{[\pi_\Omega \in A]} | \sigma(\pi_E)) \1_{[\pi_E \in B]}\big)\\
-      & = E^\star ( \1_{[\pi_\Omega \in A, pi_E \in B]} ) = E(\1_A \1_{[X \in B]}),
+      E\big( E^\star(& \1_{[X_\Omega \in A]} | \sigma(X_E)) \circ X^\star \1_{[X \in B]}\big)\\
+      & = E^\star \big( E^\star(\1_{[X_\Omega \in A]} | \sigma(X_E)) \1_{[X_E \in B]}\big)\\
+      & = E^\star ( \1_{[X_\Omega \in A, pi_E \in B]} ) = E(\1_A \1_{[X \in B]}),
     \end{split}
   \end{equation}
   como gostaríamos.
