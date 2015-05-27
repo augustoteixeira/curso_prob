@@ -448,6 +448,14 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
   \end{enumerate}
 \end{exercise}
 
+\begin{exercise}
+  \label{x:convolucao_densidade}
+  Mostre que se $X, Y$ são variáveis aleatórias independentes com distribuições $X \distr f_X(x) \d x$ e $Y \distr f_Y(y) \d y$, então $X + Y$ tem distribuição absolutamente contínua com respeito a Lebesgue e
+  \begin{equation}
+    f_{X + Y}(z) = \int_{-\infty}^\infty f_Y(z - x) f_X(x) \d x.
+  \end{equation}
+\end{exercise}
+
 \todo{mandar para depois de produtos infinitos?}
 
 \begin{lemma}[Borel-Cantelli - segunda parte]

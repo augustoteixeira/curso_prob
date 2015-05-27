@@ -259,8 +259,8 @@ O próximo resultado tenta corroborar nossa afirmação que a esperança condici
   Note que não é claro que essa esperança faz sentido, pois não sabemos que $ZE(X|\mathcal{F}') \in \mathcal{L}^1$.
   Mas isso segue facilmente da Proposição~\ref{p:EZX_ZEX}.
 
-  Agora sim, se $Z = \1_{A}$ para algum $A \in \mathcal{F}'$, essa afirmação segue da definição de $E(X|\mathcal{F}')$.
-  Finalmente podemos extender esse resultado a funções simples, positivas e finalmente a todas $Z \in H_{\mathcal{F}'}$.
+  Mas $E\big( E(X|\mathcal{F}') Z \big) = Z E\big( E(X | \mathcal{F}') \1_\Omega \big) = Z E\big( X \1_\Omega \big)$, provando o resultado.
+  \todo{Adicionar footnote.}
 \end{proof}
 
 Vimos acima uma metodologia que se repete frequentemente.
@@ -605,74 +605,6 @@ Antes, nós somente podiamos usar Fubini para espaços produto.
 
 \newpage
 
-Vamos introduzir nosso último conceito de condicionais.
-
-\begin{definition}
-  Dado $X:\Omega \to E$ um elemento aleatório, dizemos que um núcleo $K: E \times \mathcal{F} \to [0,1]$ é uma \emph{probabilidade condicional regular dado $X$} se
-  \begin{equation}
-    \label{e:K_prob_cond_reg_X}
-    K\big( X(\omega), A\big) = E(\1_A|\sigma(X)), \text{ $P$-quase certamente.}
-  \end{equation}
-  Nesse caso escrevemos $K(x, A) = P(A|X = x)$.
-\end{definition}
-
-A existência de tais condicionais não decorre somente do Teorema~\ref{t:prob_cond_reg_F}, já que o Lema~\ref{l:f_g_circ_X} não se aplica para núcleos de transição.
-A principal dificuldade de adaptarmos esse lema para núcleos vem do fato de que a imagem de uma função mensurável não é necessariamente mensurável.
-
-Contudo, não estamos muito longe de obter a existência das condicionais definidas acima.
-
-\begin{theorem}
-  \label{t:prob_cond_reg_X}
-  Sejam $\Omega$ e $E$ espaços mensuráveis e $X: \Omega \to E$ um elemento aleatório.
-  Então se $\Omega$ é canônico, existe $P(A|X = x)$, a probabilidade condicional regular dada $X$.
-\end{theorem}
-
-Observe que a hipótese de ser canônico é sobre $\Omega$!
-
-\begin{proof}
-  Definimos o elemento aleatório $X^\star: \Omega \to \Omega \times E'$ dado por $X^\star (\omega) = (\omega, X(\omega))$.
-  Como $X^\star$ é claramente mensurável, ele induz uma probabilidade natural em $\Omega \times E$, mais precisamente $P^\star = X^\star \circ P$.
-
-  Introduzimos também em $\Omega \times E$ as projeções canônicas $X_\Omega$ e $X_E$.
-  Utilizamos agora o Teorema~\ref{t:prob_cond_reg_F} para obter um núcleo $K^\star$ de $\Omega \times E$ em $\Omega$ que dá a probabilidade condicional regular de $X_\Omega$ (com respeito a $P^\star$) dada $\sigma(X_E)$, ou seja
-  \begin{equation}
-    K^\star(\cdot, A) = E^\star \big(\1_{[X_\Omega \in A]} | \sigma(X_E) \big) \text{ $P^\star$-q.c.}
-  \end{equation}
-  Mas como $K^\star(\cdot, A)$ é $\sigma(X_E)$-mensurável, podemos usar o Lema~\ref{l:f_g_circ_X} para obter uma $g_A: E \to \Omega \times E$ tal que
-  \begin{equation}
-    K^\star\big( (\omega, x), A \big) = g_A (X_E(\omega, x)) = g_A(x).
-  \end{equation}
-  Em particular, o lado esquerdo da equação acima não depende de $\omega$.
-  Podemos finalmente definir $K(x, A) = g_A(x)$.
-
-  Vemos facilmente que $K$ é um núcleo, pois toda $g_A$ é mensurável e $K(x, \cdot) = K^\star\big( (\omega, x), \cdot \big)$, que é uma medida.
-  Finalmente, temos que verificar \eqref{e:K_prob_cond_reg_X}.
-  \begin{equation}
-    \begin{split}
-      K(X(\omega), A) & = g_A(X(\omega)) = K^\star \big( (\omega, X(\omega)), A \big) = K^\star (X^\star(x), A)\\
-      & \overset{\text{$P^\star$-q.c.}}= E^\star \big(\1_{[X_\Omega \in A]} | \sigma(X_E) \big) \circ X^\star.
-    \end{split}
-  \end{equation}
-  Agora somente resta nos ver que essa é uma versão de $E(\1_A|\sigma(X))$, que segue da conta
-  \begin{equation}
-    \begin{split}
-      E\big( E^\star(& \1_{[X_\Omega \in A]} | \sigma(X_E)) \circ X^\star \1_{[X \in B]}\big)\\
-      & = E^\star \big( E^\star(\1_{[X_\Omega \in A]} | \sigma(X_E)) \1_{[X_E \in B]}\big)\\
-      & = E^\star ( \1_{[X_\Omega \in A, pi_E \in B]} ) = E(\1_A \1_{[X \in B]}),
-    \end{split}
-  \end{equation}
-  como gostaríamos.
-\end{proof}
-
-\begin{exercise}
-  Considere em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ as projeções canônicas $X_1$ e $X_2$.
-  Calcule, em cada um dos exemplos abaixo, a probabilidade condicional regular $P[X_1 \in \cdot|X_2 = x_2]$, justificando sua resposta,
-  \begin{enumerate}[\quad a)]
-  \item Quando $P$ é a medida uniforme em $T = \{(x,y) \in [0,1]^2; x \leq y\}$ (ou seja, a medida de Lebesgue em $\mathbb{R}^2$ restrita a $T$ e normalizada para ser uma probabilidade).
-  \item Quando $P$ é a medida $U_{S^1}$ (uniforme em $S^1$).
-  \end{enumerate}
-\end{exercise}
-
 \section{Princípio da substituição}
 
 Nessa seção construiremos nossa última versão de probabilidade condicional regular que é bem definida em espaços produtos e nos fornecerá o que chamamos de Princípio da Substituição. \index{Principio@Princípio!da Substituicao@da Substituição}
@@ -682,51 +614,66 @@ Esse é o conteúdo do seguinte resultado.
 \begin{theorem}
   \label{t:prob_cond_reg_prod}
   Sejam espaços mensuráveis $(\Omega, \mathcal{F})$ e $(E, \mathcal{A})$, com $E$ canônico.
-  Se $P$ é uma probabilidade no espaço produto $(\Omega \times E, \mathcal{F} \otimes \mathcal{A})$ e denotamos por $P_X = P \circ X_1$ a primeira distribuição marginal de $P$, então existe um núcleo de transição $K: \Omega \times \mathcal{A} \to [0,1]$ satisfazendo
+  Se $P$ é uma probabilidade no espaço produto $(\Omega \times E, \mathcal{F} \otimes \mathcal{A})$ e denotamos por $P_\Omega = P \circ X_1$ a primeira distribuição marginal de $P$, então existe um núcleo de transição $K: \Omega \times \mathcal{A} \to [0,1]$ satisfazendo
   \begin{equation}
-    P = P_X \star K,
+    P = P_\Omega \star K,
   \end{equation}
-  (como de costume $X_i$ denota a $i$-ésima coordenada canônica).
   Em particular,
   \begin{equation}
     \label{e:prob_cond_reg_prod}
-    P(A \times B) = \int_A K(\omega, B) P_X (\d \omega) \text{ para todo $A \in \mathcal{F}$, $B \in \mathcal{A}$}.
+    P(A \times B) = \int_A K(\omega, B) P_\Omega (\d \omega) \text{ para todo $A \in \mathcal{F}$, $B \in \mathcal{A}$}.
   \end{equation}
-  Nesse caso denotamos $K(\omega, B)$ por $P[X_2 \in B | X_1 = \omega]$.
+  Nesse caso denotamos $K(\omega, B)$ por $P[X_2 \in B | X_1 = \omega]$ (como de costume $X_i$ denota a $i$-ésima coordenada canônica).
 \end{theorem}
 
 \begin{proof}
-  Como de costume, primeiramente resolveremos o caso $(E, \mathcal{A}) = (\mathbb{R}, \mathcal{B}(\mathbb{R}))$.
-  Se assumimos a validade do teorema nesse caso, podemos usar a função bi-mensurável $\phi: E \to B \in \mathcal{B}(\mathbb{R})$ para concluir o caso geral.
+  Como de costume, basta resolver o caso $(E, \mathcal{A}) = (\mathbb{R}, \mathcal{B}(\mathbb{R}))$.
+  De fato, se assumimos a validade do teorema para a reta, podemos usar a função bi-mensurável $\phi: E \to B \in \mathcal{B}(\mathbb{R})$ para concluir o caso geral.
 
-  Lembrando que estamos no espaço $(\mathbb{R} \times \Omega, \mathcal{B}(\mathbb{R}) \otimes \mathcal{F}, P)$ denotamos a distribuição marginal $X_1 \circ P$ por $P_X$.
-  Para cada $q \in \mathbb{Q}$, definimos $P^q_X : \mathcal{F} \to [0,1]$ por
+  Nos restringiremos agora ao espaço $(\Omega \times \mathbb{R}, \mathcal{F} \otimes \mathcal{B}(\mathbb{R}), P)$.
+  Para cada $q \in \mathbb{Q}$, definimos $P^q_\Omega : \mathcal{F} \to [0,1]$ por
   \begin{equation}
-    P^q_X (A) = P\big( (-\infty, q] \times A \big).
+    P^q_\Omega (A) = P\big( (-\infty, q] \times A \big).
   \end{equation}
-  Observando que $P^q_X$ é absolutamente contínua com respeito a $P_X$, podemos definir
+  Observando que $P^q_\Omega$ é absolutamente contínua com respeito a $P_\Omega$, podemos definir
   \begin{equation}
-    F(\omega, q) = \frac{\d P^q_X}{\d P_X}(\omega).
+    F(\omega, q) = \frac{\d P^q_\Omega}{\d P_\Omega}(\omega).
   \end{equation}
   Observamos as seguintes propriedades de $F$:
   \begin{enumerate}[\quad a)]
-  \item para cada $q \in \mathbb{Q}$, $F(\cdot, q) \in [0,1]$, $P_X$-quase certamente, pois $P^q_X(A) \leq P_X(A)$ para todo $A \in \mathcal{F}$,
-  \item para $q < q' \in \mathbb{Q}$, $F(\cdot, q) \leq F(\cdot, q')$, $P_X$-quase certamente, pois $P^q_X(A) \leq P^{q'}_X(A)$ para todo $A \in \mathcal{F}$ e
-  \item $F(\cdot, n) \to 1$ (analogamente $F(\cdot, -n) \to 0$) quando $n$ tende a infinito, $P_X$-quase certamente. Para ver isso, note que a sequência de variáveis aleatórias $F(\cdot, n)$ é quase certamente monótona não decrescente, logo converge $P_X$-q.t.p., sendo limitada, converge em $\mathcal{L}^1$ e como sua integral em $P_X$ converge para um, $F(\cdot, n) \to 1$, quase certamente (analogamente para $F(\cdot, -n)$).
+  \item para cada $q \in \mathbb{Q}$, $F(\cdot, q) \in [0,1]$, $P_\Omega$-quase certamente, pois $P^q_\Omega(A) \leq P_\Omega(A)$ para todo $A \in \mathcal{F}$,
+  \item para $q < q' \in \mathbb{Q}$, $F(\cdot, q) \leq F(\cdot, q')$, $P_\Omega$-quase certamente, pois $P^q_\Omega(A) \leq P^{q'}_\Omega(A)$ para todo $A \in \mathcal{F}$ e
+  \item $F(\cdot, n) \to 1$ (analogamente $F(\cdot, -n) \to 0$) quando $n$ tende a infinito, $P_\Omega$-quase certamente.
+    Para ver isso, note que a sequência de variáveis aleatórias $F(\cdot, n)$ é quase certamente monótona não decrescente, logo converge $P_\Omega$-quase certamente.
+    Sendo limitada, converge em $\mathcal{L}^1$ e como sua integral em $P_\Omega$ converge para um, $F(\cdot, n) \to 1$, quase certamente (analogamente para $F(\cdot, -n)$).
   \end{enumerate}
-  Existe pois um conjunto $\Omega' \in \mathcal{F}$ com $P_X(\Omega') = 1$ no qual as três hipóteses acima são satisfeitas.
-  Definimos $\hat{F}(\omega, q)$ como sendo igual a $F(\omega, q)$ em $\Omega'$ e como uma $F_0(q)$ fixa caso contrário (que claramente será mensurável).
-  Finalmente podemos definir $\tilde{F}(\omega, x) = \inf_{q \in \mathbb{Q}; q \downarrow x} \hat{F}(\omega, q)$, que satisfaz as hipóteses do Teorema~\ref{t:existe_prob_R}.
-  Logo, existe para cada $\omega \in \Omega$ uma medida $K(\omega, \cdot)$ em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ satisfazendo $K(\omega,(-\infty, q]) = F(\omega, q)$ $P_X$-quase certamente.
+  Existe pois um conjunto $\Omega' \in \mathcal{F}$ com $P_\Omega(\Omega') = 1$ no qual as três hipóteses acima são satisfeitas.
+  Definimos $\hat{F}(\omega, q)$ como sendo igual a $F(\omega, q)$ em $\Omega'$ e igual a $F_0(q)$ (uma função de distribuição fixa) caso contrário (que claramente será mensurável).
+  Finalmente podemos definir $\tilde{F}(\omega, x) = \inf_{q \in \mathbb{Q}; q \downarrow x} \hat{F}(\omega, q)$, que satisfaz para todo $\omega$ as hipóteses do Teorema~\ref{t:existe_prob_R}.
+  Logo, existe para cada $\omega \in \Omega$ uma medida $K(\omega, \cdot)$ em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ satisfazendo $K(\omega,(-\infty, q]) = F(\omega, q)$ $P_\Omega$-quase certamente.
 
   Precisamos mostrar que $K$ é um núcleo, e para isso basta observar que $F(\omega, q)$ são mensuráveis e a família $\{(-\infty, q]; q \in \mathbb{Q}\}$ forma um $\pi$-sistema que gera $\mathcal{B}(\mathbb{R})$.
 
   Finalmente, vamos verificar \eqref{e:prob_cond_reg_prod}, notando que se $A \in \mathcal{F}$ e $B = (-\infty, q]$,
   \begin{equation}
-    \int_A K(\omega, B) P_X(\d \omega) = \int_A F(\omega, q) P_X (\d \omega) = P^q_X(A) = P(A \times B).
+    \int_A K(\omega, B) P_\Omega(\d \omega) = \int_A F(\omega, q) P_\Omega (\d \omega) = P^q_\Omega(A) = P(A \times B).
   \end{equation}
-  Como a classe $B$ é um $\pi$-sistema gerando $\mathcal{B}(\mathbb{R})$ terminamos a prova do teorema.
+  Como a classe $B$ é um $\pi$-sistema gerando $\mathcal{B}(\mathbb{R})$ terminamos a prova.
 \end{proof}
+
+\begin{exercise}
+  Sejam $X_1$ e $X_2$ as projeções canônicas em um espaço produto $\Omega \times E$, com $E$ canônico.
+  Então, se $X_1$ e $X_2$ são independentes com respeito a $P$, vale $P[X_2 \in B | X_1 = \omega] = P[X_2 \in B]$ para $(X_1 \circ P)$-quase todo ponto.
+\end{exercise}
+
+\begin{exercise}
+  Considere em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ as projeções canônicas $X_1$ e $X_2$.
+  Calcule, em cada um dos exemplos abaixo, a probabilidade condicional regular $P[X_1 \in \cdot|X_2 = x_2]$, justificando sua resposta,
+  \begin{enumerate}[\quad a)]
+  \item Quando $P$ é a medida uniforme em $T = \{(x,y) \in [0,1]^2; x \leq y\}$ (ou seja, a medida de Lebesgue em $\mathbb{R}^2$ restrita a $T$ e normalizada para ser uma probabilidade).
+  \item Quando $P$ é a medida $U_{S^1}$ (uniforme em $S^1$).
+  \end{enumerate}
+\end{exercise}
 
 O teorema acima é bastante poderoso e nos permite definir e calcular diversas coisas como faremos à seguir.
 
@@ -773,7 +720,6 @@ O teorema acima é bastante poderoso e nos permite definir e calcular diversas c
     Os pontos marcados no eixo vertical representam o conjunto $[X = x]$ que possui medida um segundo $P[\; \cdot \; | X = x]$ de acordo com o Corolário~\ref{c:princ_substit}}
 \end{figure}
 
-
 \begin{corollary}
   \label{c:princ_substit}
   Sejam $(\Omega, \mathcal{F}, P)$ e $(E, \mathcal{A})$ espaços mensuráveis canônicos.
@@ -782,23 +728,26 @@ O teorema acima é bastante poderoso e nos permite definir e calcular diversas c
     \label{e:reg_cond_prob_givenX}
     K(X(\omega), F) = E[\1_{F} | X], \text{ para todo $F \in \mathcal{F}$}.
   \end{equation}
-  Também denotamos esse núcleo como $K(x, F) = P[F | X = x]$.
+  Também denotamos esse núcleo como $K(x, F) = P[F | X = x]$, que é único no sentido que se $K'$ também satisfaz \eqref{e:reg_cond_prob_givenX}, então $K(x, F) = K'(x, F)$ para $(X \circ P)$-quase todo $x \in E$.
+
   Além disso vale o que chamamos de Princípio da Substituição:
   \begin{equation}
-    K(x, [X = x]) = 1, \text{ $X \circ P$-quase certamente}.
+    \label{e:princ_substit}
+    K(x, [X = x]) = 1, \quad \text{$X \circ P$-quase certamente}.
   \end{equation}
   Que pode ser dito de maneira estranha: $P[X = x|X = x] = 1$, quase certamente.
 \end{corollary}
 
 \begin{proof}
-  Defina o elemento aleatório $W: \Omega \to E \times \Omega$, dado por $W(\omega) = (X(\omega), \omega)$, que nada mais é que o gráfico de $X$ representado horizontalmente.
+  Defina o elemento aleatório $W: \Omega \to E \times \Omega$, dado por $W(\omega) = (X(\omega), \omega)$, que percorre o gráfico de $X$ (representado horizontalmente).
   Observe que a medida $P_W := W \circ P$ possui marginais $(X_1 \circ P_W) = (X \circ P)$ e $(X_2 \circ P_W) = P$.
   Como $P_W$ satisfaz as condições do Teorema~\ref{t:prob_cond_reg_prod}, existe um núcleo $K: E \times \mathcal{F} \to [0,1]$ tal que para todo $A \in \mathcal{A}$, $F \in \mathcal{F}$,
   \begin{equation}
     P_W(A \times F) = \int_A K(x, F) P_X (\d x).
   \end{equation}
   Fixado $F \in \mathcal{F}$, $K(X(\omega), F)$ é obviamente $\sigma(X)$ mensurável, por ser uma composição de uma função mensurável em $E$ com $X$.
-  Logo, para provar \eqref{e:reg_cond_prob_givenX}, basta ver que se $B \in \sigma(X)$, temos $B = [X \in A]$ para algum $A \in \mathcal{A}$, donde
+  Logo, para provar \eqref{e:reg_cond_prob_givenX}, basta mostrar a segunda propriedade de esperanças condicionais.
+  Se $B \in \sigma(X)$, podemos escrever $B = [X \in A]$ para algum $A \in \mathcal{A}$, donde
   \begin{equation}
     \begin{split}
       E\big[ K(X, F) \1_B \big] & = E\big[ K(X, F) \1_{[X \in A]} \big] = \int_A K(x, F) P_X(\d x)\\
@@ -807,8 +756,80 @@ O teorema acima é bastante poderoso e nos permite definir e calcular diversas c
   \end{equation}
   concluindo a prova de \eqref{e:reg_cond_prob_givenX}.
 
-  Para mostrarmos o Princípio da Substituição, veja que
+  Para mostrarmos o Princípio da Substituição, vamos usar o seguinte lema.
+
+  \begin{lemma}
+    Se $X : \Omega \to E$ é um elemento aleatódio tomando valores em um espaço $E$ canônico, então seu gráfico $G = \{(\omega, X(\omega)); \omega \in \Omega\}$ é mensurável na $\sigma$-álgebra produto $\mathcal{F} \otimes \mathcal{A}$.
+  \end{lemma}
+
+  \begin{proof}
+    Primeiramente, consideramos o caso $(E, \mathcal{A}) = (\mathbb{R}, \mathcal{B}(\mathbb{R}))$.
+    Neste caso, vemos que
+    \begin{equation}
+      G = \bigcap_{n \geq 1} \bigcup_{j \in \mathbb{Z}} [X \in \big(j/2^n, (j+1)/2^n \big]] \times \big( j/2^n, (j+1l)/2^n \big],
+    \end{equation}
+    que é mensurável.
+
+    Caso $E$ seja outro espaço canônico qualquer, existe $\phi: E \to B \in \mathcal{B}(\mathbb{R})$ bi-mensurável e $G = \Phi^{-1}(G_{\phi \circ X})$, onde $G_{\phi \circ X}$ é o gráfico de $\phi \circ X$ e $\Phi(\omega, x) = (\omega, \phi(x))$.
+    Logo $G$ também é mensurável nesse caso.
+  \end{proof}
+
+  Retornando à prova de \eqref{e:princ_substit}, já sabemos que $G' = \{(X(\omega), \omega); \omega \in \Omega\}$ é mensurável.
+  Além disso, por definição $P_W(G') = P[(X(\omega), \omega) \in G'] = P(\Omega) = 1$, ou seja a medida $P_W$ tem suporte em $G'$.
+
+  Logo podemos escrever
+  \begin{equation}
+    \begin{split}
+      1 = P_W(G') & = \int \int \1_{G'} (x, \omega) K(x, \d \omega) (X \circ P) (\d x)\\
+      & = \int K(x, [X = x]) (X \circ P) (\d x).
+    \end{split}
+  \end{equation}
+  Mas como o integrado acima pertence a $[0,1]$, essa integral só pode ser um se $K(x, [X = x]) = 1$, $(X \circ P)$-quase certamente, como desejado.
 \end{proof}
+
+\begin{exercise}
+  Mostre que se $K(x, F) = P[F| X = x]$, então
+  \begin{equation}
+    \label{e:reg_cond_exp_givenX}
+    \int f(\omega') K(X(\omega), \d \omega') = E(f | X)(\omega), \text{ para toda $f \in \mathcal{F}$}.
+  \end{equation}
+\end{exercise}
+
+Vamos agora mostrar uma aplicação do Princípio da Substituição que inclusive justificará o nome dessa propriedade.
+
+\begin{lemma}
+  Se $X, Y$ são variáveis aleatórias independentes, então a função de distribuição acumulada $F$ de $X + Y$ é dada por
+  \begin{equation}
+    F(z) = P[X + Y \leq z] = \int_{-\infty}^\infty F_Y(z - x) (X \circ P) (\d x),
+  \end{equation}
+  onde $F_Y(y) = P[Y \leq y]$.
+\end{lemma}
+
+Esse lema pode ser visto como uma generalização do Exercício~\ref{x:convolucao_densidade} para o caso não absolutamente contínuo.
+Vale a pena tentar diferenciar (não rigorosamente) a equação acima em $z$.
+
+\begin{proof}
+  Vamos calcular
+  \begin{equation}
+    \begin{split}
+      P[X + Y \leq z] & = E\big( E(\1_{[X + Y \leq z]} | X) \big)\\
+      & = E\big( E(\1_{[X + Y \leq z]} | X) \big)\\
+      & = E\Big( P[X + Y \leq z| X = \cdot) \circ X \Big)\\
+      & = E\Big( P[X + Y \leq z, X = x| X = \cdot) \circ X \Big)\\
+      & = E\Big( P[Y \leq z - x| X = \cdot] \circ X \Big),
+    \end{split}
+  \end{equation}
+  onde $P[Y + X \leq z| X = \cdot]$ representa a função $x \mapsto P[Y + X \leq z | X = x]$.
+
+  Agora vamos usar a hipótese que $X$ e $Y$ são independentes.
+  Isso equivale a dizer que a distribuição conjunta desse par é igual a $P_X \otimes P_Y$ e pela unicidade da probabilidade condicional regular temos que $P[Y \in F | X = x] = P[Y \in F]$, $(X \circ P)$-quase certamente.
+  Portanto,
+  \begin{equation}
+    P[X + Y \leq z] = E\big( P[Y \leq z - \cdot] \circ X \big) = \int_{-\infty}^\infty F_Y(z - x) (X \circ P) (\d x),
+  \end{equation}
+  terminando a prova do lema.
+\end{proof}
+
 
 \begin{exercise}
   Considere as medidas
