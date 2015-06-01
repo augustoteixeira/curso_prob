@@ -767,7 +767,149 @@ Vale a pena tentar diferenciar (não rigorosamente) a equação acima em $z$.
   \end{enumerate}
 \end{exercise}
 
-\todosec{Tópico: Processos de Poisson em \texorpdfstring{$\mathbb{R}$}{R}}{fazer...}
+\begin{topics}
+
+\section{Tópico: Processos de Poisson em \texorpdfstring{$\mathbb{R}$}{R}}
+
+Nessa seção aplicaremos o conceito de Probabilidade Condicional Regular e do Princípio da Substituição \index{Principio@Princípio!da Substituicao@da Substituição} para estudarmos um importante processo de chegadas chamado Processo de Poisson. \index{Processo de Poisson}
+
+O Tenente Boavista está encarregado de vigiar o Sargento Pimenta, que frequentemente dorme durante sua vigília.
+Para isso, Boavista tem que decidir os momentos $t_1, t_2, \dots \in \mathbb{R}$ que ele irá verificar se Pimenta está cochilando.
+Uma primeira estratégia poderia ser tomar intervalos igualmente espaçados, $t_1 = 1, \dots, t_k = k$, mas o Sargento certamente iria dormir nos intevalos $(k + \varepsilon, k + 1 - \varepsilon)$ sem se preocupar.
+
+Dado esse problema, o Tenente decide escolher tempos aleatórios $T_1, T_2, \dots$
+Mas é importante lembrar que não são todas as distribuições que funcionarão bem, por exemplo se $T_k - T_{k-1} \geq a$ quase certamente o Sargento irá se aproveitar desse intervalinho.
+
+A primeira simplificação que o Tenente imagina para esse problema é a seguinte: dado que houve uma vistoria no instante $t_k$, então o que acontecerá à partir daí será o mesmo processo com o qual ele começou.
+Isso pode ser traduzido de maneira rigorosa como
+\begin{equation}
+  \label{e:Poisson_incr_ind}
+  P\big[ (T_{k+1} - t_k, T_{k+2} - t_k, \dots ) \in A | T_k = t_k \big] = P\big[ (T_1, T_2, \dots ) \in A \big],
+\end{equation}
+$T_k \circ P$-quase certamente.
+Não iremos entrar muito em detalhes sobre qual é essa esperança condicional, pois no momento ainda estamos trabalhando heuristicamente, mas já podemos dizer que:
+\begin{equation}
+  \label{e:increm_poisson}
+  \begin{split}
+    P\big[ T_1 \in A_1, T_2 - T_1 \in A_2 \big] & = E\big[ \1_{T_1 \in A_1} P[T_2 - T_1 \in A_2 | T_1 = t_1] \circ T_1 \big]\\
+    & \overset{\eqref{e:Poisson_incr_ind}}= E\big[ \1_{T_1 \in A_1} P[T_1 \in A_2] \big] = P[T_1 \in A_1] P[T_1 \in A_2].
+  \end{split}
+\end{equation}
+Procedendo de maneira análoga, podemos concluir que $(T_1, T_2 - T_1, T_3 - T_2, \dots)$ são uma coleção \iid.
+Agora o Tenente Boavista somente precisa escolher a distribuição de $T_1$.
+
+Para essa escolha, ele sabe que se ele não chegar em tempo $t$, então o Sargento Pimenta sabe que sua próxima chegada terá distribuição $P[T_1 - t \in A | T_1 > t]$.
+Como o Tenente Boavista gostaria que essa essa informação fosse inútil para o Sargento Pimenta, ele escolherá
+\begin{equation}
+  P[T_1 - t \in A | T_1 > t] = P[T_1 \in A].
+\end{equation}
+E sabemos que as distribuições $\Exp(\lambda)$, para $\lambda > 0$ satisfazem isso, portanto já temos um candidato ao nosso processo de vistorias, mas antes vamos introduzir algumas notações.
+
+Já podemos perceber por \eqref{e:increm_poisson} que mais importante que os tempos $T_k$, serão os intervalos entre visitas $X_k = T_k - T_{k-1}$.
+
+Seja $\mathcal{D}\big( [0, \infty) \big)$ o espaço de todas as funções càdlàg em $\mathbb{N}$, ou seja
+\begin{equation*}
+  \mathcal{D}\big( [0, \infty) \big) = \big\{ f:\mathbb{R}_+ \to \mathbb{N}: f \text{ é contínua à direita e com limite à esquerda} \big\}.
+\end{equation*}
+Definiremos $\Gamma: \mathbb{R}^\mathbb{N} \to \mathcal{D}\big( [0, \infty) \big)$ da seguinte forma: dados $(x_1, x_2, \dots) \in \mathbb{R}^\mathbb{N}$, seja $\Gamma(x_1, \dots) = N$, tal que
+\begin{equation}
+  N_t = \max\{n; \sum_{i=1}^n x_i \leq t\},
+\end{equation}
+que conta quantas visitas ocorreram antes de $t$, veja Figura~\ref{f:ppp_reta}.
+
+\begin{figure}[!ht]
+  \centering
+  \begin{tikzpicture}[scale=1]
+    \clip (-1, -1) rectangle (8, 5);
+    \draw[<->] (0, 4) -- (0,0) -- (9, 0);
+    \edef\k{0};
+    \foreach \z in {0,...,6}
+    { \pgfmathrandominteger{\x}{20}{200}
+      \pgfmathparse{max((2 * ln(200/\x)), .3) + \k}
+      \xdef\j{\pgfmathresult}
+      \draw[dashed] (\j, 0) -- (\j, \z);
+      \draw[thick] (\k, \z) -- (\j, \z);
+      \draw[fill, color = white] (\j, \z) circle (.04);
+      \draw[color = black] (\j, \z) circle (.04);
+      \draw[fill, color = black] (\k, \z) circle (.04);
+      \pgfmathparse{int(\z + 1)}
+      \xdef\n{\pgfmathresult}
+      \node[below] at (\j, 0) {$t_{\n}$};
+      \xdef\k{\j}
+    }
+  \end{tikzpicture}
+  \caption{A função $N_t$ definindo o número de chegadas do Processo de pontos de Poisson.
+  Note que $N$ é càdlàg.\label{f:ppp_reta}}
+\end{figure}
+
+Poderíamos nos perguntar qual é a $\sigma$-álgebra que estamos considerando no espaço $\mathcal{D}\big( [0, \infty) \big)$, essa é uma interessante questão que deve ser abordada em estudos mais profundos desse espaço.
+Mas por enquanto será suficiente considerarmos a $\sigma$-álgebra induzida pelo mapa $\Gamma$ (a maior que ainda o deixa mensurável).
+
+Estamos prontos agora pra definir o nosso processo.
+
+\begin{definition}
+  Fixado $\lambda > 0$, definimos um Processo de Poisson em $\mathbb{R}$ com parâmetro $\lambda$ como a lei $\mathbb{P}_\lambda$ em $\mathcal{D}\big( [0, \infty) \big)$, dada por $\Gamma \circ \Exp(\lambda)^{\otimes \mathbb{N}}$.
+  Ou em outras palavras, o processo de contagem de chegadas $N_t$, no qual os intervalos entre chegadas são independentes e distribuídos como $\Exp(\lambda)$.
+\end{definition}
+
+Lembramos que como de costume definimos $X_1, X_2, \dots$ como sendo as projeções canônicas em $\mathbb{R}^\mathbb{N}$ onde definimos $\Exp(\lambda)^{\otimes \mathbb{N}}$.
+Como esses representam os intervalos entre chegadas, definimos também
+\begin{equation}
+  T_k = \sum_{i=1}^k X_i, \text{ para $k \geq 1$}.
+\end{equation}
+
+Podemos agora enunciar o primeiro lema, que nos fornece a distribuição do número de chegadas em um dado tempo $t \geq 0$.
+
+\begin{lemma}
+  Se $\lambda > 0$ e $t \geq 0$, então $N_t \distr \Poisson(\lambda t)$ sob $\mathbb{P}_\lambda$.
+\end{lemma}
+
+\begin{proof}
+  Vamos primeiramente ver que
+  \begin{equation}
+    \mathbb{P}_\lambda [N_t = 0] = \mathbb{P}_\lambda[X_1 > t] = e^{-\lambda t},
+  \end{equation}
+  que coincide com o caso poissoniano.
+
+  Para verificar o caso arbitrário $[N_t = k]$, utilizaremos indução e os resultados de esperança condicional regular que vimos anteriormente.
+  Primeiro, observe que se $x_1 > s$, então
+  \begin{equation}
+    \Gamma(x_1, x_2, \dots)(r - s) = \Gamma(x_1 - s, x_2, \dots)(r).
+  \end{equation}
+  Logo,
+  \begin{equation*}
+    \begin{array}{e}
+      \mathbb{P}_\lambda[N_t = k] & = & \mathbb{P}_\lambda [X_1 \leq t, \Gamma(X_2, X_3, \dots)(t - X_1) = k - 1]\\
+      & = & \mathbb{E}_\lambda \Big[\1_{X_1 \leq t} \mathbb{P}_\lambda[\Gamma(X_2, X_3, \dots)(t - X_1) = k - 1 | X_1] \Big]\\
+      & \overset{\textnormal{Subst.}}= & \mathbb{E}_\lambda \Big[\1_{X_1 \leq t} \mathbb{P}_\lambda[\Gamma(X_2, X_3, \dots)(t - x_1) = k - 1 | X_1 = x_1] \circ X_1 \Big]\\
+      & \overset{\textnormal{induc.}}= & \mathbb{E}_\lambda \Big[\1_{X_1 \leq t} \big(\Poisson(\lambda(t - x_1))(\{k-1\})\big) \circ X_1 \Big]\\
+      & = & \mathbb{E}_\lambda \Big[\1_{X_1 \leq t} \frac{(\lambda(t - X_1))^{k-1} e^{-\lambda(t - X_1)}}{(k-1)!} \Big]\\
+      & = & \int_0^t \frac{(\lambda(t - x_1))^{k-1} e^{-\lambda(t - x_1)}}{(k-1)!} \lambda e^{-\lambda x_1} \d x_1 = \frac{\lambda^k e^{-\lambda t}}{(k-1)!} \frac{t^k}k,
+    \end{array}
+  \end{equation*}
+  como queríamos demonstrar.
+\end{proof}
+
+\newpage
+
+Um outro resultado importante sobre esses processos se relaciona ao fato de reiniciar o sistema em tempo $t > 0$.
+Isso é feito com o seguinte mapa $\theta_t: \mathcal{D}\big( [0, \infty) \big) \to \mathcal{D}\big( [0, \infty) \big)$, que leva $N$ em
+\begin{equation}
+  \theta_t(N)(s) = N_{s + t} - N_t.
+\end{equation}
+
+\begin{exercise}
+  Mostre que o mapa $\theta_t$ é mensurável.
+\end{exercise}
+
+\begin{lemma}
+  Se $\lambda, t > 0$, $k \in \mathbb{Z}_+$ e $A$ é mensurável, então
+  \begin{equation}
+    \mathbb{P}_\lambda[N_t = k, \theta_t \circ N \in A] = \mathbb{P}_\lambda[N_t = k] \mathbb{P}_\lambda[\theta_t \circ N \in A].
+  \end{equation}
+\end{lemma}
+
+\end{topics}
 
 \todosec{Tópico: Processos de Markov em tempo contínuo}{fazer...}
 
