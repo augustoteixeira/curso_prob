@@ -1,0 +1,107 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathabx}
+\usepackage{calc}
+\usepackage{fullpage}
+
+\usepackage{dsfont} % includes bb 1
+\newcommand*\1{\mathds{1}}
+\usepackage[brazil]{babel}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{corollary}[theorem]{Corolário}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{proposition}[theorem]{Proposição}
+\newtheorem{definition}[theorem]{Definição}
+\newtheorem{notation}[theorem]{Notação}
+
+\def\d{\mathrm{d}}
+
+\begin{document}
+
+\title{Probabilidade I}
+\author{Segunda Prova}
+
+\maketitle
+
+\noindent Observa\c{c}\~oes:
+\begin{itemize}
+\item A prova terá duração de $4$ horas.
+\item Questões deverão ser respondidas de maneira matematicamente rigorosa e clara.
+\item Todos os resultados provados em aula (exceto exercícios) poderão ser utilizados, salvo quando a questão pedir que algum destes seja provado. Nesse caso, todos os resultados anteriores poderão ser utilizados.
+\item Caso uma questão seja composta de vários itens, cada um poderá ser resolvido independentemente, supondo a validade dos anteriores.
+\end{itemize}
+
+\vspace{4mm}
+\noindent 1) [2 points] Let $X$ be a random vector in $\mathbb{R}^2$ with uniform distribution on the unitary Euclidean ball $B(0,1) = \{x \in \mathbb{R}^2; |x| \leq 1\}$.
+Then define $Z = X/|X| \in S^1$ (recall that $|X| \neq 0$ almost surely) and calculate the regular conditional probability
+\begin{equation}
+  P[|X| \in \cdot \; | Z = z].
+\end{equation}
+\vspace{4mm}
+
+\vspace{4mm}
+\noindent 2) [3 points] Let $X_n$, $n \geq 1$ be i.i.d. random variables with distribution $U_{[0,1]}$ and define, for $x \in (0,1)$,
+\begin{equation}
+  N = \inf\{n \geq 0; X_1 + \dots + X_n > x\}.
+\end{equation}
+Show that $P[N > n] = x^n/n!$.
+\vspace{4mm}
+
+\noindent 3) [3 points] Given a probability measure $\mu$ on $\mathbb{Z}_+$, let $X^n_j$, for $n, j \geq 1$, be i.i.d. random variables distributed as $\mu$.
+We can think of $\mu$ as the distribution of the number of childred that someone has.
+We will now define a process $Z_0, Z_1, \dots$ which represents the number of individuals in each generation $n = 0, 1, \dots$
+
+Let $Z_0 = 1$ and for $n \geq 0$, let
+\begin{equation}
+  Z_{n + 1} = \sum_{j=1}^{Z_n} X^{n+1}_j, \text{ or $0$ if $Z_n = 0$.}
+\end{equation}
+Intuitively speaking, if we have $Z_n$ individuals in generation $n$, each of them will give rise to a number of offsprings with distribution $\mu$ independently to each other.
+The sum of these terms gives us the total size of generation $n + 1$.
+\begin{enumerate}[\quad a)]
+\item Calculate $E(Z_{n+1} | Z_n)$ for all $n \geq 1$.
+\item Assume now that $\int x \mu(\d x) = m < 1$, and use the above to prove the exponential decay:
+  \begin{equation}
+    P\big[ Z_n \neq 0 \big] \leq m^{n}.
+  \end{equation}
+\end{enumerate}
+\vspace{4mm}
+
+%\noindent 4) [3 points] Let $f:[0,1] \to \mathbb{R}$ be a continuous function, our aim is to approximate $f$ by a polynomial as in Weierstrass' Theorem (this specific proof is due to Berstein).
+%Define the polynomial
+%\begin{equation}
+%  p_n(x) = \sum_{k = 0}^n f\Big( \frac k n \Big) \binom n k x^k (1-x)^{n-k}.
+%\end{equation}
+%Now show that:
+%\begin{enumerate}[\quad a)]
+%\item If $X_1, X_2, \dots$ are i.i.d. random variables with distribution $\textnormal{Ber}(x)$, then $p_n(x) = E(f(M_n))$, where $M_n = \sum_{k=1}^n X_k/n$.
+%\item Conclude that $p_n(x)$ converges pointwise to $f$.
+%\item Prove that $p_n(x)$ converges uniformly to $f$.
+%\end{enumerate}
+
+\noindent 4) [2 points] Fix $n \geq 1$ and let $\Omega = \{0,1\}^n$.
+We say that a random variable $X: \Omega \to \mathbb{R}$ is increasing if $X(\omega) \geq X(\omega')$ for each $\omega$, $\omega'$ such that $\omega(i) \geq \omega'(i)$ for all $i \leq n$.
+
+Given $p \in [0,1]$, we endow $\Omega$ with the probability measure $P = \textnormal{Ber}(p)^{\otimes n}$.
+Show that:
+\begin{enumerate}
+\item If $X, Y$ are two increasing random variables, then $E(XY) \geq E(X) E(Y)$.
+This is called the Harris-FKG inequality.
+\item Use the above to show that if $A = \cup_{i=1}^n A_i$, and $1_{A_i}$ are all increasing, then
+  \begin{equation}
+    \max_{i \leq n} P(A_i) \geq 1 - (1 - P(A))^{1/n}.
+  \end{equation}
+\end{enumerate}
+This is sometimes called the square-root trick.
+\end{document}
+
