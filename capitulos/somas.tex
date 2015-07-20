@@ -1204,6 +1204,68 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
 
 \newpage
 
+\begin{topics}
+
+  \section[Tópico: Funções características]{Tópico: Funções características \footnote{Somos gratos a Rangel Baldasso por escrever essa seção.}}
+
+  Esta seção trata da função característica de uma variável aleatória, que pode ser vista como um análogo complexo da trasformada de Laplace, ou também como a transformada de Fourier de uma distribuição em $\mathbb{R}$.
+  Vamos estudar suas principais propriedades e demonstrar que a função características determinam unicamente a distribuição da variável aleatória.
+
+  \begin{definition}
+    Dada uma variável aleatória $X$, a função característica de $X$, $\widebar{\phi}_{X}:\mathbb{R} \rightarrow \mathbb{C}$, é definida por
+    \begin{equation}
+      \widebar{\phi}_{X}(t)=\mathbb{E}(e^{itX}), \qquad t \in \mathbb{R}.
+    \end{equation}
+  \end{definition}
+
+  Vamos começar estudando as propriedades básicas de $\widebar{\phi}_{X}$.
+
+  \begin{exercise}
+    Prove que a função $\widebar{\phi}_{X}$ é absolutamente contínua.
+  \end{exercise}
+
+  \begin{exercise}
+    Suponha que $\mathbb{E}(|X|^{n}) < +\infty$. Prove que a função $\widebar{\phi}_{X}$ é $n$ vezes diferenciável em $t=0$ e que $\widebar{\phi}_{X}^{(n)}(0)=i^{n}\mathbb{E}(X^{n})$.
+  \end{exercise}
+
+  \begin{exercise}
+    Se $X_{1}, X_{2}, \ldots, X_{n}$ são independentes e $a_{1}, a_{2}, \ldots, a_{n} \in \mathbb{R}$, então
+    \begin{equation}
+      \widebar{\phi}_{a_{1}X_{1}+a_{2}X_{2}+\cdots+a_{n}X_{n}}(t)=\widebar{\phi}_{X_{1}}(a_{1}t)\widebar{\phi}_{X_{2}}(a_{2}t)\cdots\widebar{\phi}_{X_{n}}(a_{n}t).
+    \end{equation}
+  \end{exercise}
+
+  Como vamos ver agora, a função característica nos permite recuperar a distribuição de $X$:
+
+  \begin{exercise}
+    Use a seguinte igualdade
+    \begin{equation}
+      \lim_{T \rightarrow +\infty}\int_{0}^{T}\frac{\sin(tz)}{t}\,dz=\begin{cases}
+        1 & \text{se } z > 0 \\
+        0 & \text{se } z = 0 \\
+        -1 & \text{se } x < 0 \\
+      \end{cases}
+    \end{equation}
+    para provar que se $a<b$ são pontos de continuidade da função de distribuição de $X$, $F_{X}$, então
+    \begin{equation}
+      F_{X}(b)-F_{X}(a)=\lim_{T \rightarrow +\infty} \frac{1}{2\pi}\int_{-T}^{T}\frac{e^{-itb}-e^{-ita}}{-it}\widebar{\phi}_{X}(t)\,dt.
+    \end{equation}
+    Conclua que a distribuição de $X$ é determinada por $\widebar{\phi}_{X}$.
+  \end{exercise}
+
+  \par O próximo exercício consiste em calcular algumas funções características.
+
+  \begin{exercise}
+    Calcule as funções características das seguintes distribuições:
+    \begin{itemize}
+    \item[i.] $X \sim Ber(p)$;
+    \item[ii.] $X \sim Poisson(\lambda)$;
+    \item[iii.] $X \sim N(0,1)$. \textit{Dica: fixe $z \in \mathbb{R}$, calcule $\mathbb{E}(e^{zX})$ e use o Princípio da continuação analítica.}
+    \end{itemize}
+  \end{exercise}
+\end{topics}
+
+
 \section{O Teorema Central do Limite}
 
 Até o presente momento, já sabemos por exemplo que médias de variáveis aleatórias \iid, suficientemente regulares convergem para sua esperança quase certamente.
