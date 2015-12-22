@@ -1,6 +1,6 @@
 # Notas de aula Probabilidade I
 
-Esse repositório contém notas de aula para um primeiro curso avançado em probabilidade, assumindo conhecimento sólido em Teoria da Medida.
+Esse repositório contém notas de aula para um primeiro curso de mestrado em probabilidade, assumindo conhecimento sólido em Teoria da Medida.
 
 ## Compilando
 
