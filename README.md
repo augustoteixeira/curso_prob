@@ -28,15 +28,17 @@ Além de uma pasta denominada `capitulos` onde se encontram os arquivos `tex` re
 
 ## Contribuidores
 
-Somos gratos a
+Somos gratos especialmente a Hubert Lacoin, pela revisão do texto, assim como pelas colaborações autorais.
 
-* Roberto Imbuzeiro de Oliveira
-* Milton Jara
-* Cláudio Landim
-* Conrado Costa
-* Rangel Baldasso
+Também gostaríamos de agradecer
 
-por diversas discussões, sugestões e correções no conteúdo do texto.
+Roberto Imbuzeiro de Oliveira
+Milton Jara
+Cláudio Landim
+Conrado Costa
+Rangel Baldasso
+
+por diversas discussões, sugestões e correções.
 
 ## Contato
 
