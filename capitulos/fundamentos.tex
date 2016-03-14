@@ -46,9 +46,12 @@ Mais precisamente
   \item se $A_1, A_2, \dots \in \mathcal{F}$, então $\cup_i A_i \in \mathcal{F}$.
   \end{enumerate}
 \end{definition}
-Nesse caso, dizemos que $(\Omega, \mathcal{F})$ é um \emph{espaço mensurável} \index{epaco@espaço!mensuravel@mensurável} e os elementos $A \in \mathcal{F}$ são chamados de \emph{eventos}. \index{evento}
+Nesse caso, dizemos que $(\Omega, \mathcal{F})$ é um \emph{espaço mensurável}
+\index{epaco@espaço!mensuravel@mensurável} e os elementos $A \in \mathcal{F}$ são chamados de \emph{eventos}. \index{evento}
 
-Se $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ (que chamamos de uma classe ou família), denotamos por $\sigma(\mathcal{G})$ a \emph{$\sigma$-álgebra gerada por $\mathcal{G}$} \index{sigma-algebra@$\sigma$-álgebra!gerada por G@gerada por $\mathcal{G}$}, que é a menor $\sigma$-álgebra contendo $\mathcal{G}$.
+Se $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ (que chamamos de uma classe ou família), denotamos por $\sigma(\mathcal{G})$ a
+\emph{$\sigma$-álgebra gerada por $\mathcal{G}$} \index{sigma-algebra@$\sigma$-álgebra!gerada por G@gerada por $\mathcal{G}$}, que é a menor $\sigma$-álgebra
+contendo $\mathcal{G}$ (ou em outras palavras, a interseção de todas $\sigma$-álgebras que contém $\mathcal{G}$).
 Um exemplo importante é dado pela \emph{$\sigma$-álgebra de Borel} \index{sigma-algebra@$\sigma$-álgebra!de borel}, gerada pelos abertos de uma topologia em $\Omega$.
 
 \begin{example} Típicos exemplos de $\sigma$-álgebra correspondentes aos espaços amostrais do Exemplo~\ref{x:espacos_amostrais}
@@ -61,7 +64,7 @@ Um exemplo importante é dado pela \emph{$\sigma$-álgebra de Borel} \index{sigm
 
 \begin{example} Alguns eventos de $\mathcal{F}_1, \mathcal{F}_2$ e $\mathcal{F}_3$ acima
   \begin{enumerate}[\quad a)]
-  \item $\{\text{$x$ é ímpar}\}, \{1\} \subset \Omega_1$
+  \item $\{\text{$x$ é ímpar}\}, \{1\} \subset \Omega_1$,
   \item $[0,1/2], \{0\}, (\mathbb{Q} \cap [0,1]) \subset \Omega_2$ e
   \item $\{f:[0,1] \to \mathbb{R}; f(1) > 0\} \subset \Omega_3$.
   \end{enumerate}
@@ -85,9 +88,9 @@ Agora estamos prontos para introduzir o conceito moderno do que é uma probabili
   Dado $(\Omega, \mathcal{F})$ espaço mensurável, dizemos que $P:\mathcal{F} \to [0,1]$ é uma \emph{probabilidade} \index{probabilidade} se
   \begin{enumerate}[\quad a)]
   \item $P(\Omega) = 1$ e
-  \item sempre que $A_1, A_2, \dots \in \mathcal{F}$ forem disjuntos ($A_i \cap A_j = \varnothing$ se $i \neq j$), temos
+  \item Seja uma seqüência $(A_i)_{i\in I}$ finita ou enumerável de eventos disjuntos ($A_i \cap A_j = \varnothing$ se $i \neq j$), então
     \begin{equation}
-      P\big({\mcup\nolimits_i} A_i\big) = \sum_i P(A_i).
+      P\big({\mcup\nolimits_{i\in I}} A_i\big) = \sum_{i\in I} P(A_i).
     \end{equation}
   \end{enumerate}
 \end{definition}
@@ -99,24 +102,24 @@ Obviamente, isso nada mais é que uma medida que associa massa um ao espaço tod
   \item $P_1(A) = (\#A)/6$ em $(\Omega_1, \mathcal{F}_1)$.
     Ou mais geralmente $P_1'(A) = \sum_{i \in A} p_i$, onde $p_i \geq 0$ e $\sum_i p_i = 1$.
   \item $P_2$ pode ser a medida de Lebesgue em $([0,1], \mathcal{B}([0,1]))$.
-    Mais geralmente também podemos ter $P_2'(A) = \int_A \rho(x) \d x$, onde $\rho:[0,1] \to \mathbb{R}_+$, chamada densidade, é tal que $\int_{[0,1]} \rho (x) \d x = 1$.
+    Mais geralmente também podemos ter $P_2'(A) = \int_A \rho(x) \d x$, onde $\rho:[0,1] \to \mathbb{R}_+$ é uma função mensurável, chamada densidade, tal que $\int_{[0,1]} \rho (x) \d x = 1$.
   \item $P_3 = \delta_{0}$, que atribui o valor um se o evento contém a função identicamente nula ($f \equiv 0$) e zero caso contrário.
   \end{enumerate}
 \end{example}
 Obviamente o terceiro exemplo é bastante artificial (e inútil).
-Mas futuramente, estaremos protos para introduzir medidas bem interessantes no espaço $(\Omega_3, \mathcal{F}_3)$.
+Mas futuramente, estaremos prontos para introduzir medidas bem interessantes no espaço $(\Omega_3, \mathcal{F}_3)$.
 
 \begin{proposition}
-  Valem as afirmativas
+  Valem as afirmativas seguintes
   \begin{enumerate}[\quad a)]
-  \item Se $A \subseteq B$ então $P(A) = P(B) - P(B \setminus A) \leq P(B)$,
-  \item A cota da união:
+  \item Se $A \subseteq B$ então $P(A) \leq P(B)$.
+  \item A cota da união: para $I$ finito o enumerável
     \begin{equation}
-      P\big(\mcup\nolimits_i A_i\big) \leq \smash{\sum\limits_i} P(A_i)
+      P\big(\mcup\nolimits_{i\in I} A_i\big) \leq \smash{\sum\limits_{i\in I}} P(A_i).
     \end{equation}
-  \item e o que chamamos de princípio da \emph{inclusão e exclusão} \index{inclusao e exclusao@inclusão e exclusão}
+  \item O que chamamos de princípio da \emph{inclusão e exclusão} \index{inclusao e exclusao@inclusão e exclusão}
     \begin{equation}
-      P\big(\mcup\nolimits_{i \leq n} A_i\big) = \smash{\sum\limits_{k = 1}^n} (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k}).
+      P\big(\mcup\nolimits_{i=1}^{n} A_i\big) = \smash{\sum\limits_{k = 1}^n} (-1)^{k-1} \sum\limits_{1 \leq i_1 < \dots < i_k \leq n} P(A_{i_1} \cap \dots \cap A_{i_k}).
     \end{equation}
   \end{enumerate}
 \end{proposition}
@@ -124,18 +127,15 @@ Mas futuramente, estaremos protos para introduzir medidas bem interessantes no e
 \begin{proof}
   $a)$ Como $A \cap (B \setminus A) = \varnothing$, então
     \begin{equation}
-      \begin{split}
-        P(A \cup (B \setminus A)) & = P(A \cup (B \setminus A) \cup \varnothing \cup \dots)\\
-        & = P(A) + P(B \setminus A) + 0 + \dots = P(A) + P(B \setminus
-        A).
-      \end{split}
-    \end{equation}
+        P(A \cup (B \setminus A))= P(A) + P(B \setminus A).
+  \end{equation}
 
   $b)$ $P(A \cup B) = P (A \cup (B \setminus A)) = P(A) + P(B \setminus
-    A) \leq P(A) + P(B)$.
+    A) \leq P(A) + P(B)$.\\
     Deixamos o caso enumerável como exercício abaixo.
 
-  $c)$ Basta mostrar a validade da equação abaixo e depois integrar com
+  $c)$ Chamamos de $A$ a união dos $A_i$.
+Basta mostrar a validade da equação abaixo e depois integrar com
     respeito a $P$.
     \begin{equation}
       \label{e:indicadora_como_produto}
@@ -178,22 +178,23 @@ Mas futuramente, estaremos protos para introduzir medidas bem interessantes no e
   \label{p:prob_continua}
   Toda probabilidade $P$ é contínua, isto é:
   \begin{enumerate}[\quad a)]
-  \item Se $A_1 \subseteq A_2 \subseteq \dots \in \mathcal{F}$, então $\lim_n P(A_n) = P(\mcup\nolimits_n A_n)$.
-  \item Também, se $A_1 \supseteq A_2 \supseteq \dots \in \mathcal{F}$, temos $\lim_n P(A_n) = P(\mcap\nolimits_n A_n)$.
+  \item Se $A_1 \subseteq A_2 \subseteq \dots \in \mathcal{F}$ for uma sequência crescente de eventos, então \\
+  $\lim_{n\to \infty} P(A_n) = P(\mcup\nolimits_{n=1}^{\infty} A_n)$.
+  \item Também, se $A_1 \supseteq A_2 \supseteq \dots \in \mathcal{F}$, temos $\lim\limits _{n\to \infty} P(A_n) = P(\mcap\nolimits_{n=1}^{\infty} A_n)$.
   \end{enumerate}
 \end{proposition}
 
 \begin{proof}
   $a)$ Observe que
   \begin{equation}
-    \mcup_{m = 1}^\infty A_n = \mcup_{n = 1}^\infty \Big( A_n \setminus \big( \mcup_{i=1}^{n-1} A_i \big) \Big),
+    \mcup_{n = 1}^\infty A_n = \mcup_{n = 1}^\infty \Big( A_n \setminus \big( \mcup_{i=1}^{n-1} A_i \big) \Big),
   \end{equation}
   que são disjuntos.
   Logo
   \begin{equation}
     \begin{split}
       P\big(\mcup\nolimits_{n = 1}^\infty A_n\big) & = \sum_{n = 1}^\infty P\Big( A_n \setminus \big(\mcup\nolimits_{i=1}^{n-1} A_i \big) \Big)\\
-      & = \lim_n P({\mcup\nolimits_{i = 1}^n} A_i) = \lim_n P(A_n).
+      & = \lim_{n\to \infty} P({\mcup\nolimits_{i = 1}^n} A_i) = \lim_{n\to \infty} P(A_n).
     \end{split}
   \end{equation}
 
@@ -211,7 +212,7 @@ Mas futuramente, estaremos protos para introduzir medidas bem interessantes no e
 \begin{proof}
   Estimamos
   \begin{equation}
-    P \Big( {\mcap_{n = 1}^\infty} \big({\mcup\nolimits_{i \geq n}} A_i \big) \Big) = \lim_n P \big( {\mcup\nolimits_{i \geq n}} A_i \big) \leq \lim_n {\textstyle\sum\limits_{i \geq n}} P(A_i) = 0.
+    P \Big( {\mcap_{n = 1}^\infty} \big({\mcup\nolimits_{i \geq n}} A_i \big) \Big) = \lim_{n\to \infty} P \big( {\mcup\nolimits_{i \geq n}} A_i \big) \leq \lim_{n\to \infty} {\textstyle\sum\limits_{i \geq n}} P(A_i) = 0.
   \end{equation}
   O que termina a prova do lemma.
 \end{proof}
@@ -232,8 +233,8 @@ Ele trata de classes de eventos que não são necessariamente $\sigma$-álgebras
   Dizemos que $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\lambda$-sistema, \index{lambda sistema@$\lambda$-sistema} se
   \begin{enumerate}[\quad a)]
   \item $\Omega \in \mathcal{A}$,
-  \item Sempre que $A \in \mathcal{A}$ temos $A^c \in \mathcal{A}$ e
-  \item para $A_1, A_2, \dots \in \mathcal{A}$ disjuntos dois a dois, temos $\cup_i A_i \in \mathcal{A}$.
+  \item Sempre que $A \in \mathcal{A}$ temos $A^c \in \mathcal{A}$.
+  \item Para $A_1, A_2, \dots \in \mathcal{A}$ disjuntos dois a dois, temos $\cup_i A_i \in \mathcal{A}$.
   \end{enumerate}
 \end{definition}
 
@@ -266,7 +267,7 @@ Note pelo Exercício~\ref{x:lambda_nao_sigma} que a hipótese de que $\mathcal{A
   De fato, caso isso seja provado teremos que $\lambda(\mathcal{A})$ é fechado por diferenças (pois $A \setminus B = A \cap B^c$).
   Assim, podemos mostrar que $\lambda(\mathcal{A})$ é fechado por uniões enumeráveis, pois se $A_1, A_2, \dots \in \lambda(\mathcal{A})$, definimos $B_n = \cup_{i=1}^n A_i = (\cap_{i=1}^n A_i^c)^c \in \lambda(\mathcal{A})$ e escrevemos
   \begin{equation}
-    \mcup_n A_n = \mcup_n \big(A_n \setminus B_{n-1} \big),
+    \mcup_{n=1}^{\infty} A_n = \mcup_{n=1}^{\infty} \big(A_n \setminus B_{n-1} \big),
   \end{equation}
   que é uma união disjunta de termos em $\lambda(\mathcal{A})$, logo está em $\lambda(\mathcal{A})$.
   Isso mostra que $\lambda(\mathcal{A})$ é uma $\sigma$-álgebra e que de fato é suficiente demonstrar \eqref{e:lambda_is_pi}.
@@ -286,10 +287,10 @@ Note pelo Exercício~\ref{x:lambda_nao_sigma} que a hipótese de que $\mathcal{A
     Como isso vale para todo $A \in \mathcal{A}$, temos $B^c \in \mathcal{B}$ por definição.
   \item Se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos e $A \in \mathcal{A}$, então
     \begin{equation}
-      \big(\mcup\nolimits_i B_i \big) \cap A = \mcup_i \big(B_i \cup A\big) \in \lambda(\mathcal{A}),
+      \big(\mcup\nolimits_{n=1}^{\infty} B_n \big) \cap A = \mcup_{n=1}^{\infty} \big(B_n \cup A\big) \in \lambda(\mathcal{A}),
     \end{equation}
     pois a união acima é disjunta.
-    Logo $\mcup_i B_i \in \mathcal{B}$.
+    Logo $\mcup_{n=1}^{\infty} B_n \in \mathcal{B}$.
   \end{enumerate}
   Isso mostra que $\mathcal{B}$ é um $\lambda$-sistema com $\mathcal{A} \subseteq \mathcal{B} \subseteq \lambda(\mathcal{A})$, mostrando \eqref{e:B_igual_lambda}.
 
@@ -329,7 +330,8 @@ Note pelo Exercício~\ref{x:lambda_nao_sigma} que a hipótese de que $\mathcal{A
 
 \begin{proposition}
   \label{p:P12_equal_pi}
-  Se $P_1$ e $P_2$ são probabilidades em $(\Omega, \mathcal{F})$, tais que $P_1(A) = P_2(A)$ para todo $A \in \mathcal{A}$ e $\mathcal{A}$ é um $\pi$-sistema, então $P_1(B) = P_2(B)$ para todo $B \in \lambda(\mathcal{A})$.
+  Se $P_1$ e $P_2$ são probabilidades em $(\Omega, \mathcal{F})$, tais que $P_1(A) = P_2(A)$ para todo $A \in \mathcal{A}$ e $\mathcal{A}$ é
+  um $\pi$-sistema, então $P_1(B) = P_2(B)$ para todo $B \in \sigma(\mathcal{A})$.
 \end{proposition}
 
 \begin{proof}
@@ -405,26 +407,34 @@ Relembrando a nossa notação: $P[X \in A] = P(\{\omega \in \Omega; X(\omega) \i
 \subsection{Distribuição de elementos aleatórios}
 
 \begin{definition}
-  Se $X:\Omega \to E$ é um elemento aleatório e $\Omega$ é dotado de uma probabilidade $P$, então denotamos por $X \circ P$, a chamada \emph{distribuição de $X$} \index{distribuicao@distribuição}, a medida de probabilidade
+  Se $X:\Omega \to E$ é um elemento aleatório e $\Omega$ é dotado de uma probabilidade $P$, então denotamos por $X_{*}P$,
+  a chamada \emph{distribuição de $X$} \index{distribuicao@distribuição}, a medida de probabilidade
   \begin{equation}
-    (X \circ P)(A) := P\big( \{\omega \in \Omega; X(\omega) \in A\} \big) = P[X \in A].
+    X_* P(A) := P\big( \{\omega \in \Omega; X(\omega) \in A\} \big) = P[X \in A].
   \end{equation}
   no espaço mensurável $(E,\mathcal{A})$.
 \end{definition}
 
-Fica como exercício verificar que $X \circ P$ é de fato uma probabilidade em $E$.
+\begin{remark}
+ Essa definição corresponde com a de \textit{medida imagem} vista no curso de integração que tem um papel ainda mais importante em probabilidade.
+ \end{remark}
+
+
+
+Fica como exercício verificar que $X_*P$ é de fato uma probabilidade em $E$.
 
 \begin{exercise}
   Seja $X:[0,1] \to \{0,1\}$ dada por $X(\omega) = \1_A (\omega)$.
-  Nesse caso, mostre que $X \circ P = \Ber(p)$ para algum $p \in [0,1]$.
+  Nesse caso, mostre que $X_*P = \Ber(p)$ para algum $p \in [0,1]$.
   Calcule o valor de $p$.
 \end{exercise}
 
 Duas notações importantes nesse contexto são:
 \begin{enumerate}[\quad a)]
-\item Dizemos que $X \distr Y$, \index{X d Y@$X \distr Y$} quando $X \circ P = Y \circ P'$.
+\item Sejam $(\Omega, \mathcal{F}, P)$ e $(\Omega',\mathcal{F}',P')$ dois espaços de probabilidade e $X$ et $Y$ dois elementos aleatórios.
+Dizemos que $X \stackrel{d}{=} Y$, \index{X d Y@$X \distr Y$} quando $X_*P = Y_*P'$.
 Note que $X$ e $Y$ nem ao menos precisam pertencer ao mesmo espaço de probabilidade para dizermos que são \emph{igualmente distribuídos}, mas precisam ser elementos aleatórios de mesmo tipo (ou seja, possuir o mesmo contradomínio).
-\item Escrevemos $X \distr \mu$, \index{X d mu@$X \distr \mu$} que lê-se \emph{$X$ é distribuída como $\mu$}, onde $\mu$ é uma probabilidade em $E$, caso $X \circ P = \mu$.
+\item Escrevemos $X \distr \mu$, \index{X d mu@$X \distr \mu$} que lê-se \emph{$X$ é distribuída como $\mu$}, onde $\mu$ é uma probabilidade em $E$, caso $X_*P = \mu$.
 \end{enumerate}
 
 \begin{exercise}
@@ -438,6 +448,45 @@ Raramente encontramos teoremas que explicitam qual é o espaço de probabilidade
 Como no exercício acima, o contexto de um teorema frequentemente é dado apenas em termos de elementos aleatórios em $\Omega$ e de suas distribuições.
 Dessa forma, podemos utilizar o resultado em vários contextos diferentes, desde que possamos encontrar elementos aleatórios que satisfaçam as hipóteses.
 Com o tempo, passamos até mesmo a considerar menos relevante a escolha específica do espaço amostral, focando cada vez mais na distribuição de seus elementos aleatórios.
+
+\begin{topics}
+
+\section{Tópico: O paradoxo de Bertrand}
+
+Vamos estudar um problema que realça a importança do jeito em que escolhemos o espaço amostral.
+Queremos calcular a probabilidade que uma corda ``uniformemente distribuida'' em um círculo seja maior do que o lado do triângulo equilátero inscrito nesse  círculo (no caso do círculo unitário, o comprimento desse lado vale $\sqrt{3}$).
+O Bertrand propôs dois métodos para realizar esse cálculo. \index{Paradoxo de Bertrand@Paradoxo de Bertrand}
+
+\begin{enumerate}[\quad a)]
+ \item Escolher as duas extremidades da corda uniformemente no círculo.
+ \item Escolher o centro da corda uniformemente no interior do disco.
+\end{enumerate}
+
+No caso $a)$, uma vez que uma extremidade é fixada, o comprimento da corda fica maior do que $\sqrt{3}$ somente se o segundo ponto ficar num setor angular de comprimento $2 \pi / 3$.
+Logo, essa probabilidade vale $(2\pi/3) / (2\pi) = 1/3$.
+
+\medskip
+
+No caso $b)$, pra que a corda fique maior do que $\sqrt{3}$, o centro dela deve ficar no circulo inscrito dentro do triângulo equilátero, cujo raio é $1/2$.
+Então a probabilidade vale a razão dessas áreas, que é $1/4$.
+
+\medskip
+
+Obtemos então duas respostas diferente para essa pergunta simples, o que e nada surprendente: $a)$ e $b)$ correspondem a dois experimento
+diferentes com espaços amostrais diferentes.
+
+
+\begin{exercise}
+\begin{enumerate}[\quad a)]
+ \item Descreva o espaço amostral e as lei de probabilidade associadas aos experimentos $a)$ e $b)$
+ \item Calcule a lei de probabilidade do comprimento da corda em cada caso.
+ \item Repita os ítens anteriores para o seguinte caso: Escolhemos uniformemente um raio do disco.
+Depois escolhemos o centro da corda uniformemente ao longo desse raio.
+\end{enumerate}
+
+\end{exercise}
+
+\end{topics}
 
 %%% Local Variables:
 %%% mode: latex
