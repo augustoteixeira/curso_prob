@@ -32,11 +32,11 @@ Somos gratos especialmente a Hubert Lacoin, pela revisão do texto, assim como p
 
 Também gostaríamos de agradecer
 
-Roberto Imbuzeiro de Oliveira
-Milton Jara
-Cláudio Landim
-Conrado Costa
-Rangel Baldasso
+* Roberto Imbuzeiro de Oliveira
+* Milton Jara
+* Cláudio Landim
+* Conrado Costa
+* Rangel Baldasso
 
 por diversas discussões, sugestões e correções.
 
