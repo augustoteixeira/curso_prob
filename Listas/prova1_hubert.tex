@@ -1,0 +1,290 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass{article}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathabx}
+\usepackage{calc}
+\usepackage{fullpage}
+\newcommand{\dd}{\,\text{\rm d}}    
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\hat}{\widehat}
+\newcommand{\tf}{\textsc{f}}
+\newcommand{\cc}{\complement}
+\newcommand{\cf}{\mathrm{f}}
+\newcommand{\lint}{\llbracket}
+\newcommand{\rint}{\rrbracket}
+%%%%%%%%%%%% Calligraphic letters 
+
+ 
+\newcommand{\cA}{\ensuremath{\mathcal A}} 
+\newcommand{\cB}{\ensuremath{\mathcal B}} 
+\newcommand{\cC}{\ensuremath{\mathcal C}} 
+\newcommand{\cD}{\ensuremath{\mathcal D}} 
+\newcommand{\cE}{\ensuremath{\mathcal E}} 
+\newcommand{\cF}{\ensuremath{\mathcal F}} 
+\newcommand{\cG}{\ensuremath{\mathcal G}} 
+\newcommand{\cH}{\ensuremath{\mathcal H}} 
+\newcommand{\cI}{\ensuremath{\mathcal I}} 
+\newcommand{\cJ}{\ensuremath{\mathcal J}} 
+\newcommand{\cK}{\ensuremath{\mathcal K}} 
+\newcommand{\cL}{\ensuremath{\mathcal L}} 
+\newcommand{\cM}{\ensuremath{\mathcal M}} 
+\newcommand{\cN}{\ensuremath{\mathcal N}} 
+\newcommand{\cO}{\ensuremath{\mathcal O}} 
+\newcommand{\cP}{\ensuremath{\mathcal P}} 
+\newcommand{\cQ}{\ensuremath{\mathcal Q}} 
+\newcommand{\cR}{\ensuremath{\mathcal R}} 
+\newcommand{\cS}{\ensuremath{\mathcal S}} 
+\newcommand{\cT}{\ensuremath{\mathcal T}} 
+\newcommand{\cU}{\ensuremath{\mathcal U}} 
+\newcommand{\cV}{\ensuremath{\mathcal V}} 
+\newcommand{\cW}{\ensuremath{\mathcal W}} 
+\newcommand{\cX}{\ensuremath{\mathcal X}} 
+\newcommand{\cY}{\ensuremath{\mathcal Y}} 
+\newcommand{\cZ}{\ensuremath{\mathcal Z}} 
+ 
+
+%%%%%%%%%%%%%%% Blackboard bolds 
+ 
+\newcommand{\bbA}{{\ensuremath{\mathbb A}} } 
+\newcommand{\bbB}{{\ensuremath{\mathbb B}} } 
+\newcommand{\bbC}{{\ensuremath{\mathbb C}} } 
+\newcommand{\bbD}{{\ensuremath{\mathbb D}} } 
+\newcommand{\bbE}{{\ensuremath{\mathbb E}} } 
+\newcommand{\bbF}{{\ensuremath{\mathbb F}} } 
+\newcommand{\bbG}{{\ensuremath{\mathbb G}} } 
+\newcommand{\bbH}{{\ensuremath{\mathbb H}} } 
+\newcommand{\bbI}{{\ensuremath{\mathbb I}} } 
+\newcommand{\bbJ}{{\ensuremath{\mathbb J}} } 
+\newcommand{\bbK}{{\ensuremath{\mathbb K}} } 
+\newcommand{\bbL}{{\ensuremath{\mathbb L}} } 
+\newcommand{\bbM}{{\ensuremath{\mathbb M}} } 
+\newcommand{\bbN}{{\ensuremath{\mathbb N}} } 
+\newcommand{\bbO}{{\ensuremath{\mathbb O}} } 
+\newcommand{\bbP}{{\ensuremath{\mathbb P}} } 
+\newcommand{\bbQ}{{\ensuremath{\mathbb Q}} } 
+\newcommand{\bbR}{{\ensuremath{\mathbb R}} } 
+\newcommand{\bbS}{{\ensuremath{\mathbb S}} } 
+\newcommand{\bbT}{{\ensuremath{\mathbb T}} } 
+\newcommand{\bbU}{{\ensuremath{\mathbb U}} } 
+\newcommand{\bbV}{{\ensuremath{\mathbb V}} } 
+\newcommand{\bbW}{{\ensuremath{\mathbb W}} } 
+\newcommand{\bbX}{{\ensuremath{\mathbb X}} } 
+\newcommand{\bbY}{{\ensuremath{\mathbb Y}} } 
+\newcommand{\bbZ}{{\ensuremath{\mathbb Z}} } 
+
+
+\newcommand{\eps}{\varepsilon}
+
+\newcommand{\vol}[1]{\operatorname{vol}\left(#1\right)}
+\newcommand{\reach}[0]{\operatorname{reach}}
+\newcommand{\what}{$\clubsuit\otimes\clubsuit$ }
+
+\newcommand{\remarktitle}{\par\noindent{\bf Remark.}}
+
+%shortcuts
+\newcommand{\gap}{\mathrm{gap}}
+\newcommand{\sobolev}{c_\mathrm{S}}
+\newcommand{\compl}{\mathrm{c}}
+\newcommand{\Min}{\mathrm{min}}\newcommand{\Max}{\mathrm{max}}
+\newcommand{\rel}{\mathrm{rel}}
+\newcommand{\tmix}{T_\mathrm{mix}}
+\newcommand{\trel}{T_\mathrm{rel}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\L}{\Lambda}
+\newcommand{\mix}{\mathrm{mix}}
+\newcommand{\ent}{\mathrm{Ent}}
+\newcommand{\cov}{\mathrm{Cov}}
+
+\newcommand{\ml}{\mathrm{\ell}}
+\newcommand{\mm}{\mathrm{m}}
+\newcommand{\mr}{\mathrm{r}}
+%\newcommand{\1}[1]{{\text{\Large $\mathfrak 1$}\left(#1\right)}}
+\newcommand{\1}[1]{{\mathbf 1}\left(#1\right)}
+
+%\newcommand{\veci}{\mathbf{i}}
+\newcommand{\si}{\sigma}
+\renewcommand{\t}{\tau}
+\renewcommand{\l}{\lambda}
+\renewcommand{\a}{\alpha}
+
+\newcommand{\grad}{\nabla} 
+\newcommand{\tigrad}{\tilde\nabla}
+
+\renewcommand{\star}{*}
+
+\renewcommand{\u}{\pi} 
+\def\thsp{\thinspace}
+
+\newcommand{\var}{{\rm Var} } 
+
+  
+  \def\tc{\thsp | \thsp}
+\newcommand{\ga}{\alpha}
+\newcommand{\gb}{\beta}
+\newcommand{\gga}{\gamma}            % \gg already exists...
+\newcommand{\gd}{\delta}
+\newcommand{\gep}{\varepsilon}       % \ge already exists...
+\newcommand{\gp}{\varphi}
+\newcommand{\gr}{\rho}
+\newcommand{\gvr}{\varrho}
+\newcommand{\gz}{\xi}
+\newcommand{\gG}{\Gamma}
+\newcommand{\gP}{\Phi}
+\newcommand{\gD}{\Delta}
+\newcommand{\gk}{\kappa}
+% \newcommand{\gK}{\Kappa}
+\newcommand{\go}{\omega}
+\newcommand{\gto}{{\tilde\omega}}
+\newcommand{\gO}{\Omega}
+\newcommand{\gl}{\lambda}
+\newcommand{\gL}{\Lambda}
+\newcommand{\gs}{\sigma}
+\newcommand{\gS}{\Sigma}
+\newcommand{\gt}{\vartheta}
+\newcommand{\gtt}{{\tilde\tau}}
+\newcommand{\bA}{{\ensuremath{\mathbf A}} }
+\newcommand{\bF}{{\ensuremath{\mathbf F}} }
+\newcommand{\bP}{{\ensuremath{\mathbf P}} }
+\newcommand{\bE}{{\ensuremath{\mathbf E}} }
+\newcommand{\gI}{{\ensuremath{\mathcal I}} }
+\newcommand{\bH}{{\ensuremath{\mathbf H}} }
+\newcommand{\bC}{{\ensuremath{\mathbf C}} }
+\newcommand{\bK}{{\ensuremath{\mathbf K}} }
+\newcommand{\bN}{{\ensuremath{\mathbf N}} }
+\newcommand{\bL}{{\ensuremath{\mathbf L}} }
+\newcommand{\bT}{{\ensuremath{\mathbf T}} }
+\newcommand{\bD}{{\ensuremath{\mathbf D}} }
+\newcommand{\bQ}{{\ensuremath{\mathbf Q}} }
+\newcommand{\tR}{{\ensuremath{\tilde R}} }
+\newcommand{\tS}{{\ensuremath{\tilde S}} }
+\newcommand{\ttau}{{\ensuremath{\tilde\tau}} }
+\newcommand{\bbbP}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+%\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\ind}{\mathbf{1}}
+\newcommand{\tx}{\tilde{x}}
+\newcommand{\ty}{\tilde{y}}
+\newcommand{\Tm}{T_{\text{mix}}}
+\newcommand{\Va}{\text{Var}}
+\newcommand{\tbE}{\tilde{\mathbb{E}}}
+\newcommand{\tbP}{\tilde{\mathbb{P}}}
+\newcommand{\tZ}{\tilde{Z}}
+\newcommand{\tK}{\tilde{K}}
+\newcommand{\hbE}{\hat{\mathbb{E}}}
+\newcommand{\hbP}{\hat{\mathbb{P}}}
+\newcommand{\hZ}{\hat{Z}}
+\newcommand{\hK}{\hat{K}}
+
+
+\usepackage{dsfont} % includes bb 1
+
+\usepackage[brazil]{babel}
+
+\begin{document}
+
+\title{Probabilidade I}
+\author{Primeira Prova}
+
+\maketitle
+
+\noindent Observa\c{c}\~oes:
+\begin{itemize}
+\item A prova tera duraçao de $3$ horas.
+\item Questoes deverao ser respondidas de maneira matematicamente rigorosa e clara.
+\item Todos os resultados provados em aula (exceto exercicios) poderao ser utilizados, salvo quando a questao pedir que algum destes seja provado. Nesse caso, todos os resultados anteriores poderao ser utilizados.
+\item Caso uma questao seja composta de varios itens, cada um podera ser resolvido independentemente, supondo a validade dos anteriores.
+\item Uma função $f$ de $\bbR$ é crescente se $x<y \Rightarrow f(x)\le f(y)$.
+\item Estudar a recíproca significa: dar a prova da recíproca se for verdade ou  dar um contro-exemple se for falsa.
+\end{itemize}
+
+
+\section*{Exercício I {\small (6 Pts)}}
+
+\begin{enumerate}
+\item (1 Pt) Dar a definição de um $\gl$-sistema é a de um $\pi$ sistema, e dar o enunciado do teorema de Dynkin.
+\item (2 Pts) Para $\gO:=\{1,2,3,4\}$. Exibir um subcojunto $\cA \subset \cP(\gO)$ que é um $\lambda$-sistema mas não é uma $\sigma$-algebra.
+\item (1 Pt) Mostrar que para todo $\gO$ com cardinalidade maior de que $4$ existe um $\lambda$-sistema que não é uma $\sigma$-algebra.
+\item (2 pts) Para $\#\gO\le 3$, mostrar que todo $\gl$-sistema é uma $\sigma$-algebra.
+\end{enumerate}
+
+
+
+
+\section*{Exercício II {\small (5,5 Pts)}}
+
+\begin{enumerate}
+
+\item (1 Pt) Sejam $X$ e $Y$ duas variáveis aleatórias  tal que $X\ge Y$ quase certamente. Mostrar que as funções acumulada de distribuição
+$F_X$ e $F_Y$ satisfazem 
+$$\forall x \in \bbR, \quad F_Y(x)\le F_X(x).$$ 
+\item (1 Pt) Sejam $X$ uma variável aleatória com função acumulada $F$ e $g$ uma função crescente. Dar a função acumulada de distribuição da variável
+$g(X)$ em função de $F$ e $g$.
+\item (1+1 Pts) Sejam $\mu$ e $\nu$ duas probabilidade em $\bbR$ que satisfazem, para toda $g$ limitada, continua e crescente 
+$$ \int g(\go) \mu(\dd \go)\ge \int g(\go) \nu(\dd \go).$$
+Mostrar que as funções acumuladas de distribuição de distribuição associadas à $\mu$ e $\nu$ satisfazem 
+$$\forall x \in \bbR, \quad F_{\mu}(x)\le F_{\nu}(x).$$
+Estudar a recíproca.
+
+\item (1,5 pts) Sejam $F_1$ e $F_2$ duas funções càd-làg crescentes que satisfazem $F_1(x)\le F_2(x)$ para todo $x\in \bbR$.
+Mostrar que e possível construir, no mesmo espaço de probabilidade, duas variáveis aleatórias $X_1$ e $X_2$ que tem funções acumuladas de distribuição
+respetivas $F_1$ e $F_2$ e tal que $X_1\ge X_2$ quase certamente.
+
+ 
+\end{enumerate}
+
+
+
+\section*{Exercício III {\small (4 Pts)}}
+
+
+\begin{enumerate}
+
+\item (1 Pt) Dar a definição de elementos aleatorios independentes.
+\item (0,5+1 Pts) Sejam $X:\  (\gO,\cF) \to (E_1,\cA_1)$ e $Y:\  (\gO,\cF) \to (E_2,\cA_2)$ 
+ dois elementos aleatórios, e $f:\ E_1 \to \bbR $ e $g:\ E_2 \to \bbR$ funções mensuraveis. 
+ Mostrar que se $X$ e $Y$ forem independentes, as variáveis 
+$f(X)$ e $g(Y)$ são independentes. Estudar a recíproca.
+\item (1,5 Pts) Sejam $\mu$ uma probabilidade em $\bbR$, $f$ e $g$ duas funções crescentes limitadas. Mostrar que 
+$$ \int f(\go)g(\go) \mu(\dd \go)\ge  \left(\int f(\go) \mu(\dd \go)\right)\left(\int g(\go) \mu(\dd \go)\right).$$
+\textit{DICA: Considerar $E[(f(X)-f(Y))(g(X)-g(Y))]$ para $X$ e $Y$ variáveis com distribuição $\mu$.}
+
+\end{enumerate}
+
+\section*{Exercício IV {\small(6,5 Pts)}}
+Seja $f:\ [0,1]\to \bbR$ uma função $1$-Lipshitz, $[0,1]\to \bbR$. isso e que satisfaz
+$$\forall x,y \in  [0,1], \ |f(x)-f(y)|\le |x-y|.$$
+Seja $(X_i)_{i\ge 1}$ uma sequencia de variáveis de Bernouilli de parametro $p$. Escrevemos 
+$S_n:=\sum_{i=1}^n X_i$.
+
+\begin{enumerate}
+\item (1,5 Pts) Dar a distribuição da varíavel $S_n$. Calcular a esperança e a variança de $S_n/n$.
+\item (0,5 Pt) Dar uma cota superior para $P\left(|\frac{S_n}{n}-p|>\gep\right)$ valida para todo $\gep>0$ 
+(incluir a prova).
+\item (2,5 Pts) Mostra que existe uma constante $C$ tal que para todo $n$ e toda $f$ $1$-Lipshitz
+$$E\left(|f(S_n/n)-f(p)|\right)\le C n^{-1/3}.$$
+Deduzir cotas inferior e superior para  $E[f(S_n/n)].$
+\item (1 Pt) O teorema de Weirstrass fala que toda função continua $[0,1]\to \bbR$ e o limite uniforme de polinomios.
+Deduzir das questões anteriores uma prova probabilistica do Teorema de Weierstrass no caso de funções Lipshitz.
+\item (1 Pt) Provar o Teorema de Weierstrass no caso geral, adaptando o método acima.
+ 
+\end{enumerate}
+
+
+
+
+
+
+\end{document}
+
