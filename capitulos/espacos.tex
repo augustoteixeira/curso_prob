@@ -2205,8 +2205,8 @@ Um outro exercício interessante nesse tópico é o seguinte
   \begin{equation*}
     F(x_1, \dots, x_n) =
     \begin{cases}
-      (1, 2, \dots, n), \quad & \text{se existe $i \neq j$ tal que $x_i = x_j$, }\\
-      \text{o único $\sigma$ tal que $x_{\sigma(1)} < \dots < x_{\sigma(n)}$,} & \text{caso contrário.}
+      (1, 2, \dots, n), \qquad \text{se existe $i \neq j$ com $x_i = x_j$, }\\
+      \text{o único $\sigma$ tal que $x_{\sigma(1)} < \dots < x_{\sigma(n)}$,} \qquad \text{caso contrário.}
     \end{cases}
   \end{equation*}
   Mostre que $F_*(U_{[0,1]}^{\otimes n}) = U_{\mathcal{S}_n}$.
@@ -2218,7 +2218,7 @@ Como prometido, isso nos dá uma maneira de construir uma permutação uniforme 
 Podemos agora escrever nossa probabilidade de observar uma sequência no modelo da Urna de Pólya em termos de uma sequência \iid de variáveis aleatórias.
 \begin{equation*}
   \begin{split}
-    \frac{1}{(n+1)} \binom{n}{N^n_1}^{\mathclap{\;-1}} & =
+    \frac{1}{(n+1)} & \binom{n}{N^n_1}^{\mathclap{\;-1}} =
     F_{*} U_{[0,1]}^{\otimes n+1} \Big[ \sigma(n+1) = N^n_1 + 1, \sigma(i) \leq N^n_1 \text{ se e só se } i \leq N^n_1 \Big]\\
     & =  U^{\otimes n+1}_{[0,1]} \Big[ \text{$X_i < X_{n+1}$, para $i \leq N^n_1$ e $X_i > X_{n+1}$, para $i \ge N^n_1+1$} \Big].
   \end{split}
