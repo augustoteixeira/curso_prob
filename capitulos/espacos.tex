@@ -33,7 +33,7 @@ De fato, nesse caso definimos $P(A) = \sum_{\omega \in A} p_\omega$ que claramen
 \begin{exercise}
   Seja $\Omega = \{0,1\}^n$ e $p_\omega = \tfrac 1{2^n}$ para todo $\omega \in \Omega$ (ou seja a probabilidade uniforme).
   Considere $X: \Omega \to \{0,1, \dots, n\}$ dada por $X(\omega_1, \dots, \omega_n) = \sum_{i=1}^n \omega_i$.
-  Obtenha a distribuição $X \circ P$.
+  Obtenha a distribuição $P_X$.
   Dê um exemplo de medida em $\omega$ para a qual a distribuição de $X$ seja $\Bin(n,p)$.
 \end{exercise}
 
@@ -71,15 +71,26 @@ Certamente não temos muita informação sobre $A$, então vamos usar o método 
     onde o produto $\mathbb{Z}_p \cdot a$ é entendido elemento a elemento.
     Conclua que
     \begin{equation}
-      P \Big[ X \cdot a \in \big[\tfrac p3, \tfrac {2p}3\big) \Big] \geq \frac 13.
+      P \Big[ X \cdot a \in \big[\tfrac p3, \tfrac {2p}3\big) \Big] \geq \frac 13 -\frac 1 p.
     \end{equation}
   \end{exercise}
-  Definimos o conjunto aleatório $\mathcal{B} = (X \cdot A) \cap [\tfrac p3, \tfrac {2p}3)$, que obviamente é livre de somas.
+  Definimos o conjunto aleatório
+  $$\mathcal{B} = \{ x\in A \ | X\cdot a \in [\tfrac p3, \tfrac {2p}3) \},$$
+  Esse conjunto e livre de soma: se $X=0$ o cojunto e vazio e nos outros casos se $x, y\in \mathcal{B}$
+  $$(x+y)\in [\tfrac {2p}3, \tfrac {4p} 3)$$
+  que e o complementario de $[\tfrac p3, \tfrac {2p}3)$ em $\mathbb{Z}_p$.
+
+  \medskip
+
   Basta portanto mostrar que com probabilidade positiva $\# \mathcal{B} \geq \tfrac{\#A}3$, que segue do seguinte argumento.
-  \begin{equation*}
-    \int \# \mathcal{B} \d P = \int \sum_{a \in A} \1_{\big[ X \cdot a \in [p/3, 2p/3) \big]} \d P = \sum_{a \in A} P \Big[ X \cdot a \in \big[\tfrac p3, \tfrac {2p}3\big) \Big] \geq \frac{\# A}3,
-  \end{equation*}
-  mas para qualquer variável aleatória, $\int X \d P \geq x$ implica que $P[X \geq x] > 0$.
+  \begin{multline*}
+    \int \# \mathcal{B} \d P = \int \sum_{a \in A} \1_{\big[ X \cdot a \in [p/3, 2p/3) \big]} \d P \\
+    =
+    \sum_{a \in A} P \Big[ X \cdot a \in \big[\tfrac p3, \tfrac {2p}3\big) \Big] \geq \frac{\# A}3- \frac{\# A} p> \frac{\# A-1 }3,
+  \end{multline*}
+  mas para qualquer variável aleatória ,  $P[X \geq \int X \d P] > 0$.
+  Nesse caso, isso implica
+  $P[X \ge \frac{\# A}3 ]=  P[X > \frac{\# A-1 }3 ]>0$.
 \end{proof}
 
 \todo{Adicionar contexto histórico: citar artigo Erdos e o Annals of Math que mostra que não é possível com $\#A(1/3 + \varepsilon)$.}
@@ -117,15 +128,16 @@ Podemos também usar a distribuição de um elemento aleatório para construir o
 
 \begin{example}
   Considere por exemplo $X:[0,2\pi] \to \mathbb{C}$ dada por $X(t) = \exp\{-i t\}$.
-  A distribuição $X \circ P$ de $X$ segundo $U_{[0,2\pi]}$ é o que chamamos de distribuição uniforme em $S^1$, também denotada por $U_{S^1}$.
+  A distribuição imagem $X_*U_{[0,2\pi]}$ é o que chamamos de distribuição uniforme em $\mathbb{S}^1$, também denotada por $U_{S^1}$.
 \end{example}
 
 \begin{exercise}
-  Mostre que $U_{S^1}$ não é absolutamente contínua com respeito à medida de Lebesgue em $\mathbb{C} \sim \mathbb{R}^2$.
+  Mostre que $U_{\mathbb{S}^1}$ não é absolutamente contínua com respeito à medida de Lebesgue em $\mathbb{C} \sim \mathbb{R}^2$.
 \end{exercise}
 
 \begin{exercise}
-  Mostre que $U_{S^1}$ é invariante por rotações rígidas de $\mathbb{C}$, isto é, se $T:\mathbb{C} \to \mathbb{C}$ é uma isometria linear, então $T \circ U_{S^1} = U_{S^1}$.
+  Mostre que $U_{\mathbb{S}^1}$ é invariante por rotações rígidas de $\mathbb{C}$, isto é, se $T:\mathbb{C} \to \mathbb{C}$ é uma isometria linear,
+  $T_*U_{\mathbb{S}^1}=U_{\mathbb{S}^1}$.
 \end{exercise}
 
 \begin{exercise}
@@ -143,12 +155,13 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
 \end{definition}
 
 \begin{notation}
-  Se $X:\Omega \to \mathbb{R}$ é uma variável aleatória num espaço $(\Omega, \mathcal{F}, P)$, denotamos por $F_X$ \index{FX@$F_X$} a função de distribuição acumulada correspondente à distribuição $X \circ P$.
+  Se $X:\Omega \to \mathbb{R}$ é uma variável aleatória num espaço $(\Omega, \mathcal{F}, P)$, denotamos por $F_X$ \index{FX@$F_X$}
+  a função de distribuição acumulada correspondente à distribuição $X_*P$.
 \end{notation}
 
 Lembramos que uma probabilidade em $\mathbb{R}$ é uma função $P:\mathcal{B}(\mathbb{R}) \to [0,1]$ e o domínio dessa função é bastante complicado.
 Por exemplo se quisermos representar uma distribuição de uma variável aleatória no computador atravéz dessa função $P$, teríamos problemas.
-Contudo, a função $F_P$ (ou $F_X$) é muito mais simples de ser compreendida ou representada, por seu domínio ser $R$.
+Contudo, a função $F_P$ (ou $F_X$) é muito mais simples de ser compreendida ou representada, por seu domínio ser $\mathbb{R}$.
 
 \begin{example}
   Não é difícil verificar que
@@ -211,7 +224,7 @@ Mas escolhemos abaixo um método mais simples, que parte da existência de $U_{[
 
   Para construir uma $P$ tal que $F_P = F$, definiremos $S:(0,1) \to \mathbb{R}$, a inversa generalizada de $F$, por
   \begin{equation}
-    S(u) = \sup \{x \in \mathbb{R}; F(x) < u\}.
+    S(u) = \sup \{x \in \mathbb{R} \, : \,  F(x) < u\}.
   \end{equation}
   \begin{figure}[tb]
     \centering
@@ -235,19 +248,20 @@ Mas escolhemos abaixo um método mais simples, que parte da existência de $U_{[
     \label{f:Rk_good}
   \end{figure}
 
-  Seja $P = S \circ U_{[0,1]}$, isto é $P(A) = U_{[0,1]}(S^{-1}(A))$ e mostraremos que $F_P = F$.
+  Seja $P = S_* U_{[0,1]}$, isto é $P(A) = U_{[0,1]}(S^{-1}(A))$ e mostraremos que $F_P = F$.
   Para tanto, basta ver que
   \begin{equation}
     \label{e:pseudo_inversa}
-    \{u \in [0,1]; S(u) \leq x\} = \{u \in [0,1]; u \leq F(x)\}, \text{ para todo $x \in \mathbb{R}$}.
+    \{u \in [0,1] \, : \,  S(u) \leq x\} = \{u \in [0,1] \, : \,  u \leq F(x)\}, \text{ para todo $x \in \mathbb{R}$}.
   \end{equation}
-  Pois isso implicaria que $F_P(x) = U_{[0,1]}[S \leq x] = U_{[0,1]} [u \leq F(x)] = F(x)$.
+  Pois isso implicaria que $F_P(x) = U_{[0,1]}[S(u) \leq x] = U_{[0,1]} [u \leq F(x)] = F(x)$.
 
   Vamos agora checar \eqref{e:pseudo_inversa} observando que:
   \begin{enumerate}[\quad a)]
   \item Se $u \leq F(x)$ então todo $x'$ tal que $F(x') < u$ é menor que $x$.
     Logo $S(u) \leq x$.
-  \item Por outro lado, se $u > F(x)$ então existe $x' > x$ tal que $F(x') < u$ (pois $F$ é càd), donde $S(u) > x$.
+  \item Por outro lado, se $x \ge S(u)$ então todo $x' > x$ satisfaz $F(x') > u$.
+    Pois por continuidade a direita $F(x)\ge u$.
   \end{enumerate}
   Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
 \end{proof}
@@ -260,15 +274,19 @@ Mas escolhemos abaixo um método mais simples, que parte da existência de $U_{[
 
 Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebras $\mathcal{F}_1, \dots, \mathcal{F}_n$, podemos definir o espaço mensurável produto $(\widebar{\Omega}, \widebar{\mathcal{F}})$ da seguinte forma
 \begin{equation}
-  \widebar{\Omega} = \bigtimes_{i=1}^n \Omega_i \quad \text{e} \quad \widebar{\mathcal{F}} = \sigma \Big( A_1 \times \cdots \times A_n; \; A_i \in \mathcal{F}_i, \text{ para $i \leq n$} \Big).
+  \widebar{\Omega} = \prod_{i=1}^n \Omega_i \quad \text{e} \quad \widebar{\mathcal{F}} = \sigma \Big( \{
+  A_1 \times \cdots \times A_n  \, : \,  \forall i \in \{1,\dots,n\},\ A_i \in \mathcal{F}_i \} \Big).
 \end{equation}
+Essa $\sigma$-álgebra e chamada de $\sigma$-álgebra produto e denotaremos ela por $\bigotimes_{i=1}^n \mathcal{F}_i$,
+o $\mathcal{F}_1\otimes \mathcal{F}_2$ quando $n=2$.
 
 \begin{proposition}
   Se $(\Omega_1, \mathcal{F}_1, P_1), \dots, (\Omega_n, \mathcal{F}_n, P_n)$ são espaços de probabilidade, então existe uma única probabilidade $\widebar{P}$ no espaço mensurável $(\widebar{\Omega}, \widebar{\mathcal{F}})$ tal que
   \begin{equation}
-    \widebar{P}(A_1 \times \cdots, \times A_n) = \prod_{i=1}^n P_i(A_i), \text{ para todos $A_i \in \mathcal{F}_i$, $i \leq n$.}
+    \widebar{P}(A_1 \times \cdots \times A_n) = \prod_{i=1}^n P_i(A_i), \text{ para todos $A_i \in \mathcal{F}_i$, $i \leq n$.}
   \end{equation}
   Essa probabilidade é chamada probabilidade produto.
+  Usaremos a notação $\bigotimes_{i=1}^n P_i$ o $P_1\otimes P_2 \otimes \dots \otimes P_n$.
 \end{proposition}
 
 \begin{proof}
@@ -337,25 +355,25 @@ Mais precisamente
 \end{example}
 
 \begin{definition}
-  Dizemos que uma coleção infinita de eventos $A_1, A_2, \dots$ é independente \index{independencia@independência!de eventos} se toda sub-coleção finita de tais eventos forem independentes.
+  Dizemos que uma coleção infinita de eventos $(A_n)_{n\ge 1}$ é independente \index{independencia@independência!de eventos} se toda sub-coleção finita de tais eventos forem independentes.
 \end{definition}
 
 \begin{lemma}
-  Se $A_1, A_2, \dots$ forem independentes, então
+  Se $(A_n)_{n\ge 1}$ forma uma sequencia de eventos independentes, então
   \begin{equation}
-    P\Big( \mcap_{i} A_i \Big) = \prod\limits_{i} P(A_i).
+    P\Big( \mcap_{i=1}^{\infty} A_i \Big) = \prod\limits_{i=1}^{\infty} P(A_i).
   \end{equation}
 \end{lemma}
 
 \begin{proof}
   De fato,
   \begin{equation*}
-    P\Big( \mcap_{i} A_i \Big) = \lim_n P\Big( \mcap_{i = 1}^n A_i \Big) = \lim_n \prod\limits_{i=1}^n P(A_i) = \prod\limits_{i} P(A_i). \qedhere
+    P\Big( \mcap_{i=1}^{\infty} A_i \Big) = \lim_{n\to \infty} P\Big( \mcap_{i = 1}^n A_i \Big) = \lim_{n\to \infty} \prod\limits_{i=1}^n P(A_i) = \prod\limits_{i=1}^{\infty} P(A_i). \qedhere
   \end{equation*}
 \end{proof}
 
 \begin{exercise}
-  Mostre que se $A \in \mathcal{F}$, então $\{B \in \mathcal{F}; B \text{ é independente de } A\}$ é um $\lambda$-sistema.
+  Mostre que se $A \in \mathcal{F}$, então $\{B \in \mathcal{F}\, : \, B \text{ é independente de } A\}$ é um $\lambda$-sistema.
 \end{exercise}
 
 \begin{exercise}
@@ -365,8 +383,10 @@ Mais precisamente
 \subsection{Independência de \texorpdfstring{$\sigma$}{sigma}-álgebras}
 
 \begin{definition}
-  Dadas $\sigma$-algebras $\mathcal{F}_1, \dots, \mathcal{F}_k \subseteq \mathcal{F}$.
-  Dizemos que elas são independentes \index{independencia@independência!de sigma-algebras@de $\sigma$-álgebras} se todos $A_1 \in \mathcal{F}_1, \dots, A_k \in \mathcal{F}_k$ o são.
+  Dado um espaço de probabilidade $(\Omega,P,\mathcal{F})$ Dizemos que as $\sigma$-álgebra $\mathcal{F}_1,\dots,\mathcal{F}_n\subset \mathcal{F}$ são independentes \index{independencia@independência!de sigma-algebras@de $\sigma$-álgebras} se
+  \begin{equation}
+    \forall \mathcal{A}_1\in \mathcal{F}_1,\dots ,\mathcal{A}_n \in \mathcal{F}_n, \ P(\cap_{i=1}^n A_i)=\prod_{i=1}^n P(A_i).
+  \end{equation}
   Nessa definição podemos tomar uma coleção infinita.
 \end{definition}
 
@@ -374,8 +394,8 @@ Mais precisamente
   Em um espaço produto $(\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2, P_1 \otimes P_2)$, podemos definir
   \begin{equation}
     \begin{split}
-      \widebar{\mathcal{F}}_1 & = \{A \times \Omega_2; A \in \mathcal{F}_1\},\\
-      \widebar{\mathcal{F}}_2 & = \{\Omega_2 \times B; B \in \mathcal{F}_2\}.
+      \widebar{\mathcal{F}}_1 & = \{A \times \Omega_2 \, : \, A \in \mathcal{F}_1\},\\
+      \widebar{\mathcal{F}}_2 & = \{\Omega_1 \times B \, : \, B \in \mathcal{F}_2\}.
     \end{split}
   \end{equation}
   Mostre que essas $\sigma$-álgebras são independentes.
@@ -397,7 +417,7 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
 \end{exercise}
 
 \begin{exercise}
-  Mostre que as coordenadas canônicas do exercício anterior no caso $X_i: \mathbb{R}^2 \to \mathbb{R}$ não são independentes segundo a medida $U_{S^1}$.
+  Mostre que as coordenadas canônicas do exercício anterior no caso $X_i: \mathbb{R}^2 \to \mathbb{R}$ não são independentes segundo a medida $U_{\mathbb{S}^1}$.
   Mas o são segundo $U_{[0,1]^2}$ (que é a medida de Lebesgue em $\mathbb{R}^2$ restrita a $[0,1]^2$).
 \end{exercise}
 
@@ -533,15 +553,15 @@ No nosso caso, $\Omega$ é enumerável.
 Vamos ver que nesse caso é possível reescrever a definição acima de modo a ver mais facilmente que se trata de uma distância no espaço de probabilidades em $\Omega$.
 
 \begin{lemma}
-\label{l:vt_l1}
-Se $\Omega = \{x_1, x_2, \dots\}$, então podemos escrever
-\begin{equation}
-  \lVert \mu_1 - \mu_2 \rVert_{\VT} = \frac{1}{2} \sum_{i} |\mu_1(x_i) - \mu_2(x_i)|.
-\end{equation}
+  \label{l:vt_l1}
+  Se $\Omega$ for finito ou enumerável, então podemos escrever
+  \begin{equation}
+    \lVert \mu_1 - \mu_2 \rVert_{\VT} = \frac{1}{2} \sum_{x \in \Omega} |\mu_1(x) - \mu_2(x)|.
+  \end{equation}
 \end{lemma}
 
 \begin{proof}
-Para mostrar que o lado esquerdo é maior ou igual ao direito, escolhemos $A = \{ x \in \Omega; \mu_2(x) \leq \mu_1(x)\}$. Assim
+Para mostrar que o lado esquerdo é maior ou igual ao direito, escolhemos $A = \{ x \in \Omega \, : \, \mu_2(x) \leq \mu_1(x)\}$. Assim
 \begin{equation}
   \begin{split}
     \sum_{x \in A} \mu_1(x) - \mu_2(x) & = |\mu_1(A) - \mu_2(A)|\\
@@ -584,8 +604,8 @@ Sejam $\mu_1, \mu_2$ distribuições em $\Omega$ e $\nu_1, \nu_2$ distribuiçõe
 Basta expandir
 \begin{equation}
   \begin{split}
-    \lVert \mu_1 & \otimes \nu_1 - \mu_2 \otimes \nu_2 \rVert_{\VT} = \sum_{x \in \Omega, y \in y} |\mu_1(x)\nu_1(y) - \mu_2(x)\nu_2(y)|\\
-    & \leq \sum_{x \in \Omega, y \in y} |\mu_1(x)\nu_1(y) - \mu_1(x)\nu_2(y)| + |\mu_1(x)\nu_2(y) - \mu_2(x)\nu_2(y)|\\
+    2\lVert \mu_1 & \otimes \nu_1 - \mu_2 \otimes \nu_2 \rVert_{\VT} = \sum_{x \in \Omega, y \in \Omega} |\mu_1(x)\nu_1(y) - \mu_2(x)\nu_2(y)|\\
+    & \leq \sum_{x \in \Omega, y \in \Omega} |\mu_1(x)\nu_1(y) - \mu_1(x)\nu_2(y)| + |\mu_1(x)\nu_2(y) - \mu_2(x)\nu_2(y)|\\
     & \leq 2\lVert \mu_1 - \mu_2 \rVert_{\VT} + 2\lVert \nu_1 - \nu_2 \rVert_{\VT}.
   \end{split}
 \end{equation}
@@ -615,20 +635,25 @@ Se $\mu$ e $\nu$ são distribuições em $\mathbb{Z}$, então $\mu \star \nu = \
 Como prometido, obtemos a seguinte relação entre a convolução e a distância de  variação total.
 \begin{lemma}
 \label{l:vt_conv}
-Sejam $\mu_1, \mu_2, \nu_1, \nu_2$ distribuições em $\mathbb{Z}$. Então,
+Sejam $\mu$, $\nu$ duas medidas em $\Omega$ enumerável e $X:\  (\Omega,\mathcal{P}(\Omega))\to (E,\mathcal{A})$ um elemento aleatorio
+\begin{equation}
+   \lVert X_*\mu - X_*\nu\rVert_{\VT}\le    \lVert \mu - \nu\rVert_{\VT}.
+\end{equation}
+Em particular se $\mu_1, \mu_2, \nu_1, \nu_2$ são distribuições em $\mathbb{Z}$, então
 \begin{equation}
   \lVert \mu_1 \star \nu_1 - \mu_2 \star \nu_2 \rVert_{\VT} \leq \lVert \mu_1 \otimes \nu_1 - \mu_2 \otimes \nu_2 \rVert_{\VT}
 \end{equation}
 \end{lemma}
 
 \begin{proof}
-Como de costume, basta estimar
+O segundo ponto segue do primeiro applicado ao caso $\Omega = \mathbb{Z}^2$, $E=\mathbb{Z}$ e $X:\ (x,y) \mapsto (x+y)$.
+Pelo primeiro, observamos
 \begin{equation}
   \begin{split}
-    \sum_{x \in \mathbb{Z}} \Big| & \sum_{y \in \mathbb{Z}} \mu_1(x-y) \nu_1(y) - \sum_{y \in \mathbb{Z}} \mu_2(x-y)\nu_2(y) \Big|\\
-    & \leq \sum_{x, y \in \mathbb{Z}} \big| \mu_1(x-y) \nu_1(y) - \mu_2(x-y)\nu_2(y) \big|\\
-    & \leq \sum_{x, z \in \mathbb{Z}} \big| \mu_1(z) \nu_2(y) - \mu_2(z)\nu_2(y) \big|\\
-    & = 2\lVert \mu_1 \otimes \nu_1 - \mu_2 \otimes \nu_2 \rVert_{\VT},
+    2\lVert X_*\mu - X_*\nu\rVert_{\VT} &= \sum_{x \in E} \Big| \mu(X(\omega)=x) - \nu(X(\omega)=x) \Big|\\
+    & =  \sum_{x \in E} \big| \sum_{\{\omega \in\Omega \ : \ X(\omega)=x\}}  \mu(\omega) - \nu(\omega) \big|\\
+    & \leq \sum_{\omega \in \Omega} \big| \mu(\omega)- \nu(\omega) \big|\\
+    & = 2\lVert \mu - \nu\rVert_{\VT}.
   \end{split}
 \end{equation}
 provando o lema.
@@ -715,6 +740,8 @@ O teorema principal de convergência dessa seção concerne a soma de variáveis
   \end{equation}
   que converge a zero com $n$.
 \end{corollary}
+Veremos mais tarde que existem outros tipos de convergência.
+
 
 \begin{exercise}
   Fixado $\lambda > 0$, seja $N$ uma variável aleatória com distribuição Poisson($\lambda$), isto é
@@ -740,28 +767,29 @@ Mas antes iremos recordar o Teorema da Extensão de Caratheodory.
 
 Vamos lembrar o enunciado do Teorema da Extensão de Caratheodory \index{Teorema!da Extensao de Caratheodory@da Extensão de Caratheodory}.
 Antes, vamos relembrar uma definição definição importante.
-Uma família $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ é dita uma álgebra de conjuntos \index{anel de conjuntos} se valem
+Uma família $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ é dita uma álgebra de conjuntos \index{anel de conjuntos} se valem:
 \begin{enumerate}[\quad a)]
-  \item $\Omega \in \mathcal{G}$,
-  \item se $A \in \mathcal{G}$, então $A^c \in \mathcal{G}$ e
-  \item para todo $n \geq 1$, se $A_1, \dots, A_n \in \mathcal{G}$, então $\cup_{i=1}^n A_i \in \mathcal{G}$.
+  \item $\Omega \in \mathcal{G}$.
+  \item Se $A \in \mathcal{G}$, então $A^c \in \mathcal{G}$.
+  \item Para todo $n \geq 1$, se $A_1, \dots, A_n \in \mathcal{G}$, então $\bigcup_{i=1}^n A_i \in \mathcal{G}$.
 \end{enumerate}
 
 \begin{theorem}[Teorema da Extensão de Caratheodory]
-  Seja $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ uma álgebra de conjuntos em $\Omega$ e suponha que $\mu: \mathcal{G} \to \mathbb{R}_+$ satisfaça a seguinte propriedade
+  Seja $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ uma álgebra de conjuntos em $\Omega$ e suponha que $\mu: \mathcal{G} \to \mathbb{R}_+$ satisfaça a seguinte propriedade:
   \begin{display}
     \label{e:aditiva_na_algebra}
-    sempre que $A_1, A_2, \dots \in \mathcal{G}$ forem disjuntos e tais que $\cup_i A_i \in \mathcal{G}$,\\temos $\mu(\cup_i A_i) = \sum_i \mu(A_i)$.
+    Se $(A_i)_{i\in I}$ e uma familia finita ou enumerável de elementos disjuntos de $\mathcal G$ tal que $\cup_{i\in I} A_i \in \mathcal{G}$,\\
+  temos $\mu(\cup_{i\in I} A_i) = \sum_{i\in I} \mu(A_i)$.
   \end{display}
-  Nesse caso, existe uma medida $\widebar{\mu}: \sigma(\mathcal{G}) \to \mathbb{R}_+$ tal que $\widebar{\mu}(A) = \mu(A)$ para todo $A \in \mathcal{G}$.
+  Então existe uma medida $\widebar{\mu}: \sigma(\mathcal{G}) \to \mathbb{R}_+$ tal que $\widebar{\mu}(A) = \mu(A)$ para todo $A \in \mathcal{G}$.
 \end{theorem}
 
-Mostraremos agora uma pequena simplificação do teorema acima, que é muito utilizada em probabilidade.
+Mostraremos agora uma consequência simples do teorema acima, que é muito utilizada em probabilidade.
 
 \begin{lemma}[Extensão por continuidade no vazio]
   \label{l:extensao_vazio}
   \index{continuidade no vazio}
-  Seja $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ uma álgebra de conjuntos em $\Omega$ e suponha que $P: \mathcal{G} \to \mathbb{R}_+$ satisfaça as seguintes propriedades
+  Seja $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ uma álgebra de conjuntos em $\Omega$ e suponha que $P: \mathcal{G} \to \mathbb{R}_+$ satisfaça as seguintes propriedades:
   \begin{enumerate}[\quad a)]
   \item $P(\Omega) = 1$,
     \item $P$ é finitamente aditiva e
@@ -780,7 +808,7 @@ Portanto resolvemos escrever o enunciado com probabilidades.
 
 \begin{proof}
   Primeiro observe que a unicidade segue da Proposição~\ref{p:P12_equal_pi}, já que $\mathcal{G}$ é um $\pi$-sistema.
-  Iremos agora mostrar que a propriedade \eqref{e:aditiva_na_algebra} é válida para $P$, logo tome $A_1, A_2, \dots \in \mathcal{G}$ disjuntos e tais que $A = \cup_i A_i \in \mathcal{G}$.
+  Iremos agora mostrar que a propriedade \eqref{e:aditiva_na_algebra} é válida para $P$, logo tome $A_1, A_2, \dots \in \mathcal{G}$ disjuntos e tais que $A = \cup_{i\in \mathbb{N}} A_i \in \mathcal{G}$.
   Definimos o ``resto da união'' por
   \begin{equation}
     B_n = A \setminus \mcup_{i=1}^n A_i.
@@ -795,17 +823,20 @@ Portanto resolvemos escrever o enunciado com probabilidades.
   \begin{equation}
     P(A) = \sum_{i=1}^n P(A_i) + P(B_n),
   \end{equation}
-  mas como $\lim_n P(B_n) = 0$, temos $P(\cup_i A_i) = \sum_i P(A_i)$, mostrando a propriedade \eqref{e:aditiva_na_algebra} e concluindo o teorema.
+  mas como $\lim_{n\to \infty} P(B_n) = 0$, temos
+  \begin{equation}
+    P(\cup_{i=1}^{\infty} A_i) = \sum_{i=1}^{\infty} P(A_i),
+  \end{equation}
+  mostrando a propriedade \eqref{e:aditiva_na_algebra} e concluindo o teorema.
 \end{proof}
 
 \subsection{Teorema da Extensão de Kolmogorov}
 
 O objetivo desta seção é provar um resultado que nos permitirá construir probabilidades em espaços produtos infinitos.
 Antes precisaremos de introduzir algumas notações.
-
-Dada uma coleção de espaços $E_1, E_2, \dots$, definimos o espaço produto
+Dada uma coleção de espaços $(E_i)_{i\in \mathbb{N}}$, definimos o espaço produto
 \begin{equation}
-  \Omega = \bigtimes_{i\geq 1} E_i = \big\{(\omega_1, \omega_2, \dots); \omega_i \in E_i \text{ para todo $i \geq 1$}\big\}.
+  \Omega = \prod_{i=1}^{\infty} E_i = \big\{(\omega_i)_{i\in \mathbb{N}} \, : \,  \omega_i \in E_i \text{ para todo $i \geq 1$}\big\}.
 \end{equation}
 e os mapas $X_i:\Omega \to E_i$, definidos para $i = 1, 2, \dots$ por
 \begin{equation}
@@ -815,7 +846,7 @@ que chamamos de \emph{coordenadas canônicas} \index{coordenadas canonicas@coord
 
 Se cada $E_i$ é dotado de uma $\sigma$-álgebra $\mathcal{A}_i$, então definimos
 \begin{equation}
-  \mathcal{F} = \sigma(X_i; i \geq 1),
+  \mathcal{F} = \sigma( (X_i)_{i\geq 1} ),
 \end{equation}
 que é claramente uma a $\sigma$-álgebra em $\Omega$.
 Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
@@ -823,26 +854,28 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 \begin{exercise}
   Mostre que em $(\mathbb{R}^{\mathbb{N}},\mathcal{F})$ temos que os conjuntos
   \begin{enumerate}[\quad a)]
-  \item $A = \{ \liminf_n X_n \text{ existe}\}$,
-  \item $B = \{ \lim_n X_n = 4\}$ e
-  \item $C = \{ \lim_n \tfrac{1}{n} X_n \text{ existe}\}$
+  \item $A = \{ \liminf_{n\to \infty} X_n \notin \{\infty,-\infty\} \}$,
+  \item $B = \{ \lim_{n\to \infty} X_n = 4\}$ e
+  \item $C = \{ \lim_{n\to \infty} \tfrac{1}{n} X_n \text{ existe}\}$
   \end{enumerate}
   são todos mensuráveis (eventos) com respeito a $\mathcal{F}$.
-  Além disso $Y = \1_A \liminf_n X_n$ é uma variável aleatória em $(\Omega, \mathcal{F})$.
+  Além disso $Y = \1_A \liminf_{n\to \infty} X_n$ é uma variável aleatória em $(\Omega, \mathcal{F})$.
 \end{exercise}
 
 \begin{exercise}
-  Verifique que,
+  Verifique as seguinte afirmações
   \begin{enumerate}[\quad a)]
-  \item $\mathcal{F} = \sigma\big(A_1 \times \dots \times A_k \times E_{k+1} \times E_{k+2} \times \dots; k \geq 1, A_i \in \mathcal{A}_i, i \leq k\big)$, os chamados eventos retangulares e
-  \item $\mathcal{F} = \sigma\big(A \times E_{k+1} \times E_{k+2} \times \dots; k \geq 1, A \in \mathcal{A}_i \otimes \dots \otimes \mathcal{A}_k\big)$, conhecidos como eventos cilíndricos.
+  \item $\mathcal{F} = \sigma\big(A_1 \times \dots \times A_k \times E_{k+1} \times E_{k+2} \times \dots\, : \, k \geq 1, A_i \in \mathcal{A}_i, i \leq k\big)$,
+  os chamados eventos retangulares.
+  \item $\mathcal{F} = \sigma\big(A \times E_{k+1} \times E_{k+2} \times \dots\, : \, k \geq 1, A \in \mathcal{A}_i \otimes \dots \otimes \mathcal{A}_k\big)$,
+  conhecidos como eventos cilíndricos.
   \end{enumerate}
 \end{exercise}
 
 \begin{definition}
   \label{d:marginal}
-  Seja $\Omega = \times E_i$ um espaço produto (infinito ou finito) dotado de uma probabilidade $P$.
-  Se $X_i$ é uma coordenada canônica, então chamamos a probabilidade $X_i \circ P$ de \emph{distribuição marginal} \index{distribuicao@distribuição!marginal} de $P$ na coordenada $i$.
+  Seja $\Omega = \prod_{i\in I} E_i$ um espaço produto (infinito ou finito) dotado de uma probabilidade $P$.
+  Se $X_i$ é uma coordenada canônica, então chamamos a probabilidade $(X_i)_*  P$ de \emph{distribuição marginal} \index{distribuicao@distribuição!marginal} de $P$ na coordenada $i$.
 \end{definition}
 
 \begin{theorem}[Extensão de Kolmogorov]
@@ -859,11 +892,12 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 \begin{proof}
   Considere a classe de conjuntos
   \begin{equation*}
-    \mathcal{S}_l = \Big\{ \mcup_{i=1}^k [a_1, b_1) \times \dots \times [a_l, b_l) \subseteq \mathbb{R}^l; \text{ onde $a_i \in \mathbb{R} \cup \{-\infty\}, b_i \in \mathbb{R} \cup \{\infty\}$} \Big\}.
+    \mathcal{S}_l = \Big\{ \mcup_{j=1}^k [a_{1,j}, b_{1,j}) \times \dots \times [a_{l,j}, b_{l,j}) \subseteq \mathbb{R}^l \, : \,
+    a_{i,j} \in \mathbb{R} \cup \{-\infty\},\ b_{i,j} \in \mathbb{R} \cup \{\infty\} \Big\}.
   \end{equation*}
   Que é obviamente uma álgebra em $\mathbb{R}^l$ e seja também
   \begin{equation}
-    \mathcal{S} = \big\{ A \times \mathbb{R} \times \dots; \text{ onde } l \geq 1 \text{ e } A \in \mathcal{S}_l \big\}.
+    \mathcal{S} = \big\{ A \times \mathbb{R} \times \dots\, : \, \text{ onde } l \geq 1 \text{ e } A \in \mathcal{S}_l \big\}.
   \end{equation}
   Claramente, $\mathcal{S}$ também é uma álgebra.
 
@@ -891,7 +925,7 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
   \begin{equation}
     C_n = C_n^* \times \mathbb{R} \times \dots, \text{ com $C_n^* \in \mathcal{S}_{l_n}$}
   \end{equation}
-  de forma que $C_n^*$ seja pré-compacto, $\widebar{C}_n^* \subseteq A_n$ e
+  de forma que $C_n^*$ seja compacto, $C_n^* \subseteq A_n$ e
   \begin{equation}
     P(B_n \setminus C_n) \leq \frac{\delta}{2^{l_n + 1}},
   \end{equation}
@@ -908,24 +942,24 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
   Nosso próximo obstáculo vem do fato de que os conjuntos $D_n$ estão definidos em $\mathbb{R}^\mathbb{N}$, e gostaríamos de ter conjuntos em espaços de dimensão finita.
   Isso pode ser feito observando que podemos escrever $D_n = D_n^* \times \mathbb{R} \times \mathbb{R} \times \dots$, onde $D_n^* \in \mathcal{S}_{l_n}$ e
   \begin{equation}
-    D_n^* = \underbrace{C_n^*}_{\mathclap{\text{pré-compacto}}} \mcap \Big( \mcap_{i=1}^{n-1} C_i^* \times \mathbb{R}^{l_n - l_i} \Big),
+    D_n^* = \underbrace{C_n^*}_{\mathclap{\text{compacto}}} \mcap \underbrace{ \Big( \mcap_{i=1}^{n-1} C_i^* \times \mathbb{R}^{l_n - l_i} \Big)}_{\text{fechado}},
   \end{equation}
-  de forma que os $D_n^* \subseteq \mathbb{R}^{l_n}$ são pré-compactos e não vazios.
+  de forma que os $D_n^* \subseteq \mathbb{R}^{l_n}$ são compactos  e não vazios.
 
-  Para cada $n \geq 1$ considere um $\omega^n \in D_n^* \subseteq \mathbb{R}^{l_n}$.
-  Usando um argumento de diagonal de Cantor, podemos obter um $\omega \in \Omega$ e uma sub-sequência de $\omega^{n_j}$ que convirja para $\omega \in \Omega$ coordenada a coordenada (observe que $\omega^{n_j} \in \mathbb{R}^{\smash{l_{n_j}}}$).
-  % Tomando subsequências se necessário, podemos supor que $\omega^n$ converge coordenada a coordenada a um certo $\omega \in \Omega$.
-
-  Para concluir a prova, veremos que $\omega \in \bigcap_m B_m$.
-  Mais ainda, veremos que
+  Para cada $n \geq 1$ considere um $\omega^n \in D_n$.
+  Usando um argumento de diagonal de Cantor, podemos obter um $\omega \in \Omega$
+  e uma sub-sequência de $\omega^{n_j}$ que convirja para $\omega \in \Omega$ coordenada a coordenada
+  (observe que $\omega^{n_j} \in \mathbb{R}^{\smash{l_{n_j}}}$).  % Tomando subsequências se necessário, podemos supor que $\omega^n$ converge coordenada a coordenada a um certo $\omega \in \Omega$.
+ Para concluir a prova mostramos que $\omega \in \bigcap_{n\ge 1} B_n$.
+ Para isso e suficiente mostrar (lembramos que por definição $C_n \subseteq B_n$) que para todo $n\in \mathbb{N}$
   \begin{equation*}
-    \text{para todo $m \geq 1$, temos $\omega = (\omega_1, \omega_2, \dots) \in \widebar{C}_m = \widebar{C}_m^* \times \mathbb{R} \times \dots \subseteq B_m$.}
+\omega = (\omega_1, \omega_2, \dots) \in C_n.
   \end{equation*}
-  Mas como os pontos $(\omega_1, \dots, \omega_{l_m})$ são o limite de $(\omega^{n_j}_1, \dots, \omega^{n_j}_{l_m}) \in C_m^*$ (com $n_j \geq m$), então é óbvio que $\omega \in \widebar{C}_m$, terminando a prova do teorema.
+  O que e equivalente a $(\omega_1, \omega_2, \dots, \omega_n) \in C^*_n$, que vale por compacidade.
 \end{proof}
 
 Observe que usamos muito poucos atributos de $\mathbb{R}$ na prova.
-Poderíamos na verdade substituir $\mathbb{R}$ por um espaço métrico que satisfaça certas propriedades, como por exemplo a existência de uma álgebra cujos conjuntos possam ser aproximados por pré-compactos.
+Poderíamos na verdade substituir $\mathbb{R}$ por um espaço métrico que satisfaça certas propriedades, como por exemplo a existência de uma álgebra cujos conjuntos possam ser aproximados por compactos.
 Contudo, decidimos não apresentar essa versão mais geral aqui porque muito em breve obteremos uma versão bem mais geral do Teorema de Kolmogorov usando apenas o resultado para $\mathbb{R}$.
 
 \begin{exercise}
@@ -950,21 +984,21 @@ Mais adiante no texto daremos outros exemplos bastante interessantes do uso do T
 \begin{exercise}
   Mostre que se $p > 0$ e $\mathbb{P} = \bigotimes_{i \geq 1} \Ber(p)$ em $\mathbb{R}^\mathbb{N}$, então
   \begin{equation}
-    \text{$\limsup_n X_n = 1$ quase certamente.}
+    \text{$\limsup_{n\to \infty} X_n = 1$ quase certamente.}
   \end{equation}
 \end{exercise}
 
 \begin{exercise}
   Mostre que se $\mathbb{P} = \bigotimes_{i \geq 1} U_{[0,1]}$ em $\mathbb{R}^\mathbb{N}$, então
   \begin{equation}
-    \text{$\limsup_n X_n = 1$ quase certamente.}
+    \text{$\limsup_{n\to \infty} X_n = 1$ quase certamente.}
   \end{equation}
 \end{exercise}
 
 \begin{exercise}
   Mostre que se $\mathbb{P} = \bigotimes_{i \geq 1} \Exp(i)$ em $\mathbb{R}^\mathbb{N}$, então
   \begin{equation}
-    \text{$\limsup_n X_n < \infty$ quase certamente.}
+    \text{$\limsup_{n\to \infty} X_n < \infty$ quase certamente.}
   \end{equation}
 \end{exercise}
 
@@ -976,23 +1010,27 @@ Mais adiante no texto daremos outros exemplos bastante interessantes do uso do T
 Imagine que gostaríamos de modelar o movimento de um líquido em um meio poroso, como uma rocha ou uma esponja.
 A primeira tarefa nesse estudo seria modelar esse meio poroso de maneira matematicamente rigorosa, que é o que faremos a seguir.
 
-Fixamos uma dimensão $d \geq 1$ e consideramos o seguinte grafo $G = (\mathbb{Z}^d, E)$, onde a rede quadrada $\mathbb{Z}^d$ é o conjunto de vértices de $G$ e o conjunto de elos é dado por
+Fixamos uma dimensão $d \geq 1$ e consideramos o seguinte grafo $(\mathbb{Z}^d, E)$,
+onde a rede quadrada $\mathbb{Z}^d$ é o conjunto de vértices e o conjunto de elos é dado por
 \begin{equation*}
-  E = \big\{ \{x, y\} \subset \mathbb{Z}^d; |x - y| = 1 \},
+  E = \big\{ \{x, y\} \subset \mathbb{Z}^d \, : \,  |x - y| = 1 \},
 \end{equation*}
 onde $|\cdot|$ representa a distância euclideana em $\mathbb{R}^d$.
 
 No nosso modelo, esse grafo pode ser entendido como um cristal periódico onde cada vértice representa uma cavidade do material poroso e os elos são potenciais conexões entre poros vizinhos.
 
-Até agora nosso grafo $G$ é apenas uma rede periódica, mas as coisas começam a ficar interessantes à partir de agora.
+Até agora nosso grafo é apenas uma rede periódica, mas as coisas começam a ficar interessantes à partir de agora.
 Imaginamos que nosso material poroso está sujeito a variações durante sua formação.
 Isso se reflete no fato que alguns elos de $E$ podem estar abertos ou não aleatoriamente.
 
-Para o nosso modelos, fixamos um $p \in [0,1]$ e definimos uma coleção de variáveis aleatórias $X_e$, para $e \in E$, que sejam \iid e com distribuição $\Ber(p)$.
-Essas variáveis aleatórias induzem um novo subgrafo $(\mathbb{Z}^d, \mathcal{E})$ de $G$ que corresponde a abrir apenas os elos $e$ com $X_e = 1$.
+Para o nosso modelos, o espaço amostral vai ser $\Omega:= \{0,1\}^E$ considerado com a $\sigma$-algebra produto.
+Fixamos um $p \in [0,1]$ e definimos uma coleção de variáveis aleatórias $\omega_e$, para $e \in E$, que sejam \iid e com distribuição $\Ber(p)$.
+Chamamos $P_p$ a probabilidade corespondente.
+Essas variáveis aleatórias induzem um grafo aleatorio $G(\omega)=(\mathbb{Z}^d, \mathcal{E}(\omega))$, subgrafo do grafo original,
+que corresponde a incluir apenas os elos $e$ com $\omega_e = 1$.
 Mais precisamente
 \begin{equation}
-  \mathcal{E} = \big\{ e \in E; X_e = 1 \big\}.
+  \mathcal{E}(\omega) = \big\{ e \in E\, : \, \omega_e = 1 \big\}.
 \end{equation}
 Podemos ver na Figura~\ref{f:percola} algumas simulações desse grafo aleatório.
 
@@ -1023,28 +1061,29 @@ Agora que temos um modelo de meio poroso bem definido, precisamos pensar em quai
 Sendo esse um modelo poara passagem de fluido, as primeiras perguntas que faremos concerne a conectividade de $\mathcal{G}$.
 
 \begin{exercise}
-  Mostre que quase certamente $\mathcal{G}$ é desconexo.
-  Mais precisamente, mostre que existem quase certamente infinitos vércices isolados em $\mathcal{G}$.
+  Mostre que quase certamente $G(\omega)$ é desconexo.
+  Mais precisamente, mostre que existem quase certamente infinitos vértices isolados em $G(\omega)$.
 \end{exercise}
 
-Como não podemos esperar que $\mathcal{G}$ seja conexo, podemos nos perguntar algo mais fraco, como por exemplo se a componente conexa da origem $0 \in \mathbb{Z}^d$ em $\mathcal{G}$ é infinita.
+Como não podemos esperar que $G(\omega)$ seja conexo, podemos nos perguntar algo mais fraco, como por exemplo se a
+componente conexa da origem $0 \in \mathbb{Z}^d$ em $G(\omega)$ é infinita.
 
 Voltando à Figura~\ref{f:percola} vemos que, dependendo do valor de $p \in [0,1]$, pode ser bem difícil ou bem fácil encontrar um caminho longo à partir da origem.
 Isso é uo que estudaremos em mais detalhes no que segue.
 
 Mais precisamente estamos interessados em:
 \begin{equation}
-  A = \big\{\omega \in \Omega; \text{ a componente conexa de $0 \in \mathbb{Z}^d$ em $\mathcal{G}$ é infinita} \big\}.
+  A = \big\{\omega \in \Omega \, : \,  \text{ a componente conexa de $0 \in \mathbb{Z}^d$ em $G(\omega)$ é infinita} \big\}.
 \end{equation}
 
 Para estudar $A$, vamos fazer uma aproximação de $A$ por eventos mais simples
 \begin{equation}
-  A_n = \big\{ \omega \in \Omega; \text{ a componente conexa de $0$ sai da caixa $[-n, n]^d$}\},
+  A_n = \big\{ \omega \in \Omega \, : \, \text{ a componente conexa de $0$ sai da caixa $[-n, n]^d$}\},
 \end{equation}
 para $n \geq 1$.
 
 \begin{exercise}
-  Mostre que $A = \cap_n A_n$ e consequentemente que $A$ é de fato mensurável e $P(A) = \lim_n P(A_n)$.
+  Mostre que $A = \cap_{n=1}^n A_n$ e consequentemente que $A$ é de fato mensurável e $P(A) = \lim_{n\to \infty} P(A_n)$.
 \end{exercise}
 
 Definimos portanto a função $\theta:[0,1] \to [0,1]$ por
@@ -1054,19 +1093,21 @@ Definimos portanto a função $\theta:[0,1] \to [0,1]$ por
 onde $P_p$ denota a probabilidade correspondente ao valor escolhido de $p \in [0,1]$.
 
 \begin{exercise}
-  Mostre que $\theta(p) \leq (1-p)^{2d}$.
+  Mostre que $\theta(p) \leq 1-(1-p)^{2d}$.
 \end{exercise}
 
 Nosso objetivo é entender algumas das propriedades de $\theta$.
 A nossa intuição diz que quanto maior o valor de $p$, mais elos serão abertos em $\mathcal{G}$ e portanto maior será o valor de $\theta$, ou em outras palavras, $\theta$ deve ser monótona não decrescente.
 
 \begin{exercise}
-  Construiremos nosso modelo de uma maneira alternativa num espaço de probabilidade $\mathbb{P}$.
-  Sejam $Y_e$, para $e \in E$, variáveis aleatórias \iid com distribuição $U[0,1]$ e definimos para cada $p \in [0,1]$
+  Construiremos nosso modelo de uma maneira alternativa num espaço de probabilidade maior.
+  Definimos $\Omega_0:=[0,1]^E$ (com a $\sigma$-álgebra produto correspondente), e $(U_e)_{e\in E}$
+  uma coleção de variáveis aleatórias \iid com distribuição $U[0,1]$, e  $\mathbb{P}$ a probabilidade corespondente.
+  Definimos para cada $p \in [0,1]$, $X^p : \Omega_0 \to \Omega$ do jeito seguinte
   \begin{equation}
-    X^p_e = \1_{[Y_e \leq p]}.
+    X^p_e = \1_{[\omega_e \leq p]}.
   \end{equation}
-  Mostre que para todo $p \in [0,1]$ a distribuição conjunta de $(X_e)_{e \in E}$ sob a lei $P_p$ é a mesma que a de $(X^p_e)_{e \in E}$ sob $\mathbb{P}$.
+  Mostre que para todo $p \in [0,1]$  $(X^p)_*\mathbb{P}=P_p$.
   Use isso para concluir que $\theta$ é monótona não decrescente.
 \end{exercise}
 
@@ -1080,13 +1121,13 @@ Antes da prova, alguns exercícios.
 
 \begin{exercise}
   Definimos um caminho como sendo uma sequência $x_1$, $\dots$, $x_k$ ($k \in \mathbb{N}$), tal que $\{x_i, x_{i+1}\} \in E$ para todo $i = 1, \dots, k-1$.
-  Tal caminho é dito aberto se $X_{\{x_i, x_{i+1}\}} = 1$ para todo $i \leq k-1$.
+  Tal caminho é dito aberto se $\omega_{\{x_i, x_{i+1}\}} = 1$ para todo $i \leq k-1$.
   E dizemos que ele é auto-evitante se $x_i \neq x_j$ para todo $1 \leq i < j < k$.
   Mostre que
   \begin{equation*}
     \begin{split}
-      & A_n = \Big\{ \omega \in \Omega; \text{ existe um caminho aberto $(x_i)_{i=1}^{k}$ com $x_1 = 0$ e $x_k \not \in [-n, n]^d$} \Big\}\\
-      & A_n = \big\{ \omega \in \Omega; \text{ existe um caminho auto-evitante como acima} \big\}.
+      & A_n = \Big\{ \omega \in \Omega \, : \,  \text{ existe um caminho aberto $(x_i)_{i=1}^{k}$ com $x_1 = 0$ e $x_k \not \in [-n, n]^d$} \Big\}\\
+      & A_n = \big\{ \omega \in \Omega \, : \, \text{ existe um caminho auto-evitante como acima} \big\}.
     \end{split}
   \end{equation*}
 \end{exercise}
@@ -1128,9 +1169,9 @@ De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2
 
 Um caso bastante importante de distribuição de um elemento aleatório é o caso de vetores.
 Digamos por exemplo que temos dois elementos aleatórios $X:\Omega \to E$ e $Y:\Omega \to E'$.
-Já sabemos a definição de $P_X$ e $P_{Y}$ que nada mais são que as distribuições de $X$ e $Y$ respectivamente.
+Já sabemos a definição de $X_*P$ e $Y_*P$ (vamos também usar a notação $P_X$ e $P_Y$) que nada mais são que as distribuições de $X$ e $Y$ respectivamente.
 
-Mas podemos considerar o vetor $(X, Y)$ que será um elemento aleatório tomando valores em $E \times E'$ e possui também sua própria distribuição dada por $(X, Y) \circ P$ (também denotada por $P_{(X, Y)}$).
+Mas podemos considerar o vetor $(X, Y)$ que será um elemento aleatório tomando valores em $E \times E'$ e possui também sua própria distribuição dada por $(X, Y)_*P$ (também denotada por $P_{(X, Y)}$).
 A essa probabilidade em $E \times E'$ damos o nome de distribução conjunta deste par. \index{distribuicao@distribuição!conjunta}.
 
 Vejamos as relações que existem entre $P_X$, $P_Y$ e $P_{(X,Y)}$.
@@ -1182,14 +1223,14 @@ Quando restringimos o espaço amostral $\Omega$ ao conjunto $B$ (e associamos a 
 Logo podemos entender o denominador de \eqref{e:P_condicional} como uma normalização para obtermos novamente uma probabilidade.
 
 Mas a interpretação mais natural de \eqref{e:P_condicional} é dada pela seguinte proposição.
-Para enunciá-la, considere $(\Omega, \mathcal{F}, P)$ um espaço de probabilidade e defina o produto
+Para enunciá-la, considere $(\Omega, \mathcal{F}, P)$ um espaço de probabilidade e defina o produto infinito
 \begin{equation}
-  \widebar{\Omega} = \bigtimes_{i=1}^\infty \Omega, \qquad \widebar{\mathcal{F}} = \bigotimes_{i=1}^\infty \mathcal{F} \quad \text{e} \quad \widebar P = \bigotimes_{i=1}^\infty P.
+  \widebar{\Omega} =\Omega^{\mathbb{N}}, \qquad \widebar{\mathcal{F}} = \mathcal{F}^{\otimes \mathbb{N}} \quad \text{e} \quad \widebar P =  P^{\otimes \mathbb{N}}.
 \end{equation}
 Na verdade somente definimos esse produto para $\Omega = \mathbb{R}$, mas como mencionamos abaixo do Teorema da Extensão de Kolmogorov, isso pode ser fácilmente generalizado e o faremos posteriormente.
 
 \begin{proposition}
-  Na situação acima, seja $B \in \mathcal{F}$ com $P(B) > 0$ e defina $T:\widebar{\Omega} \to \mathbb{N}$ por $T(\omega) = \inf \{n \geq 1; X_n(\omega) \in B\}$, onde os $X_n$ são as coordenadas canônicas. Então $T < \infty$ quase certamente e
+  Na situação acima, seja $B \in \mathcal{F}$ com $P(B) > 0$ e defina $T:\widebar{\Omega} \to \mathbb{N}$ por $T(\omega) = \inf \{n \geq 1\, : \, X_n(\omega) \in B\}$, onde os $X_n$ são as coordenadas canônicas. Então $T < \infty$ quase certamente e
   \begin{equation}
     \text{$X_{T(\omega)}(\omega)$ é um elemento aleatório em $\Omega$ com distribuição $P(\cdot | B)$.}
   \end{equation}
@@ -1219,18 +1260,18 @@ A intuição desta proposição é que se repetimos o experimento $(\Omega, \mat
 \end{proof}
 
 \begin{exercise}
-  Seja $\lambda > 0$ e $X \distr \Exp(\lambda)$ (lembrando a definição da distribuição exponencial: $\d (X \circ P) = \lambda \exp\{- \lambda x\} \d x$).
+  Seja $\lambda > 0$ e $X \distr \Exp(\lambda)$ (lembrando a definição da distribuição exponencial: $\Exp(\lambda)(\d x) = \lambda \exp\{- \lambda x\} \d x$).
   Mostre que as variáveis com distribuição exponencial não possuem memória, ou seja:
   \begin{equation}
     \label{e:sem_memoria}
-    P[X > t + s | X > t] = P [X > s], \text{ para todo $s, t > 0$}.
+    P[X > t + s\, |\, X > t] = P [X > s], \text{ para todo $s, t > 0$}.
   \end{equation}
   Ou em outras palavras, sabendo que $X$ é maior que $t$, a distribuição condicional de $X - t$ ainda é $\Exp(\lambda)$.
 \end{exercise}
 
 Definimos a distribuição geométrica \index{distribuicao@distribuição!geometrica@geométrica} de parâmetro $p \in (0,1]$ por
 \begin{equation}
-  \Geo(p) = \sum_{i = 1}^\infty \delta_i (1-p)^i p.
+  \Geo(p) = \sum_{i = 1}^\infty \delta_i (1-p)^{i-1} p.
 \end{equation}
 
 \begin{exercise}
@@ -1242,7 +1283,7 @@ Definimos a distribuição geométrica \index{distribuicao@distribuição!geomet
   \label{x:geo_time}
   Sejam $Y_i$, para $i \geq 1$ \iid com distribuição $\Ber(p)$ e defina
   \begin{equation}
-    T = \inf\{i; Y_i = 1\}.
+    T = \inf\{i\, : \, Y_i = 1\}.
   \end{equation}
   Mostre que $T \overset{d}\sim \Geo(p)$.
 \end{exercise}
@@ -1265,7 +1306,7 @@ Definimos a distribuição geométrica \index{distribuicao@distribuição!geomet
 
 \begin{exercise}
   Emílio e Cristina tiveram dois filhos cujos sexos $X, X'$ são \iid e distribuidos como $U_{\{\male, \female\}}$.
-  Calcule
+Enunciando hipóteses adequadas se for necessario,  calcule
   \begin{enumerate}[\quad a)]
   \item $P[X, X' = \male | \text{ pelo menos um é $\male$}]$ e
   \item $P[X, X' = \male | \text{ pelo menos um é $\male$ e nasceu em uma segunda-feira}]$.
@@ -1275,14 +1316,15 @@ Definimos a distribuição geométrica \index{distribuicao@distribuição!geomet
 \end{exercise}
 
 \begin{exercise}
-  Supondo que $P(A \cap B) > 0$, mostre que $P(\cdot|A|B) = P(\cdot|B|A)$.
+  Supondo que $P(A \cap B) > 0$, mostre que ``$P(\cdot|A|B) = P(\cdot|B|A)$''.
+  Mais precisamente, podemos condicionar $P$ em $B$ e depois a probabilidade resultante em $A$ ou vice-versa.
 \end{exercise}
 
 \begin{exercise}
   Sejam $X, Y$ vari\'aveis aleat\'orias em um espaço $(\Omega, \mathcal{F}, P)$, independentes e com distribuição $U_{[0,1]}$.
   \begin{enumerate}[\quad a)]
-  \item Calcule $(X+Y) \circ P$.
-  \item Considere $P'(\cdot) = P\big(\cdot | X + Y \leq 1 \big)$ e calcule $X \circ P'$.
+  \item Calcule $ P_{X+Y}$.
+  \item Considere $P'(\cdot) = P\big(\cdot \, | \, X + Y \leq 1 \big)$ e calcule $X_* P'$.
   \end{enumerate}
 \end{exercise}
 
@@ -1320,16 +1362,16 @@ Por exemplo, quanto vele $P(\text{doente} | +)$?
 Isso nos é fornecido em geral pela regra de Bayes enunciada na seguinte
 
 \begin{proposition}
-  Se $A_1, A_2, \dots$ formam uma partição (finita ou não) de $\Omega$ e $B \in \mathcal{F}$ tem probabilidade positiva, então
+  Se $(A_j)_{j\in I}$ formam uma partição (finita o enumeável) de $\Omega$ e $B \in \mathcal{F}$ tem probabilidade positiva, então
   \begin{equation}
-    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{\sum_j P(A_j) P(B | A_j)}.
+    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{\sum_{j\in I} P(A_j) P(B | A_j)}.
   \end{equation}
 \end{proposition}
 
 \begin{proof}
   Basta notar que
   \begin{equation}
-    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{P(B)} = \frac{P(A_i) P(B | A_i)}{\sum_j P(B \cap A_j)} = \frac{P(A_i) P(B | A_i)}{\sum_j P(A_j) P(B | A_j)}.
+    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{P(B)} = \frac{P(A_i) P(B | A_i)}{\sum_{j\in I} P(B \cap A_j)} = \frac{P(A_i) P(B | A_i)}{\sum_{j\in I} P(A_j) P(B | A_j)}.
   \end{equation}
 \end{proof}
 
@@ -1362,7 +1404,7 @@ A ocorrência desse deslizamento é algo aleatório, mas que certamente depende 
 Após estudarmos alguns trabalhos anteriores, descobrimos uma função $F:\mathbb{R}_+ \to [0,1]$ que nos dá a probabilidade de um deslizamento ocorrer, como função da quantidade de chuva em milímetros.
 
 Lendo o histórico pluvial da região, podemos estimar a distribuição $Q$ em $\mathbb{R}_+$ correspondente à quantidade de chuva naquele período.
-A lei $F \circ Q$ (também chamada de $Q_F$) é uma lei em $[0,1]$ que nos dá a distribuição da probabilidade de deslizamento, mas como seguimos em frente para obter a probabilidade de deslizamento (um número entre zero e um)?
+A lei $F_* Q$ (também chamada de $Q_F$) é uma lei em $[0,1]$ que nos dá a distribuição da probabilidade de deslizamento, mas como seguimos em frente para obter a probabilidade de deslizamento (um número entre zero e um)?
 Saberemos como fazer isso ao terminar essa seção.
 
 Sejam $(E_1, \mathcal{A}_1)$ e $(E_2, \mathcal{A}_2)$ espaços mensuráveis.
@@ -1397,10 +1439,10 @@ Isso prova que esse $K$ específico é um núcleo
 
 \begin{example}[Discreto]
   \label{x:nucleo_discreto}
-  Seja $E_1 = \{y_i\}_{i \geq 1}$ e $E_2 = \{z_j\}_{j \geq 1}$.
-  Se $p: E_1 \times E_2 \to [0,1]$ é tal que para todo $y \in E_1$ temos $\sum_{j} p(y, z_j) = 1$, então
+  Seja $E_1$ e $E_2$ dois espaços finitos ou enumeráveis.
+  Se $p: E_1 \times E_2 \to [0,1]$ é tal que para todo $y \in E_1$ temos $\sum_{z\in E_2} p(y, z) = 1$, então
   \begin{equation}
-    K(y, A) := \sum_{j \in A} p(y, z_j) \text{ é um núcleo de transição entre $E_1$ e $E_2$.}
+    K(y, A) := \sum_{z\in \in A} p(y, z) \text{ é um núcleo de transição entre $E_1$ e $E_2$.}
   \end{equation}
   Nesse caso $p(y,z)$ representa a probabilidade que a segunda coordenada seja $z$, se a primeira é $y$.
 \end{example}
@@ -1436,13 +1478,13 @@ Mas obviamente o conjunto $\mathcal{A}_2$ pode ser muito complexo, então gostar
 \begin{proof}
   Como de costume, vamos definir
   \begin{equation}
-    \mathcal{B} = \{B \in \mathcal{A}_2; K(\cdot, B) \text{ é $\mathcal{A}_1$-mensurável}\}.
+    \mathcal{B} = \{B \in \mathcal{A}_2\, : \, K(\cdot, B) \text{ é $\mathcal{A}_1$-mensurável}\}.
   \end{equation}
   Obviamente, como $K(y, \cdot)$ é uma probabilidade, vale que
   \begin{enumerate}[\quad a)]
   \item $\Omega \in \mathcal{B}$, pois a função constante igual a um é mensurável.
   \item Se $B \in \mathcal{B}$, então $B^c \in \mathcal{B}$, pois $1 - f$ é mensurável se $f$ o é.
-  \item E se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos, então $\mcup_i B_i \in \mathcal{B}$, pois a soma de funções mensuráveis também é mensurável.
+  \item E se $B_1, B_2,\dots, B_n \in \mathcal{B}$ são disjuntos, então $\mcup_{i=1}^n B_i \in \mathcal{B}$, pois a soma de funções mensuráveis também é mensurável.
   \end{enumerate}
 
   A discussão acima mostra que $\mathcal{B}$ é um $\lambda$-sistema que contém o $\pi$-sistema $\mathcal{G}$.
@@ -1476,13 +1518,13 @@ Antes de iniciar a prova do teorema, vamos ver que as integrais do lado direito 
 Para isso, definimos para $y \in E_1$ a função fatiadora $\phi_y: E_2 \to E_1 \times E_2$ dada por $\phi_y(z) = (y, z)$.
 Obviamente essa função é mensurável, pois
 \begin{equation}
-  \phi^{-1}(A_1 \times A_2) =
+  \phi_y^{-1}(A_1 \times A_2) =
   \begin{cases}
     \varnothing, \quad & \text{ se $y \not \in A_1$ e}\\
     A_2, & \text{ se $y \in A_1$}.
   \end{cases}
 \end{equation}
-Dessa forma, para definirmos $\int f(y,z) K(y, \d z)$, introduzimos $f_y: A_2 \to \mathbb{R}_+$ dada por $f(z) = f(y,z)$, que é mensurável pois $f_y = f \circ \phi_y$.
+Dessa forma, para definirmos $\int f(y,z) K(y, \d z)$, introduzimos $f_y: A_2 \to \mathbb{R}_+$ dada por $f_y(z) = f(y,z)$, que é mensurável pois $f_y = f \circ \phi_y$.
 
 Assim, gostaríamos de integrar a função $y \mapsto \int f_y(z) K(y, \d z)$, que está obviamente bem definida.
 Porém resta a pergunta, será que essa expressão define uma função mensurável de $y$?
@@ -1498,7 +1540,7 @@ Porém resta a pergunta, será que essa expressão define uma função mensuráv
 \begin{proof}
   Se $f = \1_{A_1 \times A_2}$ para $A_i \in \mathcal{A}_i$, $i = 1,2$, então temos que $g^f(y) = K(y, A_2) \1_{A_1}$, que obviamente é mensurável pois $K$ é um núcleo.
 
-  Definimos $\mathcal{D} = \{B \in \mathcal{A}_1 \otimes \mathcal{A}_2; g^{\1_B} \text{ é $\mathcal{A}_1$-mensurável}\}$.
+  Definimos $\mathcal{D} = \{B \in \mathcal{A}_1 \otimes \mathcal{A}_2\, : \, g^{\1_B} \text{ é $\mathcal{A}_1$-mensurável}\}$.
   É fácil ver que $\mathcal{D}$ é um $\lambda$-sistema que contém o $\pi$-sistema dos retângulos, logo $\mathcal{D} = \mathcal{A}_1 \otimes \mathcal{A}_2$.
 
   Acabamos de ver que $g^f$ é mensurável para toda $f$ indicadora, donde o mesmo vale para $f$ simples por linearidade e para toda $f$ positiva pelo Teorema da Convergência Monótona (lembre que limite de funções mensuráveis é mensurável).
@@ -1507,26 +1549,18 @@ Porém resta a pergunta, será que essa expressão define uma função mensuráv
 Estamos prontos agora para fornecer a
 \begin{proof}[Demonstração do Teorema~\ref{t:fubini}]
   Já sabemos que a integral do lado direito de \eqref{e:fubini} está bem definida (assumindo possivelmente o valor infinito).
-  A unicidade vale obviamente pois a probabilidade de conjuntos do tipo $A_1 \times A_2$ definem $P$ de maneira inequívoca.
-
-
-  Só nos resta mostrar que
-  \begin{equation}
-    P(B) = \int_{E_1} \int_{E_2} \1_{B} K(y, \d z) P_1 (\d y),
+  A unicidade vale obviamente pois \eqref{e:fubini} aplicado a funções indicadoras temos necessariamente para todos $B$
+\begin{equation}
+    P(B) = \int_{E_1} \int_{E_2} \1_{B} K(y, \d z) P_1 (\d y).
   \end{equation}
-  nos define uma probabilidade em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$.
+  Sò temos que verificar a formula acima nos define uma probabilidade em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$.
 
   De fato,
   \begin{enumerate}[\quad a)]
-  \item obviamente $P(\Omega) = \int_{E_1} \int_{E_2} 1 K(y, \d z) P_1(\d y) = 1$ e
-  \item se $B_1, B_2, \dots \in \mathcal{A}_1 \otimes \mathcal{A}_2$ são disjuntos, então definimos $f^i = \1_{B_i}$ e $f = \sum_i f^i$ e observamos o seguinte.
-    A função fatiadora $f_y$ é igual a $\sum_i f^i_y$, donde
-    \begin{equation}
-      \begin{split}
-        P(B) & = \int_{E_1} \int_{E_2} f_y(z) K(y, \d z) P_1(\d y)\\
-        & = \int_{E_1} \sum_i \int_{E_2} f^i_y(z) K(y, \d z) P_1(\d y) = \sum_i P(B).
-      \end{split}
-    \end{equation}
+  \item obviamente $P(\Omega) = \int_{E_1} \int_{E_2}  K(y, \d z) P_1(\d y) = 1$ e
+  \item se $(B_i)_{i\in I}$ e uma familia finita o enumerável de eventos dijuntos (em $\mathcal{A}_1 \otimes \mathcal{A}_2$) então
+  $\1_{\bigcup_{i\in I} B_i}=\sum_{i\in I} \1_{B_i}$ a $\sigma$-aditividade de $P$ segue das propriedades básicas
+  (linearidade e Teorema de convergência monotona) da integração.
   \end{enumerate}
   O que demonstra o teorema.
 \end{proof}
@@ -1543,7 +1577,7 @@ Estamos prontos agora para fornecer a
   \begin{enumerate}[\quad a)]
   \item $U_{[0,1]} \star K [X_2 = 1]$,
   \item $P_1 \star K [X_2 = 1]$, onde $\d P_1 = 2x \d x$ e
-  \item encontre a distribuição de $X_1 \circ \big( U_{[0,1]} \star K [\; \cdot \; | X_2 = 1] \big)$. Interprete o resultado.
+  \item encontre a distribuição de $(X_1)_* \big( U_{[0,1]} \star K [\; \cdot \; | X_2 = 1] \big)$. Interprete o resultado.
   \end{enumerate}
 \end{exercise}
 
@@ -1587,7 +1621,7 @@ No nosso problema da chuva por exemplo, talvez poderíamos estar interessados ap
 Nesse caso, é conveniente escrever
 \begin{equation}
   \label{e:P1_K}
-  P_1 K := X_2 \circ (P_1 \star K) = (P_1 \star K)_{X_2}.
+  P_1 K := (X_2)_*(P_1 \star K) = (P_1 \star K)_{X_2}.
 \end{equation}
 
 \begin{exercise}
@@ -1615,7 +1649,7 @@ Nessa seção estudaremos o caso análogo para espaços mensuráveis, que nos tr
 \end{definition}
 
 Vamos agora tentar classificar os espaços a menos de bi-mensurabilidade.
-Descobriremos que na verdade os borelianos da reta incluem praticamente tudo que podemos estar interessados.
+Descobriremos que na verdade os borelianos da reta incluem praticamente tudo em que podemos estar interessados.
 Começamos com a seguinte definição.
 
 \begin{definition}
@@ -1626,25 +1660,35 @@ Antes de mostrar que essa classe de espaços canônicos inclui muitíssimos exem
 
 \begin{theorem}[Extensão de Kolmogorov Extendida]
   \index{Teorema!da Extensao de Kolmogorov@da Extensão}
-  Se $E_1, E_2, \dots$ espaços mensuráveis canônicos, então o Teorema~\ref{t:extens_kolmog} (da extensão de Kolmogorov) também é válido no espaço produto $\Omega = E_1 \times E_2 \times \dots$ se a condição de consistência \eqref{e:consist_kolmog} for válida com $I_j$ substituídos por eventos da $\sigma$-álgebra de $E_j$.
+  Se $(E_1,\mathcal{F}_1), (E_2,\mathcal{F}_2), \dots$ são espaços mensuráveis canônicos, então o Teorema~\ref{t:extens_kolmog} (da extensão de Kolmogorov)
+  também é válido no espaço produto $\Omega = E_1 \times E_2 \times \dots$: \\
+  Se a seguinte condição de consistência for válida
+  \begin{equation}
+   \forall n\ge 0, \forall A \in \bigotimes_{i=1}^n \mathcal{F}_i,\quad P_{n+1}(A\times E_{n+1})=P_n(A).
+  \end{equation}
+então existe uma probabilidade $P$ em $\Omega$ tal que
+    \begin{equation}
+   \forall n\ge 0, \forall A \in \bigotimes_{i=1}^n \mathcal{F}_i,\quad P(A\times E_{n+1}\times E_{n+2}\times\dots )=P_n(A).
+  \end{equation}
 \end{theorem}
 
 \begin{proof}
-  Sejam $\phi_i: E_i \to B_i \in \mathcal{B}(\mathbb{R})$ bijeções bi-mensuráveis e defina $\widebar{\phi}_n: E_1 \times \dots \times E_n \to \mathbb{R}^n$ por $\widebar{\phi}_n(\omega_1, \dots, \omega_n) = \big(\phi_1(\omega_1), \dots, \phi_n(\omega_n)\big)$.
+  Sejam $\phi_i: E_i \to B_i \in \mathcal{B}(\mathbb{R})$ bijeções bi-mensuráveis e defina $\widebar{\phi}_n:
+  E_1 \times \dots \times E_n \to \mathbb{R}^n$ por $\widebar{\phi}_n(\omega_1, \dots, \omega_n) = \big(\phi_1(\omega_1), \dots, \phi_n(\omega_n)\big)$.
   Assim podemos introduzir as medidas de probabilidade
   \begin{equation}
-    \widebar{P}_n = \widebar{\phi}_n \circ P_n, \text{ em $\mathbb{R}^n$}.
+    \widebar{P}_n = (\widebar{\phi}_n)_* P_n, \text{ em $\mathbb{R}^n$}.
   \end{equation}
   É fácil verificar que as $\widebar{P}_n$ são consistentes como em \eqref{e:consist_kolmog}.
   Logo, existe $\widebar{P}$ em $(\mathbb{R}^\mathbb{N}, \mathcal{F})$ extendendo $\widebar{P}_n$.
 
-  Vamos agora definir uma medida em $\mtimes_i E_i$.
+  Vamos agora definir uma medida em $\prod_{i=1}^{\infty} E_i$.
   Para tanto, primeiramente fixamos para cada $i \geq 1$ um elemento arbitrário $w_i$ de $E_i$ e definimos $\psi_i :\mathbb{R} \to E_i$ por
   \begin{equation*}
     \psi_i(x) =
     \begin{cases}
-      \phi^{-1}(x), \quad & \text{se $x \in B_i$ e}\\
-      w_i & \text{caso contrário}.
+      \phi_i^{-1}(x), \quad & \text{se $x \in B_i$,}\\
+      w_i & \text{no caso contrário}.
     \end{cases}
   \end{equation*}
   Como $B_i \in \mathcal{B}(\mathbb{R})$, concluimos que $\psi_i$ é mensurável.
@@ -1653,8 +1697,8 @@ Antes de mostrar que essa classe de espaços canônicos inclui muitíssimos exem
   \begin{equation}
     \Psi(x_1, x_2, \dots) = (\psi_1(x_1), \psi_2(x_2), \dots).
   \end{equation}
-  Resta mostrar que a medida $P = \Psi \circ \widebar{P}$ extende as probabilidades $P_n$.
-  Observe que em concordância com nossa notação, nós nunca denotamos inversas de funções por $f^{-1}$, deixando essa notação para pré-imagens.
+  Resta mostrar que a medida $P = \Psi_* \widebar{P}$ extende as probabilidades $P_n$.
+  Observe que
   \begin{equation*}
     \begin{split}
       P\big(A_1 \times \dots \times A_n \times & E_{n+1} \times \dots\big) = \widebar{P} \big(\Psi^{-1}(A_1 \times \dots \times A_n \times E_{n+1} \times \dots)\big)\\
@@ -1671,24 +1715,24 @@ Uma ferramenta importante para construirmos espaços canônicos é a seguinte.
 
 \begin{lemma}
   \label{l:mensur_de_canonico}
-  Seja $(E, \mathcal{A})$ é um espaço canônico e $A \in \mathcal{A}$, então $A$ também é canônico quando dotado da $\sigma$-álgebra $\{A \cap C; C \in \mathcal{A}\}$ induzida por $\mathcal{A}$ em $A$.
+  Seja $(E, \mathcal{A})$ é um espaço canônico e $A \in \mathcal{A}$, então $A$ também é canônico quando dotado da $\sigma$-álgebra $\{A \cap C\, : \, C \in \mathcal{A}\}$ induzida por $\mathcal{A}$ em $A$.
 \end{lemma}
 
 \begin{proof}
   Seja $\phi: E \to B \in \mathcal{B}(\mathbb{R})$ uma função bi-mensurável que mostra que $E$ é canônico.
   Consideramos $\phi': A \to \mathbb{R}$ dada pela restrição de $\phi$ a $A$ e precisamos mostrar as seguintes afirmativas:
   \begin{enumerate}[\quad a)]
-  \item $\phi'$ é injetiva
-  \item $\phi'$ é mensurável
-  \item $\phi'(A)$ é mensurável e
-  \item a inversa $\psi': \phi'(A) \to A$ é mensurável.
+  \item $\phi'$ é injetiva.
+  \item $\phi'$ é mensurável.
+  \item $\phi(A)\in \mathcal{B}(\mathbb{R})$.
+  \item A inversa de $\phi'$ (chamada $\psi'$) de $\phi'(A)$ em $A$ é mensurável.
   \end{enumerate}
   Vejamos,
   \begin{enumerate}[\quad a)]
   \item $\phi$ ser injetiva implica que $\phi'$ também o é.
-  \item dado $D \in \mathcal{B}(\mathbb{R})$, $\phi'^{-1}(D) = A \cap \phi^{-1}(D) \in \{A \cap C; C \in \mathcal{A}\}$.
-  \item denotando por $\psi: B \to E$ a inversa de $\phi$, temos que $\phi'(A) = \psi^{-1}(A) \in \mathcal{B}(B)$ pois $\psi$ é mensurável e
-  \item finalmente, se $D \in \mathcal{B}(A)$, então $\psi'^{-1}(D) = \psi^{-1}(D) \in \mathcal{B}(B)$, novamente pela mensurabilidade de $\psi$.
+  \item Dado $D \in \mathcal{B}(\mathbb{R})$, $(\phi')^{-1}(D) = A \cap \phi^{-1}(D)$ which is of the form $A\cap C$ with $C\in \mathcal{B}(\mathbb{R}^d)$.
+  \item Denotando por $\psi: B \to E$ a inversa de $\phi$, temos que $\phi(A) = \psi^{-1}(A) \in \mathcal{B}(B)$ pois $\psi$ é mensurável.
+  \item Finalmente, se $D \in \mathcal{B}(A)$, então $(\psi')^{-1}(D) = \psi^{-1}(D) \in \mathcal{B}(B)$, novamente pela mensurabilidade de $\psi$.
   \end{enumerate}
   Concluindo portanto a bi-mensurabilidade de $\phi'$ quando o seu contra-domínio é restrito a sua imagem.
 \end{proof}
@@ -1704,12 +1748,12 @@ A seguir daremos um exemplo de espaço canônico que será importante na seção
   Primeiramente definimos em $E$ a Métrica de Hamming:
   \begin{equation}
     \label{e:hamming_distance}
-    d_H(x,y) = \sum_{i \geq 1} \frac{1}{2^{i + 1}} \1_{x_i \neq y_i}.
+    d_H(x,y) = \sum_{i \geq 1} \frac{1}{2^{i + 1}} \1_{\{x_i \neq y_i\}}.
   \end{equation}
   Fica como exercício mostrar que a $\sigma$-álgebra dos borelianos induzida por essa métrica coincide com a $\sigma$-álgebra produto em $E$.
   Definimos agora o mapa $\phi:E \to \mathbb{R}$ dado por
   \begin{equation}
-    \phi(n_1, n_2, \dots) = 2^{-n_1} + 2^{-1 - n_1 - n_2} + \dots + 2^{-n - \sum_{i=1}^n n_i} + \dots
+    \phi(n_1, n_2, \dots) = 2^{-n_1} + 2^{-1 - n_1 - n_2} + \dots + 2^{-k - \sum_{i=1}^k n_i} + \dots
   \end{equation}
   Também deixamos a cargo do leitor mostrar que $\phi$ define um homeomorfismo entre $(E,d_H)$ e um boreliano de $\mathbb{R}$.
 \end{proof}
@@ -1730,10 +1774,10 @@ Nessa seção mostraremos que todos espaços chamados poloneses são canônicos.
 \end{example}
 
 \begin{exercise}
-  Se $(E_i, d_i)$ são espaços métricos poloneses para $i = 1, 2, \dots$, mostre que $E = \bigtimes_i E_i$ com a métrica
+  Se $(E_i, d_i)_{i=1}^\infty$ é uma sequencia de espaços métricos poloneses, mostre que $E = \prod_{i=1}^{\infty} E_i$ com a métrica
   \begin{equation}
     \label{e:metrica_produto}
-    d(x,y) = \sum_i \frac{1}{2^{i+1}} \frac{d_i(x_i, y_i)}{1 + d_i(x_i, y_i)}
+    d(x,y) = \sum_{i=1}^{\infty} \frac{1}{2^{i+1}} \frac{d_i(x_i, y_i)}{1 + d_i(x_i, y_i)}
   \end{equation}
   também é polonês.
   Mostre também que a topologia induzida por essa métrica é equivalente à topologia produto em $E$.
@@ -1760,12 +1804,11 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
   \begin{equation}
     d'(x,y) = d(x,y) + \Big| \frac{1}{d(x,G^c)} - \frac{1}{d(y,G^c)} \Big|,
   \end{equation}
-  onde $d(x,A) = \inf\{d(x,x'); x' \in A\}$.
-
-  Não é difícil ver que com a definição acima (e deixamos como exercício) que
+  onde $d(x,A) = \inf\{d(x,x')\, : \, x' \in A\}$.
+Não é difícil ver que com a definição acima (e deixamos como exercício) que:
   \begin{enumerate}[\quad a)]
-  \item as métricas $d$ e $d'$ são equivalentes em $G$,
-  \item $F \cap G$ é separável quando dotado da métrica $d'$,
+  \item As métricas $d$ e $d'$ são equivalentes em $G$.
+  \item $F \cap G$ é separável quando dotado da métrica $d'$.
   \item $(F \cap G, d')$ é completo.
   \end{enumerate}
   Isso termina a prova do lema.
@@ -1773,7 +1816,8 @@ Outros exemplos de espaços poloneses são dados pelo seguinte lema, que também
 
 \begin{example}
   Um importante exemplo é dado por espaços produto.
-  Sejam $(E_i, d_i)$ espaços poloneses para $i \geq 1$ e introduza em $E = \times_i E_i$ a métrica $d$ definida em \eqref{e:metrica_produto}.
+  Seja $(E_i, d_i)_{i=1}^\infty$ uma sequência de espaços poloneses e introduza em
+  $E = \prod_{i=1}^{\infty} E_i$ a métrica $d$ definida em \eqref{e:metrica_produto}.
   Então, se $A_1 \subseteq E_1$, $\dots$, $A_k \subseteq E_k$ forem abertos, o retângulo $R = A_1 \times \dots \times A_k \times E_{k+1} \times \dots$ é aberto.
   Dessa forma vemos que tanto $R$ como $R^c$ podem ser dotados de métricas com as quais se tornam espaços poloneses.
   Além disso tais métricas podem ser escolhidas satisfazendo as hipóteses do Lema~\ref{l:sub_polones}
@@ -1785,13 +1829,14 @@ Ele nos dá uma maneira de fatiar um espaço polonês em uma partição de espa�
 \begin{lemma}
   \label{l:particao_polones}
   Seja $(E, d)$ um espaço polonês e $r > 0$.
-  Então existe uma partição $A_1, A_2, \dots$ de $A$ e métricas $d_1, d_2, \dots$ nesses respectivos subconjuntos de forma que para todo $i \geq 1$,
+  Então existe uma partição finita ou enumerável $(A_i)_{i\in I}$ de $A$ e métricas $(d_i)_{i\in I}$ nesses respectivos subconjuntos de forma
+  que para todo $i\in I$,
   \begin{enumerate}[\quad a)]
-  \item $(A_i, d_i)$ são espaços poloneses disjuntos,
-  \item $d_i$ e $d$ são equivalentes em $A_i$ e $d_i \geq d$ e finalmente
-  \item o diâmetro de $A_i$ (com respeito a $d$) é menor ou igual a $r$.
+  \item $(A_i, d_i)$ são espaços poloneses disjuntos.
+  \item $d_i$ e $d$ são equivalentes em $A_i$ e $d_i \geq d$.
+  \item O diâmetro de $A_i$ (com respeito a $d$) é menor ou igual a $r$.
   \end{enumerate}
-  Observe que alguns (possivelmente infinitos) $A_i$ podem ser vazios.
+  Observe que podemos sempre escolher $I=\mathbb{N}$ mas nesse caso os $A_i$ podem ser vazios.
 \end{lemma}
 
 \begin{proof}
@@ -1837,7 +1882,7 @@ Terminamos essa seção com esse importante resultado, que confirma nossa afirma
   Indutivamente
   \begin{enumerate}[\quad a)]
   \item como $\{A_m\}_{m \in M_1}$ formam uma partição de $E$, definimos $\phi_1(x)$ como o único índice tal que $x \in A_{\phi_1(x)}$,
-  \item se já encontramos $\phi_1(x), \dots, \phi_n(x)$ tal que $x \in A_{(\phi_1(x), \dots \phi_n(x))}$, então o fato que particionamos o último conjunto na definição de $A_m$, $m \in M_{n+1}$ nos garante que podemos definir unicamente $\phi_{n+1}(x)$ de forma a continuar a indução.
+  \item se já encontramos $\phi_1(x), \dots, \phi_n(x)$ tal que $x \in A_{(\phi_1(x), \dots, \phi_n(x))}$, então o fato que particionamos o último conjunto na definição de $A_m$, $m \in M_{n+1}$ nos garante que podemos definir unicamente $\phi_{n+1}(x)$ de forma a continuar a indução.
   \end{enumerate}
   Da maneira acima já obtivemos $\phi(x) = (\phi_1(x), \phi_2(x), \dots)$.
   Para terminar, devemos mostrar que $\phi$ é bi-mensurável quando seu contra-domínio é restrito à sua imagem.
@@ -1855,40 +1900,42 @@ Terminamos essa seção com esse importante resultado, que confirma nossa afirma
   Para mostrar que sua inversa $\psi:\phi(E) \to E$ é mensurável, veremos que ela é de fato contínua com respeito à Métrica de Hamming definida em \eqref{e:hamming_distance}.
   Dado $n \geq 1$, tomamos $\delta < 2^{-n}$.
   Se $w, w' \in \phi(E)$ são tais que $d_H(w, w') < \delta$ em $\mathbb{N}^\mathbb{N}$, então $w_i = w'_i$ para todo $i \leq n$, de forma que $\phi^{-1}(w)$ e $\phi^{-1}(w')$ pertencem a $A_{(w_1, \dots, w_n)}$.
-  A continuidade de $\phi^{-1}$ segue do fato que o diâmetro de $A_{(w_1, \dots, w_n)}$ é no máximo $1/n$ (com respeito a $d_{(w_1, \dots, w_n)}$ e portanto com respeito a $d$).
+  A continuidade de $\phi^{-1}$ segue do fato que o diâmetro de $A_{(w_1, \dots, w_n)}$ é no máximo $1/n$ (com respeito a $d_{(w_1, \dots, w_{n-1})}$ e portanto com respeito a $d$).
 
   Mas atenção, apesar de que parece que provamos o teorema, ainda falta mostrar que $\phi(E)$ é mensurável.
   Para tanto, afirmamos que
   \begin{equation}
     \label{e:phiE_mensur}
-    \phi(E) = \mathbb{N}^\mathbb{N} \setminus \Big( \bigcup_{k, w_1, \dots, w_k} \{w_1\} \times \{w_k\} \times \mathbb{N} \times \dots \Big),
+    \phi(E) = \mathbb{N}^\mathbb{N} \setminus \Big( \bigcup_{(w_1, \dots, w_k)\in \mathcal{E}} \{w_1\} \times \{w_k\} \times \mathbb{N} \times \dots \Big),
   \end{equation}
-  onde a união acima é tomada sobre todos $k \geq 1$ e $w_1, \dots, w_k$ tais que $A_{w_1, \dots, w_k}$ é vazio.
+  onde
+  \begin{equation*}
+   \mathcal{E}:=\{ (w_1, \dots, w_k)\in \bigcup_{n\ge 1} \mathbb{N}^n \, : \, A_{\omega_1,\dots,\omega_n}=\emptyset \}.
+  \end{equation*}
+
   A igualdade acima será mostrada no que segue.
 
   Dado $w \in \phi(E)$ existe $x \in E$ tal que $\phi(x) = w$.
   Como $x \in A_{w_1, \dots, w_n}$ para todo $n \geq 1$, esses conjuntos não são vazios.
-  Logo $w$ não pertence à união em \eqref{e:phiE_mensur}, mostrando o lado ($\subseteq$) da inclusão.
+  Logo $w$ não pertence à união em \eqref{e:phiE_mensur}, mostrando o lado ($\subseteq$) da equalidade.
   Finalmente, suponha que $w = (w_1, w_2, \dots)$ é tal que para todo $k \geq 1$, $A_{w_1, \dots, w_k} \neq \varnothing$.
   Tomamos portanto para todo $k \geq 1$ um ponto $x_k \in A_{w_1, \dots, w_k}$.
 
   Afirmamos que
   \begin{equation}
-    \text{para todo $n$, $(x_k)_{k \geq n}$ é Cauchy em $(A_{w_1, \dots, w_n}, d_{w_1, \dots, w_n})$.}
+    \text{para todo $n$, $(x_k)_{k \geq n}$ é Cauchy em $(A_{w_1, \dots, w_n}, d_{w_1, \dots, w_n})$,}
   \end{equation}
-  De fato, para todo $k \geq n$, $x_k \in A_{w_1, \dots, w_{k}}$ (cujo $d_{w_1, \dots, w_{n}}$-diâmetro é menor que $1/k$), logo $x_k$ é uma sequência de Cauchy em $A_{w_1, \dots, w_n}$ com sua respectiva distância.
-  Tomamos $x = \lim_n x_k$ com respeito à distância $d$ e para terminar a prova do teorema, basta motrar que $\phi(x) = w$, ou em outras palavras,
-  \begin{equation}
-    \label{e:x_in_Aw}
-    x \in \mcap\nolimits_n A_{w_1, \dots, w_n}, \text{ para todo $n \geq 1$.}
-  \end{equation}
-  Mas claramente
-  \begin{enumerate}[\quad a)]
-  \item $x \in A_\varnothing = E$ e
-  \item se $x \in A_{w_1, \dots, w_n}$, então como $x_k$ é Cauchy em $A_{w_1, \dots, w_{n+1}}$, temos que $x_k$ converge a um certo $x' \in A_{w_1, \dots, w_{n+1}}$ na métrica $d_{w_1, \dots, w_{n+1}}$.
-    Como essa métrica é equivalente a tanto $d_{w_1, \dots, w_n}$ quanto $d$ em $A_{w_1, \dots, w_n}$, temos que $x = x' \in A_{w_1, \dots, w_{n+1}}$.
-  \end{enumerate}
-  Isso conclui por indução a prova de \eqref{e:x_in_Aw} e consequentemente do teorema.
+ o que segue loge do fato que por $k \geq n+1$, $x_k \in A_{w_1, \dots, w_{k}}$ cujo $d_{w_1, \dots, w_{n}}$-diâmetro é menor que $1/k$.
+
+ \medskip
+
+ Consideramos $x^n$ o limite de $(x_k)_{k\ge n}$ em $(A_{w_1, \dots, w_n}, d_{w_1, \dots, w_n})$.
+ E facil de mostrar que $x^n=x^0:=x$ (o limite da sequencia em $(E,d)$) para todo valor de $n$.
+ E suficiente ver que  $d(x^n,x_k)\le d_{w_1, \dots, w_n}(x^n,x_k)$, para todo $k\ge n$, o que implica que $x^n$ e o limite em $(E,d)$.
+
+ \medskip
+
+ Em consequencia podemos concluir que $x\in A_{w_1, \dots, w_n}$ para todo $n$ e então que $\phi(x)=\omega$, o que conclui a prova do teorema.
 \end{proof}
 
 \begin{topics}
@@ -1900,7 +1947,8 @@ Um exemplo de como usar núcleos de transição é a construção de Cadeias de 
 Esse tipo de processo é bastante útil em diversas aplicações, desde a biologia até a computação.
 
 Considere um espaço mensurável canônico fixo $(E, \mathcal{A})$ e seja $K$ um núcleo de $E$ nele mesmo.
-Seria bastante intuitivo agora iterar $K$ (já que ele está no mesmo espaço) e obter uma medida em $\Omega = \times_{i=1}^\infty E$ com a $\sigma$-álgebra canônica.
+Seria bastante intuitivo agora iterar $K$ (já que ele está no mesmo espaço)
+e obter uma medida em $\Omega =E^{\mathbb{N}}$ com a $\sigma$-álgebra canônica.
 
 Para começar esse procedimento, seja $\mu_0$ uma medida inicial em $(E, \mathcal{A})$.
 Podemos então definir $\mu_1 = \mu_0 \star K$ o que é o primeiro passo da nossa construção, porém observe que não podemos escrever ``$\mu_2 = \mu_1 \star K$'', pois $\mu_1 \star K$ é uma medida em $(E^2, \mathcal{A}^{\otimes 2})$.
@@ -1949,7 +1997,7 @@ Mas resta a questão sobre a existência de uma $\mu^\infty$ que será respondid
 
 Logo, o Teorema da Extensão de Kolmogorov (lembre que $(E, \mathcal{A})$ foi suposto canônico) nos fornece uma única $P$ em $(\Omega, \mathcal{F})$ tal que
 \begin{equation}
-  (X_0, \dots, X_n) \circ P = \mu_n, \text{ para todo $n \geq 0$}.
+   P_{(X_0, \dots, X_n)} = \mu_n, \text{ para todo $n \geq 0$}.
 \end{equation}
 Lembramos que $X_i$ denotam as projeções canônicas em $\Omega = \mtimes_{i=1}^\infty E$.
 
@@ -1982,7 +2030,8 @@ Chamamos o processo $X_1, X_2, \dots$ sob a lei $P$ da Cadeia de Markov \index{C
 \end{exercise}
 
 \begin{exercise}
-  Mostre que para qualquer núcleo de transição $K$ entre $E$ e $E$, existe um núcleo de transição $\widebar{K}$ entre $E$ e $\Omega = \prod_{i=1}^\infty$, tal que para toda medida inicial $\mu_0$, temos que $\mu_0 \star K$ é a distribuição de uma Cadeia de Markov começando de $\mu_0$ e com transição dada por $K$.
+  Mostre que para qualquer núcleo de transição $K$ entre $E$ e $E$, existe um núcleo de transição
+  $\widebar{K}$ entre $E$ e $\Omega = E^{\mathbb{N}}$, tal que para toda medida inicial $\mu_0$, temos que $\mu_0 \star K$ é a distribuição de uma Cadeia de Markov começando de $\mu_0$ e com transição dada por $K$.
   Esse núcleo é útil se quisermos mudar a distribuição inicial $\mu_0$ e uma notação bastante comum para esse núcleo é $P_{x}(\cdot) = \widebar{K}(x, \cdot)$.
 \end{exercise}
 
@@ -2085,7 +2134,7 @@ Isso pode será formalizado à seguir.
 Vamos construir uma medida em $\{0, 1\}^\mathbb{N}$, dotado da $\sigma$-álgebra produto.
 Fixada uma sequência finita $w_1, \dots, w_n$ em $\{0,1\}$, definimos
 \begin{equation}
-  N_x (w_1, \dots, w_n) = \# \big\{ j \in \{1, \dots, n\}; w_j = x \big\} + 1,
+  N_x (w_1, \dots, w_n) = \# \big\{ j \in \{1, \dots, n\}\, : \, w_j = x \big\} + 1,
 \end{equation}
 que nada mais é que o número de bolas do tipo $x$ que se encontram na urna no tempo $n$.
 Quando tivermos uma sequência infinita de $w_i$'s, escreveremos $N^n_x$ para denotar $N_x(w_1, \dots, w_n)$.
@@ -2129,22 +2178,22 @@ Podemos calcular a probabilidade do evento $A$ acima
 O que é muito interessante sobre a equação acima é que ela nos remete a problemas combinatórios ao notarmos o fator binomial acima.
 
 Vamos portanto construir um processo completamente diferente que apresenta as mesmas probabilidades que o anterior.
-Seja $\perm(S)$ o conjunto de todas as permutações $\sigma$ no conjunto finito $S$.
+Seja $\mathcal{S}_N$ o conjunto de todas as permutações $\sigma$ de $\{1,\dots,N\}$.
 É fácil ver que
 \begin{equation*}
-  \frac{1}{(n+1)} \binom{n}{j}^{-1} = U_{\perm(\{0, \dots, n\})} \Big[ \sigma(0) = j + 1, \sigma(i) \leq j \text{ se e só se } \; i \leq j \Big].
+  \frac{1}{(n+1)} \binom{n}{j}^{-1} = U_{\mathcal{S}_{n+1}} \Big[ \sigma(n+1) =j+1, \sigma(i) \leq j \text{ se e só se } \; i \leq j \Big].
 \end{equation*}
 
 Um método muito interessante de se produzir uma permutação uniforme é dado pelos seguintes exercícios.
 
 \begin{exercise}
-  Seja $n \geq 1$ um inteiro, $P$ uma probabilidade em $(E, \mathcal{A})$, $\sigma$ uma permutação fixa em $\perm(\{1, n\})$.
+  Seja $n \geq 1$ um inteiro, $P$ uma probabilidade em $(E, \mathcal{A})$, $\sigma$ uma permutação fixa em $\mathcal{S}_n$.
   Então
   \begin{equation}
     \label{e:intercambiavel}
     (X_1, \dots, X_n) \distr (X_{\sigma(1)}, \dots, X_{\sigma(n)}),
   \end{equation}
-  onde $X_i$ como sempre representam as coordenadas canônicas em $(E^{\times n}, \mathcal{A}^{\times n}, P^{\otimes n})$.
+  onde $X_i$ como sempre representam as coordenadas canônicas em $(E^{n}, \mathcal{A}^{\otimes n}, P^{\otimes n})$.
 \end{exercise}
 
 Ou em outras palavras, aplicar uma permutação fixa a uma sequência \iid não altera sua distribuição.
@@ -2152,15 +2201,15 @@ Sequências de elementos aleatórios (não necessariamente \iid's) que satisfaze
 
 Um outro exercício interessante nesse tópico é o seguinte
 \begin{exercise}
-  Seja $n \geq 1$ e $F:[0,1]^n \to \perm(\{1, \dots, n\})$ dada por
+  Seja $n \geq 1$ e $F:[0,1]^n \to \mathcal{S}_n$ dada por
   \begin{equation*}
     F(x_1, \dots, x_n) =
     \begin{cases}
-      (1, 2, \dots, n), \quad & \text{se existe $X_i = X_j$, $i \neq j$}\\
-      \text{o único $\sigma$ tal que $X_{\sigma(1)} < \dots < X_{\sigma(n)}$,} & \text{caso contrário.}
+      (1, 2, \dots, n), \quad & \text{se existe $i \neq j$ tal que $x_i = x_j$, }\\
+      \text{o único $\sigma$ tal que $x_{\sigma(1)} < \dots < x_{\sigma(n)}$,} & \text{caso contrário.}
     \end{cases}
   \end{equation*}
-  Mostre que $F \circ (U_{[0,1]}^{\otimes n}) = U_{\perm(\{1, \dots, n\})}$.
+  Mostre que $F_*(U_{[0,1]}^{\otimes n}) = U_{\mathcal{S}_n}$.
 \end{exercise}
 
 Ou seja, ordenar uma sequência de uniformes independentes nos fornece uma permutação uniforme.
@@ -2169,14 +2218,15 @@ Como prometido, isso nos dá uma maneira de construir uma permutação uniforme 
 Podemos agora escrever nossa probabilidade de observar uma sequência no modelo da Urna de Pólya em termos de uma sequência \iid de variáveis aleatórias.
 \begin{equation*}
   \begin{split}
-    \frac{1}{(n+1)} \binom{n}{N^n_1}^{\mathclap{\;-1}} & = F \circ \otimes_{i=0}^n U_{[0,1]} \Big[ \sigma(0) = N^n_1 + 1, \sigma(i) \leq N^n_1 \text{ se e só se } i \leq N^n_1 \Big]\\
-    & = \otimes_{i=0}^n U_{[0,1]} \Big[ \text{$X_i < X_0$, para $i \leq N_0$ e $X_i > X_0$, para $i > N_1$} \Big].
+    \frac{1}{(n+1)} \binom{n}{N^n_1}^{\mathclap{\;-1}} & =
+    F_{*} U_{[0,1]}^{\otimes n+1} \Big[ \sigma(n+1) = N^n_1 + 1, \sigma(i) \leq N^n_1 \text{ se e só se } i \leq N^n_1 \Big]\\
+    & =  U^{\otimes n+1}_{[0,1]} \Big[ \text{$X_i < X_{n+1}$, para $i \leq N^n_1$ e $X_i > X_{n+1}$, para $i \ge N^n_1+1$} \Big].
   \end{split}
 \end{equation*}
 Agora estamos prontos para provar o resultado principal que nos ajudará a calcular probabilidades no modelo da Urna de Pólya.
 
-Dado $u \in [0,1]$, seja $P_u = \otimes_{n \geq 1} \Ber(u)$, ou seja a probabilidade que nos dá uma sequência infinita de moedas independentes com probabilidade $u$ de sucesso.
-Definimos agora $\widebar{K}: [0,1] \times (\otimes_{n \geq 1} \mathcal{P}(\{0,1\})) \to [0,1]$ dada por
+Dado $u \in [0,1]$, seja $P_u = \Ber(u)^{\otimes \mathbb{N}}$, ou seja a probabilidade que nos dá uma sequência infinita de moedas independentes com probabilidade $u$ de sucesso.
+Definimos agora $\widebar{K}: [0,1] \times (\mathcal{P}(\{0,1\})^{\otimes \mathbb{N}}) \to [0,1]$ dada por
 \begin{equation}
   \widebar{K}(u,A) = P_u(A).
 \end{equation}
@@ -2216,18 +2266,19 @@ Finalmente, não seríamos capazes de distinguir essas duas sequências (mesmo q
     U_{[0,1]} \widebar{K}(A) = \int_0^1 K(u, A) \d u \overset{\eqref{e:Polya_binomial}}= \int_0^1 u^{N_1(w_1, \dots, w_k)} (1 - u)^{N_0(w_1, \dots, w_k)} \d u.
   \end{equation}
 
-  Por outro lado, sabemos que
+  Por outro lado , sabemos (usando simetria entre $0$ e $1$)que
   \begin{equation}
-    P =  \otimes_{i=0}^n U_{[0,1]} \Big[ \text{$X_i < X_0$, para $i \leq N_0$ e $X_i > X_0$, para $i > N_0$} \Big]
+    P[A]=U^{\otimes n+1}_{[0,1]} \Big[ \text{$X_i < X_{n+1}$, para $i \leq N^n_0$ e $X_i > X_0$, para $i \ge N^n_0+1$} \Big]
   \end{equation}
 
-  Se definirmos $\tilde{K}:[0,1] \times \mathcal{B}([0,1]^n)$, dado por $\tilde{K}(u,B) = \otimes_{i=1}^n U_{[0,1]}$, sabemos que isso define um núcleo pelo Exercício~\ref{x:nucleo_constante}.
-  Mais ainda, esse mesmo exercício nos diz que $U_{[0,1]} \star \tilde{K} = \otimes_{i=0}^n U_{[0,1]}$, de forma que
+  Se definirmos $\tilde{K}:[0,1] \times \mathcal{B}([0,1]^n)$, dado por $\tilde{K}(u,B) =  U^{\otimes n}_{[0,1]}$, sabemos que isso define um núcleo pelo Exercício~\ref{x:nucleo_constante}.
+  Mais ainda, esse mesmo exercício nos diz que $U_{[0,1]} \star \tilde{K} =
+   U^{\otimes}_{[0,1]}$, de forma que
   \begin{equation*}
     \begin{split}
-      P(A) & = U_{[0,1]} \star \tilde{K} \Big[ \text{$X_i < X_0$, para $i \leq N_0$ e $X_i > X_0$, para $i > N_0$} \Big]\\
-      & = \int_0^1 \otimes_{i=1}^n U_{[0,1]} \Big[ \text{$X_i < u$, para $i \leq N_0$ e $X_i > u$, para $i > N_0$} \Big] \d u\\
-      & = \int_0^1 u^{N_0} (1-u)^{n - N_0} \d u,
+      P(A) & = U_{[0,1]} \star \tilde{K} \Big[ \text{$X_i < X_0$, para $i \leq N^n_0$ e $X_i > X_0$, para $i\ge N^n_0+1$} \Big]\\
+      & = \int_0^1  U^{\otimes n}_{[0,1]} \Big[ \text{$X_i < u$, para $i \leq N^n_0$ e $X_i > u$, para $i \ge N^n_0+1$} \Big] \d u\\
+      & = \int_0^1 u^{N^n_0} (1-u)^{n - N^n_0} \d u,
     \end{split}
   \end{equation*}
   que coincide com $U_{[0,1]} \widebar{K}(A)$, provando o lema.
@@ -2245,4 +2296,3 @@ Finalmente, não seríamos capazes de distinguir essas duas sequências (mesmo q
 %%% mode: latex
 %%% TeX-master: "../Notas_de_aula"
 %%% End:
-
