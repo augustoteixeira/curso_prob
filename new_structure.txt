@@ -1,0 +1,84 @@
+> Revisão de medida
+
+1 Fundamentos
+ 11 Espaços mensuráveis
+ 12 Espaços de probabilidade
+ 13 Sistemas λ-π
+  131 Igualdade de probabilidades
+ 14 Elementos aleatórios
+  141 Distribuição de elementos aleatórios
+ Tópico: O paradoxo de Bertrand
+
+2 Construção de espaços de probabilidade
+ 21 Caso enumerável
+ Tópico: Método Probabilístico
+ 22 Caso absolutamente contínuo
+
+> Tópico: Distribuições marginais em R^d, densidade
+
+ 23 Funções acumuladas de distribuição
+
+> Esperança
+
+Decidir qual vem primeiro:
+
+1) > Variância
+   > Markov
+   > Jensen
+   > Hölder
+   > Tudo isso com tópicos
+
+2) 24 Espaços produto finito
+
+   > Distribuições marginais em geral
+
+   25 Independência
+     251 Coleções de eventos
+     252 Independência de σ-álgebras
+    Tópico: Lei dos pequenos números
+    26 Espaços produto infinito
+     261 Recordar é viver
+
+   > Produto Infinito independente
+
+   Tópico: Percolação
+
+   27 Distribuições conjuntas
+   28 Probabilidades condicionais
+    281 Regra de Bayes
+
+3 Somas de variáveis independentes
+ 3.1 Esperança
+  3.1.1 Desigualdade de Markov
+  3.1.2 Esperança e independência
+  3.2 Variância
+  3.3 Lei fraca dos grandes números
+  Tópico: Contando triângulos
+  3.4 Lei forte dos grandes números
+  3.5 Lei {0, 1} de Kolmogorov
+  3.6 Momentos exponenciais
+  3.7 Princípio de Grandes Desvios
+  Tópico: Funções características
+  3.8 O Teorema Central do Limite
+  3.8.1 A distribuição normal
+  3.8.2 Convergência fraca
+  3.8.3 Convergência fraca em R
+  3.8.4 O TCL para uma sequência i.i.d.
+  Tópico: O Teorema de Portmanteau
+
+262 Teorema da Extensão de Kolmogorov
+
+[moved]
+2.9 Núcleos de transição
+2.10 Espaços canônicos
+2.10.1 Espaços poloneses
+Tópico: Cadeias de Markov
+Tópico: Urna de Pólya
+[moved]
+
+4 Esperança condicional
+4.1 Esperança condicional
+4.2 Propriedades básicas da esperança condicional
+4.3 Probabilidade Condicional Regular
+4.4 Princípio da substituição
+Tópico: Processos de Poisson em R
