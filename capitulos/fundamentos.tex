@@ -1,3 +1,6 @@
+% !TEX encoding = UTF-8 Unicode
+
+
 \chapter{Fundamentos}
 
 A probabilidade moderna se baseia fortemente na Teoria da Medida e supomos durante esse curso que o leitor esteja bem familiarizado com conceitos tais como: Medida de Lebesgue, extensões de medida e teoremas de convergência.
@@ -42,17 +45,24 @@ Mais precisamente
   Dizemos que $\mathcal{F} \subseteq \mathcal{P}(\Omega)$ é uma $\sigma$-álgebra se
   \begin{enumerate}[\quad a)]
   \item $\Omega \in \mathcal{F}$,
-  \item $A \in \mathcal{F}$ implica que $A^c \in \mathcal{F}$ e
-  \item se $A_1, A_2, \dots \in \mathcal{F}$, então $\cup_i A_i \in \mathcal{F}$.
+  \item $A \in \mathcal{F}$ implica que $A^\cc \in \mathcal{F}$ e
+  \item se $(A_n)_{n\ge 1} \in \mathcal{F}^{\bbN}$, então $\cup_{n\ge 1} A_n \in \mathcal{F}$.
   \end{enumerate}
 \end{definition}
-Nesse caso, dizemos que $(\Omega, \mathcal{F})$ é um \emph{espaço mensurável}
-\index{epaco@espaço!mensuravel@mensurável} e os elementos $A \in \mathcal{F}$ são chamados de \emph{eventos}. \index{evento}
+Nesse caso, dizemos que $(\Omega, \mathcal{F})$ é um \emph{espaço mensurável} 
+\index{epaco@espaço!mensuravel@mensurável} e os elementos $A \in \mathcal{F}$ são chamados de \emph{eventos}. 
+Usaremos a notação $A^{\cc}:=\gO\setminus A$ para denotar o evento \emph{complementar} de $A$ \index{evento}
 
-Se $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ (que chamamos de uma classe ou família), denotamos por $\sigma(\mathcal{G})$ a
-\emph{$\sigma$-álgebra gerada por $\mathcal{G}$} \index{sigma-algebra@$\sigma$-álgebra!gerada por G@gerada por $\mathcal{G}$}, que é a menor $\sigma$-álgebra
-contendo $\mathcal{G}$ (ou em outras palavras, a interseção de todas $\sigma$-álgebras que contém $\mathcal{G}$).
+Se $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ (que chamamos de uma classe ou família), denotamos por $\sigma(\mathcal{G})$ a 
+\emph{$\sigma$-álgebra gerada por $\mathcal{G}$} \index{sigma-algebra@$\sigma$-álgebra!gerada por G@gerada por $\mathcal{G}$}, que é a menor $\sigma$-álgebra 
+contendo $\mathcal{G}$ (e a interseção de todas $\sigma$-álgebras que contem $\mathcal{G}$).
 Um exemplo importante é dado pela \emph{$\sigma$-álgebra de Borel} \index{sigma-algebra@$\sigma$-álgebra!de borel}, gerada pelos abertos de uma topologia em $\Omega$.
+
+\medskip
+
+Dado $\cF$ and $\cF'$ duas $\sigma$-álgebras, usaremos a notação $\cF\vee\cF'$ para denotar 
+a $\sigma$-álgebras gerada pela união $\cF\cup\cF'$.
+
 
 \begin{example} Típicos exemplos de $\sigma$-álgebra correspondentes aos espaços amostrais do Exemplo~\ref{x:espacos_amostrais}
   \begin{enumerate}[\quad a)]
@@ -65,8 +75,9 @@ Um exemplo importante é dado pela \emph{$\sigma$-álgebra de Borel} \index{sigm
 \begin{example} Alguns eventos de $\mathcal{F}_1, \mathcal{F}_2$ e $\mathcal{F}_3$ acima
   \begin{enumerate}[\quad a)]
   \item $\{\text{$x$ é ímpar}\}, \{1\} \subset \Omega_1$,
-  \item $[0,1/2], \{0\}, (\mathbb{Q} \cap [0,1]) \subset \Omega_2$ e
-  \item $\{f:[0,1] \to \mathbb{R}; f(1) > 0\} \subset \Omega_3$.
+  \item $[0,1/2], \{0\}, (\mathbb{Q} \cap [0,1]) \subset \Omega_2$,
+  \item $\{f:[0,1] \to \mathbb{R}; f(1) > 0\} \subset \Omega_3$, e
+  \item $\{a_3=4\}, \{ \text{ a soma dos $4$ primeiros dados vale $13$} \}$
   \end{enumerate}
 \end{example}
 
@@ -88,7 +99,7 @@ Agora estamos prontos para introduzir o conceito moderno do que é uma probabili
   Dado $(\Omega, \mathcal{F})$ espaço mensurável, dizemos que $P:\mathcal{F} \to [0,1]$ é uma \emph{probabilidade} \index{probabilidade} se
   \begin{enumerate}[\quad a)]
   \item $P(\Omega) = 1$ e
-  \item Seja uma seqüência $(A_i)_{i\in I}$ finita ou enumerável de eventos disjuntos ($A_i \cap A_j = \varnothing$ se $i \neq j$), então
+  \item Seja uma sequencia $(A_i)_{i\in I}$ finita o enumerável de eventos disjuntos ($A_i \cap A_j = \varnothing$ se $i \neq j$), temos
     \begin{equation}
       P\big({\mcup\nolimits_{i\in I}} A_i\big) = \sum_{i\in I} P(A_i).
     \end{equation}
@@ -102,7 +113,7 @@ Obviamente, isso nada mais é que uma medida que associa massa um ao espaço tod
   \item $P_1(A) = (\#A)/6$ em $(\Omega_1, \mathcal{F}_1)$.
     Ou mais geralmente $P_1'(A) = \sum_{i \in A} p_i$, onde $p_i \geq 0$ e $\sum_i p_i = 1$.
   \item $P_2$ pode ser a medida de Lebesgue em $([0,1], \mathcal{B}([0,1]))$.
-    Mais geralmente também podemos ter $P_2'(A) = \int_A \rho(x) \d x$, onde $\rho:[0,1] \to \mathbb{R}_+$ é uma função mensurável, chamada densidade, tal que $\int_{[0,1]} \rho (x) \d x = 1$.
+    Mais geralmente também podemos ter $P_2'(A) = \int_A \rho(x) \d x$, onde $\rho:[0,1] \to \mathbb{R}_+$, e uma função mensuravel chamada densidade, é tal que $\int_{[0,1]} \rho (x) \d x = 1$.
   \item $P_3 = \delta_{0}$, que atribui o valor um se o evento contém a função identicamente nula ($f \equiv 0$) e zero caso contrário.
   \end{enumerate}
 \end{example}
@@ -112,6 +123,7 @@ Mas futuramente, estaremos prontos para introduzir medidas bem interessantes no 
 \begin{proposition}
   Valem as afirmativas seguintes
   \begin{enumerate}[\quad a)]
+  \item $P(A^{\cc})=1=P(A)$.
   \item Se $A \subseteq B$ então $P(A) \leq P(B)$.
   \item A cota da união: para $I$ finito o enumerável
     \begin{equation}
@@ -125,17 +137,20 @@ Mas futuramente, estaremos prontos para introduzir medidas bem interessantes no 
 \end{proposition}
 
 \begin{proof}
-  $a)$ Como $A \cap (B \setminus A) = \varnothing$, então
+
+$a)$ By disjoint union, temos $P(A)+P(A^{\cc})=P(A\cup A^{\cc})=1.$
+
+
+  $b)$ Como $A \cap (B \setminus A) = \varnothing$, então
     \begin{equation}
         P(A \cup (B \setminus A))= P(A) + P(B \setminus A).
   \end{equation}
 
-  $b)$ $P(A \cup B) = P (A \cup (B \setminus A)) = P(A) + P(B \setminus
+  $c)$ $P(A \cup B) = P (A \cup (B \setminus A)) = P(A) + P(B \setminus
     A) \leq P(A) + P(B)$.\\
     Deixamos o caso enumerável como exercício abaixo.
 
-  $c)$ Chamamos de $A$ a união dos $A_i$.
-Basta mostrar a validade da equação abaixo e depois integrar com
+  $d)$ Chamamos $A$ a união dos $A_i$. Basta mostrar a validade da equação abaixo e depois integrar com
     respeito a $P$.
     \begin{equation}
       \label{e:indicadora_como_produto}
@@ -170,7 +185,7 @@ Basta mostrar a validade da equação abaixo e depois integrar com
 
 \begin{exercise}
   Seja $n \geq 1$ um número inteiro e considere $\Omega = \{0, 1\}^n$, o hipercubo de dimensão $n$ (cada $\omega \in \Omega$ pode ser visto como uma função $\omega:\{1, \dots, n\} \to \{0,1\}$).
-  Para cada $i \in \{1, \dots, n\}$, definimos o evento $A_i = \{ \omega \in \Omega; \omega(i) = 1 \}$.
+  Para cada $i \in \{1, \dots, n\}$, definimos o evento $A_i = \{ \omega \in \Omega : \omega(i) = 1 \}$.
   Dadas duas probabilidades $P$ e $P'$ em $(\Omega, \mathcal{P}(\Omega))$, mostre que se $P(B) = P'(B)$ para todos conjuntos $B$ dados por interseções de $A_i$'s, então $P = P'$.
 \end{exercise}
 
@@ -233,7 +248,7 @@ Ele trata de classes de eventos que não são necessariamente $\sigma$-álgebras
   Dizemos que $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ é um $\lambda$-sistema, \index{lambda sistema@$\lambda$-sistema} se
   \begin{enumerate}[\quad a)]
   \item $\Omega \in \mathcal{A}$,
-  \item Sempre que $A \in \mathcal{A}$ temos $A^c \in \mathcal{A}$.
+  \item Sempre que $A \in \mathcal{A}$ temos $A^\cc \in \mathcal{A}$.
   \item Para $A_1, A_2, \dots \in \mathcal{A}$ disjuntos dois a dois, temos $\cup_i A_i \in \mathcal{A}$.
   \end{enumerate}
 \end{definition}
@@ -242,12 +257,41 @@ Ele trata de classes de eventos que não são necessariamente $\sigma$-álgebras
   \label{x:lambda_nao_sigma}
   Dê um exemplo de $\lambda$-sistema que não seja uma $\sigma$-álbebra.
 \end{exercise}
+Podemos observar que de um certo sentido, $\pi$-sistema e $\gl$-sistema contem metade complementar dos requerimentos 
+para ser uma $\sigma$-álgebra.
 
+\begin{lemma}\label{l:pilamb}
+Se $\cA\subseteq  \mathcal{P}(\Omega) $ é um $\pi$-sistema e um $\gl$-sistema, então $\cA$ é uma $\sigma$-álgebra.
+\end{lemma}
+
+\begin{proof}
+Temos que $\cA$ e estável por complementar e contem $\gO$ para ser um $\lambda$-sistema.
+Sò precisamos que $\cA$ e estável por união enumerável (o finita).
+Sejà $(A_n)_{n\ge 1}$ uma sequência de elementos de $\cA$.
+Por estabilidade por complementar e intersecção finita, $B_n$ definido por
+\begin{equation*}
+B_n = \bigcup_{i=1}^n A_i = (\cap_{i=1}^n A_i^\cc)^\cc 
+ \end{equation*}
+pertencia a $\cA$. Pelas mesmas razões e também o caso de $C_n=B_n\setminus B_{n-1}=B_n \cap B_{n-1}^{\cc}$ ($B_0=\emptyset$).
+Para concluir observamos que 
+\begin{equation*}
+\bigcup_{n=1}^\infty A_n = \bigcup_{n=1}^{\infty} B_n=  \bigcup_{n=1}^{\infty}C_n.
+ \end{equation*}
+Os $C_n$ sendo disjuntos, a união deles pertencia a $\cA$ por propriedades das $\gl$-álgebras.
+\end{proof}
+
+Vamos ver agora uma versão mais puxada do resultado acima que vai ficar muito utíl para provar unicidade o igualdade entre probabilidades.
+
+
+\begin{definition}
 Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistema contendo $\mathcal{A}$, ou seja
 \begin{equation}
   \lambda(\mathcal{A}) = \bigcap_{\substack{\text{$\mathcal{B}$ $\lambda$-sistema}\\\mathcal{A} \subseteq \mathcal{B}}} \mathcal{B}.
 \end{equation}
-É fácil ver que $\lambda(\mathcal{A})$ é sempre um $\lambda$-sistema.
+\end{definition}
+
+Deixamos de Exercício de verificar que  $\lambda(\mathcal{A})$ é sempre um $\lambda$-sistema.
+
 
 \begin{theorem}[Dynkin]
   \index{Teorema!de Dynkin}
@@ -259,71 +303,75 @@ Note pelo Exercício~\ref{x:lambda_nao_sigma} que a hipótese de que $\mathcal{A
 
 \begin{proof}
   Obviamente, basta mostrar é que $\lambda(\mathcal{A})$ é fechado por uniões não necessariamente disjuntas.
-  Na verdade, vamos ver que é suficiente provar que
+Pelo Lemma \ref{l:pilamb}é suficiente provar que
   \begin{equation}
     \label{e:lambda_is_pi}
     \lambda(\mathcal{A}) \text{ é um $\pi$-sistema}.
   \end{equation}
-  De fato, caso isso seja provado teremos que $\lambda(\mathcal{A})$ é fechado por diferenças (pois $A \setminus B = A \cap B^c$).
-  Assim, podemos mostrar que $\lambda(\mathcal{A})$ é fechado por uniões enumeráveis, pois se $A_1, A_2, \dots \in \lambda(\mathcal{A})$, definimos $B_n = \cup_{i=1}^n A_i = (\cap_{i=1}^n A_i^c)^c \in \lambda(\mathcal{A})$ e escrevemos
-  \begin{equation}
-    \mcup_{n=1}^{\infty} A_n = \mcup_{n=1}^{\infty} \big(A_n \setminus B_{n-1} \big),
+Para isso é suficiente de verificar a propriedade seguinte
+  \begin{equation}\label{interestavel}
+   \forall A_1,A_2 \in \gl(\cA),\quad  A_1\cap A_2 \in \gl(\cA), 
   \end{equation}
-  que é uma união disjunta de termos em $\lambda(\mathcal{A})$, logo está em $\lambda(\mathcal{A})$.
-  Isso mostra que $\lambda(\mathcal{A})$ é uma $\sigma$-álgebra e que de fato é suficiente demonstrar \eqref{e:lambda_is_pi}.
+pois o caso de interseções de mais conjuntos pode ser deduzido por indução.
 
+  \medskip
+
+  
   Vamos primeiramente mostrar que $\lambda(\mathcal{A})$ é fechado por interseções com $\mathcal{A}$.
-  Para tanto, definimos $\mathcal{B} = \big\{B \in \lambda(\mathcal{A}); \text{$B \cap A \in \lambda(\mathcal{A})$ para todo $A \in \mathcal{A}$})\big\}$ e veremos que
+  Para tanto, definimos $\mathcal{B} = \big\{B \in \lambda(\mathcal{A}); \text{$B \cap A \in \lambda(\mathcal{A})$ para todo $A \in \mathcal{A}$})\big\}$ e provamos que
   \begin{equation}
     \label{e:B_igual_lambda}
-    B = \lambda(\mathcal{A}).
+    \cB = \lambda(\mathcal{A}).
   \end{equation}
   Obviamente, $\mathcal{A} \subseteq \mathcal{B}$, pois $\mathcal{A}$ é um $\pi$-sistema.
   Então basta mostrar que $\mathcal{B}$ é um $\lambda$-sistema.
   \begin{enumerate}[\quad a)]
   \item $\Omega$ obviamente pertence a $\mathcal{B}$.
-  \item Se $B \in \mathcal{B}$ e $A \in \mathcal{A}$, então $B^c \cap A = A \setminus(B \cap A) = (A^c \cup (B \cap A))^c$.
-    Mas como $B \in \mathcal{B}$, $(B \cap A) \in \lambda(\mathcal{A})$ e usando o fato que $\lambda$-sistemas são fechados por complementos e uniões disjuntas, $B^c \cap A \in \lambda(\mathcal{A})$.
-    Como isso vale para todo $A \in \mathcal{A}$, temos $B^c \in \mathcal{B}$ por definição.
-  \item Se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos e $A \in \mathcal{A}$, então
+  \item \textit{Estabilidade por complementar}: Consideramos $B \in \mathcal{B}$. Para  $A \in \mathcal{A}$ arbitrário,  
+  $$B^\cc \cap A =(A^\cc \cup (B \cap A))^\cc\in \cA $$
+  e portanto, como $B \cap A\in \gl(\cA)$ por definição, por estabilidade de $\gl(\cA)$ por complementar e união disjunta temos
+  $B^\cc \cap A \in \gl(\cA)$, o que implica que $B^\cc\in \cB$.
+  \item \textit{Estabilidade por união disjunta}: Se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos e $A \in \mathcal{A}$ arbitrário, definindo $B:=\mcup_{n=1}^{\infty} B_n$ 
+  temos 
     \begin{equation}
-      \big(\mcup\nolimits_{n=1}^{\infty} B_n \big) \cap A = \mcup_{n=1}^{\infty} \big(B_n \cup A\big) \in \lambda(\mathcal{A}),
+   B\cap A=   \big(\mcup_{n=1}^{\infty} B_n \big) \cap A = \mcup_{n=1}^{\infty} \big(B_n \cap A\big) \in \lambda(\mathcal{A}),
     \end{equation}
-    pois a união acima é disjunta.
-    Logo $\mcup_{n=1}^{\infty} B_n \in \mathcal{B}$.
+   A união acima sendo disjunta, temos  $B \cap A \in \gl(\cA)$ e 
+    logo $\mcup_{n=1}^{\infty} B_n \in \mathcal{B}$.
   \end{enumerate}
-  Isso mostra que $\mathcal{B}$ é um $\lambda$-sistema com $\mathcal{A} \subseteq \mathcal{B} \subseteq \lambda(\mathcal{A})$, mostrando \eqref{e:B_igual_lambda}.
+  Isso termina a prova de \eqref{e:B_igual_lambda}.
 
-  No próximo passo, definimos $\bar{\mathcal{B}} = \{A \in \lambda(A); \text{$B \cap A \in \lambda(A), \; \forall B \in \lambda(A)$}\}$ e mostraremos que
+  \medskip
+  
+ Agora para concluir,  definimos 
+ $$\bar{\mathcal{B}} := \{A \in \lambda(\cA); B \cap A \in \lambda(\cA), \; \forall B \in \lambda(\cA)\}$$ e mostraremos que
   \begin{equation}
     \label{e:Bbar_igual_lambda}
     \bar{\mathcal{B}} = \lambda(\mathcal{A}),
   \end{equation}
-  que vai na direção de provar \eqref{e:lambda_is_pi}.
+  que e equivalente a \eqref{interestavel}.
 
-  Primeiramente, observe que $\mathcal{A} \subseteq \bar{\mathcal{B}}$ pois $\mathcal{B} = \lambda(\mathcal{A})$ (veja a definição de $\mathcal{B}$).
-  Mostraremos agora que
+  \medskip
+  
+ \noindent Observe que $\mathcal{A} \subseteq \bar{\mathcal{B}}$ pois $\mathcal{B} = \lambda(\mathcal{A})$ (veja a definição de $\mathcal{B}$),
+então para mostrar   \eqref{e:Bbar_igual_lambda} sò precisamos mostrar que
   \begin{equation}
     \label{e:B_barra_lambda}
     \text{$\bar{\mathcal{B}}$ é um $\lambda$-sistema}.
   \end{equation}
-  Para tanto, verificaremos
+  Para tanto, verificaremos 
   \begin{enumerate}[\quad a)]
   \item $\Omega \in \bar{\mathcal{B}}$, que é claro.
-  \item Tomando $A \in \bar{\mathcal{B}}$ e $B \in \lambda(\mathcal{A})$, $A^c \cap B = B \setminus (A \cap B) = \big(B^c \cup (A \cap B)\big)^c \in \lambda(\mathcal{A})$, por um argumento análogo ao apresentado para $\mathcal{B}$.
-    Logo $A^c \in \bar{\mathcal{B}}$.
-  \item Também o caso de uniões disjuntas é bastante análogo ao feito para $\mathcal{B}$.
+  \item \textit{Estabilidade por complementar}: 
+  Considerando $B \in  \bar{\mathcal{B}}$.
+  Tomando $A \in \gl(\cA)$ arbitrário temos 
+  $$B^\cc \cap A = \big(A^\cc \cup (A \cap B)\big)^\cc$$ 
+e como $A \cap B\in \gl(A)$ por definição de $\bar \cB$,  $B^\cc \cap A \in \lambda(\mathcal{A})$ por propriedades de $\gl$-sistema,
+o que permite de concluir que $B^\cc \in \bar{\mathcal{B}}$.
+  \item \textit{União disjunta} Também o caso de uniões disjuntas é bastante análogo ao feito para $\mathcal{B}$.
   \end{enumerate}
-  Isso mostra que $\bar{\mathcal{B}}$ é um $\lambda$-sistema com $\mathcal{A} \subseteq \bar{\mathcal{B}} \subseteq \lambda(\mathcal{A})$, estabelecendo \eqref{e:B_barra_lambda}.
 
-  Finalmente mostraremos que
-  \begin{equation}
-    \label{e:B_barra_pi}
-    \text{$\bar{\mathcal{B}}$ é um $\pi$-sistema}.
-  \end{equation}
-  De fato, sejam $A_1, A_2 \in \bar{\mathcal{B}}$ e $B \in \lambda(A)$.
-  Então $(A_1 \cap A_2) \cap B = (A_1 \cap B) \cap A_2 \in \lambda(\mathcal{A})$, donde $A_1 \cap A_2$ pertence a $\bar{\mathcal{B}}$.
-  Logo temos por \eqref{e:B_barra_pi} e \eqref{e:B_barra_lambda} que $\lambda(\mathcal{A})$ é um $\pi$-sistema, ou seja \eqref{e:lambda_is_pi}, terminando a prova do teorema.
+ 
 \end{proof}
 
 \subsection{Igualdade de probabilidades}
@@ -404,13 +452,32 @@ Relembrando a nossa notação: $P[X \in A] = P(\{\omega \in \Omega; X(\omega) \i
   Se $\Omega$ e $E$ são espaços topológicos dotados das correspondentes $\sigma$-álgebras de Borel, então toda função contínua é um $E$-elemento aleatório.
 \end{example}
 
+Como vamos ver ao lungo deste curso, a noção de $\sigma$-algebra tem na teoria das probabilidade pode ter outro papel do que só definir os eventos mensúraveis.
+Um primeiro exemple e a introdução de $\sigma$-álgebra associada a um elemeno aleatorio que contem todos eventos que podem ``ser descritos em termo de $X$''.
+
+\begin{definition}
+Seja $X \ : \ (\gO,\cF)\to (E,\cA)$ um elemento aleatorio.
+A $\sigma$-álgebra associada a $X$ (o gerada por $X$) e definida por 
+
+$$\sigma(X):=\{ X^{-1}(A) \ : \ A\in E \}.$$
+
+For definição $\sigma(X)\subset \mathcal G$. 
+ \end{definition}
+
+ 
+ \begin{exercise}
+Consideramos $\gO=\bbR^2$ com a $\sigma$-álgebra de Borel, e definimos a varíável aleatoria $X(\go_1,\go_2)=\max(\go_1,\go_2)$.
+Descrever $\sigma(X)$.
+\end{exercise} 
+
+
 \subsection{Distribuição de elementos aleatórios}
 
 \begin{definition}
-  Se $X:\Omega \to E$ é um elemento aleatório e $\Omega$ é dotado de uma probabilidade $P$, então denotamos por $X_{*}P$,
+  Se $X:\Omega \to E$ é um elemento aleatório e $\Omega$ é dotado de uma probabilidade $P$, então denotamos por $X_{*}P$, 
   a chamada \emph{distribuição de $X$} \index{distribuicao@distribuição}, a medida de probabilidade
   \begin{equation}
-    X_* P(A) := P\big( \{\omega \in \Omega; X(\omega) \in A\} \big) = P[X \in A].
+    X_* P(A) := P\big( \{\omega \in \Omega \, : \,  X(\omega) \in A\} \big) = P[X \in A].
   \end{equation}
   no espaço mensurável $(E,\mathcal{A})$.
 \end{definition}
@@ -431,7 +498,7 @@ Fica como exercício verificar que $X_*P$ é de fato uma probabilidade em $E$.
 
 Duas notações importantes nesse contexto são:
 \begin{enumerate}[\quad a)]
-\item Sejam $(\Omega, \mathcal{F}, P)$ e $(\Omega',\mathcal{F}',P')$ dois espaços de probabilidade e $X$ et $Y$ dois elementos aleatórios.
+\item Sejam $(\Omega, \cF, P)$ e $(\gO',\cF',P')$ dois espaços de probabilidade e $X$ et $Y$ dois elementos aleatórios. 
 Dizemos que $X \stackrel{d}{=} Y$, \index{X d Y@$X \distr Y$} quando $X_*P = Y_*P'$.
 Note que $X$ e $Y$ nem ao menos precisam pertencer ao mesmo espaço de probabilidade para dizermos que são \emph{igualmente distribuídos}, mas precisam ser elementos aleatórios de mesmo tipo (ou seja, possuir o mesmo contradomínio).
 \item Escrevemos $X \distr \mu$, \index{X d mu@$X \distr \mu$} que lê-se \emph{$X$ é distribuída como $\mu$}, onde $\mu$ é uma probabilidade em $E$, caso $X_*P = \mu$.
@@ -449,44 +516,9 @@ Como no exercício acima, o contexto de um teorema frequentemente é dado apenas
 Dessa forma, podemos utilizar o resultado em vários contextos diferentes, desde que possamos encontrar elementos aleatórios que satisfaçam as hipóteses.
 Com o tempo, passamos até mesmo a considerar menos relevante a escolha específica do espaço amostral, focando cada vez mais na distribuição de seus elementos aleatórios.
 
-\begin{topics}
-
-\section{Tópico: O paradoxo de Bertrand}
-
-Vamos estudar um problema que realça a importança do jeito em que escolhemos o espaço amostral.
-Queremos calcular a probabilidade que uma corda ``uniformemente distribuida'' em um círculo seja maior do que o lado do triângulo equilátero inscrito nesse  círculo (no caso do círculo unitário, o comprimento desse lado vale $\sqrt{3}$).
-Bertrand propôs dois métodos para realizar esse cálculo. \index{Paradoxo de Bertrand@Paradoxo de Bertrand} \footnote{Somos gratos a Hubert Lacoin por sugerir e redigir esse tópico.}
-
-\begin{enumerate}[\quad a)]
- \item Escolher as duas extremidades da corda uniformemente no círculo.
- \item Escolher o centro da corda uniformemente no interior do disco.
-\end{enumerate}
-
-No caso $a)$, uma vez que uma extremidade é fixada, o comprimento da corda fica maior do que $\sqrt{3}$ somente se o segundo ponto ficar num setor angular de comprimento $2 \pi / 3$.
-Logo, essa probabilidade vale $(2\pi/3) / (2\pi) = 1/3$.
-
-\medskip
-
-No caso $b)$, pra que a corda fique maior do que $\sqrt{3}$, o centro dela deve ficar no circulo inscrito dentro do triângulo equilátero, cujo raio é $1/2$.
-Então a probabilidade vale a razão dessas áreas, que é $1/4$.
-
-\medskip
-
-Obtemos então duas respostas diferente para essa pergunta simples, o que e nada surprendente: $a)$ e $b)$ correspondem a dois experimento
-diferentes com espaços amostrais diferentes.
 
 
-\begin{exercise}
-\begin{enumerate}[\quad a)]
- \item Descreva o espaço amostral e as lei de probabilidade associadas aos experimentos $a)$ e $b)$
- \item Calcule a lei de probabilidade do comprimento da corda em cada caso.
- \item Repita os ítens anteriores para o seguinte caso: Escolhemos uniformemente um raio do disco.
-Depois escolhemos o centro da corda uniformemente ao longo desse raio.
-\end{enumerate}
 
-\end{exercise}
-
-\end{topics}
 
 %%% Local Variables:
 %%% mode: latex
