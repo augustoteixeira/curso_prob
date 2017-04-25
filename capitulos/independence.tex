@@ -1,0 +1,1186 @@
+% !TEX encoding = UTF-8 Unicode
+
+\chapter{Independência e espaços produtos}
+
+\section{Independência}
+
+Nossa intuição nos diz que quando jogamos duas moedas, o resultado de cada uma delas não deve depender um do outro.
+Dessa forma, a probabilidade de obtermos um determinado resultado (como por exemplo duas caras) deve ser um quarto, ou seja meio vezes meio.
+
+Em geral, definimos dois eventos como independentes da seguinte forma.
+
+\begin{definition}
+  Dizemos que dois eventos $A, B \in \mathcal{F}$, são \emph{independentes} \index{independencia@independência!de eventos} se
+  \begin{equation}
+    P(A \cap B) = P(A) P(B).
+  \end{equation}
+\end{definition}
+
+\begin{example}
+  Se $\Omega = \{1, \dots, 6\}$ é dotada da $\sigma$-álgebra das partes e e $P(A) = \#A/6$, então os eventos $A = [\omega \text{ é impar}]$ e $B = [\omega \geq 5]$ satisfazem
+  \begin{equation}
+    P(A \cap B) = P(\{5\}) = 1/6 = (1/2) (1/3) = P(A) P(B).
+  \end{equation}
+  Logo tais eventos são independentes.
+\end{example}
+
+\begin{exercise}
+  Seja $\Omega = \{0,1\}^n$ com $P(A) = \#A/2^n$ e $X_i(\omega_1, \dots, \omega_n) = \omega_i$ para $i = 1, \dots, n$.
+  Mostre que para qualquer $i\ne j$
+  \begin{equation}
+    P[X_i = a\ ; \ X_j = b] = P[X_i = a] P[X_j = b],
+  \end{equation}
+  onde $[A\ ; \ B]$ denota a interseção $[A] \cap [B]$.
+\end{exercise}
+
+\subsection{Coleções de eventos}
+
+\todo{discutir a alternativa $I = \{1,\dots, k\}$ que é ruim (basta adicionar $\varnothing$ que qq coisa fica indep).}
+
+\begin{definition}
+  Sejam $A_1, A_2, \dots, A_k$ eventos.
+  Dizemos que eles formam uma coleção independente \index{independencia@independência!de eventos} se para todo $I \subseteq \{1, \dots, k\}$ não vazio
+  \begin{equation}
+    P\big( \mcap\nolimits_{i \in I} A_i \big) =  \prod\limits_{i \in I} P(A_i).
+  \end{equation}
+\end{definition}
+
+
+
+Vale observar que independência dois a dois não implica independência.
+Mais precisamente
+\begin{example}
+  Seja $\Omega = \{1,2,3,4\}$ com $P(A) = \# A/4$ e sejam os seguintes eventos: $A_1 = \{1,2\}$, $A_2 = \{2,3\}$ e $A_3 = \{1,3\}$.
+  Nesse caso,
+  \begin{enumerate}[\quad a)]
+  \item $P(A_i) = 1/2$ para $i = 1, 2, 3$,
+  \item $P(A_i \cap A_j) = 1/4$ para todo $i \neq j$ mas
+  \item $P(A_1 \cap A_2 \cap A_3) = 0 \neq 1/8 = P(A_1) P(A_2) P(A_3)$.
+  \end{enumerate}
+\end{example}
+
+
+
+\begin{example}
+  Sejam $n$ patos e $m$ caçadores.
+  Cada caçador escolhe um pato aleatoriamente e uniformemente e atira (abatendo-o com probabilidade $p$).
+  Seja $X = \# \{\text{patos vivos}\}$, que pode ter uma distribuição complicada de calcular, mas
+  \begin{equation}
+    \begin{split}
+      E(X) &= E \Big( \sum_{i=1}^n \1_{[\text{pato $i$ vive}]} \Big) = \sum_{i=1}^n P[\text{pato $i$ vive}]\\
+      &= n P[\text{pato $1$ vive}] = P\Big( \mcap_{j=1}^m [\text{caçador $j$ não mata pato $1$}] \Big)\\
+      &= n P[\text{caçador $j$ não mata pato $1$}]^m = n \Big(1 - \frac{p}{n}\Big).
+    \end{split}
+  \end{equation}
+  Observe que
+  \begin{enumerate}[\quad a)]
+  \item acima obtivemos uma igualdade e
+  \item $[\text{pato $i$ vive}]$, $i = 1, \dots, n$ não são independentes.
+  \end{enumerate}
+
+  Finalmente estimamos (digamos para $n$ par)
+  \begin{equation}
+    \begin{split}
+      & P[\text{patos para o jantar} < n/2] = P[X \geq n/2] \leq \frac{E(X)}{n/2}\\
+      & \qquad = 2 \frac{n}{n} \Big( 1 - \frac{p}{n}\Big)^m \leq 2 \exp \{- \frac{pm}{n}\}.
+    \end{split}
+  \end{equation}
+\end{example}
+
+\begin{definition}
+  Dizemos que uma coleção infinita de eventos $(A_n)_{n\ge 1}$ 
+  é independente \index{independencia@independência!de eventos} se toda sub-coleção finita de tais eventos forem independentes.
+\end{definition}
+
+\begin{lemma}
+  Se $(A_n)_{n\ge 1}$ forma uma sequencia de eventos independentes, então
+  \begin{equation}
+    P\Big( \mcap_{i=1}^{\infty} A_i \Big) = \prod\limits_{i=1}^{\infty} P(A_i).
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  De fato,
+  \begin{equation*}
+    P\Big( \mcap_{i=1}^{\infty} A_i \Big) = \lim_{n\to \infty} P\Big( \mcap_{i = 1}^n A_i \Big) = \lim_{n\to \infty} \prod\limits_{i=1}^n P(A_i) = \prod\limits_{i=1}^{\infty} P(A_i). \qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{exercise}
+  Mostre que se $A \in \mathcal{F}$, então $\{B \in \mathcal{F}\, : \, B \text{ é independente de } A\}$ é um $\lambda$-sistema.
+  Mostre que este conjunto não e necessariamente uma $\sigma$-álgebra.
+\end{exercise}
+
+\begin{exercise}
+  Mostre que se $B$ é independente de $A$ para todo $B \in \mathcal{B}$, com $\mathcal{B}$ um $\pi$-sistema, então $B$ é independente de $A$ para todo $B \in \sigma(\mathcal{B})$.
+\end{exercise}
+
+\subsection{Independência de elementos aleatórios}
+
+
+Vamos começar com a noção de $\sigma$-álgebras independentes
+\begin{definition}
+  Dado um espaço de probabilidade $(\gO,P,\cF)$
+Dizemos que as $\sigma$-álgebra $\cF_1,\dots,\cF_n\subset \cF$  
+são independentes \index{independencia@independência!de sigma-algebras@de $\sigma$-álgebras}
+se 
+\begin{equation}
+ \forall A_1\in \cF_1,\dots ,A_n \in \cF_n, \ P(\cap_{i=1}^n A_i)=\prod_{i=1}^n P(A_i).
+\end{equation}
+Nessa definição podemos considerar uma coleção infinita enumerável.
+\end{definition}
+
+
+\begin{exercise}\label{ex:sigmaeventos}
+Seja $A_1,\dots A_n$ uma coleção de eventos.
+Mostrar que as $\sigma$-álgebras $\cF_1,\dots \cF_n$ definidas for $\cF_i:=\{\emptyset, A_i,A^{\cc}_i, \gO\}$ são independentes se e só se
+os eventos $A_1,\dots A_n$ o são.
+\end{exercise}
+
+
+
+Podemos estender esse conceito a elementos aleatórios, ou seja:
+\begin{definition}
+Sejam $X_1, \dots, X_k$ elementos aleatórios definidos respetivamente nos espaços $(E_i, \cA_i)$ para $i=1,\dots,k$.
+  Dizemos que  $X_1, \dots, X_k$ são  independentes  \index{independencia@independência!de elementos}
+ se as respectivas $\sigma$-álgebras $\sigma(X_1), \dots, \sigma(X_k)$ o forem.
+ 
+ \medskip
+ 
+ De jeito equivalente as variáveis são independente se
+ \begin{equation}
+ \forall A_1\in \cA_1,\dots ,A_k \in \cA_k, \ P([X_1\in A_1]\cap \dots \cap [X_k\in A_k])=\prod_{i=1}^k P[X_ i\in A_i].
+\end{equation}
+Nessa definição podemos considerar também uma coleção infinita enumerável.
+\end{definition}
+
+Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma distribuição, escrevemos que $X_i$ 
+são \iid (independentes e identicamente distribuídos).
+
+\begin{example}\label{exo:inde}
+\begin{itemize}
+ \item Consideramos $\gO=\bbR^2$, e $P$ com densidade com respeito a Lebesgue $\rho_1(\go_1)\rho_2(\go_2)$.
+Então as variáveis coordenadas $X_1$ e $X_2$ são independentes com distribuições respectivas $P_i(\dd x)=\rho_i(x)\dd x$.
+ \item Se $\gO_1$ e $\gO_2$ são espaços enumeráveis e $P_1$ $P_2$ são probabilidades.
+ Podemos definir $P$ a probabilidade em $\gO=\gO_1\times \gO_2$ por 
+ $$p_{(\go_1,\go_2)}=P_1(\{\go_1\})P_2(\{\go_2\}).$$
+ Com essa definição as variáveis $X_i: \gO\to \gO_i$ definidas por $X_i(\go)=\go_i$ são independentes.
+ \item Do Exercício \ref{ex:sigmaeventos}, podemos deduzir que se $A_1,\dots,A_n$ são eventos independentes,
+ as funções indicadoras associadas são independentes (e reciprocamente).
+\end{itemize}
+
+
+\end{example}
+
+
+
+
+
+\begin{exercise}
+  Com a notação do exercício anterior, mostre que as funções $X_i:\Omega_1 \times \Omega_2 \to \Omega_i$ dadas por
+  \begin{equation}
+    X_1(x,y) = x \text{ e } X_2 (x,y) = y,
+  \end{equation}
+  são elementos aleatórios e são independentes.
+\end{exercise}
+
+\begin{exercise}
+  Mostre que as coordenadas canônicas do exercício anterior no caso $X_i: \mathbb{R}^2 \to \mathbb{R}$ não são independentes segundo a medida $U_{\bbS^1}$.
+  Mas o são segundo $U_{[0,1]^2}$ (que é a medida de Lebesgue em $\mathbb{R}^2$ restrita a $[0,1]^2$).
+\end{exercise}
+
+\begin{exercise}
+  Seja $\Omega = \{0,1\}^n$ com $P(A) = \#A/2^n$ e $X_i(\omega_1, \dots, \omega_n) = \omega_i$ para $i = 1, \dots, n$.
+  Mostre que os $X_i$ são independentes.
+\end{exercise}
+
+\begin{exercise}\label{ex:indepfunc}
+  Sejam $(X_i)_{i \geq 1}$ elementos aleatórios independentes tomando valores em espaços $(E_i)_{i \geq 1}$, respectivamente.
+  Mostre que para funções mensuráveis $(f_i)_{i \geq 1}$ temos que $(f_i(X_i))_{i \geq 1}$ são independentes.
+\end{exercise}
+
+
+
+
+\begin{exercise}
+  Mostre que se $X, Y$ são elementos aleatórios e se $X$ é constante quase certamente então $X$ e $Y$ são independentes.
+\end{exercise}
+
+\begin{exercise}
+  Sejam $X$ e $Y$ variáveis aleatórias independentes com distribuição $\Exp(1)$, calcule a distribuição de
+  \begin{enumerate}[\quad a)]
+  \item $\min\{X,Y\}$ e
+  \item $X + Y$.
+  \end{enumerate}
+\end{exercise}
+
+
+\begin{exercise}
+  Sejam $X, Y$ vari\'aveis aleat\'orias tais que
+  \begin{equation}
+    P[X \leq x, Y \leq y] =
+    \begin{cases}
+      0 & \quad \text{if $x < 0$,}\\
+      (1-e^{-x}) \Big(\frac 12 + \frac 1\pi \tan^{-1} y \Big), & \quad \text{if $x \geq 0$}.
+    \end{cases}
+  \end{equation}
+  \begin{enumerate}[\quad a)]
+  \item Mostre que a distribui\c{c}\~ao conjunta $\mu_{(X,Y)}$ \'e
+    absolutamente cont\'inua com rela\c{c}\~ao \`a medida de Lebesgue em
+    $\mathbb{R}^2$.
+  \item Mostre que $X$ e $Y$ s\~ao independentes.
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  \label{x:convolucao_densidade}
+  Mostre que se $X, Y$ são variáveis aleatórias independentes com distribuições $X \distr f_X(x) \d x$ e $Y \distr f_Y(y) \d y$, então $X + Y$ tem distribuição absolutamente contínua com respeito a Lebesgue e
+  \begin{equation}
+    f_{X + Y}(z) = \int_{-\infty}^\infty f_Y(z - x) f_X(x) \d x.
+  \end{equation}
+\end{exercise}
+
+\todo{mandar para depois de produtos infinitos?}
+
+\begin{lemma}[Borel-Cantelli - segunda parte]
+  Se $A_1, A_2, \dots \in \mathcal{F}$ são independentes e $p_i = P(A_i)$ satisfazem $\sum_i p_i = \infty$, então
+  \begin{equation}
+    P[A_i \text{ infinitas vezes}] = 1.
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  Queremos mostrar que
+  \begin{equation}
+    P \Big( \big(\mcap_n \mcup_{i=n}^\infty A_i\big)^c \Big) = 0,
+  \end{equation}
+  mas
+  \begin{equation}
+    P \Big( \big(\mcap_n \mcup_{i=n}^\infty A_i\big)^c \Big) = P \Big(\mcup_n \mcap_{i=n}^\infty A_i^c \Big) \leq \sum\limits_n P \Big(\mcap_{i=n}^\infty A_i^c \Big).
+  \end{equation}
+  Logo basta mostrar que a probabilidade à direita é zero para todo $n$.
+  Mas
+  \begin{equation}
+    \begin{split}
+      P \Big(\mcap_{i=n}^\infty A_i^c \Big) & = \prod\limits_{i=n}^\infty P(A_i^c) = \prod\limits_{i=n}^\infty (1 - p_i)\\
+      & \leq \prod\limits_{i=n}^\infty \exp\{-p_i\} = \exp\big\{- \sum_{i=n}^\infty p_i\big\} = 0.
+    \end{split}
+  \end{equation}
+  Terminando a prova do lemma.
+\end{proof}
+
+\subsection{Esperança e independência}
+
+Provamos agora uma propriedade fundamental de variáveis aleatórias independentes.
+
+\begin{proposition}\label{prop:indep}
+  Sejam $X$ e $Y$ variáveis aleatórias independentes e integráveis, então $XY$ e integrável e 
+  \begin{equation}
+    E(XY) = E(X) E(Y).
+  \end{equation}
+\end{proposition}
+
+
+\begin{proof}
+Começamos para verificar o resultado para  funções simples. Se $\alpha_1,\dots,\alpha_n$ e $\gb_1,\dots,\gb_m$ são os possíveis valores de $X$ e $Y$
+temos 
+\begin{multline}
+ E[XY]:=\sum_{i=1}^n \sum_{j=1}^m \alpha_i \gb_j P[ X=\alpha_i, Y=\gb_j]
+ =  \sum_{i=1}^n \sum_{j=1}^m \alpha_i \gb_j P[ X=\alpha_i] P[Y=\gb_j]\\ = \left( \sum_{i=1}^n \alpha_i \gb_j P[ X=\alpha_i]\right) 
+ \left( \sum_{j=1}^m gb_j P[Y=\gb_j] \right)=E[X]E[Y],
+\end{multline}
+onde tenhamos usado independência de $X$ e $Y$ na segunda igualdade.
+Para funções positivas usamos Exercício \ref{ex:indepfunc} para ver que 
+$$X_n= 2^{-n} \lfloor 2^n X \rfloor, \text{ e } Y_n= 2^{-n} \lfloor 2^n Y \rfloor $$
+são funções simples independentes e convergem monotonicamente para $X$ e $Y$. 
+Por Convergência Monótona (usado duas vezes)temos
+\begin{equation}
+ E[XY]=\lim_{n\to \infty} E[X_nY_n]=\lim_{n\to \infty} E[X_n] E[Y_n]=E[X]E[Y].
+\end{equation}
+Em particular $XY$ e integrável se $X$ e  $Y$ o são.
+
+\medskip
+
+Finalmente, para $X$ e $Y$ integráveis decompomos $X = X_+ - X_-$ e $Y = Y_+ - Y_-$. 
+Temos 
+$$XY=X_+Y_+ - X_+Y_- - X_-Y_+ +X_-Y_-$$
+Pelo Exercício \ref{ex:indepfunc}, são quatro produtos de variáveis independentes.
+em consequência $XY$ e integrável e podemos  concluir por linearidade.
+\end{proof}
+
+\begin{remark}
+ Obviamente a recíproca não vale. Se $X$ e uma variável com distribuição $U[-1,1]$ e 
+ $Y=|X|$, então $E[XY]=0$ mas 
+ $$P[X\in [-1/2,1/2] \ ; \ Y>1/2]=0\ne P(X\in [-1/2,1/2])P(Y>1/2)=1/4.$$
+ 
+ 
+\end{remark}
+
+
+
+\begin{corollary}
+  Sejam $X_1,\dots,X_n$ variáveis aleatórias independentes e integráveis, então $\prod_{i=1}^n X_i$ e integrável e 
+  \begin{equation}
+    E[\prod_{i=1}^n X_n] = \prod_{i=1}^n E[X_i].
+  \end{equation}
+  \end{corollary}
+  
+  \begin{proof}
+   Vamos prosseguir por indução. O resultado já foi provado para $n=1$ e $n=2$.
+Supondo o resultado para $n\ge 2$, vamos provar ele para $n+1$.
+Sabemos que o vector $(X_1,\dots,X_n)$ e independente de $X_{n+1}$ \ref{ex}. Em consequência $Z_n:=\prod_{i=1}^n X_n$ 
+e independente de $X_{n+1}$ (Exercício \ref{ex:indepfunc}). Sabemos que $Z_n$ e integrável pela hipótese de recorrência e temos 
+usando o resultado para $n=2$ que e de novo a hipótese de recorrência, concluímos que $\prod_{i=1}^{n+1} X_i$ e integrável e que
+\begin{equation}
+ E[\prod_{i=1}^{n+1} X_i]=E[Z_n]E[X_{n+1}]=\left(\prod_{i=1}^n E[X_i]\right) E[X_{n+1}].
+\end{equation}
+
+   
+  \end{proof}
+
+
+
+
+
+
+\section{Espaços produto finito}
+
+Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebras $\mathcal{F}_1, \dots, \mathcal{F}_n$, podemos definir o espaço mensurável produto 
+$(\widebar{\Omega}, \widebar{\mathcal{F}})$ da seguinte forma
+\begin{equation}
+  \widebar{\Omega} = \prod_{i=1}^n \Omega_i \quad \text{e} \quad \widebar{\mathcal{F}} = \sigma \Big( \{  
+  A_1 \times \cdots \times A_n  \, : \,  \forall i \in \{1,\dots,n\},\ A_i \in \mathcal{F}_i \} \Big).
+\end{equation}
+Essa $\sigma$-álgebra e chamada de $\sigma$-álgebra produto e denotaremos ela por $\bigotimes_{i=1}^n \cF_i$,
+o $\cF_1\otimes \cF_2$ quando $n=2$.
+
+\begin{proposition}
+  Se $(\Omega_1, \mathcal{F}_1, P_1), \dots, (\Omega_n, \mathcal{F}_n, P_n)$ são espaços de probabilidade, então existe uma única probabilidade 
+  $\widebar{P}$ no espaço mensurável $(\widebar{\Omega}, \widebar{\mathcal{F}})$ tal que
+  \begin{equation}
+    \widebar{P}(A_1 \times \cdots \times A_n) = \prod_{i=1}^n P_i(A_i), \text{ para todos $A_i \in \mathcal{F}_i$, $i \leq n$.}
+  \end{equation}
+  Essa probabilidade é chamada probabilidade produto.
+\end{proposition}
+
+
+
+
+
+
+\begin{proof}
+  Teoria da Medida.
+\end{proof}
+
+\begin{notation}
+  Usaremos a notação $\bigotimes_{i=1}^n P_i$ o $P_1\otimes P_2 \otimes \dots \otimes P_n$.
+\end{notation}
+
+
+
+Note que a unicidade do produto pode ser concluída por exemplo usando o Corolário~\ref{c:produto_e_unico}.
+
+
+\begin{proposition}
+Se  $\gO:=\prod_{i=1}^n \Omega_i$ e $P:=\bigotimes_{i=1}^n P_i$ então os elementos aleatórios 
+$X_i$ definidos pelas projeções sob as coordenadas $X_i(\go)=\go_i$ são independentes 
+de distribuição respectivas $P_i$
+ 
+\end{proposition}
+
+
+\begin{proof}
+Exercício.
+\end{proof}
+
+
+
+Providenciamos agora um exemplo que da uma aplicação da desigualdade de Markov, Teorema~\ref{t:markov}.
+
+Em vários exemplos importantes, podemos ter dificuldade de calcular probabilidades explicitamente.
+Nesses casos, poderíamos gastar nossas energias tentando calculá-las a qualquer custo, ou podemos nos contentar em obter cotas superiores e inferiores para as probabilidades nas quais estamos interessados.
+
+Em vários casos, a segunda estratégia tem uma grande vantagem sobre a primeira, por possibilitar que estudemos problemas mais complexos (e consequentemente mais importantes/interessantes) e muitas vezes sem nos afastarmos da realidade (em vários exemplos as cotas superiores e inferiores são próximas o suficiente para que não nos preocupemos).
+
+\begin{example}
+  Sejam $n$ patos e $m$ caçadores.
+  Cada caçador escolhe um pato aleatoriamente e uniformemente e atira (abatendo-o com probabilidade $p$).
+  Seja $X = \# \{\text{patos vivos}\}$, que pode ter uma distribuição complicada de calcular, mas
+  \begin{equation}
+    \begin{split}
+      E(X) &= E \Big( \sum_{i=1}^n \1_{[\text{pato $i$ vive}]} \Big) = \sum_{i=1}^n P[\text{pato $i$ vive}]\\
+      &= n P[\text{pato $1$ vive}] = P\Big( \mcap_{j=1}^m [\text{caçador $j$ não mata pato $1$}] \Big)\\
+      &= n P[\text{caçador $j$ não mata pato $1$}]^m = n \Big(1 - \frac{p}{n}\Big).
+    \end{split}
+  \end{equation}
+  Observe que
+  \begin{enumerate}[\quad a)]
+  \item acima obtivemos uma igualdade e
+  \item $[\text{pato $i$ vive}]$, $i = 1, \dots, n$ não são independentes.
+  \end{enumerate}
+
+  Finalmente estimamos (digamos para $n$ par)
+  \begin{equation}
+    \begin{split}
+      & P[\text{patos para o jantar} < n/2] = P[X \geq n/2] \leq \frac{E(X)}{n/2}\\
+      & \qquad = 2 \frac{n}{n} \Big( 1 - \frac{p}{n}\Big)^m \leq 2 \exp \{- \frac{pm}{n}\}.
+    \end{split}
+  \end{equation}
+\end{example}
+\begin{remark}
+No caso onde $P_X$ tem suporte em $\{a,b\}$ o resultado e simplesmente a definição da convexidade.
+No caso $\varphi(x)=|x|^p$, $p>1$, o resultado pode ser considerado e uma consequência imediata da desigualdade de H\"older.
+No caso $\phi(x)=|x|$, o resultado da a desigualdade triangular generalizada (que e valida para integrais com respeito a medidas positivas).
+\end{remark}
+
+
+\begin{exercise}
+  Mostre que o produto de $n$ cópias de $(\{0,1\}, \mathcal{P}(\{0,1\}), \Ber(1/2))$ é a distribuição uniforme em $\{0,1\}^n$.
+\end{exercise}
+
+
+\begin{exercise}
+  Em um espaço produto $(\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2, P_1 \otimes P_2)$, podemos definir
+  \begin{equation}
+    \begin{split}
+      \widebar{\mathcal{F}}_1 & = \{A \times \Omega_2 \, : \, A \in \mathcal{F}_1\},\\
+      \widebar{\mathcal{F}}_2 & = \{\Omega_1 \times B \, : \, B \in \mathcal{F}_2\}.
+    \end{split}
+  \end{equation}
+  Mostre que essas $\sigma$-álgebras são independentes.
+\end{exercise}
+
+
+\begin{exercise}
+  Seja um espaço produto de medidas $(\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2, \mu_1 \otimes \mu_2)$ e defina a probabilidade $P$ atravéz de
+  \begin{equation}
+    \d P = \rho(x,y) \d (\mu_1 \otimes \mu_2).
+  \end{equation}
+  Mostre nesse caso que as coordenadas canônicas $X_1$ e $X_2$ são independentes se e somente se existem 
+  $\rho_1$ e $\rho_2$ em $\Omega_1$ e $\Omega_2$ respectivamente, tais que $\rho(x,y) = \rho_1(x) \rho_2(y)$ 
+  quase certamente com respeito a $\mu_1 \otimes \mu_2$.
+\end{exercise}
+
+
+
+\begin{exercise}
+  Sejam $(X_i)_{i \geq 1}$  elementos aleatórios independentes. Definimos $Y_i:=(X_{2i-1},X_{2i}$.
+  Mostrar que os elementos $(Y_i)_{i\ge 1}$ são independentes
+  
+  \end{exercise}
+
+
+
+\begin{exercise}
+  Sendo $X_1,\dots, X_n$ variáveis de Bernoulli independentes, dar a distribuição de $Z=\sum_{i=1}^n X_i$.
+\end{exercise}
+
+
+
+
+
+\todosec{Tópico: Uma dinâmica em \texorpdfstring{$[0,1]$}{[0,1]}}{fazer dinâmica 2x mod 1 e relações Lebesgue[0,1] com produtos de bernoulli}
+
+\begin{topics}
+
+\section{Tópico: Lei dos pequenos números}
+
+Nessa seção estudaremos como se comportam limites de algumas variáveis aleatórias bastante importantes, mas primeiramente, uma breve intuição.
+
+Apesar de que descreveremos a nossa motivação a partir desse exemplo do estudo de um material radioativo, podemos encontrar aplicações com justificativas bastante semelhantes para outros problemas, como: chegada de carros em um sinal de trânsito, número de mutações em um gene, número de mortes por ano em uma faixa etária...
+
+Digamos que estamos observando um material radioativo que esporadicamente emite fótons que podemos detectar atravéz de um aparelho.
+A razão dessas emissões pode ser aproximada pelo seguinte modelo.
+Na amostra temos um número $n$ grande de átomos instáveis ($n \sim 10^{23}$) e em um determinado tempo de observação, cada um deles tem probabilidade muito baixa de decair emitindo um fóton (digamos $p \sim 10^{-23}$).
+Nesse caso, supondo que todos decidam emitir de maneira independente, temos para $p \in [0,1]$,
+\begin{equation}
+  \label{e:Poisson_setup}
+  \Omega_n = \{0,1\}^n, \quad \mathcal{F}_n = \mathcal{P}(\Omega) \quad \text{e} \quad P_p = \otimes_{i=1}^n Ber(p).
+\end{equation}
+Dessa forma, o número total de emissões observadas para $\omega = (\omega_1, \dots, \omega_n) \in \Omega$ é
+\begin{equation}
+  \label{e:Xn_Poisson}
+  X_n(\omega) = \sum_{i=1}^n \omega_i.
+\end{equation}
+E gostaríamos de entender como se comporta essa distribuição, que nada mais é que $\Bin(n,p)$.
+
+Uma primeira tentativa seria modelar esse processo dizendo que o número de átomos $n$ é tão grande, que somente estamos interessados no comportamento assimtótico quando $n$ vai para infinito.
+Mas para manter o número de emissões sob controle, também gostaríamos que $p = p_n$, que converge a zero.
+Poderíamos por exemplo escolher
+\begin{equation}
+  p_n = \frac \lambda n.
+\end{equation}
+Mas a discussão que se segue é muito mais geral que essa escolha específica.
+
+Como estaremos interessados em um regime assintótico da distribuição de $X_p$ (lembre que apesar do espaço amostral de $X_n$ variar com $n$, sua distribuição é sempre uma probabilidade em $\mathbb{N}$).
+Mas para falar de regimes assintóticos, precisamos de definir uma noção de distância entre duas distribuições em $\mathbb{N}$.
+
+\begin{definition}
+Dadas duas distribuições $\mu_1$ e $\mu_2$ em $(\Omega, \mathcal{A})$, definimos
+\begin{equation}
+  \lVert \mu_1 - \mu_2 \rVert_{\VT} = \sup_{A \in \mathcal{A}} |\mu_1(A) - \mu_2(A)|,
+\end{equation}
+\index{mu1 - mu2@$\lVert \mu_1 - \mu_2 \rVert$} chamada de distância em variação total \index{variacao total@variação total} entre $\mu_1$ e $\mu_2$.
+\end{definition}
+
+No nosso caso, $\Omega$ é enumerável.
+Vamos ver que nesse caso é possível reescrever a definição acima de modo a ver mais facilmente que se trata de uma distância no espaço de probabilidades em $\Omega$.
+
+\begin{lemma}
+\label{l:vt_l1}
+Se $\Omega$ for finito o enumerável, então podemos escrever
+\begin{equation}
+  \lVert \mu_1 - \mu_2 \rVert_{\VT} = \frac{1}{2} \sum_{x\in \gO} |\mu_1(x) - \mu_2(x)|.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Para mostrar que o lado esquerdo é maior ou igual ao direito, escolhemos $A = \{ x \in \Omega \, : \, \mu_2(x) \leq \mu_1(x)\}$. Assim
+\begin{equation}
+  \begin{split}
+    \sum_{x \in A} \mu_1(x) - \mu_2(x) & = |\mu_1(A) - \mu_2(A)|\\
+    & = |\mu_1(A^c) - \mu_2(A^c)| = \sum_{x \in A^c} \mu_2(x) - \mu_1(x),
+  \end{split}
+\end{equation}
+donde
+\begin{equation}
+  \lVert \mu_1 - \mu_2 \rVert_{\VT} \geq |\mu_1(A) - \mu_2(A)| = \frac{1}{2} \sum_{i} |\mu_1(x_i) - \mu_2(x_i)|.
+\end{equation}
+
+Na outra direção, observe que para todo $B \subseteq \Omega$,
+\begin{equation}
+  \begin{split}
+    \sum_{i} |\mu_1(x_i) - \mu_2(x_i)| & \geq \sum_{x \in B} \mu_1(x) - \mu_2(x) + \sum_{x \in B^c} \mu_1(x) - \mu_2(x)\\
+    & = \mu_1(B) - \mu_2(B) + (1 - \mu_2(B)) - (1 - \mu_1(B))\\
+    & = 2(\mu_1(B) - \mu_2(B)).
+  \end{split}
+\end{equation}
+O que termina a prova do lema.
+\end{proof}
+
+Fica agora claro que $\lVert \mu_1 - \mu_2 \rVert_{\VT}$ determina uma distância.
+
+\begin{exercise}
+Mostre um lema análogo ao anterior para $(\Omega, \mathcal{A})$ qualquer, desde que $\mu_1$ e $\mu_2$ sejam absolutamente contínuas com relação à uma medida fixa nesse espaço mensurável. Nesse caso utilizaremos as derivadas de Radon–Nikodym.
+\end{exercise}
+
+Como estaremos interessados em variáveis independentes, precisamos de um resultado que relacione a distância em variação total com produtos de medida. Isso é parte do seguinte
+
+\begin{lemma}
+\label{l:vt_produto}
+Sejam $\mu_1, \mu_2$ distribuições em $\Omega$ e $\nu_1, \nu_2$ distribuições em $y$ ambos enumeráveis. Então
+\begin{equation}
+  \lVert \mu_1 \otimes \nu_1 - \mu_2 \otimes \nu_2 \rVert_{\VT} \leq \lVert \mu_1 - \mu_2 \rVert_{\VT} + \lVert \nu_1 - \nu_2 \rVert_{\VT}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Basta expandir
+\begin{equation}
+  \begin{split}
+    2\lVert \mu_1 & \otimes \nu_1 - \mu_2 \otimes \nu_2 \rVert_{\VT} = \sum_{x \in \Omega, y \in \gO} |\mu_1(x)\nu_1(y) - \mu_2(x)\nu_2(y)|\\
+    & \leq \sum_{x \in \Omega, y \in \gO} |\mu_1(x)\nu_1(y) - \mu_1(x)\nu_2(y)| + |\mu_1(x)\nu_2(y) - \mu_2(x)\nu_2(y)|\\
+    & \leq 2\lVert \mu_1 - \mu_2 \rVert_{\VT} + 2\lVert \nu_1 - \nu_2 \rVert_{\VT}.
+  \end{split}
+\end{equation}
+Onde acima nós usamos que $\mu_1$ e $\nu_2$ são probabilidades. Isso termina a prova do lema.
+\end{proof}
+
+Finalmente, gostaríamos de entender como a distância de variação total se comporta com respeito à soma de variáveis independentes.
+Isso estará ligado à convolução de distribuições:
+
+\begin{definition}
+Dadas, $\mu$ e $\nu$ distribuições em $\mathbb{Z}$, definimos a distribuição
+\begin{equation}
+  (\mu \star \nu)(x) := \sum_{y \in \mathbb{Z}} \mu(x-y) \nu(y).
+\end{equation}
+\end{definition}
+
+Essa definição se relaciona com a soma de variáveis independentes graças ao seguinte
+\begin{exercise}
+Se $X \overset{d}\sim \mu$ e $Y \overset{d}\sim \nu$ são variáveis aleatórias inteiras e independentes, então $X + Y \overset{d}\sim \mu \star \nu$.
+Dica: particione o espaço amostral nos eventos $[X = j]$, para $j \in \mathbb{Z}$, como na prova do Lema~\ref{l:soma_poisson} abaixo.
+\end{exercise}
+
+\begin{corollary}
+Se $\mu$ e $\nu$ são distribuições em $\mathbb{Z}$, então $\mu \star \nu = \nu \star \mu$.
+\end{corollary}
+
+Como prometido, obtemos a seguinte relação entre a convolução e a distância de  variação total.
+\begin{lemma}
+\label{l:vt_conv}
+Sejam $\mu$, $\nu$ duas medidas em $\gO$ enumerável e $X:\  (\gO,\cP(\gO))\to (E,\cA)$ um elemento aleatório
+\begin{equation}
+   \lVert X_*\mu - X_*\nu\rVert_{\VT}\le    \lVert \mu - \nu\rVert_{\VT}.
+\end{equation}
+Em particular se $\mu_1, \mu_2, \nu_1, \nu_2$ são distribuições em $\mathbb{Z}$, então
+\begin{equation}
+  \lVert \mu_1 \star \nu_1 - \mu_2 \star \nu_2 \rVert_{\VT} \leq \lVert \mu_1 \otimes \nu_1 - \mu_2 \otimes \nu_2 \rVert_{\VT}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+O segundo ponto segue do primeiro aplicado ao caso $\gO=\bbZ^2$, $E=\bbZ$ e $X:\ (x,y) \mapsto (x+y)$. 
+Pelo primeiro, observamos 
+\begin{equation}
+  \begin{split}
+    2\lVert X_*\mu - X_*\nu\rVert_{\VT} &= \sum_{x \in E} \Big| \mu(X(\go)=x) - \nu(X(\go)=x) \Big|\\
+    & =  \sum_{x \in E} \big| \sum_{\{\go \in\gO \ : \ X(\go)=x\}}  \mu(\go) - \nu(\go) \big|\\
+    & \leq \sum_{\go \in \gO} \big| \mu(\go)- \nu(\go) \big|\\
+    & = 2\lVert \mu - \nu\rVert_{\VT}.
+  \end{split}
+\end{equation}
+
+\end{proof}
+
+Para enunciar o resultado principal dessa seção, vamos apresentar uma distribuição em $\mathbb{N}$ bastante importante, que em particular se comporta muito bem com respeito a somas de variáveis independentes, como veremos.
+
+\begin{definition}
+  Uma variável aleatória $X$ é dita ter distribuição de Poisson \index{distribuicao@distribuição!de Poisson} com parâmetro $\lambda$, se
+  \begin{equation}
+    P[X = k] = \frac{\lambda^k e^{-\lambda}}{k!}, \text{ para $k \geq 0$ inteiro.}
+  \end{equation}
+  Denotamos isso por $X \overset{d}\sim \Poisson(\lambda)$.
+\end{definition}
+
+A distribuição de Poisson se comporta bem com respeito a somas independentes, como mostra o seguinte
+\begin{lemma}
+\label{l:soma_poisson}
+Sejam $X \overset{d}\sim \Poisson(\lambda_1)$ e $Y \overset{d}\sim \Poisson(\lambda_2)$ independentes, então $X+Y \overset{d}\sim \Poisson(\lambda_1 + \lambda_2)$.
+\end{lemma}
+
+\begin{proof}
+Basta calcular
+\begin{equation}
+  \begin{split}
+    P[X+Y = k] & = \sum_{j = 0}^k P[X = j, Y = k-j] = \sum_{j = 0}^k \frac{\lambda_1^j e^{-\lambda_1} \lambda_2^{k-j} e^{-\lambda_2}}{j! (k-j)!}\\
+    & = e^{-(\lambda_1 + \lambda_2)} \frac{1}{k!} \sum_{j = 0}^k \frac{k!}{j! (k-j)!} \lambda_1^j \lambda_2^{k-j} = \frac{e^{(\lambda_1 + \lambda_2)} (\lambda_1 + \lambda_2)^k}{k!},
+  \end{split}
+\end{equation}
+mostrando o resultado.
+\end{proof}
+
+Nossa próxima tarefa é estimar a distância entre uma variável aleatória com distribuição $\Ber(p)$ e uma $\Poisson(p)$, como segue.
+
+\begin{lemma}
+\index{Lei!dos Pequenos Numeros@dos Pequenos Números}
+\label{l:vt_ber_poiss}
+Para $p \in [0,1]$, seja $\mu_1 = \Ber(p)$ e $\mu_2 = \Poisson(p)$, então,
+\begin{equation}
+  \lVert \mu_1 - \mu_2 \rVert_{\VT} \leq p^2.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Sabemos que
+\begin{equation}
+  \begin{split}
+    \lVert \mu_1 - \mu_2 \rVert_{\VT} & = \frac{1}{2} \sum_{x} |\mu_1(x) - \mu_2(x)|\\
+    & = \frac{1}{2} \Big( |\mu_1(0) - \mu_2(0)| + |\mu_1(1) - \mu_2(1)| + \sum_{x \geq 2} \mu_2(x) \Big)\\
+    & = \frac{1}{2} \Big( e^{-p} - (1-p) + p(1-e^{-p}) + (1 - e^{-p} - p e^{-p}) \Big)\\
+    & = \frac{2}{2} p (1 - e^{-p}) \leq p^2,
+  \end{split}
+\end{equation}
+terminando a prova.
+\end{proof}
+
+O teorema principal de convergência dessa seção concerne a soma de variáveis Bernoulli.
+
+\begin{theorem}[Lei dos Pequenos Números]
+  \label{t:lei_peq_numeros}
+  Dado, $n \geq 1$ e $p \in [0,1]$, suponha que $\Omega_n$, $\mathcal{F}_n$ e $P_p$ sejam dados como em \eqref{e:Poisson_setup}.
+  Então,
+  \begin{equation}
+    \lVert \Bin(n,p) - \Poisson(pn) \rVert_{\VT} \leq n p^2.
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  Basta observar que
+  \begin{equation}
+    \begin{split}
+      \lVert X_n \circ P_p - \Poisson(pn) \rVert_{\VT} & \overset{\text{Lema~\ref{l:soma_poisson}}}= \lVert \Ber(p)^{\star n} - \Poisson(p)^{\star n} \rVert_{\VT}\\
+      \overset{\text{Lema~\ref{l:vt_conv}}}\leq & \lVert \Ber(p)^{\otimes n} - \Poisson(p)^{\otimes n} \rVert_{\VT}\\
+      \overset{\text{Lema~\ref{l:vt_produto}}}\leq & n \lVert \Ber(p) - \Poisson(p) \rVert_{\VT} \overset{\text{Lema~\ref{l:vt_ber_poiss}}}\leq n p^2,
+    \end{split}
+  \end{equation}
+  provando o teorema.
+\end{proof}
+
+\begin{corollary}
+  No mesmo contexto do teorema acima, se $p = \lambda/n$, então temos
+  \begin{equation}
+    \lVert \Bin(n,p) - \Poisson(pn) \rVert_{\VT} \leq \lambda^2 / n,
+  \end{equation}
+  que converge a zero com $n$.
+\end{corollary}
+Dizemos que a probabilidade $\Bin(n,\gl/n)$ converge \textsl{em variação total} para $\Poisson(pn)$.
+Veremos mais tarde que existem outros tipos de convergência.
+
+
+\begin{exercise}
+  Fixado $\lambda > 0$, seja $N$ uma variável aleatória com distribuição Poisson($\lambda$), isto é
+  \begin{equation}
+    P[N = k] = \frac{\lambda^k e^{-\lambda}}{k!} \text{ para $k = 0, 1, \dots$}
+  \end{equation}
+  Considere no mesmo espaço de probabilidade uma sequência de variáveis aleatórias $X_1, X_2, \dots$ que sejam \iid, com distribuição $\Ber(1/2)$ e independentes de $N$.
+  \begin{enumerate}[\quad a)]
+  \item Calcule a distribuição de $Z = \sum_{i=1}^N X_i$.
+  \item Mostre que $Z$ e $N - Z$ são independentes.
+  \end{enumerate}
+\end{exercise}
+
+\end{topics}
+
+
+\section{Construção de espaços produtos infinitos}
+
+
+Jà vimos na secção anterior que para qualquer coleção finita  $\mu_1,\dots,\mu_n$ de probabilidades definidas em espaços
+$E_1,\dots,E_n$, podemos construir um espaço de probabilidade $(\gO,\cF,P)$, tal que existem elementos aleatórios $X_i:\gO\to E_i$,
+$i=1,\dots,n$ independentes, tais que $(X_i)_*P$ (a escolha canônica sendo de escolher o espaço produto, a medida produto e as coordenadas).
+
+\medskip
+
+Por essa razão, faz sentido de falar ``consideramos $X_1,\dots,X_n$ independentes de distribuição respetivas $\mu_i$ '', e 
+no futuro faremos isso sem nem sempre cuidar do
+espaço de probabilidade subjacente.
+
+\medskip
+
+Queremos obter a mesma liberdade para coleções infinitas de elementos aleatórios 
+(a utilidade sendo de poder considerar, por exemplo limites de somas de variáveis independentes).
+
+\medskip
+
+Vamos considerar primeiro o caso de variáveis aleatórias, para qual existe uma construção simples.
+Primeiro temos que introduzir o espaço e a $\sigma$-álgebra usados na definição de probabilidade produto.
+
+\begin{definition}
+Dada uma coleção de espaços $(E_n)_{n\ge 1}$, definimos o espaço produto
+\begin{equation}
+  \Omega = \prod_{n=1}^{\infty} E_n := \big\{\go=(\go_n)_{n\in \bbN} \, : \, \forall n\ge 1, \   \omega_n \in E_n \big\}.
+\end{equation}
+e os mapas $X_i:\Omega \to E_n$, definidos para $i\ge 1$ por
+\begin{equation}
+  X_i(\omega) = \omega_i,
+\end{equation}
+que chamamos de \emph{coordenadas canônicas} \index{coordenadas canonicas@coordenadas canônicas} associadas ao produto $\Omega$.\\
+Se cada $E_i$ é dotado de uma $\sigma$-álgebra $\mathcal{A}_i$, então definimos
+\begin{equation}
+  \mathcal{F} := \sigma( (X_i)_{i\geq 1} ),
+\end{equation}
+que é a menor $\sigma$-álgebra em $\gO$ que deixa as applicações coordenadas mensúraveis.
+Chamamos $\mathcal{F}$ de $\sigma$-álgebra canônica (o $\sigma$-álgebra produto), pode ser denotada informalmente como $\bigotimes_{n=1}^{\infty}\gO_i$.
+\end{definition}
+
+\begin{exercise}
+  Mostre que em $(\mathbb{R}^{\mathbb{N}},\mathcal{F})$ temos que os conjuntos
+  \begin{enumerate}[\quad a)]
+  \item $A = \{ \liminf_{n\to \infty} X_n \notin \{\infty,-\infty\} \}$,
+  \item $B = \{ \lim_{n\to \infty} X_n = 4\}$ e
+  \item $C = \{ \lim_{n\to \infty} \tfrac{1}{n} X_n \text{ existe}\}$
+  \end{enumerate}
+  são todos mensuráveis (eventos) com respeito a $\mathcal{F}$.\\
+  \noindent Mostre que $Y = f(\liminf_{n\to \infty} X_n)$ onde $f$ e uma função continua com limite en $\infty$ e $-\infty$ é uma variável aleatória em $(\Omega, \mathcal{F})$.
+\end{exercise}
+
+\begin{exercise}
+  Verifique as seguinte afirmações
+  \begin{enumerate}[\quad a)]
+  \item $\mathcal{F} = \sigma\big(A_1 \times \dots \times A_k \times E_{k+1} \times E_{k+2} \times \dots\, : \, k \geq 1, A_i \in \mathcal{A}_i, i \leq k\big)$,
+  os chamados eventos retangulares.
+  \item $\mathcal{F} = \sigma\big(A \times E_{k+1} \times E_{k+2} \times \dots\, : \, k \geq 1, A \in \mathcal{A}_i \otimes \dots \otimes \mathcal{A}_k\big)$,
+  conhecidos como eventos cilíndricos.
+  \end{enumerate}
+\end{exercise}
+
+
+
+Com essa noção de $\sigma$-álgebra podemos introduzir a noção de medida produto
+\begin{definition}
+Dada uma coleção de espaços de probabilidade $(E_n,\cA_n,\mu_n)_{n\ge 1}$, e
+sendo $(\gO,\cF)$ o espaço produto associado. Chamamos de probabilidade produto dos $(\mu_n)_{n\ge 1}$ em $\gO$ uma probabilidade $P$ que satisfaz
+\begin{multline}
+\forall n\in \bbN, \forall A_1\in \cA_1,\dots, A_n\in \cA_n, \\ P(\go_1\in A_1,\dots ,\go_n\in A_n)=\prod_{i=1}^n \mu_i(A_i).
+\end{multline}
+Isso e equivalente a dizer que as variáveis coordenadas $X_i(\go)$ são independentes e identicamente distribuídas.
+Escrevemos $P=\bigotimes_{n\ge 1} \mu_i$.
+Essa probabilidade sempre existe e é única.
+\end{definition}
+
+A prova da existência exige um trabalho considerável e deixamos ela para mais tarde.
+Observe que a unicidade implica que a frase ``$X_n, \ n\ge 1$ e uma sequencia de variáveis independentes com distribuição respectivas $\mu_n, n\ge 1$''
+descreve totalmente a distribuição imagem de sequência aleatória $(X_n)_{n\ge 1}$.
+
+\begin{proof}
+ Sabemos que $\cF$ e gerada pelos eventos cilíndricos que formam um $\pi$-sistema.
+ Como, por definição, duas probabilidade produtos tem que coincidir neste $\pi$-sistema, podemos concluir usando 
+ o Teorema $\pi$-$\gl$.
+\end{proof}
+
+\begin{exercise}\label{ex:duplo}
+Sejam $(X_{n,m})_{n\ge 1,m\ge 1}$ uma sequência dupla de elementos aleatórios independentes.
+Mostrar que a sequência de elementos $(Y_n)_{n\ge 1}$ definida por $Y_n:=(X_{n,m})_{m\ge 1}$ e independentes.
+\end{exercise}
+
+
+
+
+\subsection{Construção de uma sequência de variáveis $\Ber(1/2)$ independentes}
+
+ Consideramos $\gO=[0,1]$ e $P=U_{[0,1]}$.
+ Para $\go\in[0,1]$, definimos $(X_n)_{n\ge 1}$ a sequencia de $\{0,1\}^{\bbN}$ tal que 
+ 
+ \begin{equation}\label{eq:deco}
+ \go:= \sum_{n=1} X_n(\go)2^{-n}.
+ \end{equation}
+ Se tiver mais que uma, escolhemos a maior pela ordem lexicográfica.
+
+ \begin{proposition}
+
+ As variáveis $(X_n)_{n\ge 1}$ são independentes, com distribuição $\Ber(1/2)$.
+ 
+ \end{proposition}
+
+
+ \begin{proof}
+Verificamos que para qualquer $q\in \bbN$ e$\gep=(\gep_1,\dots,\gep_q)\in \{0,1\}^q$,
+  temos
+    \begin{equation}\label{bassico}
+   P[X_{1}=\gep_1\ ;\dots; \ X_{q}=\gep_q]=2^{-q}.
+  \end{equation}
+Podemos mesmo verificar que dado uma família de eventos $A_i\subset \{0,1\}$, somando probabilidade usando união disjunta \eqref{bassico} tem como consequência 
+   \begin{equation}
+   P[X_{1}\in A_1 \ ;\dots; \ X_{q}\in A_q]=2^{-q} \prod_{i=1}^q \# A_q,
+  \end{equation}
+  o que permite identificar as distribuições marginais e provar independência.
+Para mostrar \eqref{bassico} observamos que
+  $$ \{ \go \ | \ X_{1}=\gep_1\ ;\dots; \ X_{q}=\gep_q \}= [x(q,\gep),x(q,\gep)+2^{-q}),$$
+  onde $x(q,\gep):=\sum_{n=1}^q \gep_n 2^{-n}$, pois
+a definição da medida de Lebesgue permite de concluir. 
+  
+  
+  \end{proof}
+
+  
+  
+  
+  
+ \subsection{Construção de uma sequência de variáveis independentes com distribuições marginais qualquer}
+
+Seja $(\mu_n)_{n\ge 1}$ uma sequência de medida de probabilidade em $\bbR$ (com a $\sigma$ álgebra de Borel).
+Queremos construir um espaço de probabilidade e uma sequência de variáveis independentes $X_n(\go)$ tal que que para todo $n\in\bbN$ 
+$(X_n)_*P=\mu_n$.
+
+
+\medskip
+
+Definimos $\gO:=\{0,1\}^{\bbN}$ e $P$ sendo a medida definida na secção anterior para qual 
+as coordenadas $Y_n(\go)$, $n\ge 1$  são Bernoulli independentes de parâmetro $1/2$.
+Consideramos $m: \bbN\to \bbN^2$ a bijecção definida por 
+
+$m(p,q):= \frac{(p+q)^2}{2}+\frac{p-q}{2}.$
+
+e definimos 
+
+$Z_n:=\sum_{q=1}^{\infty} 2^{-n} Y_{m(n,q)} $
+
+\begin{lemma}
+As variáveis aleatórias $(Z_n)_{n\ge 1}$ são independentes, de distribuição $U[0,1]$.
+\end{lemma}
+ 
+ \begin{proof}
+Para identificar a distribuição de $Z_n$, observamos que por unicidade da probabilidade produto em $\{0,1\}^{\bbN}$, $Z_n$ tem que ter a mesma distribuição que 
+$\go$ em \eqref{eq:deco}.
+Segundo, observamos que pelo Exercício \ref{ex:duplo} as sequências $W_n:=(Y_{m(n,q)})_{q\ge 1}$.
+Pelo Exercício \ref{ex:indepfun}, os $Z_n$ o são também.
+\end{proof}
+
+
+Para concluir, $F_n$ sendo a a função de distribuição associada a $\mu_n$ e 
+$$S_n(u):=\sup\{\ x  \ : \ F_n(x)<u \}$$
+definimos $X_n:=F_n(Z_n)$.
+
+\begin{proposition}
+ As variáveis $(X_n)_{n\ge 1}$ são independentes e 
+ para cada $n$, $(X_n)_* P=\mu_n$.
+ \end{proposition}
+
+ \begin{proof}
+  Independência vem do Exercício \ref{ex:indepfunc}. A distribuição das marginais segue da prova to Teorema \ref{t:existe_prob_R}.
+  
+ \end{proof}
+
+ 
+ 
+\begin{exercise}
+  Marcelo coleciona figurinhas de futebol.
+  O álbum completo conter\'a $N$ figurinhas. No $i$-ésimo dia, ele compra uma nova carta $X_i \in \{1, \dots, N\}$.
+  A cole\c{c}\~ao $(X_i)_{i \geq 0}$ é distribuída de maneira \iid e uniforme nas figurinhas.
+  \begin{enumerate}[\quad a)]
+  \item Para $j = 1, \dots, N$, seja $T_j$ o tempo passado até a aquisi\c{c}\~ao da $j$-ésima nova figurinha, i.e.
+    \begin{equation}
+      T_1 = 1 \quad \text{ e } \quad T_{j+1} = \inf\{i\ge T_{j}+1 \ : \  X_i\notin \{X_k\ : \ k\le T_j\} \}.
+    \end{equation}
+    Mostre que $T_j$ é finito quase certamente, para todo $j \leq N$.
+  \item Calcule a distribuição conjunta de $(T_1, T_2 - T_1, \dots, T_N - T_{N-1})$.
+  \item Calcule a esperança de $T_N$ (o dia em que Marcelo completa seu álbum).
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid e defina o primeiro tempo de recorde como
+  \begin{equation}
+    R = \inf\{i \geq 2 \ : \  X_i \geq X_1\}.
+  \end{equation}
+  Supondo que $P[X_i=x]=0$ para todo $x\in\bbR$, encontre $E(R)$.
+\end{exercise}
+
+
+\section{Lei \texorpdfstring{$\{0, 1\}$}{\{0,1\}} de Kolmogorov}
+
+Ao estudarmos o Lema de Borel-Cantelli, vimos que se os eventos $(A_i)_{i \geq 1}$ são independentes então a probabilidade de $[A_i \text{ infinitas vezes}]$ somente pode assumir os valores zero ou um (dependendo da somabilidade de $P(A_i)$).
+Nessa seção iremos estudar outros tipos de evento que assumem apenas esses dois valores.
+Esperamos que esse fenômeno se torne intuitivo ao final dessa discussão.
+
+No que se segue, consideraremos um espaço mensurável $\Omega = \prod_{i=1}^\infty E$, com a $\sigma$-álgebra canônica $\mathcal{F}$, 
+isto é a $\sigma$-álgebra gerada pelas coordenadas canõnicas $(X_i)_{i=1}^\infty$.
+\begin{definition}
+  Dizemos que um evento $A \in \mathcal{F}$ é caudal se
+  \begin{equation}
+    A \in \sigma\big( X_i \ : \ i \geq n\big), \text{ para todo $n \geq 1$}.
+  \end{equation}
+  Também introduzimos a classe $\mathcal{F}_\infty$ de tais eventos, que claramente é uma $\sigma$-álgebra, pois pode ser escrita como
+  \begin{equation}
+    \mathcal{F}_\infty = \mcap_{n \geq 1} \sigma\big( X_i \ : \ i \geq n\big).
+  \end{equation}
+  Chamamos $\mathcal{F}_\infty$ de $\sigma$-álgebra caudal. \index{sigma-algebra@$\sigma$-álgebra!caudal}
+\end{definition}
+
+Vejamos que, dados $A_i \in \sigma(X_i)$, $i \geq 1$, temos que $[A_i \text{ infinitas vezes}]$ é caudal.
+Para tanto, basta observar que para todo $n \geq 1$, temos que
+\begin{equation*}
+  [A_i \text{ infinitas vezes}] = \big[\#\{i \geq 1 \, : \, \omega \in A_i\} = \infty\big] = \big[\#\{i \geq n \, : \, \omega \in A_i\} = \infty\big],
+\end{equation*}
+que obviamente pertence a $\sigma(X_i\, : \, i \geq n)$ para todo $n \geq 1$.
+
+\begin{exercise}
+  Mostre que em $\Omega = \mathbb{R}^{\infty}$, são caudais os seguintes eventos
+  \begin{enumerate}[\quad a)]
+  \item $[X_i \text{ converge}]$,
+  \item $\big[\tfrac{1}{n} \sum_{i=1}^n X_i \text{ converge}\big]$ e
+  \item $[\#\{i \geq 1\, : \, X_i > 0\} < \infty]$.
+  \end{enumerate}
+\end{exercise}
+
+Podemos agora enunciar o pricipal teorema dessa seção
+
+\begin{theorem}[Lei $\{0,1\}$ de Kolmogorov]
+  \index{Lei!0,1 de Kolmogorov@$\{0,1\}$ de Kolmogorov}
+  Se $\Omega = E^{\bbN}$, onde $E$ é um espaço canônico, for provido de uma lei produto $P = \otimes_{i=1}^\infty P_i$, então todo evento caudal tem probabilidade $0$ ou $1$ sob $P$.
+\end{theorem}
+
+Quando uma $\sigma$-álgebra $\mathcal{F}$ satisfaz $P(A) \in \{0,1\}$ para todo $A \in \mathcal{F}$, dizemos que $\mathcal{F}$ é trivial. \index{sigma-algebra@$\sigma$-álgebra!trivial}
+Uma outra maneira de enunciar a conclusão do teorema acima é dizer que a $\sigma$-álgebra caudal $\mathcal{F}_\infty$ é trivial.
+
+\begin{proof}
+  A idéia da prova, apesar de soar um pouco estranha, é mostrar que se $A \in \mathcal{F}_\infty$, então $A$ é independente de si mesmo.
+  Em outras palavras, $P(A) = P(A \cap A) = P(A)^2$, donde $P(A) \in \{0,1\}$.
+  Mas vamos com calma.
+
+  Fixe $k \geq 1$, $A \in \mathcal{F}_\infty$ e $B \in \sigma(X_1, \dots, X_k)$.
+  Nesse caso, como o evento $A$ pertence a $\sigma(X_{k+1}, X_{k+2}, \dots)$, temos que $A$ e $B$ são independentes.
+  Fixe agora $A \in \mathcal{F}_\infty$ e considere a classe
+  \begin{equation}
+    \mathcal{B}_A = \{B \in \mathcal{F}\, : \, \text{ $B$ é independente de $A$}\}.
+  \end{equation}
+  Já sabemos que $\sigma(X_1, \dots, X_k) \subseteq \mathcal{B}_A$ para todo $k \geq 1$.
+
+  Obviamente $\Omega$ é independente de $A$, assim como $B^c \in \mathcal{B}_A$ sempre que $B \in \mathcal{B}_A$.
+  Além disso, suponha que $(B_i)_{i\in I}$ (finito o enumerável) in $\mathcal{B}_A$ são disjuntos, então,
+  \begin{equation*}
+    P\big( (\mcup_{i\in I} B_i) \cap A \big) = P\big( \mcup_{i\in I} (B_i \mcap A) \big) \overset{\text{disj.}}= \sum_{i\in I} P(B_i \mcap A) \overset{\text{indep.}}
+    = P(A) P(\mcup_{i\in I} B_i).
+  \end{equation*}
+  Logo $\mathcal{B}_A$ é um $\lambda$-sistema.
+
+  Lembrando que $\mathcal{B}_A$ contém o $\pi$-sistema $\bigcup_k \sigma(X_1, \dots, X_k)$, isto é dos eventos cilíndricos, temos que todos eventos são indepentes de $A$, inclusive o próprio $A$.
+  Isso termina a prova do teorema.
+\end{proof}
+
+\begin{exercise}
+  Dizemos que uma probabilidade $P$ no espaço produto $\Omega = E^{\bbN}$ (com a $\sigma$-álgebra canônica) é fortemente misturadora se, para todo $k \geq 1$, temos
+  \begin{equation}
+    \lim_{n \to \infty} \sup \{ \big| P(A \cap B) - P(A) P(B) \big| \, : \, A \in \sigma(X_1, \dots, X_k), \ B \in \sigma(X_n, X_{n+1}, \dots) \}= 0.
+  \end{equation}
+  Mostre que nesse caso, a $\sigma$-álgebra dos eventos caudais é trivial.
+\end{exercise}
+
+
+ \begin{topics}
+\section{Tópico: Percolação}
+\label{s:percolacao}
+
+Imagine que gostaríamos de modelar o movimento de um líquido em um meio poroso, como uma rocha ou uma esponja.
+A primeira tarefa nesse estudo seria modelar esse meio poroso de maneira matematicamente rigorosa, que é o que faremos a seguir.
+
+Fixamos uma dimensão $d \geq 1$ e consideramos o seguinte grafo $(\mathbb{Z}^d, E)$, 
+onde a rede quadrada $\mathbb{Z}^d$ é o conjunto de vértices e o conjunto de elos é dado por
+\begin{equation*}
+  E = \big\{ \{x, y\} \subset \mathbb{Z}^d \, : \,  |x - y| = 1 \},
+\end{equation*}
+onde $|\cdot|$ representa a distância euclideana em $\mathbb{R}^d$.
+
+No nosso modelo, esse grafo pode ser entendido como um cristal periódico onde cada vértice representa uma cavidade do material poroso e os elos são potenciais conexões entre poros vizinhos.
+
+Até agora nosso grafo é apenas uma rede periódica, mas as coisas começam a ficar interessantes à partir de agora.
+Imaginamos que nosso material poroso está sujeito a variações durante sua formação.
+Isso se reflete no fato que alguns elos de $E$ podem estar abertos ou não aleatoriamente.
+
+Para o nosso modelos, o espaço amostral vai ser $\gO:= \{0,1\}^E$ considerado com a $\sigma$-algebra produto. 
+Fixamos um $p \in [0,1]$ e definimos uma coleção de variáveis aleatórias $\go_e$, para $e \in E$, que sejam \iid e com distribuição $\Ber(p)$.
+Chamamos $P_p$ a probabilidade corespondente.
+Essas variáveis aleatórias induzem um grafo aleatorio $G(\go)=(\mathbb{Z}^d, \mathcal{E}(\go))$, subgrafo do grafo original,  
+que corresponde a incluir apenas os elos $e$ com $\go_e = 1$.
+Mais precisamente
+\begin{equation}
+  \mathcal{E}(\go) = \big\{ e \in E\, : \, \go_e = 1 \big\}.
+\end{equation}
+Podemos ver na Figura~\ref{f:percola} algumas simulações desse grafo aleatório.
+
+\begin{figure}[!ht]
+  \centering
+  \begin{tikzpicture}[scale=.1]
+    \ifdraft{\def\side{5}}{\def\side{30}}
+    \draw[step=1, color=gray!50!white] (1,1) grid (\side + 1, \side + 1)
+                                       (41, 1) grid (41 + \side, \side + 1) (81, 1) grid (81 + \side, \side + 1);
+    \foreach \x in {1,...,\side}
+    { \foreach \y in {1,...,\side}
+      { \pgfmathrandominteger{\a}{0}{100} \ifthenelse{\a>60}{\draw[thick] (\x, \y) -- (\x, \y + 1);}{}
+        \pgfmathrandominteger{\a}{0}{100} \ifthenelse{\a>60}{\draw[thick] (\x, \y) -- (\x + 1, \y);}{} } }
+    \foreach \x in {1,...,\side}
+    { \foreach \y in {1,...,\side}
+      { \pgfmathrandominteger{\a}{0}{100} \ifthenelse{\a>50}{\draw[thick] (40 + \x, \y) -- (40 + \x, \y + 1);}{}
+        \pgfmathrandominteger{\a}{0}{100} \ifthenelse{\a>50}{\draw[thick] (40 + \x, \y) -- (40 + \x + 1, \y);}{} } }
+    \foreach \x in {1,...,\side}
+    { \foreach \y in {1,...,\side}
+      { \pgfmathrandominteger{\a}{0}{100} \ifthenelse{\a>40}{\draw[thick] (80 + \x, \y) -- (80 + \x, \y + 1);}{}
+        \pgfmathrandominteger{\a}{0}{100} \ifthenelse{\a>40}{\draw[thick] (80 + \x, \y) -- (80 + \x + 1, \y);}{} } }
+  \end{tikzpicture}
+  \caption{Três simulações do grafo aleatório $(\mathbb{Z}^d, \mathcal{E})$, para valores de $p = 0,4$ (esquerda), $p = 0,5$ (centro) e $p = 0,6$ (direita). Tente imaginar como seria caminhar nesse grafo como se ele fosse um labirinto.}
+  \label{f:percola}
+\end{figure}
+
+Agora que temos um modelo de meio poroso bem definido, precisamos pensar em quais perguntas nos interessam sobre $\mathcal{G} = (\mathbb{Z}^d, \mathcal{E})$.
+Sendo esse um modelo por a passagem de fluido, as primeiras perguntas que faremos concerne a conectividade de $\mathcal{G}$.
+
+\begin{exercise}
+  Mostre que quase certamente $G(\go)$ é desconexo.
+  Mais precisamente, mostre que existem quase certamente infinitos vértices isolados em $G(\go)$.
+\end{exercise}
+
+Como não podemos esperar que $G(\go)$ seja conexo, podemos nos perguntar algo mais fraco, como por exemplo se a 
+componente conexa da origem $0 \in \mathbb{Z}^d$ em $G(\go)$ é infinita.
+
+Voltando à Figura~\ref{f:percola} vemos que, dependendo do valor de $p \in [0,1]$, pode ser bem difícil ou bem fácil encontrar um caminho longo à partir da origem.
+Isso é uo que estudaremos em mais detalhes no que segue.
+
+Mais precisamente estamos interessados em:
+\begin{equation}
+  A = \big\{\omega \in \Omega \, : \,  \text{ a componente conexa de $0 \in \mathbb{Z}^d$ em $G(\go)$ é infinita} \big\}.
+\end{equation}
+
+Para estudar $A$, vamos fazer uma aproximação de $A$ por eventos mais simples
+\begin{equation}
+  A_n = \big\{ \omega \in \Omega \, : \, \text{ a componente conexa de $0$ sai da caixa $[-n, n]^d$}\},
+\end{equation}
+para $n \geq 1$.
+
+\begin{exercise}
+  Mostre que $A = \cap_{n=1}^n A_n$ e consequentemente que $A$ é de fato mensurável e $P(A) = \lim_{n\to \infty} P(A_n)$.
+\end{exercise}
+
+Definimos portanto a função $\theta:[0,1] \to [0,1]$ por
+\begin{equation}
+  \theta(p) = P_p(A),
+\end{equation}
+onde $P_p$ denota a probabilidade correspondente ao valor escolhido de $p \in [0,1]$.
+
+\begin{exercise}
+  Mostre que $\theta(p) \leq 1-(1-p)^{2d}$.
+\end{exercise}
+
+Nosso objetivo é entender algumas das propriedades de $\theta$.
+A nossa intuição diz que quanto maior o valor de $p$, mais elos serão abertos em $\mathcal{G}$ e portanto maior será o valor de $\theta$, ou em outras palavras, $\theta$ deve ser monótona não decrescente.
+
+\begin{exercise}
+  Construiremos nosso modelo de uma maneira alternativa num espaço de probabilidade maior.
+  Definimos $\gO_0:=[0,1]^E$ (com a $\sigma$-álgebra produto correspondente), e $(U_e)_{e\in E}$ 
+  uma coleção de variáveis aleatórias \iid com distribuição $U[0,1]$, e  $\mathbb{P}$ a probabilidade corespondente.
+  Definimos para cada $p \in [0,1]$, $X^p : \gO_0 \to \gO$ do jeito seguinte
+  \begin{equation}
+    X^p_e = \1_{[\go_e \leq p]}.
+  \end{equation}
+  Mostre que para todo $p \in [0,1]$  $(X^p)_*\bbP=P_p$.
+  Use isso para concluir que $\theta$ é monótona não decrescente.
+\end{exercise}
+
+Iremos agora mostrar a existência de um regime para o qual a componente conexa da origem não é infinita.
+
+\begin{theorem}
+  Para $p < 1/(2d)$, temos que $\theta(p) = 0$.
+\end{theorem}
+
+Antes da prova, alguns exercícios.
+
+\begin{exercise}
+  Definimos um caminho como sendo uma sequência $x_1$, $\dots$, $x_k$ ($k \in \mathbb{N}$), tal que $\{x_i, x_{i+1}\} \in E$ para todo $i = 1, \dots, k-1$.
+  Tal caminho é dito aberto se $\go_{\{x_i, x_{i+1}\}} = 1$ para todo $i \leq k-1$.
+  E dizemos que ele é auto-evitante se $x_i \neq x_j$ para todo $1 \leq i < j < k$.
+  Mostre que
+  \begin{equation*}
+    \begin{split}
+      & A_n = \Big\{ \omega \in \Omega \, : \,  \text{ existe um caminho aberto $(x_i)_{i=1}^{k}$ com $x_1 = 0$ e $x_k \not \in [-n, n]^d$} \Big\}\\
+      & A_n = \big\{ \omega \in \Omega \, : \, \text{ existe um caminho auto-evitante como acima} \big\}.
+    \end{split}
+  \end{equation*}
+\end{exercise}
+
+\begin{proof}
+  Dado $p < 1/(2d)$ e $n \in \mathbb{N}$, lembramos que
+  \begin{equation*}
+    \begin{split}
+      \theta(p) & \leq P_p(A_n) = P_p \Big[
+      \begin{array}{c}
+      \text{existe $k \in \mathbb{N}$ e um caminho auto-evitante $(x_i)_{i=1}^k$ }\\
+      \text{aberto e com $x_1 = 0$ e $x_k \not \in [-n, n]^d$}
+    \end{array} \Big]\\[2mm]
+    & \leq \sum_{k \geq n} \; \; \sum_{(x_i)_{i=1}^k \text{ auto-evit.}} P_p [(x_i)_{i=1}^k \text{ aberto}] = \sum_{k \geq n} \; \; \sum_{(x_i)_{i=1}^k \text{ auto-evit.}} p^k\\
+    & \leq \sum_{k \geq n} \; \; \sum_{(x_i)_{i=1}^k \text{ caminho}} P_p [(x_i)_{i=1}^k \text{ aberto}] = \sum_{k \geq n} (2d)^k p^k.
+    \end{split}
+  \end{equation*}
+  Como $p < 1/(2d)$, a soma acima é finita e converge a zero quando $n$ diverge, provando o teorema.
+\end{proof}
+
+{\bf Notas} - O teorema acima ajuda a compreender o comportamento que observamos no lado esquerdo da Figura~\ref{f:percola}.
+Mais precisamente, ele nos diz que para valores de $p$ baixos (na verdade $0,4$ não é baixo o suficiente para podermos aplicar esse teorema) é difícil encontrar um caminho aberto do centro à borda da caixa.
+
+Na verdade, é possível mostrar que para $d = 2$,
+\begin{equation}
+  \begin{split}
+    & \text{$\theta(p) = 0$ para todo $p \leq 1/2$ e}\\
+    & \text{$\theta(p) > 0$ para todo $p > 1/2$,}
+  \end{split}
+\end{equation}
+como foi mostrado por Harris e Kesten, veja por exemplo \cite{Gri99} e \cite{bollobas2006percolation}.
+De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2$, como nos mostrou o trabalho de grandes matemáticos, como: Oded Schramm, Wendelin Werner, Stanislav Smirnov, entre outros.
+
+\todosec{Tópico: Teorema de Uma Série}{fazer...}
+
+
+
+
+
+\end{topics}
+ 
