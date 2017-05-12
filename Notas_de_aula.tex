@@ -5,6 +5,8 @@
 
 \usepackage{mybookstyle}
 
+\usepackage{subfiles}
+
 \newenvironment{topics}
 {\setcounter{secnumdepth}{0}\vfill\newpage}
 {\setcounter{secnumdepth}{2}\vfill\newpage}
@@ -41,14 +43,14 @@
 
 \mainmatter
 
-\include{./capitulos/fundamentos}
-\include{./capitulos/espacos}
-\include{./capitulos/independence}
-\include{./capitulos/somas}
-\include{./capitulos/somas2}
-\include{./capitulos/tmvq}
-\include{./capitulos/condicional}
-\include{./capitulos/solucoes}
+\subfile{./capitulos/fundamentos}
+\subfile{./capitulos/espacos}
+%\subfile{./capitulos/independence}
+\subfile{./capitulos/somas}
+%\subfile{./capitulos/somas2}
+%\subfile{./capitulos/tmvq}
+\subfile{./capitulos/condicional}
+\subfile{./capitulos/solucoes}
 
 \clearpage
 
