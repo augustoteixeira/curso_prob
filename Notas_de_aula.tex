@@ -1,5 +1,3 @@
-% !TEX encoding = UTF-8 Unicode
-
 \RequirePackage{nag}
 \documentclass[reqno, final]{book}
 
@@ -10,10 +8,6 @@
 \newenvironment{topics}
 {\setcounter{secnumdepth}{0}\vfill\newpage}
 {\setcounter{secnumdepth}{2}\vfill\newpage}
-
-\ifdraft{
-  \includeonly{./capitulos/condicional}
-}{}
 
 \begin{document}
 
@@ -45,16 +39,15 @@
 
 \subfile{./capitulos/fundamentos}
 \subfile{./capitulos/espacos}
-%\subfile{./capitulos/independence}
+\subfile{./capitulos/independence}
 \subfile{./capitulos/somas}
-%\subfile{./capitulos/somas2}
-%\subfile{./capitulos/tmvq}
+\subfile{./capitulos/somas2}
+\subfile{./capitulos/tmvq}
 \subfile{./capitulos/condicional}
 \subfile{./capitulos/solucoes}
 
 \clearpage
 
-\nocite{}
 \bibliographystyle{jcamsalpha}
 \bibliography{bibliography}
 
