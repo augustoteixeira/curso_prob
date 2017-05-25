@@ -1,8 +1,8 @@
-\documentclass[../main/Notas_de_aula.tex]{subfiles}
+\documentclass[../Notas_de_aula.tex]{subfiles}
 
 \begin{document}
 
-\chapter{Construção de espaços de probabilidade}
+\chapter{Construção de espaços de probabilidade I}
 
 Nessa seção descreveremos diversas maneiras diferentes de construir um espaço de probabilidade, dando diversos exemplos de como elas podem ser usadas na modelagem de diferentes processos reais.
 
@@ -80,9 +80,9 @@ Certamente não temos muita informação sobre $A$, então vamos usar o método 
   \end{exercise}
   Definimos o conjunto aleatório
   $$\mathcal{B} = \{ x\in A \ | X\cdot a \in [\tfrac p3, \tfrac {2p}3) \},$$
-  Esse conjunto e livre de soma: se $X=0$ o cojunto e vazio e nos outros casos se $x, y\in \mathcal{B}$
+  Esse conjunto e livre de soma: se $X=0$ o cojunto e vazio e nos outros casos se $x, y\in \cB$
   $$(x+y)\in [\tfrac {2p}3, \tfrac {4p} 3)$$
-  que e o complementario de $[\tfrac p3, \tfrac {2p}3)$ em $\mathbb{Z}_p$.
+  que e o complementario de $[\tfrac p3, \tfrac {2p}3)$ em $\bbZ_p$.
 
   \medskip
 
@@ -132,23 +132,73 @@ Podemos também usar a distribuição de um elemento aleatório para construir o
 
 \begin{example}
   Considere por exemplo $X:[0,2\pi] \to \mathbb{C}$ dada por $X(t) = \exp\{-i t\}$.
-  A distribuição imagem $X_*U_{[0,2\pi]}$ é o que chamamos de distribuição uniforme em $\mathbb{S}^1$, também denotada por $U_{S^1}$.
+  A distribuição imagem $X_*U_{[0,2\pi]}$ é o que chamamos de distribuição uniforme em $\bbS^1$, também denotada por $U_{S^1}$.
 \end{example}
 
 \begin{exercise}
-  Mostre que $U_{\mathbb{S}^1}$ não é absolutamente contínua com respeito à medida de Lebesgue em $\mathbb{C} \sim \mathbb{R}^2$.
+  Mostre que $U_{\bbS^1}$ não é absolutamente contínua com respeito à medida de Lebesgue em $\mathbb{C} \sim \mathbb{R}^2$.
 \end{exercise}
 
 \begin{exercise}
-  Mostre que $U_{\mathbb{S}^1}$ é invariante por rotações rígidas de $\mathbb{C}$, isto é, se $T:\mathbb{C} \to \mathbb{C}$ é uma isometria linear,
-  $T_*U_{\mathbb{S}^1}=U_{\mathbb{S}^1}$.
+  Mostre que $U_{\bbS^1}$ é invariante por rotações rígidas de $\mathbb{C}$, isto é, se $T:\mathbb{C} \to \mathbb{C}$ é uma isometria linear,
+  $T_*U_{\bbS^1}=U_{\bbS^1}$.
 \end{exercise}
 
 \begin{exercise}
   Construa uma probabilidade em $S^2$ invariante por rotações.
 \end{exercise}
 
-\section{Funções acumuladas de distribuição}
+
+\begin{topics}
+\section{Tópico: Distribução marginal de um vector aleatório}
+
+Considermos $P$ uma probabilidade definida sobre o espaço $\gO=\bbR^d$, os elementos de $\gO$ sendo denotado por $x:=(\go_1,\dots,\go_d)$.
+denotamos por $X_i : \gO \to \bbR$ a projecção na $i$-esima coordenada definida por $X_i(\go)=\go_i$.
+A variável $X_i$ se chama \emph{$i$-esima} marginal do vector aleatório $\go$.
+
+\medskip
+
+A distribuição $P_i=(X_i)_*P$ se chama de distribução marginal.
+No caso de vector aleatorio com densidade, as densidade das distribuções marginais pode ser identificada usando o resultado seguinte.
+
+\begin{proposition}
+ Sejà $P$ a probabilidade cuja densidade, respeito a medidida de Lebesgue em $\bbR^d$, é dada por $\rho: \bbR^d \to \bbR_+$.
+ A probabilidade $P_i$ e absolutamente continua com respeito a Lebesgue, com densidade $\rho_i$ definida por
+ \begin{equation*}
+  \rho_i(x):= \int_{\bbR^{d-1}}\rho(\go_1,\dots ,\go_{i-1},x,\go_{i+1},\dots,\go_n)\prod_{j\ne i} \dd \go_i.
+ \end{equation*}
+
+
+
+\end{proposition}
+
+\begin{proof}
+ Para qualquer conjunto boreliano $A$ temos usando Fubini
+ \begin{multline*}
+  P_i(X_i(\go)\in A)=P(\go_i\in A)= \int_{\bbR^{i-1}\times A \times \bbR^{d-i-1}}
+  \rho(\go_1,\dots,\go_n)\prod_{i=1}^d \dd \go_i
+  \\ =\int_A  \dd x \int_{\bbR^{d-1}}\rho(\go_1,\dots ,\go_{i-1},x,\go_{i+1},\dots,\go_n)\prod_{j\ne i} \dd \go_i.
+  =\int_A\rho_i(x)\dd x
+ \end{multline*}
+o que termina a demostração.
+\end{proof}
+
+
+\begin{remark}
+ Sabemos que a distribuição de um vector aleatório determina as distribuições marginais.
+ E importante observar que o contrario e valso. Por exemple se $\rho$ e uma densidade de probabilidade em $\bbR$ e que $P$ e
+ a probabilidade em $\bbR^2$ definida por $P(\go)=\rho(\go_1)\rho(\go_2)\d \go$ então os vetores ${\bf X}(\go)=(\go_1,\go_2)$ e ${\bf Y}(\go)=(\go_1,\go_1)$
+ tem as mesmas distribuições marginais mas não tem distribuições diferentes.
+
+
+\end{remark}
+
+\end{topics}
+
+
+\section{Um caso importante: $\gO=\bbR$}
+
+\subsection{Funções acumuladas de distribuição}
 
 Um caso muito importante de espaço amostral é $\Omega = \mathbb{R}$, principalmente por nos ajudar a entender distribuições de variáveis aleatórias.
 Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em $\mathbb{R}$.
@@ -165,7 +215,7 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
 
 Lembramos que uma probabilidade em $\mathbb{R}$ é uma função $P:\mathcal{B}(\mathbb{R}) \to [0,1]$ e o domínio dessa função é bastante complicado.
 Por exemplo se quisermos representar uma distribuição de uma variável aleatória no computador atravéz dessa função $P$, teríamos problemas.
-Contudo, a função $F_P$ (ou $F_X$) é muito mais simples de ser compreendida ou representada, por seu domínio ser $\mathbb{R}$.
+Contudo, a função $F_P$ (ou $F_X$) é muito mais simples de ser compreendida ou representada, por seu domínio ser $\bbR$.
 
 \begin{example}
   Não é difícil verificar que
@@ -264,8 +314,7 @@ Mas escolhemos abaixo um método mais simples, que parte da existência de $U_{[
   \begin{enumerate}[\quad a)]
   \item Se $u \leq F(x)$ então todo $x'$ tal que $F(x') < u$ é menor que $x$.
     Logo $S(u) \leq x$.
-  \item Por outro lado, se $x \ge S(u)$ então todo $x' > x$ satisfaz $F(x') > u$.
-    Pois por continuidade a direita $F(x)\ge u$.
+  \item Por outro lado, se $x \ge S(u)$ então tudo $x' > x$ satisfaz $F(x') > u$. Pois por continuidade a direita $F(x)\ge u$.
   \end{enumerate}
   Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
 \end{proof}
@@ -274,4 +323,311 @@ Mas escolhemos abaixo um método mais simples, que parte da existência de $U_{[
   Mostre o resultado acima usando o Teorema de Extensão de Caratheodory.
 \end{exercise}
 
+
+\subsection{Definição e propriedade básicas da esperança}
+
+Uma noção central relacionada a distribuições em $\bbR$ e a de esperança.
+
+\begin{definition}
+  Se $X$ é uma variável aleatória com $\int_\Omega |X| P(\d \omega) < \infty$, dizemos que $X$ é integrável \index{variavel aleatoria@variável aleatória!integravel@integrável} e definimos
+  \begin{equation}
+    E(X) = \int_\Omega X(\omega) P(\d \omega),
+  \end{equation}
+  a chamada esperança de $X$. \index{esperanca@esperança}
+  Nesse caso também dizemos que $X \in \mathcal{L}^1(P)$.
+
+  \medskip
+
+  Dizemos que um vector aleatório ${\bf X}=(X_1,\dots,X_d)$ é integrável se todas coordenadas dele são integráveis e definimos a esperança de ${\bf X}$ por
+
+    \begin{equation}
+    E({\bf X}) = (E(X_1),\dots, E(X_d)).
+  \end{equation}
+\end{definition}
+
+Quando $X \geq 0$, também podemos supor que $E(X)$ está bem definida, mesmo que possivelmente tomando valor infinito.
+Não demonstraremos algumas propriedades conhecidas de medida e integração que lembramos aqui.
+
+
+
+\begin{proposition}
+ A esperança tem as seguintes propriedades:
+
+
+\begin{enumerate}[\quad a)]
+\item Linearidade: para qualquer $\alpha\in \bbR$, $X$ e $Y$ variável aleatórias temos (se estiverem bem definidas),
+$$E(X + \alpha Y) = E(X) + \alpha E(Y)$$
+\item (Teorema de convergência dominada) se $(X_n)_{n\ge 1}$ for uma sequencia de variáveis  aleatórias  tal que para todo $\go$
+$|X_n(\go)|\le Z(\go)$ onde $Z(\go)$ e integrável, e tal que $\lim_{n\to \infty} X_n(\go)=X(\go)$.
+Então $X$ e integrável e
+$$\lim_{n\to \infty} E[X_n]=E[X].$$
+ \item (Troca soma/esperança)Se $(X_n)_{n\ge 1}$ e uma família de variáveis aleatórias  tal que $\sum_{n\ge 1} E[|X_n|]<\infty$,
+ então $Z:=\sum_{n\ge 1} E[X_n]$ e integrável
+\item (Lema de Fatou)  se $(X_n)_{n\ge 1}$ for uma sequencia de variáveis  aleatórias  integráveis positivas ($\ge 0$), temos
+$$E[\liminf X_n]\le \liminf E[X_n].$$
+\item (Convergência Monótona)   se $(X_n)_{n\ge 1}$ for uma sequencia de variáveis  aleatórias  integráveis tal que
+para quase todos $\go$ a sequencia $(X_n(\go))_{n\ge 0}$ então  $X=\lim_{n\to \infty} X_n(\go)$, e integrável se $E[X]$ converge
+e
+$$\lim_{n\to \infty} E[X_n]=E[X].$$
+\item (Desigualdade de H\"older) Se $X$ e $Y$ fossem tal que $|X|^p$ e $|Y|^q$ são integráveis com $p,q>0$ tais que $p^{-1}+q^{-1}=1$
+então $XY$  e integrável e
+$$E[XY]\le E[|X|^p]^{1/p} E[|X|^q]^{1/q}$$
+
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}
+ Se $X$ e uma variável tal que $E[|X|^p]<\infty$, para $p\in (1,\infty)$ falamos que $X\in \cL^p(P)$. \\
+Observamos que o conjunto $\cL^2(P)$ tem uma estrutura natural de espaço de Hilbert
+(após da operação de ter reduzido as classes de equivalência de variáveis iguais quase certamente) com produto escalar definido por
+$$\langle X | Y \rangle= E[XY].$$
+\end{remark}
+
+
+
+
+\begin{exercise}
+  Mostre que se $X \in \mathcal{L}^1$ e $P[X > x] = 0$, então $E(X) \leq x$.
+\end{exercise}
+
+\begin{lemma}
+  A esperança de uma variável aleatória $X \in \mathcal{L}^1$ depende somente de sua distribuição.
+  Mais precisamente
+  \begin{equation}
+    E(X) = \int x \; P_X (\d x).
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  Vamos mostrar que
+  \begin{equation}
+    E\big(f(X)\big) = \int f(x) P_X (\d x),
+  \end{equation}
+  para toda $f: \mathbb{R} \to \mathbb{R}$ mensurável tal que $f(X) \in \mathcal{L}^1$.
+
+  Para $f = \1_A$, temos
+  \begin{equation}
+    E\big(f(X)\big) = P[X \in A] =  P_X (A),
+  \end{equation}
+  por definição de $P_X$.
+
+  Agora podemos extender o teorema para funções $f$ simples por linearidade,
+  depois para funções positivas usando o Teorema da Convergência Monótona e
+  finalmente escrevemos $x = x \1_{[0, \infty)} - (-x) \1_{(-\infty,0)}$.
+\end{proof}
+
+Vamos mostrar uma fórmula bastante simples de integração de variáveis tomando valores em um conjunto enumerável.
+Se $X \in \{x_i\}_{i\in I}$ ( $I$ finito o enumerável) $P$-quase certamente, então
+\begin{equation}
+  \begin{split}
+    E(X) & = \int_\Omega X P(\d \omega) = \int_{\Omega} \sum_{i\in I} \1_{[X = x_i]} X P(\d \omega) +
+    \int_{\gO} X \1_{[X\in\bbR \setminus \{x_i\}_{i\in I}]}  P(\d \omega)\\
+    & = \sum_{i\in I} \int_{[X = x_i]} x_i P(\d \omega) + 0 = \sum_{i\in I} x_i P[X = x_i].
+  \end{split}
+\end{equation}
+
+Para nos acostumar à notação de probabilidade, vamos agora mostrar o mesmo resultado da seguinte forma
+\begin{equation}
+  \begin{split}
+    E(X) & = E\Big(\sum_{i\in I} X \1_{[X = x_i]}\Big) + E(X \1_{\bbR \setminus \{x_i\}_{i\in I}})\\
+    & = \sum_i E[X\, ; \, X = x_i] + 0 = \sum_{i\in I} x_i P[X = x_i],
+  \end{split}
+\end{equation}
+que é certamente muito útil quando nos habituamos a ela.
+
+Observe que acima usamos a notação $E[X; \mathcal{Q}] = E(X \1_{[\mathcal{Q}]})$.
+Também utilizaremos $E[X; \mathcal{Q}_1, \mathcal{Q}_2, \dots] = E(X \1_{[\mathcal{Q}_1, \mathcal{Q}_2, \dots]})$
+
+\begin{example}
+  Se $X \overset{d}\sim \Ber(p)$, então $E(X) = 0 \cdot P[X = 0] + 1 P[X = 1] = 0 + p = p$.
+\end{example}
+
+\begin{example}
+  Seja $X \overset{d}\sim \Bin(n,p)$,
+  \begin{multline}
+    E(X) = \sum_{k=0}^n\binom{n}{k}   k p^k(1-p)^{n-k}= p\partial_x \left[\sum_{k=0}^n\binom{n}{k}  x^k(1-p)^{n-k} \right]_{x=p}
+    \\= p \partial_x \left[ (1-p+x)^n \right]_{x=p}=pn.
+  \end{multline}
+\end{example}
+
+\begin{example}
+Se $P_X(\d x) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), então
+\begin{equation}
+  E(X) = \int x  P_X(\d x) = \int x \rho(x) \d x.
+\end{equation}
+\end{example}
+
+\begin{example}
+  Se $X \overset{d}\sim U_{[0,1]}$, então sua densidade com respeito a Lebesgue é dada por
+  $P_X(\d x) = \1_{[0,1]} \d x$, donde $E(X) = \int_0^1 x \d x = 1/2$.
+\end{example}
+
+\begin{proposition}
+  \label{p:espera_acumulada}
+  Se $X \geq 0$ $P$-q.c., então
+  \begin{equation}
+    E(X) = \int_0^\infty P[X > x] \d x = \int_0^\infty [1 - F(x)] \d x .
+  \end{equation}
+  Se $g$ e diferenciável e tal que $E[|g'(X)|]<\infty$ então
+    \begin{equation}
+    E[f(X)] = \int_\bbR g'(x) [1 - F(x)] \d x .
+  \end{equation}
+\end{proposition}
+
+\begin{proof}
+  \begin{equation}
+    \begin{split}
+      E(X) & = E \Big( \int_0^X 1 \d x \Big) = E \Big( \int_0^\infty \1_{[x < X]} \d x \Big)\\
+      & \overset{\text{Fubini}}= \int_0^\infty E(\1_{[x < X]}) \d x = \int_0^\infty P[x < X] \d x.
+    \end{split}
+  \end{equation}
+    \begin{equation}
+    \begin{split}
+      E[f(X)] & = - E \Big( \int_{-\infty}^X f'(t)  \dd t \Big) = E \Big( \int_\bbR f'(t) \1_{[X>t]} \d x \Big)\\
+      & \overset{\text{Fubini}}= \int_\bbR f'(t) E(\1_{[X>t]}) \d t = \int_\bbR f'(t) P[X>t] \d t.
+    \end{split}
+  \end{equation}
+\end{proof}
+
+\begin{example}
+  Se $X \overset{d}\sim \Exp(\lambda)$, então
+  \begin{equation}
+    P[X \geq x] = \int_x^\infty \lambda e^{-\lambda t} \d t = e^{-\lambda x},
+  \end{equation}
+  donde
+  \begin{equation}
+    E(X) = \int_0^\infty e^{-\lambda x} \d x = \frac{1}{\lambda}.
+  \end{equation}
+\end{example}
+
+
+
+
+
+\begin{exercise}
+  Se $X \in \mathcal{L}^1$ e $P[X \geq x] = P[X \leq -x]$ para todo $x \geq 0$, então $E(X) = 0$.
+\end{exercise}
+
+% \begin{exercise}
+%   Mostre que se a distribuição de $X$ tem densidade $\rho$ com respeito a Lebesgue e que $E(|f(X)|) < \infty$, então
+%   \begin{equation}
+%     E(f(X)) = \int f(x) \rho(x) \d x.
+%   \end{equation}
+% \end{exercise}
+
+Finalmente vamos acabar essa secção estudando variáveis  do tipo $\varphi(X)$ onde $X$ e uma variável o um vector aleatório.
+
+\begin{proposition}[Desigualdade de Jensen]
+ Seja $\varphi:\bbR \to \bbR$ uma função convexa e $X$ uma variável  aleatória tal que $X$ e $\varphi(X)$ são integráveis.
+ Temos
+ \begin{equation}
+  E[ \varphi(X) ] \le \varphi(E[X]).
+ \end{equation}
+ Do mesmo jeito, se $\varphi:\bbR \to \bbR^d$ e convexa e ${\bf X}$ e um vector aleatório, sob hipóteses adequadas de integrabilidade temos
+  \begin{equation}
+  E[ \varphi({\bf X}) ] \le \varphi(E[{\bf X}]).
+ \end{equation}
+
+\end{proposition}
+
+\begin{remark}
+No caso onde $P_X$ tem suporte em $\{a,b\}$ o resultado e simplesmente a definição da convexidade.
+No caso $\varphi(x)=|x|^p$, $p>1$, o resultado pode ser considerado e uma consequência imediata da desigualdade de H\"older.
+No caso $\varphi(x)=|x|$, o resultado da a desigualdade triangular generalizada (que e valida para integrais com respeito a medidas positivas).
+\end{remark}
+
+\begin{proof}
+Definimos $m=E[X]$.
+Sabemos por convexidade que
+$$\varphi(X)\ge \varphi(m)+ a(X-m),$$
+para qualquer $a\in [\varphi'_-(m), \varphi'_+(m)]$ (as derivas a esquerda e direita de $\phi$).
+O resultado segue considerando a esperança nos dois lados.
+(O caso vectorial fica de exercício)
+ \end{proof}
+
+ \subsection[O paradoxo de Bertrand]{Um exemplo de experimento probabilístico: o paradoxo de Bertrand}
+
+Vamos estudar um problema que põe em valor a importancia do jeito de escolher o espaço amostral e a distribuição de probabilidade.
+Queremos calcular a probabilidade que uma corda ``uniformemente distribuída'' de um círculo seja maior do que o lado do triangulo
+equilateral inscrito nesse  círculo (no caso do círculo do raio unidade, o comprimento desse lado vale $\sqrt{3}$).
+O Bertrand propus dois métodos para fazer esse cálculo.
+
+\begin{itemize}
+ \item [a)] Escolher as duas extremidades da corda uniformemente no círculo.
+ \item [b)] Escolher o centro da corda uniformemente no interior do disco.
+\end{itemize}
+
+No caso $a)$ se pode uma vez que uma estremidade fica fixada, a corda fica maior do que $\sqrt{3}$ somente se o segundo ponto fica num
+sector angular de comprimento $2\pi/3$. Então a probabilidade vale $(2\pi/3)/(2\pi)=1/3$.
+
+\medskip
+
+No caso $b)$, pra corda ficar maior do que $\sqrt{3}$, o centro dela deve ficar no circulo inscrito do triangulo equilateral, cujo raio e $1/2$.
+Então a probabilidade vale o ratio das áreas que é $1/4$.
+
+\medskip
+
+Obtemos então duas respostas diferente para essa pergunta simples, o que e nada surpreendente: $a)$ e $b)$ correspondem a dois experimento
+diferentes com espaços amostrais diferentes.
+
+
+\begin{exercise}
+\begin{itemize}
+ \item [1)] Descreve o espaço amostral e as lei de probabilidade associadas para os experimentos $a)$ e $b)$
+ \item [2)] Calcule  esperança do comprimento da corda em cada caso. Concluir.
+ \item [3)] Estude o caso seguinte: escolhe um raio uniforme do disco, pois escolhe uniformemente no raio o ponto médio da corda.
+\end{itemize}
+
+\end{exercise}
+
+
+
+\subsection{Desigualdade de Markov}
+
+Um objectivo de muitos problemas na probabilidade e de dar cotas para probabilidade de certos eventos.
+Usando a noção e esperança, obtemos um jeito muito simples de obter tais cotas.
+
+\begin{theorem}
+  \label{t:markov}
+  \index{Desigualdade de Markov}
+  Se $X \geq 0$ $P$-q.c., então para todo $x > 0$,
+  \begin{equation}
+    P[X \geq x] \leq \frac{E(X)}{x}.
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  Sabemos que $X \geq x \1_{[X \geq x]}$, logo
+  \begin{equation}
+    E(X) \geq x E(\1_{[X \geq x]}) = x P[X \geq x],
+  \end{equation}
+  que termina a prova.
+\end{proof}
+
+O próximo exemplo serve muito bem para mostrar porque estamos interessados em desigualdades como a do Teorema~\ref{t:markov} acima.
+
+Em vários exemplos importantes, podemos ter dificuldade de calcular probabilidades explicitamente.
+Nesses casos, poderíamos gastar nossas energias tentando calculá-las a qualquer custo,
+ou podemos nos contentar em obter cotas superiores e inferiores para as probabilidades nas quais estamos interessados.
+
+Em vários casos, a segunda estratégia tem uma grande vantagem sobre a primeira, por possibilitar que estudemos problemas mais complexos
+(e consequentemente mais importantes/interessantes) e muitas vezes sem nos afastarmos da realidade
+(em vários exemplos as cotas superiores e inferiores são próximas o suficiente para que não nos preocupemos).
+
+
+
+
+
+
+
+
+
+<<<<<<< HEAD
 \end{document}
+=======
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../Notas_de_aula"
+%%% End:
+
+>>>>>>> 7eac6
