@@ -80,9 +80,11 @@ Certamente não temos muita informação sobre $A$, então vamos usar o método 
   \end{exercise}
   Definimos o conjunto aleatório
   $$\mathcal{B} = \{ x\in A \ | X\cdot a \in [\tfrac p3, \tfrac {2p}3) \},$$
-  Esse conjunto e livre de soma: se $X=0$ o cojunto e vazio e nos outros casos se $x, y\in \cB$
-  $$(x+y)\in [\tfrac {2p}3, \tfrac {4p} 3)$$
-  que e o complementario de $[\tfrac p3, \tfrac {2p}3)$ em $\bbZ_p$.
+  Esse conjunto e livre de soma: se $X=0$ o cojunto e vazio e nos outros casos se $x, y \in \mathcal{B}$
+  \begin{equation}
+    (x + y) \in [\tfrac {2p}{3}, \tfrac {4p}{3})
+  \end{equation}
+  que é o complementar de $[\tfrac p3, \tfrac {2p}3)$ em $\bbZ_p$.
 
   \medskip
 
@@ -132,15 +134,15 @@ Podemos também usar a distribuição de um elemento aleatório para construir o
 
 \begin{example}
   Considere por exemplo $X:[0,2\pi] \to \mathbb{C}$ dada por $X(t) = \exp\{-i t\}$.
-  A distribuição imagem $X_*U_{[0,2\pi]}$ é o que chamamos de distribuição uniforme em $\bbS^1$, também denotada por $U_{S^1}$.
+  A distribuição imagem $X_*U_{[0,2\pi]}$ é o que chamamos de distribuição uniforme em $\mathbb{S}^1$, também denotada por $U_{S^1}$.
 \end{example}
 
 \begin{exercise}
-  Mostre que $U_{\bbS^1}$ não é absolutamente contínua com respeito à medida de Lebesgue em $\mathbb{C} \sim \mathbb{R}^2$.
+  Mostre que $U_{\mathbb{S}^1}$ não é absolutamente contínua com respeito à medida de Lebesgue em $\mathbb{C} \sim \mathbb{R}^2$.
 \end{exercise}
 
 \begin{exercise}
-  Mostre que $U_{\bbS^1}$ é invariante por rotações rígidas de $\mathbb{C}$, isto é, se $T:\mathbb{C} \to \mathbb{C}$ é uma isometria linear,
+  Mostre que $U_{\mathbb{S}^1}$ é invariante por rotações rígidas de $\mathbb{C}$, isto é, se $T:\mathbb{C} \to \mathbb{C}$ é uma isometria linear,
   $T_*U_{\bbS^1}=U_{\bbS^1}$.
 \end{exercise}
 
@@ -150,19 +152,19 @@ Podemos também usar a distribuição de um elemento aleatório para construir o
 
 
 \begin{topics}
-\section{Tópico: Distribução marginal de um vector aleatório}
+\section{Tópico: Distribuição marginal de um vetor aleatório}
 
-Considermos $P$ uma probabilidade definida sobre o espaço $\gO=\bbR^d$, os elementos de $\gO$ sendo denotado por $x:=(\go_1,\dots,\go_d)$.
-denotamos por $X_i : \gO \to \bbR$ a projecção na $i$-esima coordenada definida por $X_i(\go)=\go_i$.
-A variável $X_i$ se chama \emph{$i$-esima} marginal do vector aleatório $\go$.
+Consideramos $P$ uma probabilidade definida sobre o espaço $\gO=\bbR^d$, os elementos de $\gO$ sendo denotado por $x:=(\go_1,\dots,\go_d)$.
+denotamos por $X_i : \gO \to \bbR$ a projeção na $i$-ésima coordenada definida por $X_i(\go)=\go_i$.
+A variável $X_i$ se chama \emph{$i$-ésima} marginal do vetor aleatório $\go$.
 
 \medskip
 
-A distribuição $P_i=(X_i)_*P$ se chama de distribução marginal.
-No caso de vector aleatorio com densidade, as densidade das distribuções marginais pode ser identificada usando o resultado seguinte.
+A distribuição $P_i=(X_i)_*P$ se chama de distribuição marginal.
+No caso de vector aleatório com densidade, as densidade das distribuições marginais pode ser identificada usando o resultado seguinte.
 
 \begin{proposition}
- Sejà $P$ a probabilidade cuja densidade, respeito a medidida de Lebesgue em $\bbR^d$, é dada por $\rho: \bbR^d \to \bbR_+$.
+ Seja $P$ a probabilidade cuja densidade, respeito a medida de Lebesgue em $\mathbb{R}^d$, é dada por $\rho: \mathbb{R}^d \to \mathbb{R}_+$.
  A probabilidade $P_i$ e absolutamente continua com respeito a Lebesgue, com densidade $\rho_i$ definida por
  \begin{equation*}
   \rho_i(x):= \int_{\bbR^{d-1}}\rho(\go_1,\dots ,\go_{i-1},x,\go_{i+1},\dots,\go_n)\prod_{j\ne i} \dd \go_i.
@@ -180,21 +182,18 @@ No caso de vector aleatorio com densidade, as densidade das distribuções margi
   \\ =\int_A  \dd x \int_{\bbR^{d-1}}\rho(\go_1,\dots ,\go_{i-1},x,\go_{i+1},\dots,\go_n)\prod_{j\ne i} \dd \go_i.
   =\int_A\rho_i(x)\dd x
  \end{multline*}
-o que termina a demostração.
+o que termina a demonstração.
 \end{proof}
 
 
 \begin{remark}
- Sabemos que a distribuição de um vector aleatório determina as distribuições marginais.
- E importante observar que o contrario e valso. Por exemple se $\rho$ e uma densidade de probabilidade em $\bbR$ e que $P$ e
- a probabilidade em $\bbR^2$ definida por $P(\go)=\rho(\go_1)\rho(\go_2)\d \go$ então os vetores ${\bf X}(\go)=(\go_1,\go_2)$ e ${\bf Y}(\go)=(\go_1,\go_1)$
- tem as mesmas distribuições marginais mas não tem distribuições diferentes.
-
-
+  Sabemos que a distribuição de um vector aleatório determina as distribuições marginais.
+  É importante observar que o contrario é falso.
+  Por exemple se $\rho$ e uma densidade de probabilidade em $\bbR$ e que $P$ e
+a probabilidade em $\bbR^2$ definida por $P(\go)=\rho(\go_1)\rho(\go_2)\d \go$ então os vetores ${\bf X}(\go)=(\go_1,\go_2)$ e ${\bf Y}(\go)=(\go_1,\go_1)$ tem as mesmas distribuições marginais mas não tem distribuições diferentes.
 \end{remark}
 
 \end{topics}
-
 
 \section{Um caso importante: $\gO=\bbR$}
 
@@ -214,7 +213,7 @@ Para tanto, precisaremos de uma boa ferramenta para descrever probabilidades em 
 \end{notation}
 
 Lembramos que uma probabilidade em $\mathbb{R}$ é uma função $P:\mathcal{B}(\mathbb{R}) \to [0,1]$ e o domínio dessa função é bastante complicado.
-Por exemplo se quisermos representar uma distribuição de uma variável aleatória no computador atravéz dessa função $P$, teríamos problemas.
+Por exemplo se quisermos representar uma distribuição de uma variável aleatória no computador através dessa função $P$, teríamos problemas.
 Contudo, a função $F_P$ (ou $F_X$) é muito mais simples de ser compreendida ou representada, por seu domínio ser $\bbR$.
 
 \begin{example}
@@ -273,7 +272,7 @@ Poderíamos usar o Teorema da Extensão de Caratheodory para provar tal resultad
 Mas escolhemos abaixo um método mais simples, que parte da existência de $U_{[0,1]}$.
 
 \begin{proof}
-  A unicidade de tal $P$ segue da Proposição~\ref{p:P12_equal_pi} (consequêcia do Teorema de Dynkin), pois se $P$ e $P'$ são tais que $F_{P} = F_{P'}$, então temos que $P\big( (-\infty, x] \big) = P'\big( (-\infty, x] \big)$.
+  A unicidade de tal $P$ segue da Proposição~\ref{p:P12_equal_pi} (consequência do Teorema de Dynkin), pois se $P$ e $P'$ são tais que $F_{P} = F_{P'}$, então temos que $P\big( (-\infty, x] \big) = P'\big( (-\infty, x] \big)$.
   Mas a classe de intervalos semi-infinitos da forma $(-\infty, x]$ forma um $\pi$-sistema que gera a $\sigma$-álgebra dos borelianos, logo $P = P'$.
 
   Para construir uma $P$ tal que $F_P = F$, definiremos $S:(0,1) \to \mathbb{R}$, a inversa generalizada de $F$, por
@@ -316,7 +315,7 @@ Mas escolhemos abaixo um método mais simples, que parte da existência de $U_{[
     Logo $S(u) \leq x$.
   \item Por outro lado, se $x \ge S(u)$ então tudo $x' > x$ satisfaz $F(x') > u$. Pois por continuidade a direita $F(x)\ge u$.
   \end{enumerate}
-  Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
+  Isso prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
 \end{proof}
 
 \begin{exercise}
@@ -547,7 +546,7 @@ O resultado segue considerando a esperança nos dois lados.
 
  \subsection[O paradoxo de Bertrand]{Um exemplo de experimento probabilístico: o paradoxo de Bertrand}
 
-Vamos estudar um problema que põe em valor a importancia do jeito de escolher o espaço amostral e a distribuição de probabilidade.
+Vamos estudar um problema que põe em valor a importância do jeito de escolher o espaço amostral e a distribuição de probabilidade.
 Queremos calcular a probabilidade que uma corda ``uniformemente distribuída'' de um círculo seja maior do que o lado do triangulo
 equilateral inscrito nesse  círculo (no caso do círculo do raio unidade, o comprimento desse lado vale $\sqrt{3}$).
 O Bertrand propus dois métodos para fazer esse cálculo.
@@ -557,13 +556,13 @@ O Bertrand propus dois métodos para fazer esse cálculo.
  \item [b)] Escolher o centro da corda uniformemente no interior do disco.
 \end{itemize}
 
-No caso $a)$ se pode uma vez que uma estremidade fica fixada, a corda fica maior do que $\sqrt{3}$ somente se o segundo ponto fica num
-sector angular de comprimento $2\pi/3$. Então a probabilidade vale $(2\pi/3)/(2\pi)=1/3$.
+No caso $a)$ se pode uma vez que uma extremidade fica fixada, a corda fica maior do que $\sqrt{3}$ somente se o segundo ponto fica num
+setor angular de comprimento $2\pi/3$. Então a probabilidade vale $(2\pi/3)/(2\pi)=1/3$.
 
 \medskip
 
-No caso $b)$, pra corda ficar maior do que $\sqrt{3}$, o centro dela deve ficar no circulo inscrito do triangulo equilateral, cujo raio e $1/2$.
-Então a probabilidade vale o ratio das áreas que é $1/4$.
+No caso $b)$, pra corda ficar maior do que $\sqrt{3}$, o centro dela deve ficar no circulo inscrito do triângulo equilátero, cujo raio e $1/2$.
+Então a probabilidade vale a razão das áreas, que é $1/4$.
 
 \medskip
 
@@ -584,7 +583,7 @@ diferentes com espaços amostrais diferentes.
 
 \subsection{Desigualdade de Markov}
 
-Um objectivo de muitos problemas na probabilidade e de dar cotas para probabilidade de certos eventos.
+Um objetivo de muitos problemas na probabilidade e de dar cotas para probabilidade de certos eventos.
 Usando a noção e esperança, obtemos um jeito muito simples de obter tais cotas.
 
 \begin{theorem}
@@ -614,20 +613,4 @@ Em vários casos, a segunda estratégia tem uma grande vantagem sobre a primeira
 (e consequentemente mais importantes/interessantes) e muitas vezes sem nos afastarmos da realidade
 (em vários exemplos as cotas superiores e inferiores são próximas o suficiente para que não nos preocupemos).
 
-
-
-
-
-
-
-
-
-<<<<<<< HEAD
 \end{document}
-=======
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: "../Notas_de_aula"
-%%% End:
-
->>>>>>> 7eac6

@@ -516,44 +516,4 @@ Como no exercício acima, o contexto de um teorema frequentemente é dado apenas
 Dessa forma, podemos utilizar o resultado em vários contextos diferentes, desde que possamos encontrar elementos aleatórios que satisfaçam as hipóteses.
 Com o tempo, passamos até mesmo a considerar menos relevante a escolha específica do espaço amostral, focando cada vez mais na distribuição de seus elementos aleatórios.
 
-\begin{topics}
-
-\section{Tópico: O paradoxo de Bertrand}
-
-Vamos estudar um problema que realça a importança do jeito em que escolhemos o espaço amostral.
-Queremos calcular a probabilidade que uma corda ``uniformemente distribuida'' em um círculo seja maior do que o lado do triângulo equilátero inscrito nesse  círculo (no caso do círculo unitário, o comprimento desse lado vale $\sqrt{3}$).
-Bertrand propôs dois métodos para realizar esse cálculo. \index{Paradoxo de Bertrand@Paradoxo de Bertrand}
-
-\begin{enumerate}[\quad a)]
- \item Escolher as duas extremidades da corda uniformemente no círculo.
- \item Escolher o centro da corda uniformemente no interior do disco.
-\end{enumerate}
-
-No caso $a)$, uma vez que uma extremidade é fixada, o comprimento da corda fica maior do que $\sqrt{3}$ somente se o segundo ponto ficar num setor angular de comprimento $2 \pi / 3$.
-Logo, essa probabilidade vale $(2\pi/3) / (2\pi) = 1/3$.
-
-\medskip
-
-No caso $b)$, pra que a corda fique maior do que $\sqrt{3}$, o centro dela deve ficar no circulo inscrito dentro do triângulo equilátero, cujo raio é $1/2$.
-Então a probabilidade vale a razão dessas áreas, que é $1/4$.
-
-\medskip
-
-Obtemos então duas respostas diferente para essa pergunta simples, o que e nada surprendente: $a)$ e $b)$ correspondem a dois experimento
-diferentes com espaços amostrais diferentes.
-
-
-\begin{exercise}
-\begin{enumerate}[\quad a)]
- \item Descreva o espaço amostral e as lei de probabilidade associadas aos experimentos $a)$ e $b)$
- \item Calcule a lei de probabilidade do comprimento da corda em cada caso.
- \item Repita os ítens anteriores para o seguinte caso: Escolhemos uniformemente um raio do disco.
-Depois escolhemos o centro da corda uniformemente ao longo desse raio.
-\end{enumerate}
-
-\end{exercise}
-
-\end{topics}
-
-
 \end{document}
