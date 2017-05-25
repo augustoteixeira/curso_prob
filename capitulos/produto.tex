@@ -2,35 +2,6 @@
 
 \begin{document}
 
-\section{Espaços produto finito}
-
-Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebras $\mathcal{F}_1, \dots, \mathcal{F}_n$, podemos definir o espaço mensurável produto $(\widebar{\Omega}, \widebar{\mathcal{F}})$ da seguinte forma
-\begin{equation}
-  \widebar{\Omega} = \prod_{i=1}^n \Omega_i \quad \text{e} \quad \widebar{\mathcal{F}} = \sigma \Big( \{
-  A_1 \times \cdots \times A_n  \, : \,  \forall i \in \{1,\dots,n\},\ A_i \in \mathcal{F}_i \} \Big).
-\end{equation}
-Essa $\sigma$-álgebra e chamada de $\sigma$-álgebra produto e denotaremos ela por $\bigotimes_{i=1}^n \mathcal{F}_i$,
-o $\mathcal{F}_1\otimes \mathcal{F}_2$ quando $n=2$.
-
-\begin{proposition}
-  Se $(\Omega_1, \mathcal{F}_1, P_1), \dots, (\Omega_n, \mathcal{F}_n, P_n)$ são espaços de probabilidade, então existe uma única probabilidade $\widebar{P}$ no espaço mensurável $(\widebar{\Omega}, \widebar{\mathcal{F}})$ tal que
-  \begin{equation}
-    \widebar{P}(A_1 \times \cdots \times A_n) = \prod_{i=1}^n P_i(A_i), \text{ para todos $A_i \in \mathcal{F}_i$, $i \leq n$.}
-  \end{equation}
-  Essa probabilidade é chamada probabilidade produto.
-  Usaremos a notação $\bigotimes_{i=1}^n P_i$ o $P_1\otimes P_2 \otimes \dots \otimes P_n$.
-\end{proposition}
-
-\begin{proof}
-  Teoria da Medida.
-\end{proof}
-
-Note que a unicidade do produto pode ser concluída por exemplo usando o Corolário~\ref{c:produto_e_unico}.
-
-\begin{exercise}
-  Mostre que o produto de $n$ cópias de $(\{0,1\}, \mathcal{P}(\{0,1\}), \Ber(1/2))$ é a distribuição uniforme em $\{0,1\}^n$.
-\end{exercise}
-
 \section{Independência}
 
 Nossa intuição nos diz que quando jogamos duas moedas, o resultado de cada uma delas não deve depender um do outro.
@@ -262,6 +233,35 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
   \end{equation}
   Terminando a prova do lemma.
 \end{proof}
+
+\section{Espaços produto finito}
+
+Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebras $\mathcal{F}_1, \dots, \mathcal{F}_n$, podemos definir o espaço mensurável produto $(\widebar{\Omega}, \widebar{\mathcal{F}})$ da seguinte forma
+\begin{equation}
+  \widebar{\Omega} = \prod_{i=1}^n \Omega_i \quad \text{e} \quad \widebar{\mathcal{F}} = \sigma \Big( \{
+  A_1 \times \cdots \times A_n  \, : \,  \forall i \in \{1,\dots,n\},\ A_i \in \mathcal{F}_i \} \Big).
+\end{equation}
+Essa $\sigma$-álgebra e chamada de $\sigma$-álgebra produto e denotaremos ela por $\bigotimes_{i=1}^n \mathcal{F}_i$,
+o $\mathcal{F}_1\otimes \mathcal{F}_2$ quando $n=2$.
+
+\begin{proposition}
+  Se $(\Omega_1, \mathcal{F}_1, P_1), \dots, (\Omega_n, \mathcal{F}_n, P_n)$ são espaços de probabilidade, então existe uma única probabilidade $\widebar{P}$ no espaço mensurável $(\widebar{\Omega}, \widebar{\mathcal{F}})$ tal que
+  \begin{equation}
+    \widebar{P}(A_1 \times \cdots \times A_n) = \prod_{i=1}^n P_i(A_i), \text{ para todos $A_i \in \mathcal{F}_i$, $i \leq n$.}
+  \end{equation}
+  Essa probabilidade é chamada probabilidade produto.
+  Usaremos a notação $\bigotimes_{i=1}^n P_i$ o $P_1\otimes P_2 \otimes \dots \otimes P_n$.
+\end{proposition}
+
+\begin{proof}
+  Teoria da Medida.
+\end{proof}
+
+Note que a unicidade do produto pode ser concluída por exemplo usando o Corolário~\ref{c:produto_e_unico}.
+
+\begin{exercise}
+  Mostre que o produto de $n$ cópias de $(\{0,1\}, \mathcal{P}(\{0,1\}), \Ber(1/2))$ é a distribuição uniforme em $\{0,1\}^n$.
+\end{exercise}
 
 \todosec{Tópico: Uma dinâmica em \texorpdfstring{$[0,1]$}{[0,1]}}{fazer dinâmica 2x mod 1 e relações Lebesgue[0,1] com produtos de bernoulli}
 
