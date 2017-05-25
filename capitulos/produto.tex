@@ -86,6 +86,32 @@ Mais precisamente
   \end{enumerate}
 \end{example}
 
+\begin{example}
+  Sejam $n$ patos e $m$ caçadores.
+  Cada caçador escolhe um pato aleatorea e uniformemente e atira (abatendo-o com probabilidade $p$).
+  Seja $X = \# \{\text{patos vivos}\}$, que pode ter uma distribuição complicada de calcular, mas
+  \begin{equation}
+    \begin{split}
+      E(X) &= E \Big( \sum_{i=1}^n \1_{[\text{pato $i$ vive}]} \Big) = \sum_{i=1}^n P[\text{pato $i$ vive}]\\
+      &= n P[\text{pato $1$ vive}] = P\Big( \mcap_{j=1}^m [\text{caçador $j$ não mata pato $1$}] \Big)\\
+      &= n P[\text{caçador $j$ não mata pato $1$}]^m = n \Big(1 - \frac{p}{n}\Big).
+    \end{split}
+  \end{equation}
+  Observe que
+  \begin{enumerate}[\quad a)]
+  \item acima obtivemos uma igualdade e
+  \item $[\text{pato $i$ vive}]$, $i = 1, \dots, n$ não são independentes.
+  \end{enumerate}
+
+  Finalmente estimamos (digamos para $n$ par)
+  \begin{equation}
+    \begin{split}
+      & P[\text{patos para o jantar} \leq n/2] = P[X \geq n/2] \leq \frac{E(X)}{n/2}\\
+      & \qquad = 2 \frac{n}{n} \Big( 1 - \frac{p}{n}\Big)^m \leq 2 \exp \{- \frac{pm}{n}\}.
+    \end{split}
+  \end{equation}
+\end{example}
+
 \begin{definition}
   Dizemos que uma coleção infinita de eventos $(A_n)_{n\ge 1}$ é independente \index{independencia@independência!de eventos} se toda sub-coleção finita de tais eventos forem independentes.
 \end{definition}
