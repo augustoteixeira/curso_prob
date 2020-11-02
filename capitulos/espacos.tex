@@ -594,7 +594,7 @@ Como estaremos interessados em variáveis independentes, precisamos de um result
 
 \begin{lemma}
 \label{l:vt_produto}
-Sejam $\mu_1, \mu_2$ distribuições em $\Omega$ e $\nu_1, \nu_2$ distribuições em $y$ ambos enumeráveis. Então
+Sejam $\mu_1, \mu_2$ distribuições em $\Omega$ e $\nu_1, \nu_2$ distribuições em $\Omega'$ ambos enumeráveis. Então
 \begin{equation}
   \lVert \mu_1 \otimes \nu_1 - \mu_2 \otimes \nu_2 \rVert_{\VT} \leq \lVert \mu_1 - \mu_2 \rVert_{\VT} + \lVert \nu_1 - \nu_2 \rVert_{\VT}.
 \end{equation}
@@ -604,8 +604,8 @@ Sejam $\mu_1, \mu_2$ distribuições em $\Omega$ e $\nu_1, \nu_2$ distribuiçõe
 Basta expandir
 \begin{equation}
   \begin{split}
-    2\lVert \mu_1 & \otimes \nu_1 - \mu_2 \otimes \nu_2 \rVert_{\VT} = \sum_{x \in \Omega, y \in \Omega} |\mu_1(x)\nu_1(y) - \mu_2(x)\nu_2(y)|\\
-    & \leq \sum_{x \in \Omega, y \in \Omega} |\mu_1(x)\nu_1(y) - \mu_1(x)\nu_2(y)| + |\mu_1(x)\nu_2(y) - \mu_2(x)\nu_2(y)|\\
+    2\lVert \mu_1 & \otimes \nu_1 - \mu_2 \otimes \nu_2 \rVert_{\VT} = \sum_{x \in \Omega, y \in \Omega'} |\mu_1(x)\nu_1(y) - \mu_2(x)\nu_2(y)|\\
+    & \leq \sum_{x \in \Omega, y \in \Omega'} |\mu_1(x)\nu_1(y) - \mu_1(x)\nu_2(y)| + |\mu_1(x)\nu_2(y) - \mu_2(x)\nu_2(y)|\\
     & \leq 2\lVert \mu_1 - \mu_2 \rVert_{\VT} + 2\lVert \nu_1 - \nu_2 \rVert_{\VT}.
   \end{split}
 \end{equation}
@@ -650,8 +650,8 @@ O segundo ponto segue do primeiro applicado ao caso $\Omega = \mathbb{Z}^2$, $E=
 Pelo primeiro, observamos
 \begin{equation}
   \begin{split}
-    2\lVert X_*\mu - X_*\nu\rVert_{\VT} &= \sum_{x \in E} \Big| \mu(X(\omega)=x) - \nu(X(\omega)=x) \Big|\\
-    & =  \sum_{x \in E} \big| \sum_{\{\omega \in\Omega \ : \ X(\omega)=x\}}  \mu(\omega) - \nu(\omega) \big|\\
+    2\lVert X_*\mu - X_*\nu\rVert_{\VT} &= \sum_{x \in X(\Omega)} \Big| \mu(X(\omega)=x) - \nu(X(\omega)=x) \Big|\\
+    & =  \sum_{x \in X(\Omega)} \Big| \sum_{\omega \in\Omega \ : \ X(\omega)=x}  \mu(\omega) - \nu(\omega) \Big|\\
     & \leq \sum_{\omega \in \Omega} \big| \mu(\omega)- \nu(\omega) \big|\\
     & = 2\lVert \mu - \nu\rVert_{\VT}.
   \end{split}
