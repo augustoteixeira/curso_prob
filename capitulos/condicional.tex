@@ -903,11 +903,92 @@ Isso é feito com o seguinte mapa $\theta_t: \mathcal{D}\big( [0, \infty) \big) 
 \end{exercise}
 
 \begin{lemma}
-  Se $\lambda, t > 0$, $k \in \mathbb{Z}_+$ e $A$ é mensurável, então
+  Fixe $\lambda, t > 0$ e seja $N$ um processo de Poisson de taxa $\lambda$.
+  Então, para $k \in \mathbb{Z}_+$ e $A$ mensurável,
   \begin{equation}
-    \mathbb{P}_\lambda[N_t = k, \theta_t \circ N \in A] = \mathbb{P}_\lambda[N_t = k] \mathbb{P}_\lambda[\theta_t \circ N \in A].
+    \mathbb{P}_\lambda[N_t = k, \theta_t \circ N \in A] = \mathbb{P}_\lambda[N_t = k] \mathbb{P}_\lambda[N \in A].
   \end{equation}
 \end{lemma}
+
+Em particular, isso mostra que a distribuição do processo de Poisson $N$ é invariante pelo mapa $\theta_t$.
+
+\begin{proof}
+  Começamos reescrevendo o evento e condicionando em $T_k$ como abaixo
+  \begin{equation*}
+    \begin{split}
+      \mathbb{P}_\lambda & [N_t = k, \theta_t \circ N \in A] \\
+      & = \mathbb{P}_\lambda[T_k \leq t, T_{k + 1} > t , \theta_t \circ N \in A] \\
+      & = \mathbb{E}_\lambda \big[ {\bf 1}_{T_k \leq t} \mathbb{E}_\lambda [X_{k + 1} > t - t_k, \theta_t \circ N \in A | T_k = t_k ] \circ T_k \big] \\
+      & = \mathbb{E}_\lambda \Big[ {\bf 1}_{T_k \leq t} \mathbb{E}_\lambda \big[X_{k + 1} > t - t_k, \Gamma (X_{k + 1} - (t - t_k), X_{k + 2}, X_{k + 3}, \dots ) \in A | T_k = t_k \big] \circ T_k \Big], \\
+      \intertext{que, usando que $X_i$ são independentes e $X_{k + 1}$ não tem sem memória, é igual a}
+      & = \mathbb{E}_\lambda \Big[ {\bf 1}_{T_k \leq t} \mathbb{P}_\lambda \big[X_{k + 1} > t - t_k | T_k = t_k \big] \circ T_k \Big] \mathbb{P}_\lambda [N \in A] \\
+      & = \mathbb{P}_\lambda[ N_t = t ] \mathbb{P}_\lambda [N \in A],
+    \end{split}
+  \end{equation*}
+  terminando a prova do lema.
+\end{proof}
+
+Como corolário do lema acima, podemos deduzir que um processo de Poisson possui incrementos independentes.
+Mais precisamente,
+
+\begin{corollary}
+  Seja $N$ um Processo de Poisson $N$ com taxa $\lambda > 0$.
+  Considerando também tempos $0 = t_0 < t_1 < \dots < t_j$, e inteiros $k_1, \dots, k_j \geq 0$ temos
+  \begin{equation*}
+    \mathbb{P}_\lambda \big[ N_{t_1} = k_1, \dots, N_{t_j} - N_{t_{j - 1}} = k_j \big] = \mathbb{P}_\lambda [N_{t_1} = k_1] \cdots \mathbb{P}_\lambda [N_{t_j - t_{j - 1}} = k_j]
+  \end{equation*}
+\end{corollary}
+
+\begin{proof}
+  Basta observar que
+  \begin{equation}
+    [ N_{t_2} - N_{t_1}, \dots, N_{t_j} - N_{t_{j - 1}}] = [ N_{t_2 - t_1}, \dots, N_{t_j - t_1} - N_{t_{j - 1} - t_1}] \circ \theta_{t_1}
+  \end{equation}
+  e aplicar o lema para obter
+  \begin{equation*}
+    \begin{split}
+      \mathbb{P}_\lambda \big[ & N_{t_1} = k_1, \dots, N_{t_j} - N_{t_{j - 1}} = k_j \big] \\
+      & = \mathbb{P}_\lambda [ N_{t_1} = k_1] \mathbb{P}_\lambda [N_{t_2 - t_1} = k_2 , \dots N_{t_j - t_1} - N{t_{j - 1} - t_1} = k_j].
+    \end{split}
+  \end{equation*}
+  Repetindo essa operação iterativamente, obtemos o resultado desejado.
+\end{proof}
+
+
+
+\begin{equation}
+  T_1, \dots, T_k \text{ under } \mathbb{P}^{t, k}_\lambda \overset{d}\sim
+\end{equation}
+
+
+$x_1 = t_1$, $x_2 = t_2 - t_1, \dots, x_k = t_k - t_{k - 1}$
+\begin{equation}
+  \begin{split}
+    \rho^{t, k}_\rho (t_1, \dots, t_k) & = {\bf 1}_{0 \leq t_1 \leq \dots \leq t_k \leq t} \; \frac{1}{\mathbb{P}_\lambda [N_t = k]}
+    \lambda e^{-\lambda x_1} \lambda e^{-\lambda x_2} \cdots e^{ - \lambda x_k} e^{ - \lambda (t - t_k) }\\
+    & = {\bf 1}_{0 \leq t_1 \leq \dots \leq t_k \leq t} \; \frac{k!}{e^{-\lambda t} (\lambda t)^k} \lambda^k e^{-\lambda t} = {\bf 1}_{0 \leq t_1 \leq \dots \leq t_k \leq t} \; \frac{k!}{t^k}.
+\end{split}
+\end{equation}
+Note que não depende de $\lambda$.
+
+
+Considere variáveis uniformes $U_1, \dots, U_k$ no intervalo $[0, t]$
+\begin{equation}
+  \rho^{t, k} (u_1, \dots, u_k) = {\bf 1}_{\tilde{u}_1, \dots, \tilde{u}_k \in [0, t]} \; \frac{1}{t^k}
+\end{equation}
+
+Seja $\tilde{U}_1 < \dots < \tilde{U}_k$ a versão ordenada das $U_i$'s.
+\begin{equation}
+  (\tilde{U}_1, \dots, \tilde{U}_k) \overset{q.c.}= \sum_{\sigma \text{ perm. de $\{1, \dots, k\}$}} (U_{\sigma_1}, \dots, U_{\sigma_k}) {\bf 1}_{0 \leq U_{\sigma_1} \leq \dots \leq U_{\sigma_k} \leq t}
+\end{equation}
+
+Então,
+\begin{equation}
+  \begin{split}
+    \tilde{\rho}^{t, k} & = {\bf 1}_{0 \leq \tilde{u}_1 \leq \dots \leq \tilde{u}_k \leq t} \; \frac{1}{t^k} \sum_{\sigma \text{ perm. de $\{1, \dots, k\}$}} \rho^{t, k}(\tilde{u}_{\sigma_1}, \dots, \tilde{u}_{\sigma_k}) \\
+    & = {\bf 1}_{0 \leq \tilde{u}_1 \leq \dots \leq \tilde{u}_k \leq t} \; \frac{k!}{t^k} 
+  \end{split}
+\end{equation}
 
 \end{topics}
 
