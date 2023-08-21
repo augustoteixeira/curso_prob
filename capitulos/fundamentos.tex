@@ -147,7 +147,7 @@ Basta mostrar a validade da equação abaixo e depois integrar com
     \end{equation}
     Logo, expandindo o produto acima obtemos
     \begin{equation}
-      \1_A + \sum_{k = 1}^n \sum_{\substack{I \subseteq \{1, \dots, n\}\\|I| = k}} (-1)^k \1_{A_k}(\omega) = 0,
+      \1_A + \sum_{k = 1}^n \sum_{\substack{I \subseteq \{1, \dots, n\}\\|I| = k}} (-1)^k \prod_{i \in I} \1_{A_i}(\omega) = 0,
     \end{equation}
     que equivale a \eqref{e:indicadora_como_produto}.
 \end{proof}
@@ -198,7 +198,7 @@ Basta mostrar a validade da equação abaixo e depois integrar com
     \end{split}
   \end{equation}
 
-  $b)$ A prova é análoga à de 1.
+  $b)$ A prova é análoga à de $(a)$.
 \end{proof}
 
 \begin{lemma}[Borel-Cantelli - primeira parte]
@@ -243,7 +243,7 @@ Ele trata de classes de eventos que não são necessariamente $\sigma$-álgebras
   Dê um exemplo de $\lambda$-sistema que não seja uma $\sigma$-álgebra.
 \end{exercise}
 
-Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistema contendo $\mathcal{A}$, ou seja
+Definimos para $\mathcal{A} \subseteq \mathcal{P}(\Omega)$, o menor $\lambda$-sistema contendo $\mathcal{A}$, ou seja,
 \begin{equation}
   \lambda(\mathcal{A}) = \bigcap_{\substack{\text{$\mathcal{B}$ $\lambda$-sistema}\\\mathcal{A} \subseteq \mathcal{B}}} \mathcal{B}.
 \end{equation}
@@ -316,14 +316,9 @@ Note pelo Exercício~\ref{x:lambda_nao_sigma} que a hipótese de que $\mathcal{A
   \end{enumerate}
   Isso mostra que $\bar{\mathcal{B}}$ é um $\lambda$-sistema com $\mathcal{A} \subseteq \bar{\mathcal{B}} \subseteq \lambda(\mathcal{A})$, estabelecendo \eqref{e:B_barra_lambda}.
 
-  Finalmente mostraremos que
-  \begin{equation}
-    \label{e:B_barra_pi}
-    \text{$\bar{\mathcal{B}}$ é um $\pi$-sistema}.
-  \end{equation}
-  De fato, sejam $A_1, A_2 \in \bar{\mathcal{B}}$ e $B \in \lambda(A)$.
-  Então $(A_1 \cap A_2) \cap B = (A_1 \cap B) \cap A_2 \in \lambda(\mathcal{A})$, donde $A_1 \cap A_2$ pertence a $\bar{\mathcal{B}}$.
-  Logo temos por \eqref{e:B_barra_pi} e \eqref{e:B_barra_lambda} que $\lambda(\mathcal{A})$ é um $\pi$-sistema, ou seja \eqref{e:lambda_is_pi}, terminando a prova do teorema.
+  Finalmente mostraremos que $\lambda(\mathcal{A})$ é um $\pi$-sistema.
+  De fato, dado $A \in \lambda(\mathcal{A})$, segue da igualdade $\bar{\mathcal{B}} = \lambda(\mathcal{A})$ que $A \cap B \in \lambda(\mathcal{A})$, para todo $B \in \lambda(\mathcal{A})$.
+  Logo estabelecemos \eqref{e:lambda_is_pi}, terminando a prova do teorema.
 \end{proof}
 
 \subsection{Igualdade de probabilidades}
