@@ -217,6 +217,27 @@ Basta mostrar a validade da equação abaixo e depois integrar com
   O que termina a prova do lemma.
 \end{proof}
 
+\begin{proof}
+Sejam $A_1, A_2, \dots \in \mathcal{F}$ satisfazendo $\sum_{i = 1}^\infty P(A_i) < \infty$, e defina, para $n \geq 1$,
+\begin{equation}
+f_{n} = \sum_{k=1}^{n} \textbf{1}_{A_{k}},
+\end{equation} 
+de modo que
+\begin{equation}
+\big[ \text{$A_i$ para infinitos $i$} \big] = \big[ \lim_{n} f_{n} = \infty \big].
+\end{equation}
+
+Note agora que $( f_{n} )_{n \geq 1}$ forma uma sequência monótona de funções com $\lim_{n} f_{n} = \sum_{k=1}^{\infty} \textbf{1}_{A_{k}}$. Em particular, o Teorema da convergência monótona implica que
+\begin{equation}
+\int \sum_{k=1}^{\infty} \textbf{1}_{A_{k}} = \lim_{n} \int f_{n} \d P = \lim_{n} \sum_{k=1}^{n} P(A_{i}) = \sum_{i=1}^{\infty} P(A_{i}) < \infty.
+\end{equation}
+Isto nos dá que
+\begin{equation}
+P \big( \lim_{n} f_{n} = \infty) = 0,
+\end{equation}
+e completa a demonstração.
+\end{proof}
+
 Imagine que jogamos todos os dias em uma loteria e que nossa probabilidade de ganhar no dia $i$ é $p_i$.
 Então se $\sum_i p_i < \infty$, sabemos que certamente não ganharemos infinitas vezes.
 
