@@ -71,26 +71,33 @@ Certamente não temos muita informação sobre $A$, então vamos usar o método 
     onde o produto $\mathbb{Z}_p \cdot a$ é entendido elemento a elemento.
     Conclua que
     \begin{equation}
-      P \Big[ X \cdot a \in \big[\tfrac p3, \tfrac {2p}3\big) \Big] \geq \frac 13 -\frac 1 p.
+      P \Big[ X \cdot a \in \big[ \tfrac{p}{3}, \tfrac {2p}{3} \big) \Big] \geq \frac{1}{3} -\frac{1}{p}.
     \end{equation}
   \end{exercise}
   Definimos o conjunto aleatório
-  $$\mathcal{B} = \{ x\in A \ | X\cdot a \in [\tfrac p3, \tfrac {2p}3) \},$$
-  Esse conjunto e livre de soma: se $X=0$ o cojunto e vazio e nos outros casos se $x, y\in \mathcal{B}$
-  $$(x+y)\in [\tfrac {2p}3, \tfrac {4p} 3)$$
-  que e o complementario de $[\tfrac p3, \tfrac {2p}3)$ em $\mathbb{Z}_p$.
+    \begin{equation}
+      \mathcal{B} = \{ a \in A \ | X \cdot a \in [\tfrac p3, \tfrac {2p}3) \}.
+    \end{equation}
+  Esse conjunto é livre de soma: se $X=0$ o conjunto é vazio e, nos outros casos, se $a, b\in \mathcal{B}$ então
+    \begin{equation}
+      X (a+b)\in [\tfrac {2p}3, \tfrac {4p} 3)
+    \end{equation}
+  que é o complemento de $[\tfrac{p}{3}, \tfrac{2p}{3} )$ em $\mathbb{Z}_p$.
 
   \medskip
 
   Basta portanto mostrar que com probabilidade positiva $\# \mathcal{B} \geq \tfrac{\#A}3$, que segue do seguinte argumento.
+  Note inicialmente que  
   \begin{multline*}
     \int \# \mathcal{B} \d P = \int \sum_{a \in A} \1_{\big[ X \cdot a \in [p/3, 2p/3) \big]} \d P \\
     =
-    \sum_{a \in A} P \Big[ X \cdot a \in \big[\tfrac p3, \tfrac {2p}3\big) \Big] \geq \frac{\# A}3- \frac{\# A} p> \frac{\# A-1 }3,
+    \sum_{a \in A} P \Big[ X \cdot a \in \big[ \tfrac{p}{3}, \tfrac {2p}{3} \big) \Big] \geq \frac{\# A}{3}- \frac{\# A}{p}> \frac{\# A-1 }{3},
   \end{multline*}
-  mas para qualquer variável aleatória ,  $P[X \geq \int X \d P] > 0$.
+  mas, para qualquer variável aleatória,  $P[Y \geq \int Y \d P] > 0$.
   Nesse caso, isso implica
-  $P[X \ge \frac{\# A}3 ]=  P[X > \frac{\# A-1 }3 ]>0$.
+    \begin{equation}
+      P[ \# \mathcal{B} \ge \tfrac{\# A}3 ] =  P[ \# \mathcal{B} > \tfrac{\# A-1 }3 ] \geq P \Big[ \# \mathcal{B} > \int \# \mathcal{B} \d P \Big] >0.
+    \end{equation}
 \end{proof}
 
 \todo{Adicionar contexto histórico: citar artigo Erdos e o Annals of Math que mostra que não é possível com $\#A(1/3 + \varepsilon)$.}
@@ -102,7 +109,7 @@ Certamente não temos muita informação sobre $A$, então vamos usar o método 
 
 \section{Caso absolutamente contínuo}
 
-Uma outra maneira simples de definir um espaço de probabilidade, é partindo de um espaço de medida.
+Uma outra maneira simples de definir um espaço de probabilidade é partindo de um espaço de medida.
 Seja $(\Omega, \mathcal{F}, \mu)$ um espaço de medida e $\rho:\Omega \to \mathbb{R}_+$ uma função mensurável com $\int \rho(x) \mu(\d x) = 1$.
 Então podemos definir a probabilidade induzida
 \begin{equation}
@@ -110,7 +117,7 @@ Então podemos definir a probabilidade induzida
   P(A) = \int_A \rho(x) \mu(\d x).
 \end{equation}
 Nesse caso, chamamos $\rho$ de a \emph{densidade} \index{densidade} de $P$ com respeito a $\mu$.
-Uma outra possível notação para a equação acima é $\d P = \rho(x) \d \mu$ \index{dP@$\d P = \rho \d \mu$} (lembrando a derivada de Radon-Nikodim).
+Uma outra possível notação para a equação acima é $\d P = \rho(x) \d \mu$ \index{dP@$\d P = \rho \d \mu$} (lembrando a derivada de Radon-Nikodym).
 
 Observe que o caso discreto pode ser definido em termos de uma densidade, onde $\rho(\omega) = p_\omega$ e $\mu$ é a medida da contagem em $\Omega$.
 
@@ -263,7 +270,7 @@ Mas escolhemos abaixo um método mais simples, que parte da existência de $U_{[
   \item Por outro lado, se $x \ge S(u)$ então todo $x' > x$ satisfaz $F(x') > u$.
     Pois por continuidade a direita $F(x)\ge u$.
   \end{enumerate}
-  Isos prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
+  Isso prova \eqref{e:pseudo_inversa}, terminando a prova da proposição.
 \end{proof}
 
 \begin{exercise}
@@ -277,8 +284,8 @@ Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebr
   \widebar{\Omega} = \prod_{i=1}^n \Omega_i \quad \text{e} \quad \widebar{\mathcal{F}} = \sigma \Big( \{
   A_1 \times \cdots \times A_n  \, : \,  \forall i \in \{1,\dots,n\},\ A_i \in \mathcal{F}_i \} \Big).
 \end{equation}
-Essa $\sigma$-álgebra e chamada de $\sigma$-álgebra produto e denotaremos ela por $\bigotimes_{i=1}^n \mathcal{F}_i$,
-o $\mathcal{F}_1\otimes \mathcal{F}_2$ quando $n=2$.
+Essa $\sigma$-álgebra é chamada de $\sigma$-álgebra produto e denotaremos ela por $\bigotimes_{i=1}^n \mathcal{F}_i$,
+ou $\mathcal{F}_1\otimes \mathcal{F}_2$ quando $n=2$.
 
 \begin{proposition}
   Se $(\Omega_1, \mathcal{F}_1, P_1), \dots, (\Omega_n, \mathcal{F}_n, P_n)$ são espaços de probabilidade, então existe uma única probabilidade $\widebar{P}$ no espaço mensurável $(\widebar{\Omega}, \widebar{\mathcal{F}})$ tal que
@@ -302,19 +309,19 @@ Note que a unicidade do produto pode ser concluída por exemplo usando o Corolá
 \section{Independência}
 
 Nossa intuição nos diz que quando jogamos duas moedas, o resultado de cada uma delas não deve depender um do outro.
-Dessa forma, a probabilidade de obtermos um determinado resultado (como por exemplo duas caras) deve ser um quarto, ou seja meio vezes meio.
+Dessa forma, a probabilidade de obtermos um determinado resultado (como por exemplo duas caras) deve ser um quarto, ou seja, meio vezes meio.
 
 Em geral, definimos dois eventos como independentes da seguinte forma.
 
 \begin{definition}
-  Dizemos que dois eventos $A, B \in \mathcal{F}$, são \emph{independentes} \index{independencia@independência!de eventos} se
+  Dizemos que dois eventos $A, B \in \mathcal{F}$ são \emph{independentes} \index{independencia@independência!de eventos} se
   \begin{equation}
     P(A \cap B) = P(A) P(B).
   \end{equation}
 \end{definition}
 
 \begin{example}
-  Se $\Omega = \{1, \dots, 6\}$ é dotada da $\sigma$-álgebra das partes e e $P(A) = \#A/6$, então os eventos $A = [\omega \text{ é impar}]$ e $B = [\omega \geq 5]$ satisfazem
+  Se $\Omega = \{1, \dots, 6\}$ é dotada da $\sigma$-álgebra das partes e $P(A) = \#A/6$, então os eventos $A = [\omega \text{ é impar}]$ e $B = [\omega \geq 5]$ satisfazem
   \begin{equation}
     P(A \cap B) = P(\{5\}) = 1/6 = (1/2) (1/3) = P(A) P(B).
   \end{equation}
@@ -327,7 +334,7 @@ Em geral, definimos dois eventos como independentes da seguinte forma.
   \begin{equation}
     P[X_i = a, X_j = b] = P[X_i = a] P[X_j = b],
   \end{equation}
-  onde $[A, B]$ denota a interseção $[A] \cap [B]$.
+  onde $[A, B]$ denota a interseção $A \cap B$.
 \end{exercise}
 
 \subsection{Coleções de eventos}
@@ -502,7 +509,7 @@ Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma 
       & \leq \prod\limits_{i=n}^\infty \exp\{-p_i\} = \exp\big\{- \sum_{i=n}^\infty p_i\big\} = 0.
     \end{split}
   \end{equation}
-  Terminando a prova do lemma.
+  Terminando a prova do lema.
 \end{proof}
 
 \todosec{Tópico: Uma dinâmica em \texorpdfstring{$[0,1]$}{[0,1]}}{fazer dinâmica 2x mod 1 e relações Lebesgue[0,1] com produtos de bernoulli}
@@ -530,7 +537,7 @@ Dessa forma, o número total de emissões observadas para $\omega = (\omega_1, \
 \end{equation}
 E gostaríamos de entender como se comporta essa distribuição, que nada mais é que $\Bin(n,p)$.
 
-Uma primeira tentativa seria modelar esse processo dizendo que o número de átomos $n$ é tão grande, que somente estamos interessados no comportamento assimtótico quando $n$ vai para infinito.
+Uma primeira tentativa seria modelar esse processo dizendo que o número de átomos $n$ é tão grande, que somente estamos interessados no comportamento assintótico quando $n$ vai para infinito.
 Mas para manter o número de emissões sob controle, também gostaríamos que $p = p_n$, que converge a zero.
 Poderíamos por exemplo escolher
 \begin{equation}
@@ -538,8 +545,7 @@ Poderíamos por exemplo escolher
 \end{equation}
 Mas a discussão que se segue é muito mais geral que essa escolha específica.
 
-Como estaremos interessados em um regime assimtótico da distribuição de $X_p$ (lembre que apesar do espaço amostral de $X_n$ variar com $n$, sua distribuição é sempre uma probabilidade em $\mathbb{N}$).
-Mas para falar de regimes assimtóticos, precisamos de definir uma noção de distância entre duas distribuições em $\mathbb{N}$.
+Como estaremos interessados em um regime assintótico da distribuição de $X_p$ (lembre que apesar do espaço amostral de $X_n$ variar com $n$, sua distribuição é sempre uma probabilidade em $\mathbb{N}$), precisamos de definir uma noção de distância entre duas distribuições em $\mathbb{N}$.
 
 \begin{definition}
 Dadas duas distribuições $\mu_1$ e $\mu_2$ em $(\Omega, \mathcal{A})$, definimos
@@ -576,7 +582,7 @@ donde
 Na outra direção, observe que para todo $B \subseteq \Omega$,
 \begin{equation}
   \begin{split}
-    \sum_{i} |\mu_1(x_i) - \mu_2(x_i)| & \geq \sum_{x \in B} \mu_1(x) - \mu_2(x) + \sum_{x \in B^c} \mu_1(x) - \mu_2(x)\\
+    \sum_{i} |\mu_1(x_i) - \mu_2(x_i)| & \geq \sum_{x \in B} \mu_1(x) - \mu_2(x) + \sum_{x \in B^c} \mu_2(x) - \mu_1(x)\\
     & = \mu_1(B) - \mu_2(B) + (1 - \mu_2(B)) - (1 - \mu_1(B))\\
     & = 2(\mu_1(B) - \mu_2(B)).
   \end{split}
@@ -606,10 +612,10 @@ Basta expandir
   \begin{split}
     2\lVert \mu_1 & \otimes \nu_1 - \mu_2 \otimes \nu_2 \rVert_{\VT} = \sum_{x \in \Omega, y \in \Omega'} |\mu_1(x)\nu_1(y) - \mu_2(x)\nu_2(y)|\\
     & \leq \sum_{x \in \Omega, y \in \Omega'} |\mu_1(x)\nu_1(y) - \mu_1(x)\nu_2(y)| + |\mu_1(x)\nu_2(y) - \mu_2(x)\nu_2(y)|\\
-    & \leq 2\lVert \mu_1 - \mu_2 \rVert_{\VT} + 2\lVert \nu_1 - \nu_2 \rVert_{\VT}.
+    & \leq 2\lVert \mu_1 - \mu_2 \rVert_{\VT} + 2\lVert \nu_1 - \nu_2 \rVert_{\VT},
   \end{split}
 \end{equation}
-Onde acima nós usamos que $\mu_1$ e $\nu_2$ são probabilidades. Isso termina a prova do lema.
+onde acima usamos que $\mu_1$ e $\nu_2$ são probabilidades. Isso termina a prova do lema.
 \end{proof}
 
 Finalmente, gostaríamos de entender como a distância de variação total se comporta com respeito à soma de variáveis independentes.
@@ -646,14 +652,14 @@ Em particular se $\mu_1, \mu_2, \nu_1, \nu_2$ são distribuições em $\mathbb{Z
 \end{lemma}
 
 \begin{proof}
-O segundo ponto segue do primeiro applicado ao caso $\Omega = \mathbb{Z}^2$, $E=\mathbb{Z}$ e $X:\ (x,y) \mapsto (x+y)$.
-Pelo primeiro, observamos
+O segundo ponto segue do primeiro aplicado ao caso $\Omega = \mathbb{Z}^2$, $E=\mathbb{Z}$ e $X:\ (x,y) \mapsto (x+y)$.
+Para o primeiro, observamos
 \begin{equation}
   \begin{split}
     2\lVert X_*\mu - X_*\nu\rVert_{\VT} &= \sum_{x \in X(\Omega)} \Big| \mu(X(\omega)=x) - \nu(X(\omega)=x) \Big|\\
     & =  \sum_{x \in X(\Omega)} \Big| \sum_{\omega \in\Omega \ : \ X(\omega)=x}  \mu(\omega) - \nu(\omega) \Big|\\
     & \leq \sum_{\omega \in \Omega} \big| \mu(\omega)- \nu(\omega) \big|\\
-    & = 2\lVert \mu - \nu\rVert_{\VT}.
+    & = 2\lVert \mu - \nu\rVert_{\VT},
   \end{split}
 \end{equation}
 provando o lema.
