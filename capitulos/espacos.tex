@@ -809,7 +809,7 @@ Mas no contexto de medidas infinitas, não é de se esperar que $B_i \downarrow 
 Portanto resolvemos escrever o enunciado com probabilidades.
 
 \begin{exercise}
-  Dê um exemplo de medida que não satisfaz a segunda hipótese do Lema~\ref{l:extensao_vazio}.
+  Dê um exemplo de medida que não satisfaz a terceira hipótese do Lema~\ref{l:extensao_vazio}.
 \end{exercise}
 
 \begin{proof}
@@ -842,7 +842,7 @@ O objetivo desta seção é provar um resultado que nos permitirá construir pro
 Antes precisaremos de introduzir algumas notações.
 Dada uma coleção de espaços $(E_i)_{i\in \mathbb{N}}$, definimos o espaço produto
 \begin{equation}
-  \Omega = \prod_{i=1}^{\infty} E_i = \big\{(\omega_i)_{i\in \mathbb{N}} \, : \,  \omega_i \in E_i \text{ para todo $i \geq 1$}\big\}.
+  \Omega = \prod_{i=1}^{\infty} E_i = \big\{(\omega_i)_{i\in \mathbb{N}} \, : \,  \omega_i \in E_i \text{ para todo $i \geq 1$}\big\}
 \end{equation}
 e os mapas $X_i:\Omega \to E_i$, definidos para $i = 1, 2, \dots$ por
 \begin{equation}
@@ -854,7 +854,7 @@ Se cada $E_i$ é dotado de uma $\sigma$-álgebra $\mathcal{A}_i$, então definim
 \begin{equation}
   \mathcal{F} = \sigma( (X_i)_{i\geq 1} ),
 \end{equation}
-que é claramente uma a $\sigma$-álgebra em $\Omega$.
+que é claramente uma $\sigma$-álgebra em $\Omega$.
 Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 
 \begin{exercise}
@@ -911,7 +911,7 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
   \begin{equation}
     P(B) = P_l(A).
   \end{equation}
-  Note que por \eqref{e:consist_kolmog} essa definição independe da escolha da escolha de $l$ que usamos na definição de $B$.
+  Note que por \eqref{e:consist_kolmog} essa definição independe da escolha de $l$ que usamos na definição de $B$.
 
   Gostaríamos agora de utilizar o Lemma~\ref{l:extensao_vazio}.
   Para tanto, tome uma sequência encaixada $B_1 \supseteq B_2 \supseteq \dots \in \mathcal{S}$ e, supondo que $P(B_n) \geq \delta > 0$ para todo $n \geq 1$, temos de mostrar que sua interseção não pode ser vazia.
@@ -1029,10 +1029,10 @@ Até agora nosso grafo é apenas uma rede periódica, mas as coisas começam a f
 Imaginamos que nosso material poroso está sujeito a variações durante sua formação.
 Isso se reflete no fato que alguns elos de $E$ podem estar abertos ou não aleatoriamente.
 
-Para o nosso modelos, o espaço amostral vai ser $\Omega:= \{0,1\}^E$ considerado com a $\sigma$-algebra produto.
+Para o nosso modelo, o espaço amostral vai ser $\Omega:= \{0,1\}^E$ considerado com a $\sigma$-algebra produto.
 Fixamos um $p \in [0,1]$ e definimos uma coleção de variáveis aleatórias $\omega_e$, para $e \in E$, que sejam \iid e com distribuição $\Ber(p)$.
-Chamamos $P_p$ a probabilidade corespondente.
-Essas variáveis aleatórias induzem um grafo aleatorio $G(\omega)=(\mathbb{Z}^d, \mathcal{E}(\omega))$, subgrafo do grafo original,
+Chamamos $P_p$ a probabilidade correspondente.
+Essas variáveis aleatórias induzem um grafo aleatório $G(\omega)=(\mathbb{Z}^d, \mathcal{E}(\omega))$, subgrafo do grafo original,
 que corresponde a incluir apenas os elos $e$ com $\omega_e = 1$.
 Mais precisamente
 \begin{equation}
@@ -1064,7 +1064,7 @@ Podemos ver na Figura~\ref{f:percola} algumas simulações desse grafo aleatóri
 \end{figure}
 
 Agora que temos um modelo de meio poroso bem definido, precisamos pensar em quais perguntas nos interessam sobre $\mathcal{G} = (\mathbb{Z}^d, \mathcal{E})$.
-Sendo esse um modelo poara passagem de fluido, as primeiras perguntas que faremos concerne a conectividade de $\mathcal{G}$.
+Sendo esse um modelo para passagem de fluidos, as primeiras perguntas que faremos concerne a conectividade de $\mathcal{G}$.
 
 \begin{exercise}
   Mostre que quase certamente $G(\omega)$ é desconexo.
@@ -1075,7 +1075,7 @@ Como não podemos esperar que $G(\omega)$ seja conexo, podemos nos perguntar alg
 componente conexa da origem $0 \in \mathbb{Z}^d$ em $G(\omega)$ é infinita.
 
 Voltando à Figura~\ref{f:percola} vemos que, dependendo do valor de $p \in [0,1]$, pode ser bem difícil ou bem fácil encontrar um caminho longo à partir da origem.
-Isso é uo que estudaremos em mais detalhes no que segue.
+Isso é o que estudaremos em mais detalhes no que segue.
 
 Mais precisamente estamos interessados em:
 \begin{equation}
@@ -1175,7 +1175,7 @@ De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2
 
 Um caso bastante importante de distribuição de um elemento aleatório é o caso de vetores.
 Digamos por exemplo que temos dois elementos aleatórios $X:\Omega \to E$ e $Y:\Omega \to E'$.
-Já sabemos a definição de $X_*P$ e $Y_*P$ (vamos também usar a notação $P_X$ e $P_Y$) que nada mais são que as distribuições de $X$ e $Y$ respectivamente.
+Já sabemos a definição de $X_*P$ e $Y_*P$ (vamos também usar a notação $P_X$ e $P_Y$) que nada mais são que as distribuições de $X$ e $Y$, respectivamente.
 
 Mas podemos considerar o vetor $(X, Y)$ que será um elemento aleatório tomando valores em $E \times E'$ e possui também sua própria distribuição dada por $(X, Y)_*P$ (também denotada por $P_{(X, Y)}$).
 A essa probabilidade em $E \times E'$ damos o nome de distribução conjunta deste par. \index{distribuicao@distribuição!conjunta}.
@@ -1225,7 +1225,7 @@ Uma outra maneira de se construir espaços de probabilidade é através de condi
 Obviamente $P(\cdot | B)$ é uma probabilidade em $(\Omega, \mathcal{F})$ e podemos entendê-la de duas formas: como uma normalização ou como uma tentativa de sucesso.
 Explicaremos abaixo cada uma dessas interpretações.
 
-Quando restringimos o espaço amostral $\Omega$ ao conjunto $B$ (e associamos a $A \in \mathcal{F}$ o valor $P(A \cap B)$), temos uma sub-probabilidade, isto é possivelmente $P(\Omega \cap B) < 1$.
+Quando restringimos o espaço amostral $\Omega$ ao conjunto $B$ (e associamos a $A \in \mathcal{F}$ o valor $P(A \cap B)$), temos uma sub-probabilidade, isto é, possivelmente $P(\Omega \cap B) < 1$.
 Logo podemos entender o denominador de \eqref{e:P_condicional} como uma normalização para obtermos novamente uma probabilidade.
 
 Mas a interpretação mais natural de \eqref{e:P_condicional} é dada pela seguinte proposição.
@@ -1233,7 +1233,7 @@ Para enunciá-la, considere $(\Omega, \mathcal{F}, P)$ um espaço de probabilida
 \begin{equation}
   \widebar{\Omega} =\Omega^{\mathbb{N}}, \qquad \widebar{\mathcal{F}} = \mathcal{F}^{\otimes \mathbb{N}} \quad \text{e} \quad \widebar P =  P^{\otimes \mathbb{N}}.
 \end{equation}
-Na verdade somente definimos esse produto para $\Omega = \mathbb{R}$, mas como mencionamos abaixo do Teorema da Extensão de Kolmogorov, isso pode ser fácilmente generalizado e o faremos posteriormente.
+Na verdade somente definimos esse produto para $\Omega = \mathbb{R}$, mas como mencionamos abaixo do Teorema da Extensão de Kolmogorov, isso pode ser facilmente generalizado e o faremos posteriormente.
 
 \begin{proposition}
   Na situação acima, seja $B \in \mathcal{F}$ com $P(B) > 0$ e defina $T:\widebar{\Omega} \to \mathbb{N}$ por $T(\omega) = \inf \{n \geq 1\, : \, X_n(\omega) \in B\}$, onde os $X_n$ são as coordenadas canônicas. Então $T < \infty$ quase certamente e
@@ -1266,7 +1266,7 @@ A intuição desta proposição é que se repetimos o experimento $(\Omega, \mat
 \end{proof}
 
 \begin{exercise}
-  Seja $\lambda > 0$ e $X \distr \Exp(\lambda)$ (lembrando a definição da distribuição exponencial: $\Exp(\lambda)(\d x) = \lambda \exp\{- \lambda x\} \d x$).
+  Sejam $\lambda > 0$ e $X \distr \Exp(\lambda)$ (lembrando a definição da distribuição exponencial: $\Exp(\lambda)(\d x) = \lambda \exp\{- \lambda x\} \d x$).
   Mostre que as variáveis com distribuição exponencial não possuem memória, ou seja:
   \begin{equation}
     \label{e:sem_memoria}
@@ -1277,7 +1277,7 @@ A intuição desta proposição é que se repetimos o experimento $(\Omega, \mat
 
 Definimos a distribuição geométrica \index{distribuicao@distribuição!geometrica@geométrica} de parâmetro $p \in (0,1]$ por
 \begin{equation}
-  \Geo(p) = \sum_{i = 1}^\infty \delta_i (1-p)^{i-1} p.
+  \Geo(p) = \sum_{i = 1}^\infty (1-p)^{i-1} p \delta_i.
 \end{equation}
 
 \begin{exercise}
@@ -1287,7 +1287,7 @@ Definimos a distribuição geométrica \index{distribuicao@distribuição!geomet
 
 \begin{exercise}
   \label{x:geo_time}
-  Sejam $Y_i$, para $i \geq 1$ \iid com distribuição $\Ber(p)$ e defina
+  Sejam $Y_i$, para $i \geq 1$, \iid com distribuição $\Ber(p)$ e defina
   \begin{equation}
     T = \inf\{i\, : \, Y_i = 1\}.
   \end{equation}
@@ -1339,7 +1339,7 @@ Enunciando hipóteses adequadas se for necessario,  calcule
 \subsection{Regra de Bayes}
 
 Frequentemente definimos um espaço de probabilidade através de probabilidades condicionais.
-Consideramos por exemplo um exame médico para detectar uma doença, nesse caso temos
+Consideramos por exemplo um exame médico para detectar uma doença, caso em que temos
 \begin{equation}
   \Omega = \{(\text{doente}, +), (\text{doente}, -), (\text{saudável}, +), (\text{saudável}, -)\},
 \end{equation}
@@ -1365,7 +1365,7 @@ E as probabilidades do lado direito da equação acima estão todas determinadas
 
 Contudo, o que estamos interessado muitas vezes é em como interpretar resultados de um exame.
 Por exemplo, quanto vele $P(\text{doente} | +)$?
-Isso nos é fornecido em geral pela regra de Bayes enunciada na seguinte
+Isso nos é fornecido em geral pela regra de Bayes enunciada na seguinte proposição.
 
 \begin{proposition}
   Se $(A_j)_{j\in I}$ formam uma partição (finita o enumeável) de $\Omega$ e $B \in \mathcal{F}$ tem probabilidade positiva, então
@@ -1435,20 +1435,21 @@ Sejam $(E_1, \mathcal{A}_1)$ e $(E_2, \mathcal{A}_2)$ espaços mensuráveis.
   \end{equation}
 \end{example}
 
-Vamos verificar que $K$ definido acima é um núcleo.
+Vamos verificar que $K$ definido acima é um núcleo de transição.
 De fato,
 \begin{enumerate}[\quad i)]
 \item $K(p, \cdot)$ é a distribuição Bernoulli com parâmetro $p$, que obviamente é uma probabilidade,
 \item além disso, $K(\cdot, \Omega) = 1$, $K(\cdot, \varnothing) = 1$ e $K(\cdot, \{0\}) = 1-p = 1 - K(\cdot,\{1\})$, que obviamente são mensuráveis.
-Isso prova que esse $K$ específico é um núcleo
 \end{enumerate}
 
-\begin{example}[Discreto]
+Isso prova que esse $K$ específico é um núcleo de transição
+
+\begin{example}[Caso discreto]
   \label{x:nucleo_discreto}
-  Seja $E_1$ e $E_2$ dois espaços finitos ou enumeráveis.
+  Sejam $E_1$ e $E_2$ espaços finitos ou enumeráveis.
   Se $p: E_1 \times E_2 \to [0,1]$ é tal que para todo $y \in E_1$ temos $\sum_{z\in E_2} p(y, z) = 1$, então
   \begin{equation}
-    K(y, A) := \sum_{z\in \in A} p(y, z) \text{ é um núcleo de transição entre $E_1$ e $E_2$.}
+    K(y, A) := \sum_{z \in A} p(y, z) \text{ é um núcleo de transição entre $E_1$ e $E_2$.}
   \end{equation}
   Nesse caso $p(y,z)$ representa a probabilidade que a segunda coordenada seja $z$, se a primeira é $y$.
 \end{example}
@@ -1457,14 +1458,14 @@ Isso prova que esse $K$ específico é um núcleo
   Mostre que se $E_1$ e $E_2$ são enumeráveis então todo núcleo entre $E_1$ e $E_2$ pode ser escrito na forma do exemplo acima.
 \end{exercise}
 
-\begin{example}[Absolutamente contínuo]
+\begin{example}[Caso absolutamente contínuo]
   Digamos que $E_1$ e $E_2$ sejam dotados de medidas $\mu_1$ e $\mu_2$ $\sigma$-finitas.
-  Seja $\rho: E_1 \times E_2 \to \mathbb{R}_+$ mensurável e tal que para $\mu_1$-quase todo $y \in E_1$, tenhamos que $\int_{E_2} \rho(y, z) \mu_2(\d z) = 1$.
+  Seja $\rho: E_1 \times E_2 \to \mathbb{R}_+$ mensurável e tal que para $\mu_1$-quase todo $y \in E_1$, tenhamos $\int_{E_2} \rho(y, z) \mu_2(\d z) = 1$.
   Então
   \begin{equation}
     K(y, A) := \int_A \rho(y, z) \mu_2(\d z) \text{ é um núcleo de transição entre $E_1$ e $E_2$.}
   \end{equation}
-  Note que $K(\cdot, A)$ está bem definido para $\mu_2$-quase todo ponto por Fubini.
+  Note que $K(\cdot, A)$ está bem definido para $\mu_2$-quase todo ponto pelo Teorema de Fubini.
 \end{example}
 
 \begin{exercise}
@@ -1478,7 +1479,7 @@ Mas obviamente o conjunto $\mathcal{A}_2$ pode ser muito complexo, então gostar
 \begin{proposition}
   \label{p:K_nucleo_na_classe}
   Seja $K:E_1 \times \mathcal{A}_2 \to [0,1]$, tal que $K(y, \cdot)$ é uma medida para todo $y \in E_1$.
-  Se $K(\cdot, A)$ é mensurável para dodo $A \in \mathcal{G}$, onde $\mathcal{G}$ é um $\pi$-sistema que gera $\mathcal{A}_2$, então $K$ é um núcleo de transição.
+  Se $K(\cdot, A)$ é mensurável para todo $A \in \mathcal{G}$, onde $\mathcal{G}$ é um $\pi$-sistema que gera $\mathcal{A}_2$, então $K$ é um núcleo de transição.
 \end{proposition}
 
 \begin{proof}
@@ -1559,16 +1560,16 @@ Estamos prontos agora para fornecer a
 \begin{equation}
     P(B) = \int_{E_1} \int_{E_2} \1_{B} K(y, \d z) P_1 (\d y).
   \end{equation}
-  Sò temos que verificar a formula acima nos define uma probabilidade em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$.
+  Só temos que verificar a fórmula acima nos define uma probabilidade em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$.
 
   De fato,
   \begin{enumerate}[\quad a)]
   \item obviamente $P(\Omega) = \int_{E_1} \int_{E_2}  K(y, \d z) P_1(\d y) = 1$ e
-  \item se $(B_i)_{i\in I}$ e uma familia finita o enumerável de eventos dijuntos (em $\mathcal{A}_1 \otimes \mathcal{A}_2$) então
+  \item se $(B_i)_{i\in I}$ e uma família finita ou enumerável de eventos disjuntos (em $\mathcal{A}_1 \otimes \mathcal{A}_2$) então
   $\1_{\bigcup_{i\in I} B_i}=\sum_{i\in I} \1_{B_i}$ a $\sigma$-aditividade de $P$ segue das propriedades básicas
-  (linearidade e Teorema de convergência monotona) da integração.
+  (linearidade e Teorema de convergência monótona) da integração.
   \end{enumerate}
-  O que demonstra o teorema.
+  Isto demonstra o teorema.
 \end{proof}
 
 \begin{exercise}
@@ -1608,7 +1609,7 @@ Estamos prontos agora para fornecer a
 
 \begin{exercise}
   Considere $K:E_1 \times \mathcal{A}_2 \to [0,1]$ dada por $K(p, \cdot) = \Exp(p)$.
-  Mostre que $K$ é núcleo de transição e calcule $U_{[0,1]}[X_2 > 1] \star K$.
+  Mostre que $K$ é núcleo de transição e calcule $U_{[0,1]} \star K [X_2 > 1]$.
 \end{exercise}
 
 \begin{exercise}
@@ -1631,10 +1632,10 @@ Nesse caso, é conveniente escrever
 \end{equation}
 
 \begin{exercise}
-  Seja $K:\mathbb{R}_+ \times \mathbb{B}(\mathbb{R}_+) \to [0,1]$ dada pela equação $K(x,A) = \int_A x \exp\{-x t\} \d t$.
+  Seja $K:\mathbb{R}_+ \times \mathcal{B}(\mathbb{R}_+) \to [0,1]$ dada pela equação $K(x,A) = \int_A x \exp\{-x t\} \d t$.
   \begin{enumerate}[\quad a)]
   \item Prove que $K$ \'e um n\'ucleo de transi\c{c}\~ao.
-  \item Seja $P$ dada por $P = K \star \textnormal{Exp}(1)$.
+  \item Seja $P$ dada por $P = \textnormal{Exp}(1) \star K$.
     Obtenha $P[X_2 > x_2]$ para todo $x_2 \geq 0$ (lembrando que $X_2$ denota a segunda coordenada no espa\c{c}o produto onde est\'a definida $P$).
     Compare a probabilidade acima com $K(1,[x_2, \infty))$.
   \item Mostre que $P[X_1 + X_2 \geq z] = \int_0^z \exp \{-x(z-x+1)\} \d x + \exp\{-z\}$.
@@ -1703,7 +1704,7 @@ então existe uma probabilidade $P$ em $\Omega$ tal que
   \begin{equation}
     \Psi(x_1, x_2, \dots) = (\psi_1(x_1), \psi_2(x_2), \dots).
   \end{equation}
-  Resta mostrar que a medida $P = \Psi_* \widebar{P}$ extende as probabilidades $P_n$.
+  Resta mostrar que a medida $P = \Psi_* \widebar{P}$ estende as probabilidades $P_n$.
   Observe que
   \begin{equation*}
     \begin{split}
@@ -1916,7 +1917,7 @@ Terminamos essa seção com esse importante resultado, que confirma nossa afirma
   \end{equation}
   onde
   \begin{equation*}
-   \mathcal{E}:=\{ (w_1, \dots, w_k)\in \bigcup_{n\ge 1} \mathbb{N}^n \, : \, A_{\omega_1,\dots,\omega_n}=\emptyset \}.
+   \mathcal{E}:=\{ (w_1, \dots, w_k)\in \bigcup_{n\ge 1} \mathbb{N}^n \, : \, A_{\omega_1,\dots,\omega_k}=\emptyset \}.
   \end{equation*}
 
   A igualdade acima será mostrada no que segue.
@@ -1931,17 +1932,17 @@ Terminamos essa seção com esse importante resultado, que confirma nossa afirma
   \begin{equation}
     \text{para todo $n$, $(x_k)_{k \geq n}$ é Cauchy em $(A_{w_1, \dots, w_n}, d_{w_1, \dots, w_n})$,}
   \end{equation}
- o que segue loge do fato que por $k \geq n+1$, $x_k \in A_{w_1, \dots, w_{k}}$ cujo $d_{w_1, \dots, w_{n}}$-diâmetro é menor que $1/k$.
+ o que segue logo do fato que por $k \geq n+1$, $x_k \in A_{w_1, \dots, w_{k}}$ cujo $d_{w_1, \dots, w_{n}}$-diâmetro é menor que $1/k$.
 
  \medskip
 
  Consideramos $x^n$ o limite de $(x_k)_{k\ge n}$ em $(A_{w_1, \dots, w_n}, d_{w_1, \dots, w_n})$.
- E facil de mostrar que $x^n=x^0:=x$ (o limite da sequencia em $(E,d)$) para todo valor de $n$.
- E suficiente ver que  $d(x^n,x_k)\le d_{w_1, \dots, w_n}(x^n,x_k)$, para todo $k\ge n$, o que implica que $x^n$ e o limite em $(E,d)$.
+ É fácil de mostrar que $x^n=x^0:=x$ (o limite da sequência em $(E,d)$) para todo valor de $n$.
+ É suficiente ver que  $d(x^n,x_k)\le d_{w_1, \dots, w_n}(x^n,x_k)$, para todo $k\ge n$, o que implica que $x^n$ é o limite em $(E,d)$.
 
  \medskip
 
- Em consequencia podemos concluir que $x\in A_{w_1, \dots, w_n}$ para todo $n$ e então que $\phi(x)=\omega$, o que conclui a prova do teorema.
+ Como consequência podemos concluir que $x\in A_{w_1, \dots, w_n}$ para todo $n$ e então que $\phi(x)=\omega$, o que conclui a prova do teorema.
 \end{proof}
 
 \begin{topics}
@@ -1974,7 +1975,7 @@ Mas essa notação fica bastante carregada à medida que iteramos.
 Para tornar essa notação mais simples, definimos a projeção $\phi_n:E^n \to E$ por $\phi_n(x_0, \dots, x_{n-1}) = x_{n-1}$.
 Também precisamos de $K_n: E^n \times \mathcal{A} \to [0,1]$ dado por
 \begin{equation}
-  K_n(\vec{x},A) = K\big(\phi_n(\vec{x}), A\big) \quad \big(= K(x_{n-1}),A) \big).
+  K_n(\vec{x},A) = K\big(\phi_n(\vec{x}), A\big) \quad \big(= K(x_{n-1},A) \big).
 \end{equation}
 O fato de $K_n$ ser um núcleo de transição segue imediatamente dessa propriedade para $K$.
 
@@ -1996,16 +1997,16 @@ Mas resta a questão sobre a existência de uma $\mu^\infty$ que será respondid
 \begin{proof}
   Basta observar que
   \begin{equation}
-    \mu_{n+1}(A \times E) = \mu_n \star K (A \times E) = \int_{A} \underbrace{K_n (\vec{x}, E)}_1 \mu_n(\d \vec{x}) = \mu_n(A).
+    \mu_{n+1}(A \times E) = \mu_n \star K (A \times E) = \int_{A} \underbrace{K_n (\vec{x}, E)}_1 \mu_n(\d \vec{x}) = \mu_n(A),
   \end{equation}
-  Provando o lema.
+  provando o lema.
 \end{proof}
 
 Logo, o Teorema da Extensão de Kolmogorov (lembre que $(E, \mathcal{A})$ foi suposto canônico) nos fornece uma única $P$ em $(\Omega, \mathcal{F})$ tal que
 \begin{equation}
    P_{(X_0, \dots, X_n)} = \mu_n, \text{ para todo $n \geq 0$}.
 \end{equation}
-Lembramos que $X_i$ denotam as projeções canônicas em $\Omega = \mtimes_{i=1}^\infty E$.
+Lembramos que $X_i$ denotam as projeções canônicas em $\Omega = \prod_{i=1}^\infty E$.
 
 Chamamos o processo $X_1, X_2, \dots$ sob a lei $P$ da Cadeia de Markov \index{Cadia de Markov} com distribuição inicial $\mu_0$ e núcleo de transição $K$.
 
@@ -2145,7 +2146,7 @@ Fixada uma sequência finita $w_1, \dots, w_n$ em $\{0,1\}$, definimos
 que nada mais é que o número de bolas do tipo $x$ que se encontram na urna no tempo $n$.
 Quando tivermos uma sequência infinita de $w_i$'s, escreveremos $N^n_x$ para denotar $N_x(w_1, \dots, w_n)$.
 
-Para cada $n \geq 1$, definimos $K_n:\{0,1\}^n \times \mathcal{P}(\{0,1\})$ por
+Para cada $n \geq 1$, definimos $K_n:\{0,1\}^n \to \mathcal{P}(\{0,1\})$ por
 \begin{equation}
   K_n(w_1, \dots, w_n) = \Ber\big( \tfrac{N_1}{n} \big).
 \end{equation}
@@ -2272,9 +2273,9 @@ Finalmente, não seríamos capazes de distinguir essas duas sequências (mesmo q
     U_{[0,1]} \widebar{K}(A) = \int_0^1 K(u, A) \d u \overset{\eqref{e:Polya_binomial}}= \int_0^1 u^{N_1(w_1, \dots, w_k)} (1 - u)^{N_0(w_1, \dots, w_k)} \d u.
   \end{equation}
 
-  Por outro lado , sabemos (usando simetria entre $0$ e $1$)que
+  Por outro lado , sabemos (usando simetria entre $0$ e $1$) que
   \begin{equation}
-    P[A]=U^{\otimes n+1}_{[0,1]} \Big[ \text{$X_i < X_{n+1}$, para $i \leq N^n_0$ e $X_i > X_0$, para $i \ge N^n_0+1$} \Big]
+    P(A) = U^{\otimes n+1}_{[0,1]} \Big[ \text{$X_i < X_{n+1}$, para $i \leq N^n_0$ e $X_i > X_0$, para $i \ge N^n_0+1$} \Big]
   \end{equation}
 
   Se definirmos $\tilde{K}:[0,1] \times \mathcal{B}([0,1]^n)$, dado por $\tilde{K}(u,B) =  U^{\otimes n}_{[0,1]}$, sabemos que isso define um núcleo pelo Exercício~\ref{x:nucleo_constante}.
