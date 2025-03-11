@@ -10,7 +10,7 @@ No início da Teoria da Probabilidade, a maioria dos fenômenos estudados aprese
 Em tais casos é desnecessário o uso de ferramentas sofisticadas pra modelar tais situações.
 Por exemplo, podemos simplesmente dizer que a probabilidade de se obter cada um dos lados do dado é igual a $1/6$.
 
-Mas digamos por exemplo que queremos um modelo para estudar o volume de chuva em uma cidade durante um ano.
+Mas digamos, por exemplo, que queremos um modelo para estudar o volume de chuva em uma cidade durante um ano.
 Obviamente, esse volume poderia ser qualquer número real positivo e não podemos simplesmente atribuir valores positivos de probabilidade a cada número real (lembramos que somas não enumeráveis de termos positivos são sempre infinitas).
 Mas como podemos continuar nossa modelagem se nem ao menos podemos dizer qual é a probabilidade de chover um determinado volume esse ano, por exemplo $(\pi/19)mm$?
 
@@ -49,26 +49,26 @@ Mais precisamente
   \item se $(A_n)_{n\ge 1} \in \mathcal{F}^{\bbN}$, então $\cup_{n\ge 1} A_n \in \mathcal{F}$.
   \end{enumerate}
 \end{definition}
-Nesse caso, dizemos que $(\Omega, \mathcal{F})$ é um \emph{espaço mensurável} 
-\index{epaco@espaço!mensuravel@mensurável} e os elementos $A \in \mathcal{F}$ são chamados de \emph{eventos}. 
-Usaremos a notação $A^{\cc}:=\gO\setminus A$ para denotar o evento \emph{complementar} de $A$ \index{evento}
+Nesse caso, dizemos que $(\Omega, \mathcal{F})$ é um \emph{espaço mensurável}
+\index{epaco@espaço!mensuravel@mensurável} e os elementos $A \in \mathcal{F}$ são chamados de \emph{eventos}.
+Usaremos a notação $A^{\cc}:=\gO\setminus A$ para denotar o evento \emph{complementar} a $A$ \index{evento}
 
-Se $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ (que chamamos de uma classe ou família), denotamos por $\sigma(\mathcal{G})$ a 
-\emph{$\sigma$-álgebra gerada por $\mathcal{G}$} \index{sigma-algebra@$\sigma$-álgebra!gerada por G@gerada por $\mathcal{G}$}, que é a menor $\sigma$-álgebra 
+Se $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ (que chamamos de uma classe ou família), denotamos por $\sigma(\mathcal{G})$ a
+\emph{$\sigma$-álgebra gerada por $\mathcal{G}$} \index{sigma-algebra@$\sigma$-álgebra!gerada por G@gerada por $\mathcal{G}$}, que é a menor $\sigma$-álgebra
 contendo $\mathcal{G}$ (e a interseção de todas $\sigma$-álgebras que contem $\mathcal{G}$).
 Um exemplo importante é dado pela \emph{$\sigma$-álgebra de Borel} \index{sigma-algebra@$\sigma$-álgebra!de borel}, gerada pelos abertos de uma topologia em $\Omega$.
 
 \medskip
 
-Dado $\cF$ and $\cF'$ duas $\sigma$-álgebras, usaremos a notação $\cF\vee\cF'$ para denotar 
+Dado $\cF$ and $\cF'$ duas $\sigma$-álgebras, usaremos a notação $\cF\vee\cF'$ para denotar
 a $\sigma$-álgebras gerada pela união $\cF\cup\cF'$.
 
 
 \begin{example} Típicos exemplos de $\sigma$-álgebra correspondentes aos espaços amostrais do Exemplo~\ref{x:espacos_amostrais}
   \begin{enumerate}[\quad a)]
   \item $\mathcal{F}_1 = \mathcal{P}(\Omega_1)$,
-  \item $\mathcal{F}_2 = \mathcal{B}([0,1])$ e
-  \item $\mathcal{F}_3 = \mathcal{B}(C[0,1])$.
+  \item $\mathcal{F}_2 = \mathcal{B}([0,1])$,
+  \item $\mathcal{F}_3 = \mathcal{B}(C[0,1])$ e
   \end{enumerate}
 \end{example}
 
@@ -77,7 +77,7 @@ a $\sigma$-álgebras gerada pela união $\cF\cup\cF'$.
   \item $\{\text{$x$ é ímpar}\}, \{1\} \subset \Omega_1$,
   \item $[0,1/2], \{0\}, (\mathbb{Q} \cap [0,1]) \subset \Omega_2$,
   \item $\{f:[0,1] \to \mathbb{R}; f(1) > 0\} \subset \Omega_3$, e
-  \item $\{a_3=4\}, \{ \text{ a soma dos $4$ primeiros dados vale $13$} \}$
+  \todo{$\{a_3=4\}, \{ \text{ a soma dos $4$ primeiros dados vale $13$} \}$}
   \end{enumerate}
 \end{example}
 
@@ -86,7 +86,7 @@ a $\sigma$-álgebras gerada pela união $\cF\cup\cF'$.
 \end{exercise}
 
 \begin{notation}
-  Se $Q$ for uma condição qualquer sobre candidatos $\omega \in \Omega$, escreveremos $[\text{$\omega$ satisfaz $Q$}]$ \index{[omega satisfaz Q]@$[\text{$\omega$ satisfaz $Q$}]$} para denotar $\{\omega \in \Omega; \text{ $\omega$ satisfaz $Q$}\}$.
+  Se $Q$ for uma condição qualquer sobre elementos $\omega \in \Omega$, escreveremos $[\text{$\omega$ satisfaz $Q$}]$ \index{[omega satisfaz Q]@$[\text{$\omega$ satisfaz $Q$}]$} para denotar $\{\omega \in \Omega; \text{ $\omega$ satisfaz $Q$}\}$.
 \end{notation}
 
 Por exemplo, $\{f:[0,1] \to \mathbb{R}; f(1) > 0\}$ pode ser escrita simplesmente como $[f(1) > 0]$.
@@ -113,7 +113,7 @@ Obviamente, isso nada mais é que uma medida que associa massa um ao espaço tod
   \item $P_1(A) = (\#A)/6$ em $(\Omega_1, \mathcal{F}_1)$.
     Ou mais geralmente $P_1'(A) = \sum_{i \in A} p_i$, onde $p_i \geq 0$ e $\sum_i p_i = 1$.
   \item $P_2$ pode ser a medida de Lebesgue em $([0,1], \mathcal{B}([0,1]))$.
-    Mais geralmente também podemos ter $P_2'(A) = \int_A \rho(x) \d x$, onde $\rho:[0,1] \to \mathbb{R}_+$, e uma função mensuravel chamada densidade, é tal que $\int_{[0,1]} \rho (x) \d x = 1$.
+    Mais geralmente também podemos ter $P_2'(A) = \int_A \rho(x) \d x$, onde $\rho:[0,1] \to \mathbb{R}_+$ é uma função mensuravel chamada densidade, satisfazendo $\int_{[0,1]} \rho (x) \d x = 1$.
   \item $P_3 = \delta_{0}$, que atribui o valor um se o evento contém a função identicamente nula ($f \equiv 0$) e zero caso contrário.
   \end{enumerate}
 \end{example}
@@ -123,8 +123,8 @@ Mas, futuramente, estaremos prontos para introduzir medidas bem interessantes no
 \begin{proposition}
   Valem as afirmativas seguintes
   \begin{enumerate}[\quad a)]
-  \item $P(A^{\cc})=1=P(A)$.
-  \item Se $A \subseteq B$ então $P(A) \leq P(B)$.
+  \item $P(A^{\cc}) = 1 - P(A)$.
+  \item Se $A \subseteq B$ são mensuráveis, então $P(A) \leq P(B)$.
   \item A cota da união: para $I$ finito ou enumerável
     \begin{equation}
       P\big(\mcup\nolimits_{i\in I} A_i\big) \leq \smash{\sum\limits_{i\in I}} P(A_i).
@@ -232,27 +232,6 @@ $a)$ By disjoint union, temos $P(A)+P(A^{\cc})=P(A\cup A^{\cc})=1.$
   O que termina a prova do lemma.
 \end{proof}
 
-\begin{proof}
-Sejam $A_1, A_2, \dots \in \mathcal{F}$ satisfazendo $\sum_{i = 1}^\infty P(A_i) < \infty$, e defina, para $n \geq 1$,
-\begin{equation}
-f_{n} = \sum_{k=1}^{n} \textbf{1}_{A_{k}},
-\end{equation} 
-de modo que
-\begin{equation}
-\big[ \text{$A_i$ para infinitos $i$} \big] = \big[ \lim_{n} f_{n} = \infty \big].
-\end{equation}
-
-Note agora que $( f_{n} )_{n \geq 1}$ forma uma sequência monótona de funções com $\lim_{n} f_{n} = \sum_{k=1}^{\infty} \textbf{1}_{A_{k}}$. Em particular, o Teorema da convergência monótona implica que
-\begin{equation}
-\int \sum_{k=1}^{\infty} \textbf{1}_{A_{k}} = \lim_{n} \int f_{n} \d P = \lim_{n} \sum_{k=1}^{n} P(A_{i}) = \sum_{i=1}^{\infty} P(A_{i}) < \infty.
-\end{equation}
-Isto nos dá que
-\begin{equation}
-P \big( \lim_{n} f_{n} = \infty) = 0,
-\end{equation}
-e completa a demonstração.
-\end{proof}
-
 Imagine que jogamos todos os dias em uma loteria e que nossa probabilidade de ganhar no dia $i$ é $p_i$.
 Então se $\sum_i p_i < \infty$, sabemos que certamente não ganharemos infinitas vezes.
 
@@ -278,39 +257,39 @@ Ele trata de classes de eventos que não são necessariamente $\sigma$-álgebras
   \label{x:lambda_nao_sigma}
   Dê um exemplo de $\lambda$-sistema que não seja uma $\sigma$-álgebra.
 \end{exercise}
-Podemos observar que de um certo sentido, $\pi$-sistema e $\gl$-sistema contem metade complementar dos requerimentos 
+Podemos observar que de um certo sentido, $\pi$-sistema e $\gl$-sistema contem metade complementar dos requerimentos
 para ser uma $\sigma$-álgebra.
 
 Definimos para $\mathcal{A} \subseteq \mathcal{P}(\Omega)$, o menor $\lambda$-sistema contendo $\mathcal{A}$, ou seja,
-\begin{lemma}\label{l:pilamb}
-Se $\cA\subseteq  \mathcal{P}(\Omega) $ é um $\pi$-sistema e um $\gl$-sistema, então $\cA$ é uma $\sigma$-álgebra.
-\end{lemma}
-
-\begin{proof}
-Temos que $\cA$ e estável por complementar e contem $\gO$ para ser um $\lambda$-sistema.
-Sò precisamos que $\cA$ e estável por união enumerável (o finita).
-Sejà $(A_n)_{n\ge 1}$ uma sequência de elementos de $\cA$.
-Por estabilidade por complementar e intersecção finita, $B_n$ definido por
-\begin{equation*}
-B_n = \bigcup_{i=1}^n A_i = (\cap_{i=1}^n A_i^\cc)^\cc 
- \end{equation*}
-pertencia a $\cA$. Pelas mesmas razões e também o caso de $C_n=B_n\setminus B_{n-1}=B_n \cap B_{n-1}^{\cc}$ ($B_0=\emptyset$).
-Para concluir observamos que 
-\begin{equation*}
-\bigcup_{n=1}^\infty A_n = \bigcup_{n=1}^{\infty} B_n=  \bigcup_{n=1}^{\infty}C_n.
- \end{equation*}
-Os $C_n$ sendo disjuntos, a união deles pertencia a $\cA$ por propriedades das $\gl$-álgebras.
-\end{proof}
-
-Vamos ver agora uma versão mais puxada do resultado acima que vai ficar muito utíl para provar unicidade o igualdade entre probabilidades.
-
-
 \begin{definition}
 Definimos para $\mathcal{A} \subseteq \mathcal{P}(~W)$, o menor $\lambda$-sistema contendo $\mathcal{A}$, ou seja
 \begin{equation}
   \lambda(\mathcal{A}) = \bigcap_{\substack{\text{$\mathcal{B}$ $\lambda$-sistema}\\\mathcal{A} \subseteq \mathcal{B}}} \mathcal{B}.
 \end{equation}
 \end{definition}
+
+\begin{lemma}\label{l:pilamb}
+Se $\cA\subseteq  \mathcal{P}(\Omega) $ é um $\pi$-sistema e um $\gl$-sistema, então $\cA$ é uma $\sigma$-álgebra.
+\end{lemma}
+
+\begin{proof}
+Temos que $\cA$ é estável por complementar e contem $\gO$, por ser um $\lambda$-sistema.
+Só precisamos que $\cA$ seja estável por união enumerável (ou finita).
+Seja $(A_n)_{n\ge 1}$ uma sequência de elementos de $\cA$.
+Por estabilidade por complementar e intersecção finita, $B_n$ definido por
+\begin{equation*}
+B_n = \bigcup_{i=1}^n A_i = (\cap_{i=1}^n A_i^\cc)^\cc
+ \end{equation*}
+ pertence a $\cA$.
+ Pelas mesmas razões e também o caso de $C_n=B_n\setminus B_{n-1}=B_n \cap B_{n-1}^{\cc}$ ($B_0=\emptyset$).
+Para concluir observamos que
+\begin{equation*}
+\bigcup_{n=1}^\infty A_n = \bigcup_{n=1}^{\infty} B_n=  \bigcup_{n=1}^{\infty}C_n.
+ \end{equation*}
+Os $C_n$ sendo disjuntos, a união deles pertencia a $\cA$ por propriedades das $\gl$-álgebras.
+\end{proof}
+
+Vamos ver agora uma versão mais puxada do resultado acima que vai ficar muito utíl para provar unicidade ou igualdade entre probabilidades.
 
 Deixamos de Exercício de verificar que  $\lambda(\mathcal{A})$ é sempre um $\lambda$-sistema.
 
@@ -332,13 +311,13 @@ Pelo Lemma \ref{l:pilamb}é suficiente provar que
   \end{equation}
 Para isso é suficiente de verificar a propriedade seguinte
   \begin{equation}\label{interestavel}
-   \forall A_1,A_2 \in \gl(\cA),\quad  A_1\cap A_2 \in \gl(\cA), 
+   \forall A_1,A_2 \in \gl(\cA),\quad  A_1\cap A_2 \in \gl(\cA),
   \end{equation}
 pois o caso de interseções de mais conjuntos pode ser deduzido por indução.
 
   \medskip
 
-  
+
   Vamos primeiramente mostrar que $\lambda(\mathcal{A})$ é fechado por interseções com $\mathcal{A}$.
   Para tanto, definimos $\mathcal{B} = \big\{B \in \lambda(\mathcal{A}); \text{$B \cap A \in \lambda(\mathcal{A})$ para todo $A \in \mathcal{A}$})\big\}$ e provamos que
   \begin{equation}
@@ -349,23 +328,23 @@ pois o caso de interseções de mais conjuntos pode ser deduzido por indução.
   Então basta mostrar que $\mathcal{B}$ é um $\lambda$-sistema.
   \begin{enumerate}[\quad a)]
   \item $\Omega$ obviamente pertence a $\mathcal{B}$.
-  \item \textit{Estabilidade por complementar}: Consideramos $B \in \mathcal{B}$. Para  $A \in \mathcal{A}$ arbitrário,  
+  \item \textit{Estabilidade por complementar}: Consideramos $B \in \mathcal{B}$. Para  $A \in \mathcal{A}$ arbitrário,
   $$B^\cc \cap A =(A^\cc \cup (B \cap A))^\cc\in \cA $$
   e portanto, como $B \cap A\in \gl(\cA)$ por definição, por estabilidade de $\gl(\cA)$ por complementar e união disjunta temos
   $B^\cc \cap A \in \gl(\cA)$, o que implica que $B^\cc\in \cB$.
-  \item \textit{Estabilidade por união disjunta}: Se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos e $A \in \mathcal{A}$ arbitrário, definindo $B:=\mcup_{n=1}^{\infty} B_n$ 
-  temos 
+  \item \textit{Estabilidade por união disjunta}: Se $B_1, B_2, \dots \in \mathcal{B}$ são disjuntos e $A \in \mathcal{A}$ arbitrário, definindo $B:=\mcup_{n=1}^{\infty} B_n$
+  temos
     \begin{equation}
    B\cap A=   \big(\mcup_{n=1}^{\infty} B_n \big) \cap A = \mcup_{n=1}^{\infty} \big(B_n \cap A\big) \in \lambda(\mathcal{A}),
     \end{equation}
-   A união acima sendo disjunta, temos  $B \cap A \in \gl(\cA)$ e 
+   A união acima sendo disjunta, temos  $B \cap A \in \gl(\cA)$ e
     logo $\mcup_{n=1}^{\infty} B_n \in \mathcal{B}$.
   \end{enumerate}
   Isso termina a prova de \eqref{e:B_igual_lambda}.
 
   \medskip
-  
- Agora para concluir,  definimos 
+
+ Agora para concluir,  definimos
  $$\bar{\mathcal{B}} := \{A \in \lambda(\cA); B \cap A \in \lambda(\cA), \; \forall B \in \lambda(\cA)\}$$ e mostraremos que
   \begin{equation}
     \label{e:Bbar_igual_lambda}
@@ -374,20 +353,20 @@ pois o caso de interseções de mais conjuntos pode ser deduzido por indução.
   que e equivalente a \eqref{interestavel}.
 
   \medskip
-  
+
  \noindent Observe que $\mathcal{A} \subseteq \bar{\mathcal{B}}$ pois $\mathcal{B} = \lambda(\mathcal{A})$ (veja a definição de $\mathcal{B}$),
 então para mostrar   \eqref{e:Bbar_igual_lambda} sò precisamos mostrar que
   \begin{equation}
     \label{e:B_barra_lambda}
     \text{$\bar{\mathcal{B}}$ é um $\lambda$-sistema}.
   \end{equation}
-  Para tanto, verificaremos 
+  Para tanto, verificaremos
   \begin{enumerate}[\quad a)]
   \item $\Omega \in \bar{\mathcal{B}}$, que é claro.
-  \item \textit{Estabilidade por complementar}: 
+  \item \textit{Estabilidade por complementar}:
   Considerando $B \in  \bar{\mathcal{B}}$.
-  Tomando $A \in \gl(\cA)$ arbitrário temos 
-  $$B^\cc \cap A = \big(A^\cc \cup (A \cap B)\big)^\cc$$ 
+  Tomando $A \in \gl(\cA)$ arbitrário temos
+  $$B^\cc \cap A = \big(A^\cc \cup (A \cap B)\big)^\cc$$
 e como $A \cap B\in \gl(A)$ por definição de $\bar \cB$,  $B^\cc \cap A \in \lambda(\mathcal{A})$ por propriedades de $\gl$-sistema,
 o que permite de concluir que $B^\cc \in \bar{\mathcal{B}}$.
   \item \textit{União disjunta} Também o caso de uniões disjuntas é bastante análogo ao feito para $\mathcal{B}$.
@@ -427,7 +406,7 @@ o que permite de concluir que $B^\cc \in \bar{\mathcal{B}}$.
 \end{proof}
 
 \begin{example}
-  Observe portanto que é importante que $\mathcal{A}$ seja um $\pi$-sistema na Proposição~\ref{p:P12_equal_pi}.
+  Observe que é importante que $\mathcal{A}$ seja um $\pi$-sistema na Proposição~\ref{p:P12_equal_pi}.
   Imagine por exemplo que $\Omega = \{0,1\}^2$ e $P_1 = \tfrac 14 \sum_{x \in \Omega} \delta_x$ e $P_2 = \tfrac 12 (\delta_{(0,0)} + \delta_{(1,1)})$.
   Nesse caso
   \begin{equation}
@@ -482,24 +461,24 @@ Um primeiro exemple e a introdução de $\sigma$-álgebra associada a um elemeno
 
 \begin{definition}
 Seja $X \ : \ (\gO,\cF)\to (E,\cA)$ um elemento aleatorio.
-A $\sigma$-álgebra associada a $X$ (o gerada por $X$) e definida por 
+A $\sigma$-álgebra associada a $X$ (o gerada por $X$) e definida por
 
 $$\sigma(X):=\{ X^{-1}(A) \ : \ A\in E \}.$$
 
-For definição $\sigma(X)\subset \mathcal G$. 
+For definição $\sigma(X)\subset \mathcal G$.
  \end{definition}
 
- 
+
  \begin{exercise}
 Consideramos $\gO=\bbR^2$ com a $\sigma$-álgebra de Borel, e definimos a varíável aleatoria $X(\go_1,\go_2)=\max(\go_1,\go_2)$.
 Descrever $\sigma(X)$.
-\end{exercise} 
+\end{exercise}
 
 
 \subsection{Distribuição de elementos aleatórios}
 
 \begin{definition}
-  Se $X:\Omega \to E$ é um elemento aleatório e $\Omega$ é dotado de uma probabilidade $P$, então denotamos por $X_{*}P$, 
+  Se $X:\Omega \to E$ é um elemento aleatório e $\Omega$ é dotado de uma probabilidade $P$, então denotamos por $X_{*}P$,
   a chamada \emph{distribuição de $X$} \index{distribuicao@distribuição}, a medida de probabilidade
   \begin{equation}
     X_* P(A) := P\big( \{\omega \in \Omega \, : \,  X(\omega) \in A\} \big) = P[X \in A].
@@ -567,7 +546,7 @@ Então a probabilidade vale a razão dessas áreas, que é $1/4$.
 Obtemos então duas respostas diferentes para essa pergunta simples, o que não é nada surpreendente: $a)$ e $b)$ correspondem a dois experimentos
 diferentes com espaços amostrais diferentes.
 
-
+\end{topics}
 
 
 %%% Local Variables:
