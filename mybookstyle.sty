@@ -210,11 +210,12 @@
 \newtheorem{proposition}[theorem]{Proposição}
 \newtheorem{scholia}[theorem]{Escólio}
 \newtheorem{definition}[theorem]{Definição}
-\newtheorem{remark}[theorem]{Observação}
 \newtheorem{question}[theorem]{Questão}
 \newtheorem{notation}[theorem]{Notação}
 \newtheorem{example}{Exemplo}[section]
 \newtheorem{exercise}[example]{Exercício}
+\newtheorem{remark}[example]{Observação}
+
 
 \DeclareMathOperator{\Cov}{Cov}
 \DeclareMathOperator{\Var}{Var}
@@ -229,6 +230,7 @@
 \def \iid{i.i.d.~}
 \def \distr{\sim_d}
 \renewcommand*\d{\mathop{}\!\mathrm{d}}
+\renewcommand{\hat}{\widehat}
 \DeclareMathOperator*{\mcup}{{\textstyle \bigcup}}
 \DeclareMathOperator*{\mcap}{{\textstyle \bigcap}}
 \newcommand*\bigtimes{\tikz[baseline=0, scale=.3]{
@@ -285,3 +287,88 @@
 \def\mathrlapinternal#1#2{\rlap{$\mathsurround=0pt#1{#2}$}}
 \def\mathclapinternal#1#2{\clap{$\mathsurround=0pt#1{#2}$}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Blackboard bolds
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\bbA}{{\ensuremath{\mathbb A}} }
+\newcommand{\bbB}{{\ensuremath{\mathbb B}} }
+\newcommand{\bbC}{{\ensuremath{\mathbb C}} }
+\newcommand{\bbD}{{\ensuremath{\mathbb D}} }
+\newcommand{\bbE}{{\ensuremath{\mathbb E}} }
+\newcommand{\bbF}{{\ensuremath{\mathbb F}} }
+\newcommand{\bbG}{{\ensuremath{\mathbb G}} }
+\newcommand{\bbH}{{\ensuremath{\mathbb H}} }
+\newcommand{\bbI}{{\ensuremath{\mathbb I}} }
+\newcommand{\bbJ}{{\ensuremath{\mathbb J}} }
+\newcommand{\bbK}{{\ensuremath{\mathbb K}} }
+\newcommand{\bbL}{{\ensuremath{\mathbb L}} }
+\newcommand{\bbM}{{\ensuremath{\mathbb M}} }
+\newcommand{\bbN}{{\ensuremath{\mathbb N}} }
+\newcommand{\bbO}{{\ensuremath{\mathbb O}} }
+\newcommand{\bbP}{{\ensuremath{\mathbb P}} }
+\newcommand{\bbQ}{{\ensuremath{\mathbb Q}} }
+\newcommand{\bbR}{{\ensuremath{\mathbb R}} }
+\newcommand{\bbS}{{\ensuremath{\mathbb S}} }
+\newcommand{\bbT}{{\ensuremath{\mathbb T}} }
+\newcommand{\bbU}{{\ensuremath{\mathbb U}} }
+\newcommand{\bbV}{{\ensuremath{\mathbb V}} }
+\newcommand{\bbW}{{\ensuremath{\mathbb W}} }
+\newcommand{\bbX}{{\ensuremath{\mathbb X}} }
+\newcommand{\bbY}{{\ensuremath{\mathbb Y}} }
+\newcommand{\bbZ}{{\ensuremath{\mathbb Z}} }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Greek letters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\ga}{\alpha}
+\newcommand{\gb}{\beta}
+\newcommand{\gga}{\gamma}            % \gg already exists...
+\newcommand{\gd}{\delta}
+\newcommand{\gep}{\varepsilon}       % \ge already exists...
+\newcommand{\gp}{\varphi}
+\newcommand{\gr}{\rho}
+\newcommand{\gvr}{\varrho}
+\newcommand{\gz}{\zeta}
+\newcommand{\gG}{\Gamma}
+\newcommand{\gP}{\Phi}
+\newcommand{\gD}{\Delta}
+\newcommand{\gk}{\kappa}
+\newcommand{\go}{\omega}
+\newcommand{\gto}{{\tilde\omega}}
+\newcommand{\gO}{\Omega}
+\newcommand{\gl}{\lambda}
+\newcommand{\gL}{\Lambda}
+\newcommand{\gs}{\sigma}
+\newcommand{\gS}{\Sigma}
+\newcommand{\gt}{\vartheta}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Caligraphics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\cB}{{\ensuremath{\mathcal B}} }
+\newcommand{\cA}{{\ensuremath{\mathcal A}} }
+\newcommand{\cF}{{\ensuremath{\mathcal F}} }
+\newcommand{\cP}{{\ensuremath{\mathcal P}} }
+\newcommand{\cE}{{\ensuremath{\mathcal E}} }
+\newcommand{\cH}{{\ensuremath{\mathcal H}} }
+\newcommand{\cC}{{\ensuremath{\mathcal C}} }
+\newcommand{\cN}{{\ensuremath{\mathcal N}} }
+\newcommand{\cL}{{\ensuremath{\mathcal L}} }
+\newcommand{\cT}{{\ensuremath{\mathcal T}} }
+\newcommand{\cD}{{\ensuremath{\mathcal D}} }
+\newcommand{\cS}{{\ensuremath{\mathcal S}} }
+\newcommand{\cZ}{{\ensuremath{\mathcal Z}} }
+\newcommand{\cI}{{\ensuremath{\mathcal I}} }
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\cc}{\complement}
+\renewcommand{\bar}{\widebar}
+\newcommand{\ind}{\1}

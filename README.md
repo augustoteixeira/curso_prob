@@ -1,6 +1,6 @@
 # Notas de aula Probabilidade I
 
-Esse repositório contém notas de aula para um primeiro curso de mestrado em probabilidade. Este curso assume conhecimento sólido em Teoria da Medida.
+Esse repositório contém notas de aula para um primeiro curso de mestrado em probabilidade, assumindo conhecimento sólido em Teoria da Medida.
 
 ## Compilando
 
@@ -28,9 +28,7 @@ Além de uma pasta denominada `capitulos` onde se encontram os arquivos `tex` re
 
 ## Contribuidores
 
-Somos gratos especialmente a Hubert Lacoin, pela revisão do texto, assim como pelas colaborações autorais.
-
-Também gostaríamos de agradecer
+Somos gratos a
 
 * Roberto Imbuzeiro de Oliveira
 * Milton Jara
@@ -38,7 +36,7 @@ Também gostaríamos de agradecer
 * Conrado Costa
 * Rangel Baldasso
 
-por diversas discussões, sugestões e correções.
+por diversas discussões, sugestões e correções no conteúdo do texto.
 
 ## Contato
 

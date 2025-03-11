@@ -142,6 +142,21 @@ De fato, $X$ obviamente satisfaz a segunda condição da Definição~\ref{d:espe
   Calcule $E(X_2|X_1)$.
 \end{exercise}
 
+\begin{exercise}
+  Seja $E$ enumerável com uma $\sigma$-álgebra $\mathcal{F}'$.
+  Mostre que
+  \begin{equation}
+    \mathcal{F}' = \sigma(A_i, i \geq 1), \text{ com $A_i \subseteq E$ disjuntos}.
+  \end{equation}
+  Suponha que todos conjuntos $A_i$ tem probabilidade positiva e mostre que
+  \begin{equation}
+    E(X|\mathcal{F}') = \sum_i E^i(X) \1_{A_i},
+  \end{equation}
+  onde $E^i$ é a esperança com respeito à probabilidade $P(\cdot|A_i)$.
+
+\end{exercise}
+
+
 \section{Propriedades básicas da esperança condicional}
 
 Nessa seção justificaremos, em certa medida, a nomenclatura ``esperança condicional''.
@@ -263,61 +278,6 @@ O próximo resultado tenta corroborar nossa afirmação que a esperança condici
   \todo{Adicionar footnote.}
 \end{proof}
 
-Vimos acima uma metodologia que se repete frequentemente.
-Digamos que queremos provar que uma determinada expressão nos dá a esperança condicional de algo.
-Podemos começar provando esse resultado para funções indicadoras, depois para funções simples usando a linearidade provada acima.
-
-Porém ainda falta um ingrediente bastante importante para construir ou verificar que determinadas variáveis são esperanças condicionais.
-
-\begin{theorem}[Convergência Monótona para Esperanças Condicionais]
-  \index{esperanca@esperança!condicional!T.C.M.}
-  \label{t:TCM_EC}
-  Se as variáveis $X_n$ satisfazem $X_n \uparrow X$ e estão todas em $\mathcal{L}^1(P)$, então
-  \begin{equation}
-    \lim_n E(X_n|\mathcal{F}') = E(X|\mathcal{F}').
-  \end{equation}
-\end{theorem}
-
-\begin{proof}[Demonstração do Teorema~\ref{t:TCM_EC}]
-  Sabemos que $E(X_{n+1} | \mathcal{F}') \geq E(X_n|\mathcal{F}')$, donde concluímos que $E(X_n|\mathcal{F}') \uparrow Y$.
-  Vamos demosntrar que $Y = E(X|\mathcal{F}')$.
-  \begin{enumerate}[\quad a)]
-  \item Por ser um limite de funções $\mathcal{F}'$ mensuráveis, $Y$ é $\mathcal{F}'$-mensurável.
-  \item Dado $A \in \mathcal{F}'$, temos
-    \begin{equation}
-      \begin{split}
-        E(Y \1_A) & = E(\lim_n E(X_n |\mathcal{F}') \1_A) \overset{\text{TCM}}= \lim_n E\big( E(X_n|\mathcal{F}') \1_A \big)\\
-        & = \lim_n E(X_n \1_A) \overset{\text{TCM}}= E(X \1_A).
-      \end{split}
-    \end{equation}
-  \end{enumerate}
-  O que termina a prova do teorema.
-\end{proof}
-
-No que segue, muitas vezes escreveremos $E(X|Z)$ para representar a esperança condicional $E(X|\sigma(Z))$.
-
-\begin{exercise}
-  Sejam $X_1$ e $X_2$ as coordenadas canônicas em $\mathbb{R} \times E$ e definimos a probabilidade $\d P = \rho(x,y) \d \mu_1 \d \mu_2$, onde $\rho:\mathbb{R} \times E \to \mathbb{R}_+$ é uma densidade.
-  Dê sentido à expressão abaixo e mostre que elá é $E(X_1|X_2)$:
-  \begin{equation}
-     \frac{\int x\rho(x, X_2) \mu_1(\d x)}{\int \rho(x, X_2) \mu_1(\d x)}.
-  \end{equation}
-\end{exercise}
-
-\begin{exercise}
-  Seja $E$ enumerável com uma $\sigma$-álgebra $\mathcal{F}'$.
-  Mostre que
-  \begin{equation}
-    \mathcal{F}' = \sigma(A_i, i \geq 1), \text{ com $A_i \subseteq E$ disjuntos}.
-  \end{equation}
-  Suponha que todos conjuntos $A_i$ tem probabilidade positiva e mostre que
-  \begin{equation}
-    E(X|\mathcal{F}') = \sum_i E^i(X) \1_{A_i},
-  \end{equation}
-  onde $E^i$ é a esperança com respeito à probabilidade $P(\cdot|A_i)$.
-  Em breve extenderemos esse tipo de resultado a espaços quaisquer.
-\end{exercise}
-
 Uma outra propriedade que a esperança condicional herda da integral é a
 
 \begin{proposition}[Desigualdade de Jensen]
@@ -387,57 +347,45 @@ Terminamos essa seção com o que chamamos da propriedade de torre da esperança
   O que termina a prova da proposição.
 \end{proof}
 
-\begin{lemma}
-  \label{l:f_g_circ_X}
-  Se $X: \Omega \to E$ é um elemento aleatório e $f:\Omega \to \mathbb{R}$ é $\sigma(X)$-mensurável, então existe uma $g:E \to \mathbb{R}$ mensurável tal que $f = g \circ X$.
-\end{lemma}
 
-\begin{proof}
-  Como de costume, consideramos primeiramente o caso $f = \1_A$
-  Claramente $A$ tem que pertencer a $\sigma(X)$, ou seja $A = X^{-1}(B)$ para algum $B \in \mathcal{A}$.
-  Neste caso colocamos $g = \1_B$, donde obtemos $f(\omega) = 1 \Leftrightarrow \omega \in A \Leftrightarrow X(\omega) \in B \Leftrightarrow g \circ X = 1$.
+\section{Teoremas classicos de convergência para esperança condicional}
+Vimos acima uma metodologia que se repete frequentemente.
+Digamos que queremos provar que uma determinada expressão nos dá a esperança condicional de algo.
+Podemos começar provando esse resultado para funções indicadoras, depois para funções simples usando a linearidade provada acima.
+Porém ainda falta um ingrediente bastante importante para construir ou verificar que determinadas variáveis são esperanças condicionais.
 
-  No caso em que $f$ é simples, temos $f = \sum_i a_i (g_i \circ X) = (\sum_i a_i g_i) \circ X$.
-  Se $f$ é positiva, então ela é um limite crescente de funções do tipo $g_n \circ X$, além disso podemos tomar $g_n$ crescentes, pois
+\begin{theorem}[Convergência Monótona para Esperanças Condicionais]
+  \index{esperanca@esperança!condicional!T.C.M.}
+  \label{t:TCM_EC}
+  Se as variáveis $X_n$ satisfazem $X_n \uparrow X$ e estão todas em $\mathcal{L}^1(P)$, então
   \begin{equation}
-    f_{n+1} = f_{n+1} \vee f_{n} = (g_{n+1} \circ X) \vee (g_n \circ X) = (g_n \vee g_{n+1}) \circ X.
+    \lim_{n\to \infty} E(X_n|\mathcal{F}') = E(X|\mathcal{F}').
   \end{equation}
+\end{theorem}
 
-  Finalmente usamos a linearidade da composição novamente para resolver o caso geral $f = f_+ - f_-$.
+\begin{proof}[Demonstração do Teorema~\ref{t:TCM_EC}]
+  Sabemos que $E(X_{n+1} | \mathcal{F}') \geq E(X_n|\mathcal{F}')$, donde concluímos que $E(X_n|\mathcal{F}') \uparrow Y$.
+  Vamos demosntrar que $Y = E(X|\mathcal{F}')$.
+  \begin{enumerate}[\quad a)]
+  \item Por ser um limite de funções $\mathcal{F}'$ mensuráveis, $Y$ é $\mathcal{F}'$-mensurável.
+  \item Dado $A \in \mathcal{F}'$, temos
+    \begin{equation}
+      \begin{split}
+        E(Y \1_A) & = E(\lim_n E(X_n |\mathcal{F}') \1_A) \overset{\text{TCM}}= \lim_n E\big( E(X_n|\mathcal{F}') \1_A \big)\\
+        & = \lim_n E(X_n \1_A) \overset{\text{TCM}}= E(X \1_A).
+      \end{split}
+    \end{equation}
+  \end{enumerate}
+  O que termina a prova do teorema.
 \end{proof}
 
-Se $X: \Omega \to E$ é elemento aleatório, então $E(Y|\sigma(X))$ é obviamente $\sigma(X)$-mensurável.
-Pelo lema anterior, $E(Y|\sigma(X)) = g \circ X$ para alguma $g: E \to \mathbb{R}$.
-Nesse caso denotamos
-\begin{equation}
-  E(Y|X = x) = g(x).
-\end{equation}
 
-\begin{exercise}
-  Mostre que $g$ é única $X \circ P$-quase certamente.
-\end{exercise}
 
-Gostaríamos de dizer que $E(Y|X = x)$ satisfaz alguma propriedade que justifique essa notação.
-Apesar de que apenas na próxima seção poderemos justificar completamente essa nomenclatura, nesse momento já podemos mostrar a seguinte relação
-\begin{equation*}
-  E(Y) = E\big( E(Y | X) \big) = E\big( E(Y | X = x) \circ X \big) = \int E(Y| X = x) (X \circ P) (\d x).
-\end{equation*}
-Em outras palavras, para integrar $Y$, basta conhecermos a distribuição de $X$ e a esperança condicional de $Y$, dado que $X = x$.
 
-\begin{exercise}
-  Sejam $X$ e $Y$ as coordenadas canônicas em $E_1 \times E_2$, com a probabilidade $P = \mu_1 \otimes \mu_2$ e seja $f:E_1 \times E_2 \to \mathbb{R}$ em $\mathcal{L}^1(P)$.
-  Mostre que
-  \begin{equation}
-     E(f|X = x) = \int f(x, y) \mu_2(\d y).
-  \end{equation}
-\end{exercise}
 
-\begin{exercise}
-  Se $K$ é um núcleo de transição entre $E_1$ e $\mathbb{R}$ e $P_1$ é uma probabilidade em $E_1$, mostre que em $P_1 \star K$ temos
-  \begin{equation}
-    E(X_2|X_1 = x_1) = \int x_2 K(x_1, \d x_2).
-  \end{equation}
-\end{exercise}
+
+
+
 
 Um outro resultado bastante importante é o seguinte
 
@@ -450,14 +398,16 @@ Um outro resultado bastante importante é o seguinte
 \end{theorem}
 
 \begin{proof}
+Primeiro, observamos que pelo Teorema de Convergência dominada (usual), o limite $X$ e integrável.\\
+
+
   Seja $Z_n = \sup_{k \geq n} |X_k - X|$ o erro máximo à partir de $n$.
   Claramente, $Z_n \downarrow 0$ quase certamente e além disso
   \begin{equation}
     |Z_n| \leq \sup_{k \geq 1} |X_k| + |X| \leq 2 Y,
   \end{equation}
   donde $E(Z_n) \to E(0) = 0$, quase certamente pelo Teorema da Convergência Dominada.
-
-  Obviamente $E(Z_n|\mathcal{F})$ é uma sequência positiva e não-crescente, logo decresce quase certamtente para algum $Z$.
+Obviamente $E(Z_n|\mathcal{F})$ é uma sequência positiva e não-crescente, logo decresce quase certamente para algum $Z$.
   Daí,
   \begin{equation}
     \big| E(X_n | \mathcal{F}) - E(X | \mathcal{F}) \big| \leq E(Z_n | \mathcal{F}) \downarrow Z \geq 0.
@@ -465,6 +415,93 @@ Um outro resultado bastante importante é o seguinte
   Mas $E(Z) \leq E\big( E(Z_n|\mathcal{F}) \big) = E(Z_n)$.
   Como $E(Z_n)$ vai a zero pelo Teorema da Convergência Dominada, temos que $Z = 0$ quase certamente como gostaríamos.
 \end{proof}
+
+
+
+\subsection{Condicionamento com respeito a um elemento aleatorio.}
+
+No caso onde $\cF'$ e a $\sigma$-algebrà gerada por uma variavel (o elemento) aleatoria(o) $Z$, 
+muitas vezes escreveremos $E(X|Z)$ para representar a esperança condicional $E(X|\sigma(Z))$.
+
+
+\begin{lemma}
+  \label{l:f_g_circ_X}
+  Se $X: \Omega \to E$ é um elemento aleatório e $Y:\Omega \to \mathbb{R}$ é uma variável aleatoria $\sigma(X)$-mensurável, 
+  então existe uma $g:E \to \mathbb{R}$ mensurável tal que $Y = g(X)$.
+\end{lemma}
+
+\begin{proof}
+  Como de costume, consideramos primeiramente o caso $Y = \1_A$
+  Claramente $A$ tem que pertencer a $\sigma(X)$, ou seja $A = X^{-1}(B)$ para algum $B \in \mathcal{A}$.
+  Neste caso colocamos $g = \1_B$, donde obtemos $Y(\omega) = 1 \Leftrightarrow \omega \in A \Leftrightarrow X(\omega) \in B \Leftrightarrow g \circ X = 1$.
+
+  No caso em que $Y$ é simples, temos $Y = \sum_i a_i (g_i (X)) = (\sum_i a_i g_i)(X)$.
+  Se $Y$ é positiva, então ela é um limite crescente de funções simples $Y_n$ que podem se ser exprimidas como $g_n(X)$. 
+  Além disso podemos escolher $g_n$ crescentes, pois se não for o caso definindo $\tilde g_n= \max_{k\le n}g_k$ temos
+  tambem $Y_n=\tilde g_n(X)$, pois por indução
+  \begin{equation}
+    Y_{n+1} = \max(Y_{n+1}, Y_{n}) = \max(g_{n+1}(X) , \tilde g_n(X)) = \tilde g_{n+1}(X).
+  \end{equation}
+Se $g$ for o limite de $\tilde g_n$, temos $Y=g(X)$.
+
+\medskip
+
+  Finalmente usamos a linearidade da composição novamente para resolver o caso geral $f = f_+ - f_-$.
+\end{proof}
+
+
+
+
+
+
+
+Se $X: \Omega \to E$ é elemento aleatório, então $E(Y|\sigma(X))$ é $\sigma(X)$-mensurável e mensurável por definição e temos
+$E[Y| X] = g(X)$ para alguma $g: E \to \mathbb{R}$.
+Nesse caso ``calcular'' a esperança de $Y$ conditionada a $\sigma(X)$ corresponde a achar uma expressão para essa função. 
+
+\begin{exercise}
+  Mostre que $g$ é única modulo modificações em conjuntos de probabilidade zero para $P_X$. 
+\end{exercise}
+
+No caso onde a distribuição $X$ tem supporte discreto, a função $g$ tem que ser definida por 
+$$g(x)=E[Y \, | \, X = x]= \frac{E[Y\1_{\{X=x\}}]}{P[X=x]}$$
+
+
+% 
+% Gostaríamos de extender essa noção $E(Y|X = x)$ satisfaz alguma propriedade que justifique essa notação.
+% Apesar de que apenas na próxima seção poderemos justificar completamente essa nomenclatura, nesse momento já podemos mostrar a seguinte relação
+% \begin{equation*}
+%   E(Y) = E\big( E(Y | X) \big) = E\big( E(Y | X = x) \circ X \big) = \int E(Y| X = x) (X \circ P) (\d x).
+% \end{equation*}
+% Em outras palavras, para integrar $Y$, basta conhecermos a distribuição de $X$ e a esperança condicional de $Y$, dado que $X = x$.
+
+\begin{exercise}
+  Sejam $X$ e $Y$ as coordenadas canônicas em $E_1 \times E_2$, com a probabilidade $P = \mu_1 \otimes \mu_2$ e seja $f:E_1 \times E_2 \to \mathbb{R}$
+  em $\mathcal{L}^1(P)$.
+  Mostre que
+  \begin{equation}
+     E[ f(X,Y) \,| \, X] = \int f(X, y) \mu_2(\d y).
+  \end{equation}
+\end{exercise}
+
+\begin{exercise}
+  Se $K$ é um núcleo de transição entre $E_1$ e $\mathbb{R}$ e $P_1$ é uma probabilidade em $E_1$, mostre que se $P=P_1 \star K$ temos
+  \begin{equation}
+    E[ X_2 \, | \, X_1] = \int x_2 K(X_1, \d x_2).
+  \end{equation}
+\end{exercise}
+
+
+\begin{exercise}
+  Sejam $X_1$ e $X_2$ as coordenadas canônicas em $\mathbb{R} \times E$ e definimos a probabilidade $\d P = \rho(x,y) \d \mu_1 \d \mu_2$, onde $\rho:\mathbb{R} \times E \to \mathbb{R}_+$ é uma densidade.
+  Dê sentido à expressão abaixo e mostre que elá é $E(X_1|X_2)$:
+  \begin{equation}
+     \frac{\int x\rho(x, X_2) \mu_1(\d x)}{\int \rho(x, X_2) \mu_1(\d x)}.
+  \end{equation}
+\end{exercise}
+
+
+
 
 \begin{exercise}
   Sejam $Z_1, Z_2, \dots$ variáveis aleatórias \iid em $\mathcal{L}^1(P)$ com $E(Z_1) = 0$.
@@ -481,6 +518,7 @@ Um outro resultado bastante importante é o seguinte
     Mostre que $E(Y_{n + 1} | Z_1, \dots, Z_n) = Y_n$.
   \end{enumerate}
 \end{exercise}
+
 
 \todosec{Tópico: Martingais a tempo discreto}{fazer...}
 
@@ -510,16 +548,19 @@ Esse é o conteúdo do seguinte resultado.
 \begin{theorem}[Teorema da Desintegração] \index{Teorema!da Desintegracao@da Desintegração}
   \label{desintegracao}
   Sejam espaços mensuráveis $(\Omega, \mathcal{F})$ e $(E, \mathcal{A})$, com $E$ canônico.
-  Se $P$ é uma probabilidade no espaço produto $(\Omega \times E, \mathcal{F} \otimes \mathcal{A})$ e denotamos por $P_\Omega = P \circ X_1$ a primeira distribuição marginal de $P$, então existe um núcleo de transição $K: \Omega \times \mathcal{A} \to [0,1]$ satisfazendo
+  Se $P$ é uma probabilidade no espaço produto $(\Omega \times E, \mathcal{F} \otimes \mathcal{A})$ e denotamos por $P_1 = P_{X_1}$ a 
+  distribuição marginal da primeira coordenada, então existe um núcleo de transição $K: \Omega \times \mathcal{A} \to [0,1]$ satisfazendo
   \begin{equation}
-    P = P_\Omega \star K,
+    P = P_1 \star K,
   \end{equation}
   Em particular,
   \begin{equation}
     \label{e:prob_cond_reg_prod}
-    P(A \times B) = \int_A K(\omega, B) P_\Omega (\d \omega) \text{ para todo $A \in \mathcal{F}$, $B \in \mathcal{A}$}.
+    P(A \times B) = \int_A K(\omega, B) P_1 (\d \omega) \text{ para todo $A \in \mathcal{F}$, $B \in \mathcal{A}$}.
   \end{equation}
-  Nesse caso denotamos $K(\omega, B)$ por $P[X_2 \in B | X_1 = \omega]$ (como de costume $X_i$ denota a $i$-ésima coordenada canônica).
+ Nesse caso podemos definir 
+ $$P[X_2 \in B | X_1 = \omega]:=K(\omega, B)$$ 
+ (como de costume $X_i$ denota a $i$-ésima coordenada canônica).
 \end{theorem}
 
 \begin{proof}
@@ -529,17 +570,17 @@ Esse é o conteúdo do seguinte resultado.
   Nos restringiremos agora ao espaço $(\Omega \times \mathbb{R}, \mathcal{F} \otimes \mathcal{B}(\mathbb{R}), P)$.
   Para cada $q \in \mathbb{Q}$, definimos $P^q_\Omega : \mathcal{F} \to [0,1]$ por
   \begin{equation}
-    P^q_\Omega (A) = P\big( (-\infty, q] \times A \big).
+    P^q_1 (A) = P\big(  A  \times (-\infty, q]\big).
   \end{equation}
-  Observando que $P^q_\Omega$ é absolutamente contínua com respeito a $P_\Omega$, podemos definir
+  Observando que $P^q_1$ é absolutamente contínua com respeito a $P_1$, podemos definir
   \begin{equation}
-    F(\omega, q) = \frac{\d P^q_\Omega}{\d P_\Omega}(\omega).
+    F(\omega, q) = \frac{\d P^q_1}{\d P_1}(\omega).
   \end{equation}
   Observamos as seguintes propriedades de $F$:
   \begin{enumerate}[\quad a)]
-  \item para cada $q \in \mathbb{Q}$, $F(\cdot, q) \in [0,1]$, $P_\Omega$-quase certamente, pois $P^q_\Omega(A) \leq P_\Omega(A)$ para todo $A \in \mathcal{F}$,
-  \item para $q < q' \in \mathbb{Q}$, $F(\cdot, q) \leq F(\cdot, q')$, $P_\Omega$-quase certamente, pois $P^q_\Omega(A) \leq P^{q'}_\Omega(A)$ para todo $A \in \mathcal{F}$ e
-  \item $F(\cdot, n) \to 1$ (analogamente $F(\cdot, -n) \to 0$) quando $n$ tende a infinito, $P_\Omega$-quase certamente.
+  \item para cada $q \in \mathbb{Q}$, $F(\cdot, q) \in [0,1]$, $P_\Omega$-quase certamente, pois $P^q_1(A) \leq P_1(A)$ para todo $A \in \mathcal{F}$,
+  \item para $q < q' \in \mathbb{Q}$, $F(\cdot, q) \leq F(\cdot, q')$, $P_1$-quase certamente, pois $P^q_1(A) \leq P^{q'}_\Omega(A)$ para todo $A \in \mathcal{F}$ e
+  \item $F(\cdot, n) \to 1$ (analogamente $F(\cdot, -n) \to 0$) quando $n$ tende a infinito, $P_1$-quase certamente.
     Para ver isso, note que a sequência de variáveis aleatórias $F(\cdot, n)$ é quase certamente monótona não decrescente, logo converge $P_\Omega$-quase certamente.
     Sendo limitada, converge em $\mathcal{L}^1$ e como sua integral em $P_\Omega$ converge para um, $F(\cdot, n) \to 1$, quase certamente (analogamente para $F(\cdot, -n)$).
   \end{enumerate}
@@ -568,7 +609,7 @@ Antes, nós somente podiamos usar Fubini para espaços construídos através de 
   \begin{equation}
     P(X_2 \in A|X_1 = x_1) = \frac{\int_A \rho(x_1, x_2) \mu_2(\d x_2)}{\int \rho(x_1, x_2) \mu_2(\d x_2)},
   \end{equation}
-  $(X_1 \circ P)$-quase certamtente.
+  $(P_{X_1})$-quase certamtente.
 \end{exercise}
 
 \begin{exercise}
@@ -576,7 +617,7 @@ Antes, nós somente podiamos usar Fubini para espaços construídos através de 
   Sejam $X_1$ e $X_2$ as projeções canônicas em um espaço produto $\Omega \times E$, com $E$ canônico.
   Então, se $X_1$ e $X_2$ são independentes com respeito a $P$, vale
   \begin{equation}
-    P[X_2 \in B | X_1 = \omega] = P[X_2 \in B] \text{ para $(X_1 \circ P)$-quase todo $\omega$}.
+    P[X_2 \in B | X_1 = \omega] = P[X_2 \in B] \text{ para $P_{X_1}$-quase todo $\omega$}.
   \end{equation}
 \end{exercise}
 
@@ -602,12 +643,13 @@ Nessa seção construiremos nossa última versão de probabilidade condicional r
     \label{e:reg_cond_prob_givenX}
     K(X(\omega), F) = E[\1_{F} | X], \text{ para todo $F \in \mathcal{F}$}.
   \end{equation}
-  Também denotamos esse núcleo como $K(x, F) = P[F | X = x]$, que é único no sentido que se $K'$ também satisfaz \eqref{e:reg_cond_prob_givenX}, então $K(x, F) = K'(x, F)$ para $(X \circ P)$-quase todo $x \in E$.
+  Também denotamos esse núcleo como $K(x, F) = P[F | X = x]$, que é único no sentido que se $K'$ 
+  também satisfaz \eqref{e:reg_cond_prob_givenX}, então $K(x, F) = K'(x, F)$ para $(P_X)$-quase todo $x \in E$.
 
   Além disso vale o que chamamos de Princípio da Substituição:
   \begin{equation}
     \label{e:princ_substit}
-    K(x, [X = x]) = 1, \quad \text{$X \circ P$-quase certamente}.
+    K(x, [X = x]) = 1, \quad \text{$P_X$-quase certamente}.
   \end{equation}
   Que pode ser dito de maneira estranha: $P[X = x|X = x] = 1$, quase certamente.
 \end{theorem}
@@ -631,7 +673,7 @@ Nessa seção construiremos nossa última versão de probabilidade condicional r
 
 \begin{proof}
   Defina o elemento aleatório $W: \Omega \to E \times \Omega$, dado por $W(\omega) = (X(\omega), \omega)$, que percorre o gráfico de $X$ (representado horizontalmente).
-  Observe que a medida $P_W := W \circ P$ possui marginais $(X_1 \circ P_W) = (X \circ P)$ e $(X_2 \circ P_W) = P$.
+  Observe que a medida $P_W P$ possui marginais $(X_1)_* P_W = X_* P$ e $(X_2)_* P_W = P$.
   Como $P_W$ satisfaz as condições do Teorema~\ref{desintegracao}, existe um núcleo $K: E \times \mathcal{F} \to [0,1]$ tal que para todo $A \in \mathcal{A}$, $F \in \mathcal{F}$,
   \begin{equation}
     P_W(A \times F) = \int_A K(x, F) P_X (\d x).
@@ -657,11 +699,12 @@ Nessa seção construiremos nossa última versão de probabilidade condicional r
     Primeiramente, consideramos o caso $(E, \mathcal{A}) = (\mathbb{R}, \mathcal{B}(\mathbb{R}))$.
     Neste caso, vemos que
     \begin{equation}
-      G = \bigcap_{n \geq 1} \bigcup_{j \in \mathbb{Z}} [X \in \big(j/2^n, (j+1)/2^n \big]] \times \big( j/2^n, (j+1l)/2^n \big],
+      G = \bigcap_{n \geq 1} \bigcup_{j \in \mathbb{Z}} [X \in \big(j/2^n, (j+1)/2^n \big]] \times \big( j/2^n, (j+1)/2^n \big],
     \end{equation}
     que é mensurável.
 
-    Caso $E$ seja outro espaço canônico qualquer, existe $\phi: E \to B \in \mathcal{B}(\mathbb{R})$ bi-mensurável e $G = \Phi^{-1}(G_{\phi \circ X})$, onde $G_{\phi \circ X}$ é o gráfico de $\phi \circ X$ e $\Phi(\omega, x) = (\omega, \phi(x))$.
+    Caso $E$ seja outro espaço canônico qualquer, existe $\phi: E \to B \in \mathcal{B}(\mathbb{R})$ bi-mensurável e $G = \Phi^{-1}(G_{\phi(X)})$, onde 
+    $G_{\phi(X)}$ é o gráfico de $\phi(X)$ e $\Phi(\omega, x) = (\omega, \phi(x))$.
     Logo $G$ também é mensurável nesse caso.
   \end{proof}
 
@@ -671,11 +714,11 @@ Nessa seção construiremos nossa última versão de probabilidade condicional r
   Logo podemos escrever
   \begin{equation}
     \begin{split}
-      1 = P_W(G') & = \int \int \1_{G'} (x, \omega) K(x, \d \omega) (X \circ P) (\d x)\\
-      & = \int K(x, [X = x]) (X \circ P) (\d x).
+      1 = P_W(G') & = \int \int \1_{G'} (x, \omega) K(x, \d \omega)  P_X (\d x)\\
+      & = \int K(x, [X = x]) P_X (\d x).
     \end{split}
   \end{equation}
-  Mas como o integrado acima pertence a $[0,1]$, essa integral só pode ser um se $K(x, [X = x]) = 1$, $(X \circ P)$-quase certamente, como desejado.
+  Mas como o integrado acima pertence a $[0,1]$, essa integral só pode ser um se $K(x, [X = x]) = 1$, $P_X$-quase certamente, como desejado.
 \end{proof}
 
 \begin{exercise}
@@ -696,22 +739,22 @@ Nessa seção construiremos nossa última versão de probabilidade condicional r
   \end{equation}
 \end{exercise}
 
-\begin{exercise}
-  Se $Y$ é variável aleatória e $X: \Omega \to E$ é um elemento aleatório canônico, mostre que
-  \begin{equation}
-    E(Y|X) = \int y P(Y \in \d y|X = \cdot) \circ X, \text{ $P$-q.c.}
-  \end{equation}
-\end{exercise}
+% \begin{exercise}
+%   Se $Y$ é variável aleatória e $X: \Omega \to E$ é um elemento aleatório canônico, mostre que
+%   \begin{equation}
+%     E(Y|X) = \int y P(Y \in \d y|X = \cdot) \circ X, \text{ $P$-q.c.}
+%   \end{equation}
+% \end{exercise}
 
 Vamos agora mostrar uma aplicação do que foi feito acima, tentando justificar o nome Princípio da Substituição.
 
-\begin{lemma}
+\begin{proposition}
   Se $X, Y$ são variáveis aleatórias independentes, então a função de distribuição acumulada $F$ de $X + Y$ é dada por
   \begin{equation}
-    F(z) = P[X + Y \leq z] = \int_{-\infty}^\infty F_Y(z - x) (X \circ P) (\d x),
+    F(z) = P[X + Y \leq z] = \int_{-\infty}^\infty F_Y(z - x) P_X (\d x),
   \end{equation}
   onde $F_Y(y) = P[Y \leq y]$.
-\end{lemma}
+\end{proposition}
 
 Esse lema pode ser visto como uma generalização do Exercício~\ref{x:convolucao_densidade} para o caso não absolutamente contínuo.
 Vale a pena tentar diferenciar (não rigorosamente) a equação acima em $z$.
@@ -721,19 +764,16 @@ Vale a pena tentar diferenciar (não rigorosamente) a equação acima em $z$.
   \begin{equation}
     \begin{split}
       P[X + Y \leq z] & = E\big( E(\1_{[X + Y \leq z]} | X) \big)\\
-      & = E\big( E(\1_{[X + Y \leq z]} | X) \big)\\
-      & = E\Big( P[X + Y \leq z| X = \cdot) \circ X \Big)\\
-      & = E\Big( P[X + Y \leq z, X = x| X = \cdot) \circ X \Big)\\
-      & = E\Big( P[Y \leq z - x| X = \cdot] \circ X \Big),
-    \end{split}
+      & = \int_{-\infty}^\infty P[X + Y \leq z \ | \ X = x\cdot) P_X(\dd x)\\
+      & = \int_{-\infty}^\infty P[ Y \leq z-x  \ | \ X = x\cdot) P_X(\dd x).
+     \end{split}
   \end{equation}
-  onde $P[Y + X \leq z| X = \cdot]$ representa a função $x \mapsto P[Y + X \leq z | X = x]$.
-
   Agora vamos usar a hipótese que $X$ e $Y$ são independentes.
-  Isso equivale a dizer que a distribuição conjunta desse par é igual a $P_X \otimes P_Y$ e pela unicidade da probabilidade condicional regular temos que $P[Y \in F | X = x] = P[Y \in F]$, $(X \circ P)$-quase certamente, veja Exercício~\ref{x:prob_cond_reg_indep}.
+  Isso equivale a dizer que a distribuição conjunta desse par é igual a $P_X \otimes P_Y$ e pela unicidade da probabilidade condicional regular 
+  temos que $P[Y \in F | X = x] = P[Y \in F]$, $(P_X)$-quase certamente, veja Exercício~\ref{x:prob_cond_reg_indep}.
   Portanto,
   \begin{equation}
-    P[X + Y \leq z] = E\big( P[Y \leq z - \cdot] \circ X \big) = \int_{-\infty}^\infty F_Y(z - x) (X \circ P) (\d x),
+    P[X + Y \leq z] = \int_{-\infty}^\infty F_Y(z - x)  P_X (\d x),
   \end{equation}
   terminando a prova do lema.
 \end{proof}

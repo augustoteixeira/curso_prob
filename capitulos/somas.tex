@@ -1,257 +1,408 @@
-\chapter{Somas de variáveis independentes}
+% !TEX encoding = UTF-8 Unicode
 
-Nesse capítulo introduziremos várias técnicas e resultados que serão úteis em geral, mas que aparecem naturalmente no estudo de somas de variáveis aleatórias independentes, que por sua vez é um assunto de extrema importância em teoria e aplicações de probabilidade.
+\chapter{Somas de variáveis independentes I: Lei dos Grandes Números}
 
-\section{Esperança}
+Nesse capítulo introduziremos várias técnicas e resultados que serão úteis em geral, mas que aparecem naturalmente no estudo da somas de variáveis aleatórias independentes, que por sua vez é um assunto de extrema importância em teoria e aplicações de probabilidade.
+
+\section{Convergência de variáveis aleatórias}
+
+Antes de enunciar qualquer teorema sobre convergência de variáveis aleatórias, temos que definir o que isso significa.
+
+\medskip
+
+E facil de se dar conta que o conjunto $H$ de variáveis aleatórias em um dado espaço de probabilidade e um $\bbR$ (o $\bbC$) espaço vectorial pelas operações usuais de soma e  multiplicação por um escalar.
+Mas como jà reparamos que a maioria das propriedades que podemos provar so valem quase certamente, e mais razoável de trabalhar com o espaço quociente  $\cL^0=H/H_0$, onde $H_0$ e o conjunto das variáveis que valem $0$ quase certamente.
+
+\medskip
+
+Com um certo abuso de linguagem, 
+agora quando falamos de variável aleatória consideramos um elemento do espaço $\cL^0$. 
+
+\subsection{Espaços $\cL^p(P)$}
+
+Dado $p\ge 1$ arbitrário, consideramos $\cL^p(P)$ o espaço quociente associado as variáveis tais que $|X|^p$ e integrável.
+
+\medskip
+
+Neste espaço reparamos que 
+
+$$\| X\|_p:= \left(E\left [ |X|^p \right]\right)^{1/p}.$$ 
+define uma norma (a desigualdade triangular e simplesmente a desigualdade de Minkovski, e a positividade segue da nossa operação quociente).
+
+\medskip
 
 \begin{definition}
-  Se $X$ é uma variável aleatória com $\int_\Omega |X| \d \omega < \infty$, dizemos que $X$ é integrável \index{variavel aleatoria@variável aleatória!integravel@integrável} e definimos
-  \begin{equation}
-    E(X) = \int_\Omega X(\omega) P(\d \omega),
-  \end{equation}
-  a chamada esperança de $X$. \index{esperanca@esperança}
-  Nesse caso também dizemos que $X \in \mathcal{L}^1$.
+Seja $(X_n)_{n\ge 1}$ uma sequencia de variáveis aleatórias.
+Falaremos que uma sequência de variáveis $X_n$ converge para $X$
+ em $\cL^p$ se $X_n\in \cL^p$ para todos $n\ge 1$ e que a sequencia converge pela topologia associada a norma $\| \cdot \|_p$, o de jeito equivalente se
+ \begin{equation}
+ \lim_{n\to \infty}  E[ |X_n-X|^p]=0.
+ \end{equation}
+
 \end{definition}
 
-Quando $X \geq 0$, também podemos supor que $E(X)$ está bem definida, mesmo que possivelmente tomando valor infinito.
 
-Não demonstraremos algumas propriedades conhecidas da integração de Lebesgue, tais como
-\begin{enumerate}[\quad a)]
-\item $E(X + \alpha Y) = E(X) + \alpha E(Y)$ (se estiverem bem definidas),
-\item Valem os Teoremas de Convergência (Monótona e Limitada).
-\end{enumerate}
-
-\begin{exercise}
-  Mostre que se $X \in \mathcal{L}^1$ e $P[X > x] = 0$, então $E(X) \leq x$.
-\end{exercise}
-
-\begin{lemma}
-  A esperança de uma variável aleatória $X \in \mathcal{L}^1$ depende somente de sua distribuição.
-  Mais precisamente
-  \begin{equation}
-    E(X) = \int x \; P_X (\d x).
-  \end{equation}
-\end{lemma}
-
-\begin{proof}
-  Vamos mostrar que
-  \begin{equation}
-    E\big(f(X)\big) = \int f(x) (X \circ P) (\d x),
-  \end{equation}
-  para toda $f: \mathbb{R} \to \mathbb{R}$ mensurável tal que $f(X) \in \mathcal{L}^1$.
-
-  Para $f = \1_A$, temos
-  \begin{equation}
-    E\big(f(X)\big) = P[X \in A] = (X \circ P) (A),
-  \end{equation}
-  por definição de $X \circ P$.
-
-  Agora podemos extender o teorema para funções $f$ simples por linearidade, depois para funções positivas usando o Teorema da Convergência Monótona e finalmente escrevemos $x = x \1_{[0, \infty)} - (-x) \1_{(-\infty,0)}$.
-\end{proof}
-
-Vamos mostrar uma fórmula bastante simples de integração de variáveis tomando valores em um conjunto enumerável.
-Se $X \in \{x_1, x_2, \dots\}$ $P$-quase certamente, então
-\begin{equation}
-  \begin{split}
-    E(X) & = \int_\Omega X P(\d \omega) = \int \sum_i \1_{[X = x_i]} X P(\d \omega) + \int_{\{x_1, x_2, \dots\}^c} X P(\d \omega)\\
-    & = \sum_i \int_{[X = x_i]} x_i P(\d \omega) + 0 = \sum_i x_i P[X = x_i].
-  \end{split}
-\end{equation}
-
-Para nos acostumar à notação de probabilidade, vamos agora mostrar o mesmo resultado da seguinte forma
-\begin{equation}
-  \begin{split}
-    E(X) & = E\Big(\sum_i X \1_{[X = x_i]}\Big) + E(X \1_{\{x_1, x_2, \dots\}^c})\\
-    & = \sum_i E[X; X = x_i] + 0 = \sum_i x_i P[X = x_i].
-  \end{split}
-\end{equation}
-Que é certamente muito útil quando nos habituamos a ela.
-
-Observe que acima usamos a notação $E[X; \mathcal{Q}] = E(X \1_{[\mathcal{Q}]})$.
-Também utilizaremos $E[X; \mathcal{Q}_1, \mathcal{Q}_2, \dots] = E(X \1_{[\mathcal{Q}_1, \mathcal{Q}_2, \dots]})$
-
-\begin{example}
-  Se $X \overset{d}\sim \Ber(p)$, então $E(X) = 0 \cdot P[X = 0] + 1 P[X = 1] = 0 + p = p$.
-\end{example}
-
-\begin{example}
-  Seja $X \overset{d}\sim \Bin(n,p)$, então, para calcular $E(X)$, basta calcular $E(Y)$ onde $X \overset{d}\sim Y$.
-  Como vimos anteriormente, se $Z_1, Z_2, \dots, Z_n$ são variáveis \iid (relembrando: independentes e identicamente distribuídos) com $Z_1 \overset{d}\sim \Ber(p)$, então $Y = \sum_i Z_i \overset{d}\sim \Bin(n,p)$.
-  Logo
-  \begin{equation}
-    E(X) = E(Y) = \sum_i E(Z_i) = n p.
-  \end{equation}
-\end{example}
-
-Se $d(X \circ P) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), então
-\begin{equation}
-  E(X) = \int x (X \circ P)(\d x) = \int x \rho(x) \d x.
-\end{equation}
-
-\begin{example}
-  Se $X \overset{d}\sim U_{[0,1]}$, então sua densidade com respeito a Lebesgue é dada por $d(X \circ P) = \1_{[0,1]} \d x$, donde $E(X) = \int_0^1 x \d x = 1/2$.
-\end{example}
-
-\begin{proposition}
-  \label{p:espera_acumulada}
-  Se $X \geq 0$ $P$-q.c., então
-  \begin{equation}
-    E(X) = \int_0^\infty P[X > x] \d x) = \int_0^\infty 1 - F(x) \d x.
-  \end{equation}
-\end{proposition}
-
-\begin{proof}
-  \begin{equation}
-    \begin{split}
-      E(X) & = E \Big( \int_0^X 1 \d x \Big) = E \Big( \int_0^\infty \1_{[x < X]} \d x \Big)\\
-      & \overset{\text{Fubini}}= \int_0^\infty E(\1_{[x < X]}) \d x = \int_0^\infty P[x < X] \d x.
-    \end{split}
-  \end{equation}
-\end{proof}
-
-\begin{example}
-  Se $X \overset{d}\sim \Exp(\lambda)$, então
-  \begin{equation}
-    P[X \geq x] = \int_x^\infty \lambda e^{-\lambda t} \d t = e^{-\lambda x},
-  \end{equation}
-  donde
-  \begin{equation}
-    E(X) = \int_0^\infty e^{-\lambda x} \d x = \frac{1}{\lambda}.
-  \end{equation}
-\end{example}
+\begin{remark}
+Do mesmo jeito podemos definir convergência em $\cL^{\infty}$ o espaço de variável associado a norma 
+$$\| X\|_\infty:= \min\{ t \ : \  P[X>t]=0 \}$$ 
+mas acaba sendo muito menos útil.
+\end{remark}
 
 \begin{exercise}
-  Se $X \in \mathcal{L}^1$ e $P[X \geq x] = P[X \leq -x]$ para todo $x \geq 0$, então $E(X) = 0$.
-\end{exercise}
-
-\begin{exercise}
-  Marcelo coleciona figurinhas de futebol.
-  O álbum completo conter\'a $N$ figurinhas. No $i$-ésimo dia, ele compra uma nova carta $X_i \in \{1, \dots, N\}$.
-  A cole\c{c}\~ao $(X_i)_{i \geq 0}$ é distribuida de maneira \iid e uniforme nas figurinhas.
-  \begin{enumerate}[\quad a)]
-  \item Para $j = 1, \dots, N$, seja $T_j$ o tempo passado até a aquisi\c{c}\~ao da $j$-ésima nova figurinha, i.e.
-    \begin{equation}
-      T_1 = 1 \quad \text{ e } \quad T_j = \inf\{i, X_i \not \in \{X_{T_{j'}}; j' < j\}\}.
-    \end{equation}
-    Mostre que $T_j$ é finito quase certamente, para todo $j \leq N$.
-  \item Calcule a distribuição conjunta de $(T_1, T_2 - T_1, \dots, T_N - T_{N-1})$.
-  \item Calcule a esperança de $T_N$ (o dia em que Marcelo completa seu álbum).
-  \end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-  Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid e defina o primeiro tempo de récorde como
-  \begin{equation}
-    R = \inf\{i \geq 2; X_i \geq X_1\}.
-  \end{equation}
-  Supondo que $X_1$ é absolutamente contínua com respeito à medida de Lebesgue, encontre $E(R)$.
-\end{exercise}
-
-\subsection{Desigualdade de Markov}
-
-\begin{theorem}
-  \label{t:markov}
-  \index{Desigualdade de Markov}
-  Se $X \geq 0$ $P$-q.c., então para todo $x > 0$,
-  \begin{equation}
-    P[X \geq x] \leq \frac{E(X)}{x}.
-  \end{equation}
-\end{theorem}
-
-\begin{proof}
-  Sabemos que $X \geq x \1_{[X \geq x]}$, logo
-  \begin{equation}
-    E(X) \geq x E(\1_{[X \geq x]}) = x P[X \geq x],
-  \end{equation}
-  que termina a prova.
-\end{proof}
-
-O próximo exemplo serve muito bem para mostrar porque estamos interessados em desigualdades como a do Teorema~\ref{t:markov} acima.
-
-Em vários exemplos importantes, podemos ter dificuldade de calcular probabilidades explicitamente.
-Nesses casos, poderíamos gastar nossas energias tentando calculá-las a qualquer custo, ou podemos nos contentar em obter cotas superiores e inferiores para as probabilidades nas quais estamos interessados.
-
-Em vários casos, a segunda estratégia tem uma grande vantagem sobre a primeira, por possibilitar que estudemos problemas mais complexos (e consequentemente mais importantes/interessantes) e muitas vezes sem nos afastarmos da realidade (em vários exemplos as cotas superiores e inferiores são próximas o suficiente para que não nos preocupemos).
-
-\begin{example}
-  Sejam $n$ patos e $m$ caçadores.
-  Cada caçador escolhe um pato aleatorea e uniformemente e atira (abatendo-o com probabilidade $p$).
-  Seja $X = \# \{\text{patos vivos}\}$, que pode ter uma distribuição complicada de calcular, mas
-  \begin{equation}
-    \begin{split}
-      E(X) &= E \Big( \sum_{i=1}^n \1_{[\text{pato $i$ vive}]} \Big) = \sum_{i=1}^n P[\text{pato $i$ vive}]\\
-      &= n P[\text{pato $1$ vive}] = P\Big( \mcap_{j=1}^m [\text{caçador $j$ não mata pato $1$}] \Big)\\
-      &= n P[\text{caçador $j$ não mata pato $1$}]^m = n \Big(1 - \frac{p}{n}\Big).
-    \end{split}
-  \end{equation}
-  Observe que
-  \begin{enumerate}[\quad a)]
-  \item acima obtivemos uma igualdade e
-  \item $[\text{pato $i$ vive}]$, $i = 1, \dots, n$ não são independentes.
-  \end{enumerate}
-
-  Finalmente estimamos (digamos para $n$ par)
-  \begin{equation}
-    \begin{split}
-      & P[\text{patos para o jantar} \leq n/2] = P[X \geq n/2] \leq \frac{E(X)}{n/2}\\
-      & \qquad = 2 \frac{n}{n} \Big( 1 - \frac{p}{n}\Big)^m \leq 2 \exp \{- \frac{pm}{n}\}.
-    \end{split}
-  \end{equation}
-\end{example}
-
-\todosec{Tópico: Grafos Aleatórios}{fazer erdos renyi...}
-
-\todosec{Tópico: Currie Weiss}{fazer...}
-
-\subsection{Esperança e independência}
-
-\begin{proposition}
-  Sejam $X$ e $Y$ variáveis aleatórias independentes e em $\mathcal{L}^2$, então
-  \begin{equation}
-    E(XY) = E(X) E(Y).
-  \end{equation}
-\end{proposition}
-
-\begin{proof}
-  Obviamente o resultado acima é válido para funções indicadoras, pois $\1_A \1_B = \1_{A \cap B}$.
-  Por linearidade, o resultado também vale para funções simples e usando o Teorema da Convergência Monótona podemos extendê-lo para funções positivas.
-  Finalmente, decompomos $X = X_+ - X_-$ e $Y = Y_+ - Y_-$ e lembramos que ambas estão em $\mathcal{L}^2$ para concluir a prova.
-\end{proof}
-
-\begin{exercise}
-  Mostre que $E(XY)$, $E(X/Y)$, $E(X + Y)$... dependem apenas da distribuição de $(X,Y) \in \mathbb{R}^2$.
-\end{exercise}
-
-\begin{exercise}
-  Mostre que se $X, Y \in \mathcal{L}^1$, então também vale $E(XY) = E(X) E(Y)$.
-\end{exercise}
-
-\section{Variância}
-
-Na seção anterior, limitamos $P[X > a]$ usando $E(X)$ (se $X \geq 0$).
-Esse método é chamado de \emph{método do primeiro momento}, \index{momento!primeiro} de acordo com a seguinte
-\begin{definition}
-  Dada uma variável aleatória $X$, definimos o seu $k$-ésimo momento como $E(X^k)$, para $k = 1, 2, \dots$
-\end{definition}
-
-Então, por exemplo, se $X \in \mathcal{L}^k$ e $X \geq 0$, podemos estimar
-\begin{equation}
-  P[X \geq x] = P [X^k \geq x^k] \leq \frac{E(X^k)}{x^k}, \text{ para quaisquer $k \geq 1$.}
-\end{equation}
-Observe que quando o $k$-ésimo momento de $X$ é finito, a razão acima decai mais rápido quando $x$ diverge.
-
-\begin{exercise}
+Se $X$ e uma variável positiva, mostra que $X\in \cL^p$ equivale a $\int x^{k-1}F_X(x) \dd x <\infty$, onde $X$ e a função acumulada de distribuição.
   Mostre uma fórmula análoga à da Proposição~\ref{p:espera_acumulada}.
 \end{exercise}
 
+
+
 \begin{exercise}
-  Mostre que se a distribuição de $X$ tem densidade $\rho$ e $E(|f(X)|) < \infty$, então
-  \begin{equation}
-    E(f(X)) = \int f(x) \rho(x) \d x.
-  \end{equation}
+Seja $X$ uma variável aleatória e $q>p>1$ verificar que se $X\in \cL^q$ então 
+$X\in \cL^p$ e $\|X\|_p\le \|X\|_q$.
+Concluir que convergência em $\cL^p$ implica convergência em $\cL^q$.
 \end{exercise}
 
-Um caso bastante importante ocorre quando $k = 2$, por várias razões que descreveremos abaixo.
+\begin{exercise}\label{ex:l1}
+Seja $(X_n)_{n\ge 1}$ e uma sequência que converge em $\cL^p$ para $p\ge 1$. 
+Mostrar que $\lim_{n\to \infty} E[|X_n|^p]= E[|X|^p]$, 
+e que $\lim_{n\to \infty} E[X_n]= E[X]$.
+
+\end{exercise}
+
+Essas convergências são uteis em pratica nas computações mas não são as mais naturais a considerar do ponto de vista probabilístico.
+
+\subsection{Convergência em probabilidade}
+
+\begin{definition}
+Seja $(X_n)_{n\ge 1}$ uma sequencia de variáveis aleatórias.
+Falaremos que uma sequência de variáveis $X_n$ converge para $X$ em probabilidade se para qualquer $\gep>0$
+
+\begin{equation}
+\lim_{n\to \infty} P[ |X_n-X|>\gep ]=0.
+\end{equation}
+\end{definition}
+
+
+\begin{proposition}
+A convergência em probabilidade é a convergência induzida pela métrica 
+definida em $\cL^0$ for 
+\begin{equation}\label{l0metric}
+ d(X,Y)=E[\max(|X-Y|,1)]
+ \end{equation}
+
+
+\end{proposition}
+\begin{proof}
+Exercicio. 
+\end{proof}
+
+
+\begin{remark}
+Nota que essa noção de convergência em $\cL^p$ para qualquer $p>1$ implica convergência em probabilidade. 
+Pela desigualdade de Markov temos 
+
+\begin{equation}
+\lim_{n\to \infty} P[ |X_n-X|>\gep ]\le  \gep^{-p} P[ |X_n-X|^p]
+\end{equation}
+
+\end{remark}
+
+\subsection{Convergência quase certamente}
+
+Falamos que $X_n$ converge quase certamente par $X$ se 
+existe $\bar \gO\subset \gO$ de probabilidade $1$ tal que para todos $\go\in \bar \gO$
+\begin{equation}
+\lim_{n\to \infty} X_n(\go)=X(\go).
+\end{equation}
+O limite e único em $\cL^0$.
+Nota que convergência quase certamente de uma sequência implica convergência em probabilidade (com o mesmo limite).
+Essa noção de convergência parece a mais natural mas vale a pena de reparar que ao contrario das outras, não corresponde a uma topologia.
+
+\medskip
+
+Isso e evidenciado pelo fato seguinte.
+
+\begin{proposition}
+Se uma sequência $X_n$ converge em probabilidade por $X$, então existe uma subsequencia que converge quase certamente.
+\end{proposition}
+
+
+\begin{proof}
+Extraímos uma subsequência tal que 
+$$P(|X_{n(k)}-X|\ge k^{-1})\le k^{-2}.$$
+Pelo Lemma de Borel-Cantelli aplicado ao evento
+$A_k= [|X_{n(k)}-X|\ge k^{-1}]$
+podemos concluir que $A_k$ não acontece infinitas vezes, 
+e então que com probabilidade $1$
+$$\lim_{k\to \infty} X_{n(k)}(\go)=X(\go).$$
+\end{proof}
+
+\begin{remark}
+ Observamos que uma consequência deste fato e que para usar teorema de convergência dominada, só precisaremos de 
+ ter uma sequência convergindo em probabilidade.
+ \end{remark}
+ 
+ 
+ 
+\begin{exercise}
+Seja $(X_n)_{n\ge 1}$ e uma sequência de variáveis em $\cL^p$ $(p\ge 1)$ que converge em probabilidade para 
+$X\in \cL^p$. 
+Mostrar que $\lim_{n\to \infty} E[|X_n|^p]\le  E[|X|^p]$. 
+\end{exercise}
+
+
+\subsection{Integrabilidade uniforme}
+
+Vimos que convergência em $\cL^1$ implica convergência em probabilidade.
+O contrario e claramente falso, como se pode ver com a sequência de variáveis
+$$X_n:= n\1_{\{\go \in [0,n^{-1}]\}},$$
+onde $\gO=[0,1]$ e $P=U([0,1])$ que converge quase certamente para $0$ mas não converge em $\cL^1$ (Por exemplo $E[|X_n|=1]$)
+
+\medskip
+
+A razão da ausência de convergência aqui e uma concentração da esperança de $|X_n|$  (poderia ser também só uma parte dela) 
+em um evento cada vez menor do espaço de probabilidade ($[0,n^{-1}]$), que não aparece no limite. Em consequência 
+temos uma parte da norma $\cL^1$ que se perde no limite 
+(cf.\ Exercício \ref{ex:l1}) e temos $\lim_{n\to \infty} E[X_n]$).
+
+\medskip
+
+Uma sequência de variáveis em $\cL^1$ que não tem este tipo de comportamento se chama \textsl{uniformemente integral}.
+
+\begin{definition}
+ Uma coleção de variáveis aleatórias $(X_i)_{i\in \cI}$ e chamada uniformemente integrável se 
+ para qualquer $\gep>0$, existe $M>0$ tal que 
+ para todo $i\in \cI$
+ \begin{equation}
+  E[|X_{i}|\1_{[|X_i|>M]}]<\gep.
+ \end{equation}
+\end{definition}
+
+
+\begin{example}
+ \begin{itemize}
+  \item [(a)] A coleção $\{X\}$ que contem só um elemento $X\in \cL^1$, é uniformemente integrável (e uma consequência trivial do teorema de convergência dominada).
+  \item [(b)] Qualquer coleção finita de variáveis em $\cL^1$ é uniformemente integrável.
+  \item [(c)] A bola unidade (o qualquer conjunto limitado) em $\cL^p$, $p>1$ e uniformemente integrável.
+ \end{itemize}
+\end{example}
+
+Vamos agora ver uma caracterização alternativa da uniforme integrabilidade que justifica o nome é a seguinte.
+
+
+\begin{proposition}
+ Uma coleção de variáveis aleatórias $(X_i)_{i\in \cI}$  e uniformemente integrável se 
+ e só se para qualquer $\gep$ existe $\delta$ tal que para todos eventos  $A$ com $P(A)<\delta$ e todo $i \in \cI$
+  \begin{equation}\label{eq:lacond}
+  E[|X_i|\1_{A}]<\gep.
+ \end{equation}
+ \end{proposition}
+
+ \begin{proof}
+ Se a sequência for uniformemente integrável,
+ podemos achar $M>0$ tal que para todo $n$
+ \begin{equation}
+  E[|X_i|\1_{[|X_i|> M]}]<\gep/2.
+ \end{equation}
+Agora escolhemos $\delta=\gep/(2M)$.
+Se  $P(A)<\delta$ temos 
+\begin{multline}
+ E[|X_i|\1_{A}]= E[|X_i|\1_{A\cap [|X_i|\le  M]}]+E[|X_i|\1_{A\cap [|X_i|>  M]}]\\
+ \le M P(A\cap [|X_i|\le  M])+ E[|X_i|\1_{[|X_i|>  M]}]\le M\delta +\gep/2\le \gep.
+\end{multline}
+Reciprocamente se \eqref{eq:lacond} for satisfeito, então em particular
+$$ C:=\sup_n E[|X_i|]<\infty,$$
+e por desigualdade de Markov temos
+\begin{equation*}
+ P[|X_i|> M] \le \frac{C}{M}.
+\end{equation*}
+Então dado $\gep>0$, e $\delta$ tal que \eqref{eq:lacond} vale,
+podemos concluir escolhendo $M=C\delta^{-1}$ que 
+$E[|X_i|\1_{[|X_i|> M]}]\le \gep$.
+\end{proof}
+
+Essa noção permite de deduzir convergência em $\cL^1$ de convergência em probabilidade.
+
+\begin{theorem}
+ Seja $X_n$ uma sequência de variáveis aleatórias que converge em probabilidade para $X$.
+ As seguintes propriedades são equivalentes
+ \begin{itemize}
+  \item [(i)] $X_n$ converge em $\cL^1$ para $X$.
+  \item [(ii)] $(X_n)_{n\ge 1}$ e uniformemente integrável.
+ \end{itemize}
+
+ 
+ 
+ 
+\end{theorem}
+
+\begin{proof}
+ Mostramos primeiro que $(i)$ implica $(ii)$.
+ Primeiro a convergência implica que dado $\gep>0$ podemos achar $N$ tal que $n\ge N$ implica 
+ $$E[|X_n-X_N|]\le \gep/2.$$ 
+ Agora, o conjunto $\{X_1,\dots,X_N\}$ sendo uniformemente integrável, existe $\delta$ tal que que 
+ se $P(A)<\delta$
+ $$ \forall n\in \{1,\dots,N\}, \quad E[|X_n|\1_{A}]\le \gep/2.$$
+ Para $n\ge N$ e $P(A)<\delta$, temos 
+ \begin{equation*}
+ E[|X_n|\1_{A}]\le  E[|X_N|\1_{A}]+ E[|X_n-X_N|\1_{A}]\le \gep.
+ \end{equation*}
+ 
+ \medskip
+ 
+ Agora provamos que $(ii)$ implica $(i)$.
+Notamos se $(X_n)_{n\ge 1}$ e uniformemente integrável então $X\in \cL_1$.
+Usando Fatou temos
+\begin{equation}
+ E[|X|]\le \liminf_{n\to \infty}E[|X_n|]<\infty
+\end{equation}
+Agora reparamos que
+\begin{multline*}
+E[|X_n-X|]= E[|X_n-X| \ind_{|X_n-X|\le \gep} ]+ E[|X_n-X| \ind_{ [|X_n-X|>\gep] } ]\\
+\le 
+E[|X_n| \ind_{ [|X_n-X|>\gep] } ]+E[|X|\ind_{ [|X_n-X|>\gep]}].
+\end{multline*}
+O primeiro termo e obviamente menor que $\gep$.
+Agora por consequência da convergência em probabilidade, a probabilidade de $[|X_n-X|>\gep]$ vai para zero.
+Por convergência dominada, isso implica que $E[|X|\ind_{ [|X_n-X|>\gep]}]\le \gep$ para $n$ grande suficiente.
+
+\medskip
+
+
+Agora usando integrabilidade uniforme, temos que se $P(A)<\delta$ para $\delta$ pequeno suficiente, $E[|X_n| \ind_{A} ]<\gep$, para qualquer $n$.
+Como $P [|X_n-X|>\gep]<\delta$ para $n$ grande suficiente $E[|X_n| \ind_{ [|X_n-X|>\gep] } ]<\gep$ o que permite concluir.
+
+
+ 
+\end{proof}
+
+
+
+
+\begin{topics}
+\section{Espaços $\cL^q$ são completos para $p\in \{0\}\in [1,\infty)$}.
+
+
+\subsection{Completude de $\cL^0$}
+
+\begin{theorem}
+Dado $(\gO,\cF,P)$ um espaço de probabilidade. 
+O espaço $\cL^0(P)$ equipado com a métrica  da convergência em probabilidade \eqref{l0metric} e completo. 
+ 
+\end{theorem}
+
+
+\begin{proof}
+
+
+Seja $(X_n)_{n\ge 0}$ uma sequência de Cauchy em $\cL^0$. 
+Podemos extrair ma subsequência $Y_k=X_{n(k)}$ tal que 
+\begin{equation}
+\sup_{m>k} d(Y_k,Y_{k+1})\le  4^{-k}.
+\end{equation}
+Em particular temos usando a desigualdade de Markov, temos
+\begin{equation}
+P(|Y_k-Y_{k+1}|\ge 2^{-k})\le 2^{-k}.
+\end{equation}
+Pelo Lemma de Borel-Cantelli, obtemos que a sequência 
+$$Y_k=Y_1+\sum_{n=2}^k (Y_k-Y_{k-1}),$$
+ converge q.c.\ Chamamos $X$ a variável obtida no limite (vista com elemento de $\cL^0$).
+ 
+ \medskip
+ 
+ Claramente $Y_k$ converge em probabilidade por $X$, mas usando a desigualdade triangular obtemos que 
+ $$d(X_n,X)\le d(Y_{n},X_n)+d(Y_n,X).$$
+ A sequência $(X_n)_{n\ge 1}$ sendo de Cauchy o primeiro converge para zero e concluímos que 
+ $X_n$ converge para $X$ em probabilidade.
+\end{proof}
+
+\subsection{Completude de $\cL^p$, $p\ge 1$}
+ 
+ 
+ \begin{theorem}
+Dado $(\gO,\cF,P)$ um espaço de probabilidade. 
+O espaço normado $\cL^p(P)$ \eqref{l0metric} e completo para $p\ge 1$. 
+ 
+\end{theorem}
+
+ \begin{proof}
+ Seja $(X_n)_{n\ge 0}$ uma sequência de Cauchy em $\cL^q$. 
+  Como no caso anterior só precisamos de achar uma subsequência que converge para poder concluir.
+ Como $(X_n)_{n\ge 0}$ e de Cauchy em $\cL^p$, podemos extrair uma sequência $(Y_k)_{k\ge 1}$ que converge quase certamente por uma variável $X$.
+ Extraindo de nove se for necessário, podemos assumir que  (com a convençao $Y_0=0$).
+   $$\sum_{k\ge 1} \| Y_k-Y_{k-1} \|_{p}<\infty.$$
+    Por convergência monótona e desigualdade de triangular podemos concluir que 
+ $Z=\sum_{k\ge 1} |Y_k-Y_{k-1}|$ e um elemento de $\cL^p$.
+ 
+ \medskip
+ 
+ Agora podemos reparar que $Z^p$ domina a sequência $(Y^p_n)_{n\ge 1}$. 
+ Pois por convergência dominada podemos concluir que  $X=\sum_{k\ge 1} Y_k-Y_{k-1}$ pertencia a $\cL^p$ e que $E[|X-X_k|^p]$ converge para $0$.
+ \end{proof}
+
+ \begin{remark}
+  Não faláramos nada a respeito do caso $\cL^{\infty}$  mas a demostração e muito mais fácil neste caso.
+  Pode se verificar em particular que convergência em $\cL^{\infty}$ implica convergência quase certamente.
+ \end{remark}
+
+
+\subsection{Observações sob compacidade em espaços $\cL^p$}
+
+\begin{proposition}\label{prop:laug}
+ Seja $1 \le p<q$  $\cA\subset \cL^q(P)$, então se $\cA$ e pre-compacto (o fecho topológico e compacto) em $\cL^0(P)$ e 
+ limitado em $\cL^q(P)$, então e pre-compacto em $\cL^p(P)$.
+ \end{proposition}
+Uma consequência importante deste resultado e a seguinte
+\begin{corollary}
+ Se $(X_n)_{n\ge 1}$ converge em $\cL^0(P)$ e é limitada em $\cL^q(P)$, $q>1$ então 
+ela converge (pelo mesmo limite) em $\cL^p(P)$ para $p\in [1,q)$.
+ \end{corollary}
+
+
+ \begin{proof}
+Por $\cA$ ser pre-compacto em $\cL^0$, toda sequência $(X_n)_{n\ge 1}$ em $A$ admite uma subsequência  $(Y_k)_{k\ge 1}$ convergente em $\cL^0$.
+Para concluir temos que verificar que a convergência ocorre também em $\cL^p$. Por isso, e suficiente de mostrar que a sequência é de Cauchy.
+Consideramos $\gep>0$ arbitrário.
+Temos para qualquer $K>0$
+\begin{equation}
+E\left[ |Y_k-Y_l |^p \right] = E\left[ |Y_k-Y_l|^p \1_{\{|Y_k-Y_l |^p \le K\}} \right] +  
+E\left[ |Y_k-Y_l |^p \1_{\{|Y_k-Y_l |^p \ge K\}} \right].
+\end{equation}
+ Pelo segundo termo observamos que 
+ \begin{equation}
+ E\left[ |Y_k-Y_l|^p \1_{\{|Y_k-Y_l|^p \ge K\}} \right]\le K^{p-q} E\left[ |Y_k-Y_l|^q \right]\le 2^q K^{p-q} \max_{n\ge 1} E[|X_n|^q]
+ \end{equation}
+ Se $K$ for grande suficiente, este termo e menos que $\gep/2$.
+ 
+Por convergência dominada, se $k$ e $l$ forem grande suficiente (de um jeito que depende de $K$), temos 
+\begin{equation}
+ E\left[ |Y_k-Y_l|^p \1_{\{|Y_k-Y_l|^p \le K\}} \right]\le \gep/2.
+ \end{equation}
+
+ \end{proof}
+ 
+ 
+\end{topics}
+
+
+
+
+\todosec{Tópico: Grafos Aleatórios}{fazer erdos renyi...}
+
+\todosec{Tópico: Curie Weiss}{fazer...}
+
+
+\section{Variância}
+
+Usando desigualdade de Markov podemos reparar que para qualquer $X\in \cL^p$
+
+\begin{equation}
+  P[|X| \geq x] = P [X^p \geq x^p] \leq \frac{E(|X|^p)}{x^p}, \text{ para quaisquer $k \geq 1$.}
+\end{equation}
+Um caso particularmente útil para aplicar esse tipo de desigualdade e o caso $\cL^2$.
+Isso por que  $\cL^2$ e equipado de uma estrutura natural de espaço de Hilbert, pois por que neste espaço, 
+independência e relacionado a ortogonalidade.
+
+\subsection{Definição}
 
 Digamos que estamos interessados em aproximar uma variável aleatória por uma constante de forma a minimizar o erro da aproximação.
 Uma possível formulação desse problema é encontrar $a$ de forma a minimizar
@@ -260,7 +411,9 @@ Uma possível formulação desse problema é encontrar $a$ de forma a minimizar
   E\Big( (X - a)^2 \Big) = E(X^2) - 2 a E(X) + a^2.
 \end{equation}
 Essa equação obviamente possui um único mínimo em $a = E(X)$.
-Ao erro da aproximação acima damos o nome de variância
+Ao erro da aproximação acima damos o nome de variância.
+Corresponde a distancia quadrada ao subespaço das constantes no espaço $\cL^2$.
+
 
 \begin{definition}
   Dada uma variável aleatória $X \in \mathcal{L}^2$, definimos sua variância \index{variancia@variância} como
@@ -269,38 +422,35 @@ Ao erro da aproximação acima damos o nome de variância
   \end{equation}
 \end{definition}
 
-Observe pelas definições alternativas dadas acima que
-\begin{enumerate}[\quad a)]
-\item $\Var(X) \geq 0$ e
-\item $E(X^2) \geq E(X)^2$.
-\end{enumerate}
 
-\begin{exercise}
-  Mostre que se $X \in \mathcal{L}^2$, então $\Var(X) = 0$ se e somente se $X = a$ quase certamente.
-\end{exercise}
-
-Obviamente
-\begin{equation}
-  \Var(a X) = E(a^2 X^2) - E(aX)^2 = a^2 \Var(X).
-\end{equation}
-
-Podemos alternativamente entender a variância da seguinte meneira.
+Podemos alternativamente entender a variância da seguinte maneira.
 Sejam $X$ e $Y$ variáveis aleatórias independentes em $\mathcal{L}^2$ de mesma distribuição.
 Então,
 \begin{equation}
-  E\big( (X - Y)^2 \big) = E(X^2) - 2 E(XY) + E(X^2) = E(X^2) - E(X)^2 = \Var(X).
+  \frac{1}{2} E\big( (X - Y)^2 \big) = \frac{1}{2}\left[  E(X^2) - 2 E(XY) + E(X^2)\right] = E(X^2) - E(X)^2 = \Var(X).
 \end{equation}
 
-\begin{exercise}
-  Mostre que se $X \in \mathcal{L}^2$, então $\Var(X + b) = \Var(X)$.
-\end{exercise}
+
+\begin{proposition}[Propriedades básica da variança]
+Observe pelas definições alternativas dadas acima que
+\begin{enumerate}[\quad a)]
+\item $\Var(X) \geq 0$.
+\item Se $a, b\in \bbR$ $\Var (aX+b)=a^2 \Var(X).$  
+\item Mostre que se $X \in \cL^2$, então $\Var(X) = 0$ se e somente se $X = a$ quase certamente.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+ Exercício.
+\end{proof}
+
 
 \begin{exercise}
-  Calcule $Var(X)$ quando $X$ tem distribuições $\Ber(p)$, $U[0,1]$ ou $\Exp(\lambda)$.
+  Calcule $\Var(X)$ quando $X$ tem distribuições $\Ber(p)$, $U[0,1]$ ou $\Exp(\lambda)$.
 \end{exercise}
 
-A seguinte proposição mostra que a variância é uma maneira de estimar o quanto uma variável aleatória se desvia de sua média.
-\begin{proposition}
+A seguinte aplicação da propridade de Markov usa a variância para  estimar o quanto uma variável aleatória se desvia de sua média.
+\begin{proposition}[Desigualdade de Chebychev]
   Se $X \in \mathcal{L}^2$ e $a > 0$, então
   \begin{equation}
     P [ |X - E(X)| > a] \leq \frac{\Var(X)}{a^2}.
@@ -310,16 +460,17 @@ A seguinte proposição mostra que a variância é uma maneira de estimar o quan
 \begin{proof}
   A desigualdade segue trivialmente da cota de Markov, ao observarmos que
   \begin{enumerate}[\quad a)]
-  \item $|X - E(X)| \geq 0$,
-  \item $|X - E(X)| > a$ se e somente se $|X - E(X)|^2 > a^2$ e
-  \item $E\big(|X - E(X)|^2\big) = E\big((X - E(X))^2\big) = \Var(X)$,
+  \item $|X - E(X)| \geq 0$.
+  \item $|X - E(X)| > a$ se e somente se $|X - E(X)|^2 > a^2$.
+  \item $E\big(|X - E(X)|^2\big) = E\big((X - E(X))^2\big) = \Var(X)$.
   \end{enumerate}
-  mostrando a proposição.
+  Isso demostra a proposição.
 \end{proof}
 
+\subsection{Variança, Soma e Independência }
 Para variáveis aleatórias de média zero, a variância nada mais é que $E(X^2)$, ou em outras palavras $\lVert X \rVert^2_2$, o quadrado de sua norma em $\mathcal{L}^2$.
 Isso nos motiva a olhar mais de perto para o produto interno em $\mathcal{L}^2$, que se traduz a $E(XY)$.
-Mas para não nos restringirmos a variáveis de média zero, introduzimos a seguinte
+Mas para não nos restringirmos a variáveis de média zero, introduzimos a seguinte noção.
 
 \begin{definition}
   Se $X, Y$ são variáveis em $\mathcal{L}^2$, definimos
@@ -328,10 +479,15 @@ Mas para não nos restringirmos a variáveis de média zero, introduzimos a segu
   \end{equation}
 \end{definition}
 
-Uma observação importante é que
-\begin{equation}
-  \text{se $X$ e $Y$ em $\mathcal{L}^2$ são independentes, então $\Cov(X,Y) = 0$.}
-\end{equation}
+Uma observação importante e a seguinte.
+\begin{proposition}
+  Se $X$ e $Y$ em $\mathcal{L}^2$ são independentes, então $\Cov(X,Y) = 0$.
+\end{proposition}
+
+\begin{proof}
+ É uma consequência da Proposição \ref{prop:indep}.
+\end{proof}
+
 
 \begin{exercise}
   Sejam $X_1$ e $X_2$ as coordenadas canônicas em $\mathbb{R}^2$.
@@ -339,11 +495,12 @@ Uma observação importante é que
   Mostre que mesmo assim temos $\Cov(X_1, X_2) = 0$.
 \end{exercise}
 
-Uma outra propriedade bastante importante da variância é que ela se comporta bem com somas, no seguinte sentido
+Considerando a covariança como um produto interno, podemos deduzir a seguinte formula para variança da soma.
+
 \begin{proposition}
   Se $X_1, \dots, X_n$ são variáveis em $\mathcal{L}^2$, então
   \begin{equation}
-    \Var(X_1 + \dots + X_n) = \sum_{i=1}^n \Var(X_i) + \sum_{i \neq j} \Cov(X_i, X_j).
+    \Var(X_1 + \dots + X_n) = \sum_{i=1}^n \Var(X_i) + 2\sum_{i < j} \Cov(X_i, X_j).
   \end{equation}
   Em particular, se as variáveis $X_i$ forem independentes duas a duas, então
   \begin{equation}
@@ -352,17 +509,19 @@ Uma outra propriedade bastante importante da variância é que ela se comporta b
   \end{equation}
 \end{proposition}
 
+
 \begin{proof}
   Basta fazer o tedioso desenvolvimento
   \begin{equation}
     \begin{split}
-      \Var\Big(\sum_i X_i\Big) & = E \Big( \Big(\sum_i X_i - E\Big(\sum_i X_i\Big)\Big)^2\Big)\\
-      & = E \Big( \Big(\sum_i X_i - E(X_i)\Big)^2\Big)\\
+      \Var\Big( \sum_{i=1}^n X_i\Big) & = E \Big( \Big( \sum_{i=1}^n X_i - E\Big( \sum_{i=1}^n X_i\Big)\Big)^2\Big)\\
+      & = E \Big( \Big( \sum_{i=1}^n X_i - E(X_i)\Big)^2\Big)\\
       & = \sum_{i, j = 1}^n E \big(X_i - E(X_i)\big) E\big(X_j - E(X_j)\big),
     \end{split}
   \end{equation}
   o que termina a prova ao separarmos $i = j$ de $i \neq j$.
 \end{proof}
+
 
 \begin{exercise}
   Calcule $\Var(X)$ quando $X \overset{d}\sim \Bin(n, p)$.
@@ -377,12 +536,12 @@ Uma outra maneira de pensar nas vantagens de se dividir nossos riscos entre vár
 
 \begin{exercise}
   Imagine que $X_1, \dots, X_n$ são variáveis \iid, tomando valores em $[0,1]$ e que temos um certo valor $s \in \mathbb{R}_+$ que temos que guardar em $n$ caixas (dividindo como quisermos em $s_1, \dots, s_n$).
-  Ao fim da semana, obteremos $S = \sum_i s_i X_i$.
+  Ao fim da semana, obteremos $S =  \sum_{i=1}^n s_i X_i$.
 
-  Calcule $E(S)$ e $\Var(S)$,
+  Calcule $E(S)$ e $\Var(S)$ nos dois casos seguinte:
   \begin{enumerate}[\quad a)]
-  \item se $s_1 = s$ e $s_i = 0$ para todo $i \geq 2$ e
-  \item se $s_i = s/n$ para todo $i$.
+  \item $s_1 = s$ e $s_i = 0$ para todo $i \geq 2$.
+  \item $s_i = s/n$ para todo $i$.
   \end{enumerate}
   Compare os resultados.
 \end{exercise}
@@ -406,28 +565,35 @@ O objetivo desta seção é confirmar a validade desse experimento de maneira qu
 \begin{theorem}
   \index{Lei!Fraca dos Grandes Numeros@Fraca dos Grandes Números}
   \label{t:lei_fraca}
-  Se $X_1, X_2, \dots$ são i.i.d.s em $\mathcal{L}^2$ e definimos
+  Considerando $X_1, X_2, \dots$ são i.i.d.s em $\mathcal{L}^2(P)$, definimos
   \begin{equation}
-    S_n = \sum_{i=1}^n X_i,
+    S_n = \sum_{i=1}^n X_i.
   \end{equation}
-  então para todo $\varepsilon > 0$
+  Para todo $\varepsilon > 0$
   \begin{equation}
     \lim_{n \to \infty} P \Big[\Big| \frac{S_n}{n} - E(X_1)\Big| > \varepsilon \Big] = 0.
   \end{equation}
-  Ou seja, $\tfrac{S_n}{n} \to E(X_1)$ em medida (que também chamamos de ``em probabilidade'').
+  Ou seja, $\tfrac{S_n}{n} \to E(X_1)$ em probabilidade.
 \end{theorem}
+
+
 
 \begin{proof}
   Sabemos que
   \begin{equation}
     P \Big[\Big| \frac{S_n}{n} - E(X_1)\Big| > \varepsilon \Big] \leq \frac{\Var(\tfrac{S_n}{n})}{\varepsilon^2},
   \end{equation}
-  pois $E(S_n/n) = 1/n E(X_1 + \dots + X_n) = E(X_1)$.
+  pois $E(S_n/n) = (1/n) E(X_1 + \dots + X_n) = E(X_1)$.
 
-  Mas como $\Var(S_n/n) = 1/n^2 \Var (X_1 + \dots + X_n) = (n/n^2) \Var(X_1)$, temos o resultado.
+  Mas como $\Var(S_n/n) = (1/n^2) \Var (X_1 + \dots + X_n) = (n/n^2) \Var(X_1)$, temos o resultado.
 \end{proof}
 
-Observe que nós apenas utilizamos que as variáveis $X_i$ eram independentes duas a duas.
+\begin{remark}
+ Observe que nós apenas utilizamos que as variáveis $X_i$ eram independentes duas a duas.
+ Isso e suficiente para mostrar que $S_n/n$ converge em $\cL^2$ e em consequência converge em probabilidade.
+\end{remark}
+
+
 
 Além disso, obtivemos o seguinte resultado quantitativo que vale mesmo para valores finitos de $n$:
 
@@ -463,10 +629,10 @@ Além disso, obtivemos o seguinte resultado quantitativo que vale mesmo para val
 
 \begin{exercise}
   Sejam $X_1, \dots, X_n$ e $Y_1, \dots, Y_n$ variáveis independentes com distribuição $\Ber(p)$.
-  Defina agora $Z_{i,j} = X_i Y_j$, para $i, j \in \{1, \dots, n\}$ e
+  Defina agora $Z_{i,j} = X_i Y_j$, para $i, j \in \{1, \dots, n\}$.
   \begin{enumerate}[\quad a)]
-  \item calcule a esperança de $S_n = \tfrac{1}{n^2} \sum_{i=1}^n \sum_{j=1}^n Z_{i,j}$ e
-  \item estime $P[|S_n - E(S_n)| > a]$ usando o método do segundo momento. Como esse resultado se compara com o caso em que os $Z_{i,j}$ são i.i.d.?
+  \item Calcule a esperança de $S_n = \tfrac{1}{n^2} \sum_{i=1}^n \sum_{j=1}^n Z_{i,j}$.
+  \item Estime $P[|S_n - E(S_n)| > a]$ usando o método do segundo momento. Como esse resultado se compara com o caso em que os $Z_{i,j}$ são i.i.d.?
   \end{enumerate}
 \end{exercise}
 
@@ -487,6 +653,10 @@ Além disso, obtivemos o seguinte resultado quantitativo que vale mesmo para val
   \end{enumerate}
 \end{exercise}
 
+
+
+
+
 \begin{topics}
 
 \section{Tópico: Contando triângulos}
@@ -501,7 +671,7 @@ Chamamos o par $(V_n, \mathcal{E}_n)$ de grafo completo em $n$ vértices.
 Definimos em um certo espaço de probabilidade $P_n$, as variáveis aleatórias $(X_e)_{e \in \mathcal{E}_n}$ de maneira \iid com distribuição $\Ber(p)$, onde $p \in [0,1]$.
 Essas variáveis induzem um subgrafo aleatório $(V_n, \mathcal{E}_n')$, onde
 \begin{equation}
-  \mathcal{E}_n' = \big\{ e \in \mathcal{E}_n; X_e = 1 \big\}.
+  \mathcal{E}_n' = \big\{ e \in \mathcal{E}_n\ : \  X_e = 1 \big\}.
 \end{equation}
 Dizemos que os elos $e$, tais que $X_e = 1$ são abertos.
 
@@ -551,6 +721,10 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
 
 \todosec{Tópico: Método Probabilístico Revisitado}{usando segundo momento agora}
 
+
+
+
+
 \section{Lei forte dos grandes números}
 
 \begin{theorem}[Lei Forte dos Grandes Números]
@@ -562,6 +736,446 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
     \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^n X_n = m, \text{ $P$-quase certamente.}
   \end{equation}
 \end{theorem}
+
+Começamos com uma prova do teorema no caso simples onde as variáveis estão em $\mathcal L^4$, que providencia um exemplo de uso do metodo dos momentos.
+
+\begin{proof}[Demostração no caso $\mathcal L^4$]
+Podemos supor que $E(X_i)=0$ (se não for o caso, considera $Y_i=X_i-E(X_i)$).
+Podemos calcular o momento de ordem $4$ da soma expandido ela 
+Temos 
+
+\begin{equation*}
+  E \left[ \left(\frac{1}{n} \sum_{i=1}^n X_n \right)^4 \right]= \frac{1}{n^4} \sum_{i_1,i_2,i_3,i_4=1}^n E[X_{i_1}X_{i_2}X_{i_3}X_{i_4}].
+\end{equation*}
+Pois usando independência, e $E(X_i)=0$ vemos que so os termos onde os $X_{k}$ apparecem pelo menos duas vezes não são nulos e
+então que a soma acima vale
+$$\frac{1}{n^4}\left( n E(X^4_1)-3n(n-1) E(X^2_1) \right)\le \frac{C}{n^2}.$$
+Então temos 
+\begin{equation}
+ \sum_{n=1}^{\infty} E \left[ \left(\frac{1}{n} \sum_{i=1}^n X_n \right)^4 \right]<\infty.
+\end{equation}
+Usando Fubini e equivalente a 
+\begin{equation}
+ E \left[  \sum_{n=1}^{\infty} \left(\frac{1}{n} \sum_{i=1}^n X_n \right)^4 \right]<\infty.
+\end{equation}
+E em particular que quase certamente
+\begin{equation}
+ \sum_{n=1}^{\infty} \left(\frac{1}{n} \sum_{i=1}^n X_n \right)^4<\infty.
+\end{equation}
+
+\end{proof}
+
+
+\begin{remark}
+ Se as variáveis são positivas quase-certamente, então, usando o resultado para $\min(X_n,M)$ e o limite $M\to \infty$ 
+ podemos concluir que $n^{-1}\sum_{i=1}^n X_i$ vai para infinito quase certamente.
+ \end{remark}
+
+ Se as variáveis não são integráveis, então podemos concluir que 
+ $n^{-1}\sum_{i=1}^n X_i$ não converge quase certamente. 
+ E uma consequência do resultado seguinte
+ 
+ \begin{proposition}
+  
+ Se $(X_n)_{n\ge 1}$ e uma sequência de variáveis IID com $X_1\notin \cL_1$ então quase-certamente
+ \begin{equation}
+  \limsup_{n\to \infty} \frac{|X_n|}{n}=\infty.
+ \end{equation}
+
+  
+ \end{proposition}
+ 
+ \begin{proof}
+ Temos para qualquer $M>0$
+ $$E[|X_1|]=\int_0^{\infty} P[X_1\ge x] \dd x \le  M\left(1+ \sum_{n\ge 1} P[X_1\ge Mn]\right).$$
+  Em particular se $X_1\notin \cL_1$ a soma a direita e infinita.
+  
+  \medskip
+  
+  Agora definimos o evento $A_n:= [X_n\ge nM]$.  Os $A_n$ são independente e 
+ $$\sum_{n\ge 1} P(A_n) = \sum_{n\ge 1} P[X_1\ge Mn]=\infty.$$
+ Como temos
+ $$ \left\{ \limsup_{n\to \infty} \frac{X_n}{n}\ge M \right\} \supset \left\{  \bigcap_{k\ge 1} \bigcup_{n\ge k} A_n \right\},$$
+podemos concluir usando o Lema de Borel-Cantelli.
+$$ P\left[ \limsup_{n\to \infty} \frac{X_n}{n}\ge M\right]\ge P \left[ \bigcap_{k\ge 1} \bigcup_{n\ge k} A_n  \right] =1.$$
+Como $M$ e arbitrário podemos concluir.
+
+ \end{proof}
+
+
+
+
+
+
+\subsection{Demostração da Lei Fortes dos Grandes Números}
+
+Vamos provar que para todo $a>E[X_1]$ temos quase certamente
+\begin{equation}\label{lesup}
+M:=\sup_{n\ge 0} S_n-n a <\infty
+\end{equation}
+onde $S_n:=\sum_{i=1}^n X_i$, $S_0=0$.
+
+\medskip
+
+A desigualdade \eqref{lesup} implica que 
+\begin{equation*}
+ \limsup_{n\ge 0} \frac{S_n}{n}\le a,
+\end{equation*}
+e como $a$ pode ser arbitrariamente perto de $E[X_1]$,  $\limsup_{n\ge 0} \frac{S_n}{n}\le E[X_1]$.
+A cota inferior pode ser obtido usando a desigualdade \eqref{lesup} para $-S_n$ (que também e uma soma de variáveis IID).
+
+
+\medskip
+
+Agora consideramos $a$ fixo.
+Uma primeira coisa que podemos verificar e que coincide para qualquer $k\in \bbN$ temos
+$$\{M<\infty\}=\{ \sup_{n\ge k} S_n-n a<\infty \}= \{\sup_{n\ge k} S_n-S_k-na \}$$
+Em particular $\{M<\infty\}\in \sigma(X_{k+1},X_{k+2},\dots )$ para $k$ arbitrário, e por entanto pertencia na $\sigma$ álgebra caudal.
+Em consequência da lei do $\{0,1\}$, temos $P[M<\infty]\in \{0,1\}$ e fica suficiente de provar $P[M<\infty]>0$ o de jeito equivalente
+$P[M=\infty]<1$. Vamos prosseguir por contradição. 
+
+\medskip
+
+Definimos 
+\begin{equation*}\begin{split}
+                  M_k&:= \max_{1\le n \le k} (S_n-na)\\
+                 M'_k&:= \max_{1\le n \le k} (S_{n+1}-S_n-na)
+                 \end{split}
+\end{equation*}
+Essas duas sequências tem a mesma distribuição: Existe uma função $F$ tal que 
+$M_k=F(X_1,\dots,X_k)$ e $M'_k=F(X_2,\dots,X_{k+1})$ e os vetores $(X_1,\dots,X_k)$ e $(X_2,\dots,X_{k+1})$ tem a mesma distribuição.
+
+\medskip
+
+As sequências convergem de jeito crescente para $M$ e $M'$ respetivamente que são também identicamente distribuída
+(observe que $P(M\le x)=\lim_{k\to \infty} P(M_k\le x)$).
+Usando as definições temos
+\begin{equation*}
+ M_{k+1}=\max(0,M'_k+X_1-a)=M'_k-\min(M'_k,a-X_1).
+\end{equation*}
+Usando o fato que $M_k$ e $M'_k$ tem mesma distribuição obtemos
+
+$$E[\min(M'_k,a-X_1)]=E[M'_{k}]-E[M_{k+1}]=E[M_{k}-M_{k+1}]\le 0.$$
+Usando o teorema de convergência dominada, ($0\le \min(M'_k,a-X_1)\le |X_1-a|$) obtemos que 
+$$E[\min(M',a-X_1)]\le 0.$$
+Agora para concluir, se tivermos $P(M'=\infty)=P(M=\infty)=1$, implicaria 
+$E[a-X_1]\le 0$,
+o que e impossível com a nossa escolha de $a$.
+
+\qed
+
+
+
+
+\todosec{Tópico: Teorema de Weierstrass}{provar o teorema de Weierstrass de aproximação de funções contínuas por polinômios (prova probabilística). Ele é usado em convergência fraca em $\mathbb{R}$}
+
+\todosec{Tópico: Entropia de Shannon}{fazer...}
+
+\todosec{Tópico: Processos de renovação}{fazer...}
+
+
+\begin{exercise}[Depende de \nameref{s:percolacao}]
+  Considere o grafo $G = (\mathbb{Z}^2, E)$, onde $E = \big\{ \{x,y\}; |x - y|_1 = 1 \big\}$.
+  Dotamos agora o espaço $\{0,1\}^E$ com a $\sigma$-álgebra $\mathcal{A}$ gerada pelas projeções canônicas $Y_e(\omega) = \omega(e)$, onde $\omega \in \{0,1\}^E$ e $e \in E$.
+  Definimos o conjunto $A \subseteq \{0,1\}^E$ por
+  \begin{equation}
+    A = \Big[
+    \begin{array}{c}
+      \text{Existe uma sequência $(x_i)_{i\ge 0}$  de elementos distintos de $\mathbb{Z}^2$,}\\
+      \text{tais que $e_i = \{x_i, x_{i+1}\} \in E$ e $Y_{e_i} = 1$ para cada $i \geq 0$}
+    \end{array}
+    \Big].
+  \end{equation}
+  \begin{enumerate}[\quad a)]
+  \item Mostre que $A$ é mensurável com respeito a $\mathcal{A}$.
+  \item Mostre que $A$ é um evento caudal, ou seja
+    \begin{equation}
+      A \in \bigcap_{\{K \subseteq E,\, K \text{ finito}\}} \sigma\big( Y_e; e \not \in K \big).
+    \end{equation}
+  \item Conclua que $P(A) \in \{0,1\}$.
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Seja $\Omega = E^\mathbb{Z}$ um espaço produto infinito, dotado da $\sigma$-álgebra $\mathcal{A}$ gerada pelas projeções canônicas $(X_i)_{i \in \mathbb{Z}}$.
+  Consideramos agora em $(\Omega, \mathcal{A})$ a medida produto $\mathbb{P} = P^{\otimes \mathbb{Z}}$, onde $P$ é uma probabilidade fixada no espaço polonês $(E, \mathcal{B}(E))$.
+  \begin{enumerate}[\quad a)]
+  \item Mostre que para qualquer evento $A \in \mathcal{A}$ e qualquer $\varepsilon > 0$, existe um $k \in \mathbb{Z}_+$ e um evento $A_k \in \sigma(X_i, |i| \leq k)$ tais que $\mathbb{P}[(A \setminus A_k) \cup (A_k \setminus A)] < \varepsilon$.
+  \item Considere o shift $\theta:\Omega \to \Omega$ dado por $\theta(\omega)(i) = \omega(i-1)$ e mostre que se $A = \theta(A)$, então $P(A) \in \{0,1\}$.
+  \end{enumerate}
+\end{exercise}
+
+\subsection{Lei dos grandes números em $\cL^1$}
+
+Acabamos de provar convergência das somas de variáveis independentes no sentido quase certo. 
+Vamos ver agora que a convergência ocorre também em $\cL^1$.
+
+\begin{theorem}
+ Se $(X_n)_{n\ge 0}$ é uma sequência de variáveis independentes e de mesma distribuição com $X_1\in \cL^1$ então
+ 
+ $$ \lim_{n\to \infty} \frac{1}{n}\sum_{k=1}^n X_k=E[X] $$
+ em $\cL^1$.
+\end{theorem}
+
+
+\begin{proof}
+Já sabemos que a convergência ocorre quase certamente e por consequência em probabilidade.
+Para concluir, só precisamos mostrar que a sequência e uniformemente integrável usando Teorema \ref{t:ui}.
+Usamos a notação $S_n=\sum_{k=1}^n X_k$.
+Temos 
+\begin{equation}\label{eq:hop}
+\frac{1}{n}E[|S_n| \ind_{[|S_n|\ge n M]}]\le \frac{1}{n}\sum_{i=1}^n E[X_i \ind_{[|S_n|\ge n M]}]\le E[X_1\ind_{[|S_n|\ge n M]}]. 
+\end{equation}
+ Usando a desigualdade de Markov temos que 
+ $$ P[|S_n|\ge nM]\le \frac{E[|S_n|]}{nM}\le E[X_1]/M.$$
+Em particular  o termo a direita em \eqref{eq:hop} vai para zero quando $M\to \infty$ o que permite concluir. 
+ 
+ \end{proof}
+
+\begin{exercise}
+ Mostrar que se $X_1\in \cL^q$, $q>1$ então a convergência na lei dos grandes números vale também em $\cL^p$ para todos $p\in[1,q)$.
+\end{exercise}
+
+\begin{remark}
+ Na verdade a lei dos grandes números vale em $\cL^p$ desde que $X_1\in \cL^p$ mas a demostração deste ultimo ponto e mais delicada.
+\end{remark}
+
+\newpage
+\begin{topics}
+\section[Tópico:Séries de Kolmogorov]{Tópico: Convergência de series aleatórias,\\
+Teoremas de Uma, Duas e Três séries de Kolmogorov}
+
+
+\subsection{Um criterio geral básico}
+
+Sejà $X_1,\dots, X_n$ uma sequencia de variáveis aleatórias.
+Queremos ter uma condição suficiente para a convergência de 
+\begin{equation}
+S_n:= \sum_{i=1}^n X_i.
+\end{equation}
+Uma consequência do Teorema de Convergência Dominada e que 
+\begin{lemma}
+ Se $(X_n)_{n\in \bbN}$ e uma sequencia de variáveis aleatórias integráveis tal que 
+ $\sum_{n=1}^{\infty} E[ |X_n| ]<\infty$,
+então $\sum_{n=1}^{\infty} X_i$ e integrável.
+Em particular a suma converge quase certamente.
+\end{lemma}
+
+O objetivo desse tópico e de presentar uns critérios mais eficaz no caso de soma de variáveis independente.
+
+\medskip
+
+\subsection{Caso de variáveis independentes: Os resultados}
+
+Vamos começar com um exemplo para ilustrar o caso:\
+Consideramos $(\gep_n)_{n\ge 1}$ uma sequencia de sinais aleatórios: são variáveis independente cuja distribuição e dada por
+$$P[\gep_n=\pm 1]=1/2.$$
+Queremos saber para quais valor de $p$ a soma $\sum_{n=1}^{\infty} \gep_n n^{-p}$ converge.
+
+\medskip
+
+E bastante fácil reparar (podemos por exemple usar o critério precedente) que temos convergência para $p>1$.
+
+\medskip
+
+O objetivo dos resultados que presentamos agora e de poder achar uma condição necessária e suficiente sobre o valor de $p$ para ter convergência.
+E difícil ter uma intuição do resultado: sabemos que  $\sum_{n=1}^{\infty} n^{-p}$ diverge para todo $p\in (0,1)$ mas também que 
+$\sum_{n=1}^{\infty}(-1)^n n^{-p}$ converge (a seria satisfaz o teste da série alternada). 
+
+\medskip
+
+Uma consequência dos resultados presentado abaixo e que no caso de sinais aleatórios, a convergência ocorre se $p>1/2$
+(veremos mais tarde que esse resultado e o melhor possível).
+
+
+ 
+
+\begin{theorem}[Uma serie]
+ Sejà $(X_i)_{i\in \bbN}$ uma sequencia de variáveis independente tal que $E[X_i]=0$ para todo $i$,
+ e que satisfaz também
+ $$ \sum_{i=1}^\infty \Var X_i<\infty.$$
+Temos então
+\begin{equation}
+P\left[\sum_{i=1}^{\infty} X_i \text{ converge } \right]=1.
+\end{equation}
+\end{theorem}
+
+\medskip
+
+\begin{theorem}[Duas Series]
+ Sejà $(X_i)_{i\in \bbN}$ uma sequencia de variáveis independente
+satisfaz
+ $$ \sum_{i=1}^\infty \Var X_i<\infty.$$
+Temos então
+\begin{equation}
+P[\sum_{i=1}^{\infty} X_i \text{ converge } ]=\begin{cases} 1 \quad \text{ se } \sum_{i=1}^\infty E[X_i] \text{ converge },\\
+                                                0   \quad \text{ se } \sum_{i=1}^\infty E[X_i] \text{ não converge }.
+                                              \end{cases}
+\end{equation}
+\end{theorem}
+
+As vezes a variância pode não ser um bom criterio para avaliar convergência: $\Var(X_i)$ pode ser grande por causa de um evento que 
+acontece com pouca probabilidade. O teorema seguinte permite de tratar uns desses casos:
+dado um real positivo $c>0$, definimos 
+\begin{equation}
+X_i^c= X_i \1_{\{|X_i| \ge c\}}= \begin{cases} X_i \quad \text{ se } |X_i|\le c,\\
+                                    0 \quad \text{ no caso contrário.} 
+                                   \end{cases}
+           \end{equation}                        
+Chamamos essas variáveis aleatórias as variâveis troncadas.
+
+\begin{theorem}[Tres Series]
+ Sejam $c>0$ um real positivo e $(X_i)_{i\in \bbN}$ uma sequencia de variáveis independente que
+satisfaz
+\begin{itemize}
+ \item [(i)]  $\sum_{i=1}^\infty P[ |X_i|>c ]<\infty,$
+ \item [(ii)]  $\sum_{i=1}^\infty E[ X^c_i]<\infty,$
+ \item [(iii)]  $\sum_{i=1}^\infty \Var X^c_i<\infty.$
+\end{itemize}
+Então
+$$ P[\sum_{i=1}^{\infty} X_i \text{ converge } ]= 1 $$                                              
+\end{theorem}
+
+
+
+\begin{exercise}
+Mostrar que para uma sequencia de variáveis independente $X=(X_i)_{i\in \bbN}$, com as notaçoes do teorema acíma,
+$$ \exists c>0,\ \quad X \text{verifica $(i)-(ii)-(iii)$}  \quad \Leftrightarrow \quad \forall c>0,\ \quad X \text{verifica $(i)-(ii)-(iii)$}.$$
+ 
+\end{exercise}
+
+
+Os segundo a terceiro resultado são consequencia relativamente simples do primeiro.
+Vamos dar uma prova deles logo
+\begin{proof}[Prova to Teorema de Duas Series]
+ Definimos $Z_i=X_i-E[X_i]$ e usando o Teorema de Uma Serie, concluimos que $\sum_{i=1}^{\infty} Z_i$ converge com probabilidade $1$. 
+ 
+ \medskip
+ 
+ Pois usando propriedades basicas de limites, vemos que $$\sum_{i=1}^n X_i=\sum_{i=1}^n Z_i+ \sum_{i=1}^n E[X_i]$$ converge se e sò se 
+ a segunda sequência converge.
+ \end{proof}
+
+ \begin{proof}[Prova to Teorema de Tres Series]
+Essa vez definimos $Y_i:= X_i \1_{\{|X_i| > c\}}$
+Temos 
+\begin{equation}
+ \sum_{i=1}^n X_i =  \sum_{i=1}^n X_i^c + \sum_{i=1}^n Y_i
+\end{equation}
+Usando o Teorema de Duas Series para $X_i^c$, jà podemos dizer que o primeiro termo converge com probabilidade $1$.
+Pelo segundo termo, temos 
+\begin{equation}
+ \sum_{i=1}^{\infty} P[Y_i\ne 0]=   \sum_{i=1}^{\infty} P[ X_i>c ]< \infty, 
+\end{equation}
+e então pelo Lemma de Borel Cantelli, $$P[ Y_i \ne 0 \text{ infinitas vezes}]=0.$$ 
+ o que permite de concluir.
+\end{proof}
+
+
+\begin{exercise}
+Sejam $\alpha, \beta, \gamma$ tres numeros reais positívos e $(X_n)_{n\in \bbN}$ variáveis independentes com distribuição
+ \begin{equation} \begin{split}
+ P[X_n=1]&=\frac{1}{4}\left(2+n^{-\alpha}-n^{-\beta}\right), \\ 
+ P[X_n=-1]&=\frac{1}{4}\left(2-n^{-\alpha}-n^{-\beta}\right) \\
+ P[X_n= n]&= \frac{1}{2} n^{-\beta}.
+ \end{split}
+\end{equation}
+Discute da convergência da serie seguinte em função do valor de $\alpha, \beta$ e $\gamma$
+\begin{equation}
+ \sum_{n=1}^{\infty} n^{-\gamma} X_n.
+\end{equation}
+
+
+ 
+ 
+\end{exercise}
+
+\subsection{A desigualdade de Kolmogorov}
+
+Para provar o Teorema, vamos precisar de uma feramenta util tambem em outro contexto.
+E uma versão mais forte de desigualdade de Chebychev.
+
+\medskip
+
+
+\begin{theorem}[Desigualdade de Kolmogorov]
+Suponhamos que $X_i$ são variáveis independente tal que $\Var X_i<\infty$ para todos $i$. 
+Então temos
+\begin{equation}
+ P[\max_{1\le k\le n} |S_k-E[S_k]|>\gep ]\le  \frac{\Var S_n}{\gep^2}.
+\end{equation}
+
+\end{theorem}
+
+
+\begin{proof}
+ Susbstituindo $X_i$ por $X_i-E[X_i]$ se for necessário, podemos supor que a esperança das variáveis vale zero.
+ Vamos decompor o evento 
+ $$\left\{ \max_{1\le k\le n} |S_k|>\gep \right\}$$ com respeito ao primeiro valor de $k$ por qual $|S_k|>\gep$.
+ \begin{equation}
+  \begin{split}
+E_1&:=\{|S_1|\ge \gep  \},\\
+E_k&:=\{|S_1|<\gep;\, \dots ;\,  |S_{k-1}|<\gep\, ;  \, |S_k|\ge \gep  \}, \quad 2\le k\le n.
+   \end{split}
+\end{equation}
+Obviamente temos $$\left\{\max_{1\le k\le n} |S_k|>\gep\right\}=\bigcup_{i=1}^n E_i.$$
+A união sendo disjunta temos 
+\begin{equation}
+P\left(\max_{1\le k\le n} |S_k|>\gep \right) \le  \sum_{i=1}^n P(E_i)\le  \sum_{i=1}^n E\left[  \frac{S^2_i}{\gep^2}\1_{E_i}\right].
+\end{equation}
+Vamos poder concluir a prova se mostramos para todo $k$
+\begin{equation}\label{therest}
+ E[S^2_k\1_{E_k}]\le E[S^2_n\1_{E_k}].
+\end{equation}
+Isso implica que 
+\begin{equation}
+  \sum_{i=1}^n E\left[  \frac{S^2_i}{\gep^2}\1_{E_i}\right]\le E\left [  \frac{S^2_n}{\gep^2}  \sum_{i=1}^n \1_{E_i}\right]= \frac{\Var(S_n)}{\gep^2}.
+\end{equation}
+Para mostrar \eqref{therest}, definimos $\Delta_{k,n}= S_n-S_k$.
+Temos 
+\begin{equation}
+  E[S^2_n\1_{E_k}]= E[(S_k+\Delta_{k,n})^2\1_{E_k}]= E[S_k^2\1_{E_k}]+2 E[ \Delta_{k,n} S_k \1_{E_k}]+  E[ \Delta^2_{k,n}\1_{E_k}].
+\end{equation}
+O terceiro termo e obviamente positivo, então podemos concluir se mostramos  que $E[ \Delta_{k,n} S_k \1_{E_k}]=0$.
+Lembramos que $S_k\1_{E_k}$ e uma funções das $k$ primeiras variáveis e $\Delta_{k,n}$ so depende das outras $n-k$
+\begin{equation}
+ S_k \1_{E_k}=f(X_1,\dots,X_k) \quad \text{ e } \quad \Delta_{k,n}=g(X_{k+1},\dots,X_{n}),
+\end{equation}
+Como os $X_i$ são independente, concluímos que  $S_k \1_{E_k}$ e $\Delta_{k,n}$ o são, e então
+
+\begin{equation}
+ E[ \Delta_{k,n} S_k \1_{E_k}]=E[\Delta_{n,k}S_k \1_{E_k}]=E[\Delta_{n,k}]E[S_k \1_{E_k}]=0.
+\end{equation}
+\end{proof}
+
+\subsection{Prova to Teorema de Uma Serie}
+
+Uma consequência imediata da desigualdade de Kolmogorov e que se \\ $\sum_{i=1}^{\infty} \Var X_i<\infty$ e $E[X_i]=0$
+$$P\left[ \exists n\in \bbN,  |S_n| \ge A \right] \le \frac{\sum_{i=1}^{\infty} \Var X_i}{A^2}.$$
+E obtida simplesmente pegando o limite quando $n$ vai para infinito da desigualdade.
+
+\medskip
+
+Vamos applicar essa formula pelo resto da soma. Definimos $n_k$ do jeito seguinte
+
+\begin{equation}
+ n_k:= \inf\left\{ n \sum_{i=n}^{\infty} \Var X_i \right\}<2^{-3k}.
+\end{equation}
+Aplicando a desigualdade de Kolmogorov temos 
+$$ P\left[ \exists r\ge n_k,  |\sum_{i=n_k}^r X_i| \ge 2^{-k} \right]\le 2^{-k}.$$
+Então pelo Lema de Borel-Cantelli,
+\begin{equation}
+ P\left[ \exists k_0 \ \forall k\ge k_0, \forall r\ge n_k, \left|\sum_{i=n_k}^r X_i\right|\le 2^{-k} \right]=1.
+\end{equation}
+Agora nota que o evento  $$\{\exists k_0 \ \forall k\ge k_0, \forall r\ge n_k, |\sum_{i=n_k}^r X_i|\le 2^{-k}\}$$ 
+implica  $$ \forall k\ge k_0,\, \forall m,p\ge n_k, \, 
+|S_m-S_p|\le 2^{-k+1}.$$ 
+Então a sequencia e de Cauchy com probabilidade $1$ o que permite de concluir a prova. \qed
+
+
+
+
+\subsection{Demostração da LGN usando o Teorema das Três Séries}
 
 Antes de começar a prova, buscando inspiração no Teorema das Três Séries, mostraremos que basta considerar versões truncadas das variáveis $X_i$.
 Isso é feito no próximo
@@ -579,7 +1193,8 @@ Isso é feito no próximo
   Consideramos os eventos $A_i = [X_i \neq Y_i]$.
   Obviamente,
   \begin{equation}
-    \sum_i P(A_i) = \sum_i P[|X_i| \geq i] \leq \int_0^\infty P[|X_i| \geq t] \d t = E\big(|X_i|) < \infty.
+  \sum_{i=1}^{\infty} P(A_i) = \sum_{i=1}^{\infty} P[|X_i| \geq i] \leq 
+  \int_0^\infty P[|X_1| \geq t] \d t = E\big(|X_1|) < \infty.
   \end{equation}
   Logo, pelo Lema de Borel-Cantelli, temos que $P$-quase certamente $A_i$ acontece apenas finitas vezes.
   Digamos que $A_i$ não acontece para $i > N(\omega)$.
@@ -594,7 +1209,7 @@ O próximo passo para a prova da Lei Forte dos Grandes Números é cuidar da esp
 \begin{lemma}
   \label{l:lim_Z_n_LFGN}
   Sejam $Z_i = Y_i - E(Y_i)$, para $i \geq 1$ como acima.
-  Então, para demosntrar o Teorema~\ref{t:LFGN}, basta mostrar que
+  Então, para demostrar o Teorema~\ref{t:LFGN}, basta mostrar que
   \begin{equation}
     \label{e:lim_Z_n_LFGN}
     \lim_{n \to \infty}\frac{1}{n} \sum_{i=1}^n Z_i = 0, \text{ $P$-quase certamente.}
@@ -656,10 +1271,10 @@ Estamos agora em posição de finalizar a
   \begin{equation}
     \begin{split}
       \sum_{i=1}^n \frac{1}{i^2} \Var(Z_i) & = \sum_{i=1}^n \frac{1}{i^2} \Var(Y_i) \leq \sum_{i=1}^n \frac{1}{i^2} E\big( X_i^2 \1_{[|X_i| \leq i]}\big)\\
-      & = \sum_{i=1}^n \frac{1}{i^2} \sum_{k=1}^{i} E\big( X_i^2 \1_{[k-1 < |X_i| \leq k]}\big)\\
-      & = \sum_{k=1}^n E\big( X_1^2 \1_{[k-1 < |X_i| \leq k]}\big) \sum_{i=k}^{n} \frac{1}{i^2}\\
-      & \leq 2 \sum_{k=1}^n \frac{1}{k} E\big( X_1^2 \1_{[k-1 < |X_i| \leq k]}\big)\\
-      & \leq 2 \sum_{k=1}^n E\big( X_1 \1_{[k-1 < |X_i| \leq k]}\big) \leq 2E(X_1) < \infty.
+      & = \sum_{i=1}^n \frac{1}{i^2} \sum_{k=1}^{i} E\big( X_1^2 \1_{[k-1 < |X_1| \leq k]}\big)\\
+      & = \sum_{k=1}^n E\big( X_1^2 \1_{[k-1 < |X_1| \leq k]}\big) \sum_{i=k}^{n} \frac{1}{i^2}\\
+      & \leq 2 \sum_{k=1}^n \frac{1}{k} E\big( X_1^2 \1_{[k-1 < |X_1| \leq k]}\big)\\
+      & \leq 2 \sum_{k=1}^n E\big( X_1 \1_{[k-1 < |X_1| \leq k]}\big) \leq 2E(X_1) < \infty.
     \end{split}
   \end{equation}
   Isso nos permite concluir a prova de \eqref{e:lim_Z_n_LFGN} via o Lema de Kronecker.
@@ -688,122 +1303,7 @@ Estamos agora em posição de finalizar a
   \end{equation}
   Além disso calcule a distribuição do limite acima.
 \end{exercise}
-
-\todosec{Tópico: Teorema de Weierstrass}{provar o teorema de Weierstrass de aproximação de funções contínuas por polinômios (prova probabilística). Ele é usado em convergência fraca em $\mathbb{R}$}
-
-\todosec{Tópico: Entropia de Shannon}{fazer...}
-
-\todosec{Tópico: Processos de renovação}{fazer...}
-
-\section{Lei \texorpdfstring{$\{0, 1\}$}{\{0,1\}} de Kolmogorov}
-
-Ao estudarmos o Lema de Borel-Cantelli, vimos que se os eventos $(A_i)_{i \geq 1}$ são independentes então a probabilidade de $[A_i \text{ infinitas vezes}]$ somente pode assumir os valores zero ou um (dependendo da somabilidade de $P(A_i)$).
-Nessa seção iremos estudar outros tipos de evento que assumem apenas esses dois valores.
-Esperamos que esse fenômeno se torne intuitivo ao final dessa discussão.
-
-No que se segue, consideraremos um espaço mensurável $\Omega = \times_{i=1}^\infty E$, com a $\sigma$-álgebra canônica $\mathcal{F}$, isto é a $\sigma$-álgebra gerada pelas coordenadas canõnicas $(X_i)_{i=1}^\infty$.
-\begin{definition}
-  Dizemos que um evento $A \in \mathcal{F}$ é caudal se
-  \begin{equation}
-    A \in \sigma\big( X_i; i \geq n\big), \text{ para todo $n \geq 1$}.
-  \end{equation}
-  Também introduzimos a classe $\mathcal{F}_\infty$ de tais eventos, que claramente é uma $\sigma$-álgebra, pois pode ser escrita como
-  \begin{equation}
-    \mathcal{F}_\infty = \mcap_{n \geq 1} \sigma\big( X_i; i \geq n\big).
-  \end{equation}
-  Chamamos $\mathcal{F}_\infty$ de $\sigma$-álgebra caudal. \index{sigma-algebra@$\sigma$-álgebra!caudal}
-\end{definition}
-
-Vejamos que, dados $A_i \in \sigma(X_i)$, $i \geq 1$, temos que $[A_i \text{ infinitas vezes}]$ é caudal.
-Para tanto, basta observar que para todo $n \geq 1$, temos que
-\begin{equation*}
-  [A_i \text{ infinitas vezes}] = \big[\#\{i \geq 1; \omega \in A_i\} = \infty\big] = \big[\#\{i \geq n; \omega \in A_i\} = \infty\big],
-\end{equation*}
-que obviamente pertence a $\sigma(X_i; i \geq n)$ para todo $n \geq 1$.
-
-\begin{exercise}
-  Mostre que em $\Omega = \mathbb{R}^{\infty}$, são caudais os seguintes eventos
-  \begin{enumerate}[\quad a)]
-  \item $[X_i \text{ converge}]$,
-  \item $\big[\tfrac{1}{n} \sum_{i=1}^n X_i \text{ converge}\big]$ e
-  \item $[\#\{i \geq 1; X_i > 0\} < \infty]$.
-  \end{enumerate}
-\end{exercise}
-
-Podemos agora enunciar o pricipal teorema dessa seção
-
-\begin{theorem}[Lei $\{0,1\}$ de Kolmogorov]
-  \index{Lei!0,1 de Kolmogorov@$\{0,1\}$ de Kolmogorov}
-  Se $\Omega = E^{\infty}$, onde $E$ é um espaço canônico, for provido de uma lei produto $P = \otimes_{i=1}^\infty P_i$, então todo evento caudal tem probabilidade $0$ ou $1$ sob $P$.
-\end{theorem}
-
-Quando uma $\sigma$-álgebra $\mathcal{F}$ satisfaz $P(A) \in \{0,1\}$ para todo $A \in \mathcal{F}$, dizemos que $\mathcal{F}$ é trivial. \index{sigma-algebra@$\sigma$-álgebra!trivial}
-Uma outra maneira de enunciar a conclusão do teorema acima é dizer que a $\sigma$-álgebra caudal $\mathcal{F}_\infty$ é trivial.
-
-\begin{proof}
-  A idéia da prova, apesar de soar um pouco estranha, é mostrar que se $A \in \mathcal{F}_\infty$, então $A$ é independente de si mesmo.
-  Em outras palavras, $P(A) = P(A \cap A) = P(A)^2$, donde $P(A) \in \{0,1\}$.
-  Mas vamos com calma.
-
-  Fixe $k \geq 1$, $A \in \mathcal{F}_\infty$ e $B \in \sigma(X_1, \dots, X_k)$.
-  Nesse caso, como o evento $A$ pertence a $\sigma(X_{k+1}, X_{k+2}, \dots)$, temos que $A$ e $B$ são independentes.
-  Fixe agora $A \in \mathcal{F}_\infty$ e considere a classe
-  \begin{equation}
-    \mathcal{B}_A = \{B \in \mathcal{F}; \text{ $B$ é independente de $A$}\}.
-  \end{equation}
-  Já sabemos que $\sigma(X_1, \dots, X_k) \subseteq \mathcal{B}_A$ para todo $k \geq 1$.
-
-  Obviamente $\Omega$ é independente de $A$, assim como $B^c \in \mathcal{B}_A$ sempre que $B \in \mathcal{B}_A$.
-  Além disso, suponha que $B_1, B_2, \dots$ in $\mathcal{B}_A$ são disjuntos, então,
-  \begin{equation*}
-    P\big( (\mcup_i B_i) \cap A \big) = P\big( \mcup_i (B_i \mcap A) \big) \overset{\text{disj.}}= \sum_i P(B_i \mcap A) \overset{\text{indep.}}= P(A) P(\mcup_i B_i).
-  \end{equation*}
-  Logo $\mathcal{B}_A$ é um $\lambda$-sistema.
-
-  Lembrando que $\mathcal{B}_A$ contém o $\pi$-sistema $\bigcup_k \sigma(X_1, \dots, X_k)$, isto é dos eventos cilíndricos, temos que todos eventos são indepentes de $A$, inclusive o próprio $A$.
-  Isso termina a prova do teorema.
-\end{proof}
-
-\begin{exercise}
-  Dizemos que uma probabilidade $P$ no espaço produto $\Omega = \times_{n \geq 1} E$ (com a $\sigma$-álgebra canônica) é fortemente misturadora se, para todo $k \geq 1$, temos
-  \begin{equation}
-    \lim_{n \to \infty} \sup \big| P(A \cap B) - P(A) P(B) \big| = 0,
-  \end{equation}
-  onde o supremo acima é tomado sobre $A \in \sigma(X_1, \dots, X_k)$ e $B \in \sigma(X_n, X_{n+1}, \dots)$.
-  Mostre que nesse caso, a $\sigma$-álgebra dos eventos caudais é trivial.
-\end{exercise}
-
-
-\begin{exercise}[Depende de \nameref{s:percolacao}]
-  Considere o grafo $G = (\mathbb{Z}^2, E)$, onde $E = \big\{ \{x,y\}; |x - y|_2 = 1 \big\}$.
-  Dotamos agora o espaço $\{0,1\}^E$ com a $\sigma$-álgebra $\mathcal{A}$ gerada pelas projeções canônicas $Y_e(\omega) = \omega(e)$, onde $\omega \in \{0,1\}^E$ e $e \in E$.
-  Definimos o conjunto $A \subseteq \{0,1\}^E$ por
-  \begin{equation}
-    A = \Big[
-    \begin{array}{c}
-      \text{existe uma sequência de distintos $x_0, x_1, \dots \in \mathbb{Z}^2$,}\\
-      \text{tais que $e_i = \{x_i, x_{i+1}\} \in E$ e $Y_{e_i} = 1$ para cada $i \geq 0$}
-    \end{array}
-    \Big].
-  \end{equation}
-  \begin{enumerate}[\quad a)]
-  \item Mostre que $A$ é mensurável com respeito a $\mathcal{A}$.
-  \item Mostre que $A$ é um evento caudal, ou seja
-    \begin{equation}
-      A \in \bigcap_{K \subseteq E; \text{ finito}} \sigma\big( Y_e; e \not \in K \big).
-    \end{equation}
-  \item Conclua que $P(A) \in \{0,1\}$.
-  \end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-  Seja $\Omega = E^\mathbb{Z}$ um espaço produto infinito, dotado da $\sigma$-álgebra $\mathcal{A}$ gerada pelas projeções canônicas $(X_i)_{i \in \mathbb{Z}}$.
-  Consideramos agora em $(\Omega, \mathcal{A})$ a medida produto $\mathbb{P} = P^{\otimes \mathbb{Z}}$, onde $P$ é uma probabilidade fixada no espaço polonêns $(E, \mathcal{B}(E))$.
-  \begin{enumerate}[\quad a)]
-  \item Mostre que para qualquer evento $A \in \mathcal{A}$ e qualquer $\varepsilon > 0$, existe um $k \in \mathbb{Z}_+$ e um evento $A_k \in \sigma(X_i, |i| \leq k)$ tais que $\mathbb{P}[(A \setminus A_k) \cup (A_k \setminus A)] < \varepsilon$.
-  \item Considere o shift $\theta:\Omega \to \Omega$ dado por $\theta(\omega)(i) = \omega(i-1)$ e mostre que se $A = \theta(A)$, então $P(A) \in \{0,1\}$.
-  \end{enumerate}
-\end{exercise}
+\end{topics}
 
 \section{Momentos exponenciais}
 
@@ -844,6 +1344,7 @@ Abaixo, desenvolveremos um método mais eficiente para responder a essa pergunta
   \item $\phi_X(s) < \infty$ para todo $s \in (-\delta, \delta)$,
   \item $\phi_X(s)$ é $C^\infty$ em $(-\delta, \delta)$ e
   \item $\phi_X^{(n)}(s) = E(X^n \ex{sX})$.
+  \item $s\mapsto \log \phi_{X_1}(s)$ e convexa no interval onde esta definida.
   \end{enumerate}
 \end{proposition}
 
@@ -863,7 +1364,17 @@ A última conclusão da proposição acima justifica a nomenclatura função ger
     \phi_X'(s) = E(X \ex{sX}).
   \end{equation}
 
-  Note que para todo $\varepsilon > 0$ e $k \geq 1$, $|x|^k \leq c(k) \ex{\varepsilon |x|}$, isso nos permite repetir o argumento acima indutivamente para obter \textit{c)} e \textit{d)}.
+  Note que para todo $\varepsilon > 0$ e $k \geq 1$, $|x|^k \leq c(k) \ex{\varepsilon |x|}$, isso nos permite repetir o argumento acima indutivamente para obter
+  \textit{c)} e \textit{d)}.
+  
+  \medskip
+  
+  O ultimo ponto e simplesmente uma consequencia da desigualdade de H\"older. Para $\gl\in (0,1)$ temos 
+  \begin{multline}
+   \phi_X( \gl a +(1-\gl)b)= E[e^{\gl a X} e^{(1-\gl)b X}] \\ 
+   \le E[e^{a X}]^\gl E[ e^{b X}]^{(1-\gl)}=  (\phi_X(a))^{\gl}  (\phi_X(b))^{1-\gl}.
+  \end{multline}
+
 \end{proof}
 
 Lembramos que ao usar o método do segundo momento, nos foi bastante útil o fato que a variância se comporta bem com relação a somas independentes.
@@ -881,8 +1392,8 @@ Uma outra propriedade importante da função geradora de momentos é que ela tam
   Basta observar que
   \begin{equation}
     \begin{split}
-      E(\exp & \{s(X_1 + \dots + X_k)\}) = E(\ex{sX_1} \dotsm \ex{sX_k}))\\
-      & = E\big(\ex{sX_1}) \dotsm E(\ex{sX_k}\big) = \phi_{X_1}(s) \dotsm \phi_{X_k}(s),
+      E[\exp & \{s(X_1 + \dots + X_k)\}) = E[(\ex{sX_1} \dotsm \ex{sX_k})]\\
+      & = E\big[\ex{sX_1}) \dotsm E(\ex{sX_k}\big] = \phi_{X_1}(s) \dotsm \phi_{X_k}(s),
     \end{split}
   \end{equation}
   usando Fubini.
@@ -947,13 +1458,27 @@ Futuramente no curso estudaremos as probabilidades de que esse desvio seja de or
   \end{equation}
   onde $m = E(X_1)$ e
   \begin{equation}
-    \psi_{X_1}(x) = \sup_{s \geq 0} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\}
+    \psi_{X_1}(x) = \sup_{s \in \bbR} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\}
   \end{equation}
   é chamada função taxa. \index{funcao@função!taxa}
+  De jeito simetrico temos tambem  
+    \begin{equation}
+    P\big[ X_1 + \dots + X_n \leq \big(m - a \big) n \big] \leq \ex{-\psi_{X_1}(m - a) n}.
+  \end{equation}
 \end{theorem}
 
-É importante observar que para estimar $P\big[X_1 + \dots + X_n \leq (m - a)n\big]$, basta considerarmos $X'_i = -X_i$ ao utilizar o teorema acima.
+Podemos reparar que 
+  \begin{equation}
+    \psi_{X_1}(x) = \begin{cases}
+                     \sup_{s \ge 0} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\}, \text{ se } x\le m \\
+                      \sup_{s \ge 0} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\}, \text{ se } x\ge m. 
+                    \end{cases}
+   \end{equation}
+Isso e uma consequencia simples to fato que a função $s\mapsto xs - \log \big( \phi_{X_1}(s) \big)$ e concava e que a derivada em $0$ vale 
+$$x- \partial_s \big(\log  E[e^s X] \big)=x-m.$$ Então dependendo do sinal de $(x-m)$ o supremo e atingido a direito o a esqueirda de zero.
 
+   
+   
 %Antes de provar o teorema, vamos fazer uma breve observação sobre como a função geradora de momentos se comporta com respeito a soma de constantes.
 %Isso nos permitirá centrar as variáveis para nossas estimativas.
 %
@@ -1059,9 +1584,12 @@ Certamente, esse nem sempre é o caso, por exemplo se $X = m$ quase certamente, 
 \end{lemma}
 
 \begin{proof}
-  Por hipótese, existe $x > m + a$ tal que $p = P[X \geq x] > 0$, donde $\phi_X(s) \geq p e^{s(m+a)}$.
-  Dessa forma, $(m + a)s - \log\big( \phi_X(s) \big) \leq (m + a - x)s - \log(p)$, que converge a menos infinito quando $s$ diverge.
-  Isso, junto com a continuidade de $\phi_X$ implica a existência do $s_{\text{max}}$ desejado.
+Para mostrar que o minimo e atingido e em ponto e suficiente mostrar que 
+$$ \lim_{s\to \infty} (m + a)s - \log\big(\phi_X(s)\big)=\infty,$$
+pois a função e continua.
+Por hipótese, existe $x > m + a$ tal que $p = P[X \geq x] > 0$, donde $\phi_X(s) \geq p e^{sx}$ e portanto podemos concluir por que
+$$(m + a)s - \log\big(\phi_X(s)\big)\ge (x-m+a)s -\log p.$$
+
 \end{proof}
 
 \begin{lemma}
@@ -1084,11 +1612,10 @@ Certamente, esse nem sempre é o caso, por exemplo se $X = m$ quase certamente, 
 
 
 \begin{exercise}
-  Suponha que se $\phi_{X}(s)$ é finita para todo $s \in (-\delta, \delta)$ e mostre que
+  Suponha que se $\phi_{X}(s)$ é finita para todo $s \in (-\delta, \delta)$ e mostre que as seguintes afirmações valem.
   \begin{enumerate}[\quad a)]
-  \item na definição de $\psi_{X}(a)$, poderíamos tomar o ínfimo em todos $s \in \mathbb{R}$ (ao invéz de $s \geq 0$) sem mudar o valor de $\psi_X(a)$,
-  \item a função $\psi_{X}(s)$ é não negativa, semi-contínua inferior e convexa em seu domínio
-  \item $\psi_X(a)$ se anula somente em $a = 0$ e $\psi_X$ é crescente no seu domínio.
+  \item A função $\psi_{X}(s)$ é não negativa, semi-contínua inferior e convexa em seu domínio.
+  \item $\psi_X(a)$ se anula somente em $a = m$.
   \end{enumerate}
 \end{exercise}
 
@@ -1113,6 +1640,10 @@ Isso é confirmado no seguinte resultado.
     \liminf_{n \to \infty} \frac{1}{n} \log P\big[ X_1 + \dots + X_n \geq \big(m + a \big) n \big] \geq -\psi_{X_1}(m + a),
   \end{equation}
   onde novamente $m = E(X_1)$ e $\psi_{X_1}(x)$ é definida como no Teorema~\ref{t:PGDleq}.
+  De jeito analogo 
+    \begin{equation}
+    \liminf_{n \to \infty} \frac{1}{n} \log P\big[ X_1 + \dots + X_n \leq \big(m - a \big) n \big] \geq -\psi_{X_1}(m - a),
+  \end{equation}
 \end{theorem}
 
 Note que o resultado do teorema acima é mais fraco que o que vemos na equação \eqref{e:PGDgeq_falso}, mas mostra que $\psi_{X_1}(a)$ é realmente o expoente correto no decaimento da probabilidade de grandes desvios.
@@ -1165,7 +1696,8 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
   Além disso após escolhido $\sigma$, teremos que calcular a constante de normalização $Z_{\sigma}$ de forma que $\nu$ seja uma probabilidade.
 
   Escolheremos $\sigma \geq 0$ como no Lema~\ref{l:smax_PGD}, isto é, tal que $\psi_{X_1}(b) = b\sigma - \log\big( \phi_{X_1}(\sigma) \big)$.
-  Isso nos dá imediatamente que $Z_\sigma = E[\ex{\sigma X_1}] = \phi_{X_1}(\sigma)$ por definição.
+  Isso nos dá imediatamente que $Z_\sigma = E[\ex{\sigma X_1}] = \phi_{X_1}(\sigma)$ 
+  por definição.
 
   Por diferenciabilidade de $\phi_{X_1}$, o máximo deve ser assumido em um ponto de derivada zero para a função $\psi_{X_1}$, ou seja
   \begin{equation}
@@ -1184,7 +1716,7 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
   \begin{equation*}
     \begin{split}
       P\Big[ & \frac{X_1 + \dots + X_n}{n} \in (b-\delta, b+\delta) \Big] = \int_{x_i; \big| \tfrac{1}{n} \sum_{i \leq n} x_i - b\big| < \delta} \;\; \bigotimes_{i=1}^n (X_1 \circ P)(\d x_i)\\
-      & = Z_\sigma^n \int_{x_i; \big| \tfrac{1}{n} \sum_{i \leq n} x_i - b \big| < \delta} \;\; \ex{-\sigma \textstyle{\sum_{i=1}^n x_i}} \bigotimes_{i=1}^n (X_1' \circ P)(\d x_i)\\[2mm]
+      & = Z_\sigma^n \int_{x_i; \big| \tfrac{1}{n} \sum_{i \leq n} x_i - b \big| < \delta} \;\; \ex{-\sigma \textstyle{\sum_{i=1}^n x_i}} \bigotimes_{i=1}^n \nu(\d x_i)\\[2mm]
       & \geq Z_\sigma^n \exp\{-(b + \delta) \sigma n\} P\Big[ \frac{X_1' + \dots + X_n'}{n} \in (b-\delta,b+\delta) \Big].
     \end{split}
   \end{equation*}
@@ -1203,6 +1735,7 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
 \end{exercise}
 
 \newpage
+
 
 \begin{topics}
 
