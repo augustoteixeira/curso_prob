@@ -108,6 +108,16 @@ Agora estamos prontos para introduzir o conceito moderno do que é uma probabili
 
 Obviamente, isso nada mais é que uma medida que associa massa um ao espaço todo.
 
+Ofereceremos agora alguns exempos de espaços de probabilidade bastante utilizados.
+\begin{example}[Bernoulli]
+  \label{x:bernoulli}
+  Com $\Omega = \{0, 1\}$, $\mathcal{F} = \mathcal{P}(\Omega)$ e $p \in [0, 1]$, definimos $\Ber(p)$ \index{distribuicao@distribuição!de Bernoulli} como sendo uma probabilidade em $(\Omega, \mathcal{F})$ dada por
+  \begin{equation}
+    \Ber(p) = p \delta_1 + (1 - p) \delta_0,
+  \end{equation}
+  onde $\delta_\cdot$ acima denotam as deltas de Dirac.
+\end{example}
+
 \begin{example} Probabilidades nos espaços do Exemplo~\ref{x:espacos_amostrais}
   \begin{enumerate}[\quad a)]
   \item $P_1(A) = (\#A)/6$ em $(\Omega_1, \mathcal{F}_1)$.
@@ -344,8 +354,13 @@ pois o caso de interseções de mais conjuntos pode ser deduzido por indução.
 
   \medskip
 
- Agora para concluir,  definimos
- $$\bar{\mathcal{B}} := \{A \in \lambda(\cA); B \cap A \in \lambda(\cA), \; \forall B \in \lambda(\cA)\}$$ e mostraremos que
+ Agora, para concluir,  definimos
+ \begin{equation}
+   \bar{\mathcal{B}} := \{B \in \lambda(\mathcal{A});
+   B \cap A \in \lambda(\mathcal{A}),
+   \; \forall A \in \lambda(\mathcal{A})\}
+ \end{equation}
+ e mostraremos que
   \begin{equation}
     \label{e:Bbar_igual_lambda}
     \bar{\mathcal{B}} = \lambda(\mathcal{A}),
@@ -456,7 +471,7 @@ Relembrando a nossa notação: $P[X \in A] = P(\{\omega \in \Omega; X(\omega) \i
   Se $\Omega$ e $E$ são espaços topológicos dotados das correspondentes $\sigma$-álgebras de Borel, então toda função contínua é um $E$-elemento aleatório.
 \end{example}
 
-Como vamos ver ao lungo deste curso, a noção de $\sigma$-algebra tem na teoria das probabilidade pode ter outro papel do que só definir os eventos mensúraveis.
+Como vamos ver ao longo deste curso, a noção de $\sigma$-algebra na teoria da probabilidade pode ter outro papel, além de apenas o de definir os eventos mensúraveis.
 Um primeiro exemple e a introdução de $\sigma$-álgebra associada a um elemeno aleatorio que contem todos eventos que podem ``ser descritos em termo de $X$''.
 
 \begin{definition}
@@ -478,7 +493,7 @@ Descrever $\sigma(X)$.
 \subsection{Distribuição de elementos aleatórios}
 
 \begin{definition}
-  Se $X:\Omega \to E$ é um elemento aleatório e $\Omega$ é dotado de uma probabilidade $P$, então denotamos por $X_{*}P$,
+  Se $X:\Omega \to E$ é um elemento aleatório (com respeito a $\mathcal{F}$ em $\Omega$ e $\mathcal{A}$ em $E$) e $\Omega$ é dotado de uma probabilidade $P$, então denotamos por $X_{*}P$,
   a chamada \emph{distribuição de $X$} \index{distribuicao@distribuição}, a medida de probabilidade
   \begin{equation}
     X_* P(A) := P\big( \{\omega \in \Omega \, : \,  X(\omega) \in A\} \big) = P[X \in A].
@@ -488,9 +503,7 @@ Descrever $\sigma(X)$.
 
 \begin{remark}
  Essa definição corresponde com a de \textit{medida imagem} vista no curso de integração que tem um papel ainda mais importante em probabilidade.
- \end{remark}
-
-
+\end{remark}
 
 Fica como exercício verificar que $X_*P$ é de fato uma probabilidade em $E$.
 
