@@ -4,6 +4,7 @@
 
 \section{Independência}
 
+
 Nossa intuição nos diz que quando jogamos duas moedas, o resultado de cada uma delas não deve depender um do outro.
 Dessa forma, a probabilidade de obtermos um determinado resultado (como por exemplo duas caras) deve ser um quarto, ou seja meio vezes meio.
 
@@ -59,8 +60,6 @@ Mais precisamente
   \end{enumerate}
 \end{example}
 
-
-
 \begin{example}
   Sejam $n$ patos e $m$ caçadores.
   Cada caçador escolhe um pato aleatoriamente e uniformemente e atira (abatendo-o com probabilidade $p$).
@@ -88,8 +87,7 @@ Mais precisamente
 \end{example}
 
 \begin{definition}
-  Dizemos que uma coleção infinita de eventos $(A_n)_{n\ge 1}$ 
-  é independente \index{independencia@independência!de eventos} se toda sub-coleção finita de tais eventos forem independentes.
+  Dizemos que uma coleção infinita de eventos $(A_n)_{n\ge 1}$ é independente \index{independencia@independência!de eventos} se toda sub-coleção finita de tais eventos forem independentes.
 \end{definition}
 
 \begin{lemma}
@@ -732,6 +730,258 @@ Veremos mais tarde que existem outros tipos de convergência.
 
 \end{topics}
 
+{\color{red}
+  Seguem duas seções independentes sobre espaços produto infinitos.
+  Escolher uma.
+}
+
+\section{Espaços produto infinito}
+\label{s:Omega_produto}
+
+Nessa seção estudaremos $\Omega$ que são dados por produtos enumeráveis de outros espaços de probabilidade.
+Mas antes iremos recordar o Teorema da Extensão de Caratheodory.
+
+\subsection{Recordar é viver...}
+
+Vamos lembrar o enunciado do Teorema da Extensão de Caratheodory \index{Teorema!da Extensao de Caratheodory@da Extensão de Caratheodory}.
+Antes, vamos relembrar uma definição definição importante.
+Uma família $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ é dita uma álgebra de conjuntos \index{anel de conjuntos} se valem:
+\begin{enumerate}[\quad a)]
+  \item $\Omega \in \mathcal{G}$.
+  \item Se $A \in \mathcal{G}$, então $A^c \in \mathcal{G}$.
+  \item Para todo $n \geq 1$, se $A_1, \dots, A_n \in \mathcal{G}$, então $\bigcup_{i=1}^n A_i \in \mathcal{G}$.
+\end{enumerate}
+
+\begin{theorem}[Teorema da Extensão de Caratheodory]
+  Seja $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ uma álgebra de conjuntos em $\Omega$ e suponha que $\mu: \mathcal{G} \to \mathbb{R}_+$ satisfaça a seguinte propriedade:
+  \begin{display}
+    \label{e:aditiva_na_algebra}
+    Se $(A_i)_{i\in I}$ e uma familia finita ou enumerável de elementos disjuntos de $\mathcal G$ tal que $\cup_{i\in I} A_i \in \mathcal{G}$,\\
+  temos $\mu(\cup_{i\in I} A_i) = \sum_{i\in I} \mu(A_i)$.
+  \end{display}
+  Então existe uma medida $\widebar{\mu}: \sigma(\mathcal{G}) \to \mathbb{R}_+$ tal que $\widebar{\mu}(A) = \mu(A)$ para todo $A \in \mathcal{G}$.
+\end{theorem}
+
+Mostraremos agora uma consequência simples do teorema acima, que é muito utilizada em probabilidade.
+
+\begin{lemma}[Extensão por continuidade no vazio]
+  \label{l:extensao_vazio}
+  \index{continuidade no vazio}
+  Seja $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ uma álgebra de conjuntos em $\Omega$ e suponha que $P: \mathcal{G} \to \mathbb{R}_+$ satisfaça as seguintes propriedades:
+  \begin{enumerate}[\quad a)]
+  \item $P(\Omega) = 1$,
+    \item $P$ é finitamente aditiva e
+    \item sempre que $B_1 \supseteq B_2 \supseteq \dots \in \mathcal{G}$ forem tais que $\cap_i B_i = \varnothing$ (denotamos isso por $B_i \downarrow \varnothing$), temos que $\lim_i \mu(B_i) = 0$.
+  \end{enumerate}
+  Então existe uma única medida $\widebar{P}: \sigma(\mathcal{G}) \to \mathbb{R}_+$ tal que $\widebar{P}(A) = P(A)$ para $A \in \mathcal{G}$.
+\end{lemma}
+
+Observe que $P(\Omega) = 1$ somente é necessário para provar a unicidade de $\widebar{P}$, então poderíamos tentar mostrar uma versão mais geral desse lema.
+Mas no contexto de medidas infinitas, não é de se esperar que $B_i \downarrow \varnothing$ implique $\lim_i \mu(B_i) = 0$, como foi assumido acima (veja também a Proposição~\ref{p:prob_continua}).
+Portanto resolvemos escrever o enunciado com probabilidades.
+
+\begin{exercise}
+  Dê um exemplo de medida que não satisfaz a terceira hipótese do Lema~\ref{l:extensao_vazio}.
+\end{exercise}
+
+\begin{proof}
+  Primeiro observe que a unicidade segue da Proposição~\ref{p:P12_equal_pi}, já que $\mathcal{G}$ é um $\pi$-sistema.
+  Iremos agora mostrar que a propriedade \eqref{e:aditiva_na_algebra} é válida para $P$, logo tome $A_1, A_2, \dots \in \mathcal{G}$ disjuntos e tais que $A = \cup_{i\in \mathbb{N}} A_i \in \mathcal{G}$.
+  Definimos o ``resto da união'' por
+  \begin{equation}
+    B_n = A \setminus \mcup_{i=1}^n A_i.
+  \end{equation}
+  Claramente
+  \begin{enumerate}[\quad a)]
+  \item $B_n \downarrow \varnothing$ e
+  \item $B_n \in \mathcal{G}$, pois $\mathcal{G}$ é uma álgebra.
+  \end{enumerate}
+
+  Logo podemos escrever $A$ como a união disjunta $A = \bigcup_{i=1}^n A_i \cup B_n$ e já que $P$ é finitamente aditiva,
+  \begin{equation}
+    P(A) = \sum_{i=1}^n P(A_i) + P(B_n),
+  \end{equation}
+  mas como $\lim_{n\to \infty} P(B_n) = 0$, temos
+  \begin{equation}
+    P(\cup_{i=1}^{\infty} A_i) = \sum_{i=1}^{\infty} P(A_i),
+  \end{equation}
+  mostrando a propriedade \eqref{e:aditiva_na_algebra} e concluindo o teorema.
+\end{proof}
+
+\subsection{Teorema da Extensão de Kolmogorov}
+
+O objetivo desta seção é provar um resultado que nos permitirá construir probabilidades em espaços produtos infinitos.
+Antes precisaremos de introduzir algumas notações.
+Dada uma coleção de espaços $(E_i)_{i\in \mathbb{N}}$, definimos o espaço produto
+\begin{equation}
+  \Omega = \prod_{i=1}^{\infty} E_i = \big\{(\omega_i)_{i\in \mathbb{N}} \, : \,  \omega_i \in E_i \text{ para todo $i \geq 1$}\big\}
+\end{equation}
+e os mapas $X_i:\Omega \to E_i$, definidos para $i = 1, 2, \dots$ por
+\begin{equation}
+  X_i(\omega_1, \omega_2, \dots) = \omega_i,
+\end{equation}
+que chamamos de \emph{coordenadas canônicas} \index{coordenadas canonicas@coordenadas canônicas} associadas ao produto $\Omega$.
+
+Se cada $E_i$ é dotado de uma $\sigma$-álgebra $\mathcal{A}_i$, então definimos
+\begin{equation}
+  \mathcal{F} = \sigma( (X_i)_{i\geq 1} ),
+\end{equation}
+que é claramente uma $\sigma$-álgebra em $\Omega$.
+Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
+
+\begin{exercise}
+  Mostre que em $(\mathbb{R}^{\mathbb{N}},\mathcal{F})$ temos que os conjuntos
+  \begin{enumerate}[\quad a)]
+  \item $A = \{ \liminf_{n\to \infty} X_n \notin \{\infty,-\infty\} \}$,
+  \item $B = \{ \lim_{n\to \infty} X_n = 4\}$ e
+  \item $C = \{ \lim_{n\to \infty} \tfrac{1}{n} X_n \text{ existe}\}$
+  \end{enumerate}
+  são todos mensuráveis (eventos) com respeito a $\mathcal{F}$.
+  Além disso $Y = \1_A \liminf_{n\to \infty} X_n$ é uma variável aleatória em $(\Omega, \mathcal{F})$.
+\end{exercise}
+
+\begin{exercise}
+  Verifique as seguinte afirmações
+  \begin{enumerate}[\quad a)]
+  \item $\mathcal{F} = \sigma\big(A_1 \times \dots \times A_k \times E_{k+1} \times E_{k+2} \times \dots\, : \, k \geq 1, A_i \in \mathcal{A}_i, i \leq k\big)$,
+  os chamados eventos retangulares.
+  \item $\mathcal{F} = \sigma\big(A \times E_{k+1} \times E_{k+2} \times \dots\, : \, k \geq 1, A \in \mathcal{A}_i \otimes \dots \otimes \mathcal{A}_k\big)$,
+  conhecidos como eventos cilíndricos.
+  \end{enumerate}
+\end{exercise}
+
+\begin{definition}
+  \label{d:marginal}
+  Seja $\Omega = \prod_{i\in I} E_i$ um espaço produto (infinito ou finito) dotado de uma probabilidade $P$.
+  Se $X_i$ é uma coordenada canônica, então chamamos a probabilidade $(X_i)_*  P$ de \emph{distribuição marginal} \index{distribuicao@distribuição!marginal} de $P$ na coordenada $i$.
+\end{definition}
+
+\begin{theorem}[Extensão de Kolmogorov]
+  \index{Teorema!da Extensao de Kolmogorov@da Extensão}
+  \label{t:extens_kolmog}
+  Seja para cada $n \geq 1$ uma medida de probabilidade $P_n$ em $\mathbb{R}^n$ tal que seja satisfeita a seguinte condição de compatibilidade \index{condicao de compatibilidade@condição de compatibilidade}
+  \begin{equation}
+    \label{e:consist_kolmog}
+    P_{n+1} (A \times \mathbb{R}) = P_n (A), \text{ para todo $A \in \mathcal{B}(\mathbb{R}^n)$}.
+  \end{equation}
+  Então existe uma única probabilidade $P$ no espaço produto infinito $(\Omega, \mathcal{F})$ tal que $P(A \times \mathbb{R} \times \dots) = P_n (A)$ para todo $n$ e todo boreliano $A$ de $\mathbb{R}^n$.
+\end{theorem}
+
+\begin{proof}
+  Considere a classe de conjuntos
+  \begin{equation*}
+    \mathcal{S}_l = \Big\{ \mcup_{j=1}^k [a_{1,j}, b_{1,j}) \times \dots \times [a_{l,j}, b_{l,j}) \subseteq \mathbb{R}^l \, : \,
+    a_{i,j} \in \mathbb{R} \cup \{-\infty\},\ b_{i,j} \in \mathbb{R} \cup \{\infty\} \Big\}.
+  \end{equation*}
+  Que é obviamente uma álgebra em $\mathbb{R}^l$ e seja também
+  \begin{equation}
+    \mathcal{S} = \big\{ A \times \mathbb{R} \times \dots\, : \, \text{ onde } l \geq 1 \text{ e } A \in \mathcal{S}_l \big\}.
+  \end{equation}
+  Claramente, $\mathcal{S}$ também é uma álgebra.
+
+  Se $B = A \times \mathbb{R} \times \dots \in \mathcal{S}$ com $A \in \mathcal{S}_l$ como acima, definimos
+  \begin{equation}
+    P(B) = P_l(A).
+  \end{equation}
+  Note que por \eqref{e:consist_kolmog} essa definição independe da escolha de $l$ que usamos na definição de $B$.
+
+  Gostaríamos agora de utilizar o Lemma~\ref{l:extensao_vazio}.
+  Para tanto, tome uma sequência encaixada $B_1 \supseteq B_2 \supseteq \dots \in \mathcal{S}$ e, supondo que $P(B_n) \geq \delta > 0$ para todo $n \geq 1$, temos de mostrar que sua interseção não pode ser vazia.
+
+  Como $B_n \in \mathcal{S}$, podemos escrever
+  \begin{equation}
+    B_n = A_n \times \mathbb{R} \times \dots, \text{ onde $A_n \in \mathcal{S}_{l_n}$ e $n \geq 1$.}
+  \end{equation}
+  Podemos obviamente supor que
+  \begin{equation}
+    \label{e:l_n_monotona}
+    \text{$l_n$ são estritamente crescentes.}
+  \end{equation}
+
+  A fim de obter um ponto na interseção de $B_n$, gostaríamos de aproximá-lo usando conjuntos compactos encaixados.
+  Para tanto definimos os conjuntos
+  \begin{equation}
+    C_n = C_n^* \times \mathbb{R} \times \dots, \text{ com $C_n^* \in \mathcal{S}_{l_n}$}
+  \end{equation}
+  de forma que $C_n^*$ seja compacto, $C_n^* \subseteq A_n$ e
+  \begin{equation}
+    P(B_n \setminus C_n) \leq \frac{\delta}{2^{l_n + 1}},
+  \end{equation}
+  o que pode ser feito graças à continuidade de $P_{l_n}$, que é uma probabilidade.
+
+  Temos ainda um problema, pois os conjuntos $C_n$ não são encaixados, e isso nos impede de utilizar resultados sobre interseções de compactos.
+  Introduzimos pois $D_n = \bigcap_{i=1}^n C_i$, que obviamente pertence à álgebra $\mathcal{S}$, e estimamos
+  \begin{equation}
+    P(B_n \setminus D_n) = P \big( \mcup\nolimits_{i=1}^n (B_n \setminus C_i) \big) \leq \sum_{i=1}^n P(B_n \setminus C_i) \leq \frac{\delta}2,
+  \end{equation}
+  donde $P(D_n) = P(B_n) - P(B_n \setminus D_n) \geq \delta/2$.
+  De forma que os $D_n$ são encaixados e não vazios.
+
+  Nosso próximo obstáculo vem do fato de que os conjuntos $D_n$ estão definidos em $\mathbb{R}^\mathbb{N}$, e gostaríamos de ter conjuntos em espaços de dimensão finita.
+  Isso pode ser feito observando que podemos escrever $D_n = D_n^* \times \mathbb{R} \times \mathbb{R} \times \dots$, onde $D_n^* \in \mathcal{S}_{l_n}$ e
+  \begin{equation}
+    D_n^* = \underbrace{C_n^*}_{\mathclap{\text{compacto}}} \mcap \underbrace{ \Big( \mcap_{i=1}^{n-1} C_i^* \times \mathbb{R}^{l_n - l_i} \Big)}_{\text{fechado}},
+  \end{equation}
+  de forma que os $D_n^* \subseteq \mathbb{R}^{l_n}$ são compactos  e não vazios.
+
+  Para cada $n \geq 1$ considere um $\omega^n \in D_n$.
+  Usando um argumento de diagonal de Cantor, podemos obter um $\omega \in \Omega$
+  e uma sub-sequência de $\omega^{n_j}$ que convirja para $\omega \in \Omega$ coordenada a coordenada
+  (observe que $\omega^{n_j} \in \mathbb{R}^{\smash{l_{n_j}}}$).  % Tomando subsequências se necessário, podemos supor que $\omega^n$ converge coordenada a coordenada a um certo $\omega \in \Omega$.
+ Para concluir a prova mostramos que $\omega \in \bigcap_{n\ge 1} B_n$.
+ Para isso e suficiente mostrar (lembramos que por definição $C_n \subseteq B_n$) que para todo $n\in \mathbb{N}$
+  \begin{equation*}
+\omega = (\omega_1, \omega_2, \dots) \in C_n.
+  \end{equation*}
+  O que e equivalente a $(\omega_1, \omega_2, \dots, \omega_n) \in C^*_n$, que vale por compacidade.
+\end{proof}
+
+Observe que usamos muito poucos atributos de $\mathbb{R}$ na prova.
+Poderíamos na verdade substituir $\mathbb{R}$ por um espaço métrico que satisfaça certas propriedades, como por exemplo a existência de uma álgebra cujos conjuntos possam ser aproximados por compactos.
+Contudo, decidimos não apresentar essa versão mais geral aqui porque muito em breve obteremos uma versão bem mais geral do Teorema de Kolmogorov usando apenas o resultado para $\mathbb{R}$.
+
+\begin{exercise}
+  Mostre que a hipótese \eqref{e:consist_kolmog} pode ser substituida por
+  \begin{equation}
+    P_{n+1} (I_1 \times \dots, \times I_n \times \mathbb{R}) = P_n (I_1 \times \dots \times I_n),
+  \end{equation}
+  para todo $n \geq 1$ e $I_i = (-\infty, b_i]$, onde $b_i \in \mathbb{R}$, $i \leq n$.
+\end{exercise}
+
+Um importante exemplo do uso deste teorema é o seguinte.
+
+\begin{example}
+  Se $P_i$ são probabilidades em $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$, podemos definir $\mathbb{P}_n = \bigotimes_{i=1}^n P_i$ (relembrando, $\mathbb{P}_n$ é a única distribuição em $\mathbb{R}^n$ tal que $\mathbb{P}_n(A_1 \times \dots \times A_n) = \prod_{i=1}^n P_i(A_i)$).
+  Não é difícil verificar que essa lei satisfaz as equações de consistência \eqref{e:consist_kolmog}.
+  Desta forma, podemos construir uma única $\mathbb{P}$ em $\mathbb{R}^\mathbb{N}$ para os quais as coordenadas canônicas $X_i$ são independentes e possuem distribuições marginais $P_i$.
+  Denotamos nesse caso $\mathbb{P} = \bigotimes_{i \geq 1} P_i$.
+\end{example}
+
+Mais adiante no texto daremos outros exemplos bastante interessantes do uso do Teorema~\ref{t:extens_kolmog}.
+
+\begin{exercise}
+  Mostre que se $p > 0$ e $\mathbb{P} = \bigotimes_{i \geq 1} \Ber(p)$ em $\mathbb{R}^\mathbb{N}$, então
+  \begin{equation}
+    \text{$\limsup_{n\to \infty} X_n = 1$ quase certamente.}
+  \end{equation}
+\end{exercise}
+
+\begin{exercise}
+  Mostre que se $\mathbb{P} = \bigotimes_{i \geq 1} U_{[0,1]}$ em $\mathbb{R}^\mathbb{N}$, então
+  \begin{equation}
+    \text{$\limsup_{n\to \infty} X_n = 1$ quase certamente.}
+  \end{equation}
+\end{exercise}
+
+\begin{exercise}
+  Mostre que se $\mathbb{P} = \bigotimes_{i \geq 1} \Exp(i)$ em $\mathbb{R}^\mathbb{N}$, então
+  \begin{equation}
+    \text{$\limsup_{n\to \infty} X_n < \infty$ quase certamente.}
+  \end{equation}
+\end{exercise}
+
+\begin{topics}
+
 
 \section{Construção de espaços produtos infinitos}
 
@@ -824,7 +1074,7 @@ Sejam $(X_{n,m})_{n\ge 1,m\ge 1}$ uma sequência dupla de elementos aleatórios 
 Mostrar que a sequência de elementos $(Y_n)_{n\ge 1}$ definida por $Y_n:=(X_{n,m})_{m\ge 1}$ e independentes.
 \end{exercise}
 
-
+\end{topics}
 
 
 \subsection{Construção de uma sequência de variáveis $\Ber(1/2)$ independentes}
@@ -1183,4 +1433,3 @@ De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2
 
 
 \end{topics}
- 
