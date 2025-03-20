@@ -4,7 +4,6 @@
 
 \section{Independência}
 
-
 Nossa intuição nos diz que quando jogamos duas moedas, o resultado de cada uma delas não deve depender um do outro.
 Dessa forma, a probabilidade de obtermos um determinado resultado (como por exemplo duas caras) deve ser um quarto, ou seja meio vezes meio.
 
@@ -119,14 +118,27 @@ Mais precisamente
 Vamos começar com a noção de $\sigma$-álgebras independentes
 \begin{definition}
   Dado um espaço de probabilidade $(\gO,P,\cF)$
-Dizemos que as $\sigma$-álgebra $\cF_1,\dots,\cF_n\subset \cF$  
+Dizemos que as $\sigma$-álgebra $\cF_1,\dots,\cF_n\subset \cF$
 são independentes \index{independencia@independência!de sigma-algebras@de $\sigma$-álgebras}
-se 
+se
 \begin{equation}
  \forall A_1\in \cF_1,\dots ,A_n \in \cF_n, \ P(\cap_{i=1}^n A_i)=\prod_{i=1}^n P(A_i).
 \end{equation}
 Nessa definição podemos considerar uma coleção infinita enumerável.
 \end{definition}
+
+{\color{purple}
+  \begin{proposition}
+    \label{p:independencia_pi}
+    Mostrar que para verificar a independência de $\sigma$-álgebras, basta verificar para $\pi$-sistema gue a gere?
+    Verifique que
+    \begin{equation}
+      \mathcal{B} = \{A \in \mathcal{F}_1; P(A \cap B) = P(A) P(B)
+      \text{ para todo $B \in \mathcal{F}_2$}\}.
+    \end{equation}
+    é um $\lambda$-sistema.
+  \end{proposition}
+}
 
 
 \begin{exercise}\label{ex:sigmaeventos}
@@ -142,9 +154,9 @@ Podemos estender esse conceito a elementos aleatórios, ou seja:
 Sejam $X_1, \dots, X_k$ elementos aleatórios definidos respetivamente nos espaços $(E_i, \cA_i)$ para $i=1,\dots,k$.
   Dizemos que  $X_1, \dots, X_k$ são  independentes  \index{independencia@independência!de elementos}
  se as respectivas $\sigma$-álgebras $\sigma(X_1), \dots, \sigma(X_k)$ o forem.
- 
+
  \medskip
- 
+
  De jeito equivalente as variáveis são independente se
  \begin{equation}
  \forall A_1\in \cA_1,\dots ,A_k \in \cA_k, \ P([X_1\in A_1]\cap \dots \cap [X_k\in A_k])=\prod_{i=1}^k P[X_ i\in A_i].
@@ -152,7 +164,7 @@ Sejam $X_1, \dots, X_k$ elementos aleatórios definidos respetivamente nos espa�
 Nessa definição podemos considerar também uma coleção infinita enumerável.
 \end{definition}
 
-Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma distribuição, escrevemos que $X_i$ 
+Quando $X_1, \dots, X_k$ são elementos aleatórios independentes e com a mesma distribuição, escrevemos que $X_i$
 são \iid (independentes e identicamente distribuídos).
 
 \begin{example}\label{exo:inde}
@@ -160,7 +172,7 @@ são \iid (independentes e identicamente distribuídos).
  \item Consideramos $\gO=\bbR^2$, e $P$ com densidade com respeito a Lebesgue $\rho_1(\go_1)\rho_2(\go_2)$.
 Então as variáveis coordenadas $X_1$ e $X_2$ são independentes com distribuições respectivas $P_i(\dd x)=\rho_i(x)\dd x$.
  \item Se $\gO_1$ e $\gO_2$ são espaços enumeráveis e $P_1$ $P_2$ são probabilidades.
- Podemos definir $P$ a probabilidade em $\gO=\gO_1\times \gO_2$ por 
+ Podemos definir $P$ a probabilidade em $\gO=\gO_1\times \gO_2$ por
  $$p_{(\go_1,\go_2)}=P_1(\{\go_1\})P_2(\{\go_2\}).$$
  Com essa definição as variáveis $X_i: \gO\to \gO_i$ definidas por $X_i(\go)=\go_i$ são independentes.
  \item Do Exercício \ref{ex:sigmaeventos}, podemos deduzir que se $A_1,\dots,A_n$ são eventos independentes,
@@ -272,7 +284,7 @@ Então as variáveis coordenadas $X_1$ e $X_2$ são independentes com distribui�
 Provamos agora uma propriedade fundamental de variáveis aleatórias independentes.
 
 \begin{proposition}\label{prop:indep}
-  Sejam $X$ e $Y$ variáveis aleatórias independentes e integráveis, então $XY$ e integrável e 
+  Sejam $X$ e $Y$ variáveis aleatórias independentes e integráveis, então $XY$ e integrável e
   \begin{equation}
     E(XY) = E(X) E(Y).
   \end{equation}
@@ -281,16 +293,16 @@ Provamos agora uma propriedade fundamental de variáveis aleatórias independent
 
 \begin{proof}
 Começamos para verificar o resultado para  funções simples. Se $\alpha_1,\dots,\alpha_n$ e $\gb_1,\dots,\gb_m$ são os possíveis valores de $X$ e $Y$
-temos 
+temos
 \begin{multline}
  E[XY]:=\sum_{i=1}^n \sum_{j=1}^m \alpha_i \gb_j P[ X=\alpha_i, Y=\gb_j]
- =  \sum_{i=1}^n \sum_{j=1}^m \alpha_i \gb_j P[ X=\alpha_i] P[Y=\gb_j]\\ = \left( \sum_{i=1}^n \alpha_i \gb_j P[ X=\alpha_i]\right) 
- \left( \sum_{j=1}^m gb_j P[Y=\gb_j] \right)=E[X]E[Y],
+ =  \sum_{i=1}^n \sum_{j=1}^m \alpha_i \gb_j P[ X=\alpha_i] P[Y=\gb_j]\\ = \left( \sum_{i=1}^n \alpha_i P[ X=\alpha_i]\right)
+ \left( \sum_{j=1}^m \beta_j P[Y=\gb_j] \right)=E[X]E[Y],
 \end{multline}
 onde tenhamos usado independência de $X$ e $Y$ na segunda igualdade.
-Para funções positivas usamos Exercício \ref{ex:indepfunc} para ver que 
+Para funções positivas usamos Exercício \ref{ex:indepfunc} para ver que
 $$X_n= 2^{-n} \lfloor 2^n X \rfloor, \text{ e } Y_n= 2^{-n} \lfloor 2^n Y \rfloor $$
-são funções simples independentes e convergem monotonicamente para $X$ e $Y$. 
+são funções simples independentes e convergem monotonicamente para $X$ e $Y$.
 Por Convergência Monótona (usado duas vezes)temos
 \begin{equation}
  E[XY]=\lim_{n\to \infty} E[X_nY_n]=\lim_{n\to \infty} E[X_n] E[Y_n]=E[X]E[Y].
@@ -299,61 +311,330 @@ Em particular $XY$ e integrável se $X$ e  $Y$ o são.
 
 \medskip
 
-Finalmente, para $X$ e $Y$ integráveis decompomos $X = X_+ - X_-$ e $Y = Y_+ - Y_-$. 
-Temos 
+Finalmente, para $X$ e $Y$ integráveis decompomos $X = X_+ - X_-$ e $Y = Y_+ - Y_-$.
+Temos
 $$XY=X_+Y_+ - X_+Y_- - X_-Y_+ +X_-Y_-$$
 Pelo Exercício \ref{ex:indepfunc}, são quatro produtos de variáveis independentes.
 em consequência $XY$ e integrável e podemos  concluir por linearidade.
 \end{proof}
 
 \begin{remark}
- Obviamente a recíproca não vale. Se $X$ e uma variável com distribuição $U[-1,1]$ e 
- $Y=|X|$, então $E[XY]=0$ mas 
+ Obviamente a recíproca não vale. Se $X$ e uma variável com distribuição $U[-1,1]$ e
+ $Y=|X|$, então $E[XY]=0$ mas
  $$P[X\in [-1/2,1/2] \ ; \ Y>1/2]=0\ne P(X\in [-1/2,1/2])P(Y>1/2)=1/4.$$
- 
- 
+
+
 \end{remark}
 
 
 
 \begin{corollary}
-  Sejam $X_1,\dots,X_n$ variáveis aleatórias independentes e integráveis, então $\prod_{i=1}^n X_i$ e integrável e 
+  Sejam $X_1,\dots,X_n$ variáveis aleatórias independentes e integráveis, então $\prod_{i=1}^n X_i$ e integrável e
   \begin{equation}
     E[\prod_{i=1}^n X_n] = \prod_{i=1}^n E[X_i].
   \end{equation}
   \end{corollary}
-  
+
   \begin{proof}
    Vamos prosseguir por indução. O resultado já foi provado para $n=1$ e $n=2$.
 Supondo o resultado para $n\ge 2$, vamos provar ele para $n+1$.
-Sabemos que o vector $(X_1,\dots,X_n)$ e independente de $X_{n+1}$ \ref{ex}. Em consequência $Z_n:=\prod_{i=1}^n X_n$ 
-e independente de $X_{n+1}$ (Exercício \ref{ex:indepfunc}). Sabemos que $Z_n$ e integrável pela hipótese de recorrência e temos 
+Sabemos que o vector $(X_1,\dots,X_n)$ é independente de $X_{n+1}$ \cref{p:independencia_pi}. Em consequência $Z_n:=\prod_{i=1}^n X_n$
+e independente de $X_{n+1}$ (Exercício \ref{ex:indepfunc}). Sabemos que $Z_n$ e integrável pela hipótese de recorrência e temos
 usando o resultado para $n=2$ que e de novo a hipótese de recorrência, concluímos que $\prod_{i=1}^{n+1} X_i$ e integrável e que
 \begin{equation}
  E[\prod_{i=1}^{n+1} X_i]=E[Z_n]E[X_{n+1}]=\left(\prod_{i=1}^n E[X_i]\right) E[X_{n+1}].
 \end{equation}
 
-   
+
   \end{proof}
 
 
 
+\begin{topics}
+\section{Tópico: Distribução marginal de um vector aleatório}
+
+Considermos $P$ uma probabilidade definida sobre o espaço $\gO=\bbR^d$, os elementos de $\gO$ sendo denotado por $x:=(\go_1,\dots,\go_d)$.
+denotamos por $X_i : \gO \to \bbR$ a projecção na $i$-esima coordenada definida por $X_i(\go)=\go_i$.
+A variável $X_i$ se chama \emph{$i$-esima} marginal do vector aleatório $\go$.
+
+\medskip
+
+A distribuição $P_i=(X_i)_*P$ se chama de distribução marginal.
+No caso de vector aleatorio com densidade, as densidade das distribuções marginais pode ser identificada usando o resultado seguinte.
+
+\begin{proposition}
+ Sejà $P$ a probabilidade cuja densidade, respeito a medidida de Lebesgue em $\bbR^d$, é dada por $\rho: \bbR^d \to \bbR_+$.
+ A probabilidade $P_i$ e absolutamente continua com respeito a Lebesgue, com densidade $\rho_i$ definida por
+ \begin{equation*}
+  \rho_i(x):= \int_{\bbR^{d-1}}\rho(\go_1,\dots ,\go_{i-1},x,\go_{i+1},\dots,\go_n)\prod_{j\ne i} \dd \go_i.
+ \end{equation*}
+
+
+
+\end{proposition}
+
+\begin{proof}
+ Para qualquer conjunto boreliano $A$ temos usando Fubini
+ \begin{multline*}
+  P_i(X_i(\go)\in A)=P(\go_i\in A)= \int_{\bbR^{i-1}\times A \times \bbR^{d-i-1}}
+  \rho(\go_1,\dots,\go_n)\prod_{i=1}^d \dd \go_i
+  \\ =\int_A  \dd x \int_{\bbR^{d-1}}\rho(\go_1,\dots ,\go_{i-1},x,\go_{i+1},\dots,\go_n)\prod_{j\ne i} \dd \go_i.
+  =\int_A\rho_i(x)\dd x
+ \end{multline*}
+o que termina a demostração.
+\end{proof}
+
+
+\begin{remark}
+ Sabemos que a distribuição de um vector aleatório determina as distribuições marginais.
+ E importante observar que o contrario e valso. Por exemple se $\rho$ e uma densidade de probabilidade em $\bbR$ e que $P$ e
+ a probabilidade em $\bbR^2$ definida por $P(\go)=\rho(\go_1)\rho(\go_2)\d \go$ então os vetores ${\bf X}(\go)=(\go_1,\go_2)$ e ${\bf Y}(\go)=(\go_1,\go_1)$
+ tem as mesmas distribuições marginais mas não tem distribuições diferentes.
+
+
+\end{remark}
+
+\end{topics}
+
+
+\section{Distribuições conjuntas}
+
+Um caso bastante importante de distribuição de um elemento aleatório é o caso de vetores.
+Digamos por exemplo que temos dois elementos aleatórios $X:\Omega \to E$ e $Y:\Omega \to E'$.
+Já sabemos a definição de $X_*P$ e $Y_*P$ (vamos também usar a notação $P_X$ e $P_Y$) que nada mais são que as distribuições de $X$ e $Y$, respectivamente.
+
+Mas podemos considerar o vetor $(X, Y)$ que será um elemento aleatório tomando valores em $E \times E'$ e possui também sua própria distribuição dada por $(X, Y)_*P$ (também denotada por $P_{(X, Y)}$).
+A essa probabilidade em $E \times E'$ damos o nome de distribução conjunta deste par. \index{distribuicao@distribuição!conjunta}.
+
+Vejamos as relações que existem entre $P_X$, $P_Y$ e $P_{(X,Y)}$.
+Primeiramente, é fácil ver que a distribução conjunta nos fornece as demais, pois para todo $A \subseteq E$ mensurável
+\begin{equation}
+  P_{(X,Y)}(A \times E') = P[(X, Y) \in A \times E'] = P[X \in A] = P_X(A)
+\end{equation}
+e analogamente para $P_Y$.
+De acordo com a Definição~\ref{d:marginal}, as distribuições $P_X$ e $P_Y$ nada mais são do que as marginais da distribuição conjunta.
+
+Apesar de podermos extrair as marginais $P_X$ e $P_Y$ de $P_{(X,Y)}$, o contrário não é sempre possível como mostra o seguinte exemplo.
+\begin{example}
+  Sejam $X, Y$ \iid com distribuição $\Ber(1/2)$.
+  Então $(X, Y)$ não tem a mesma distribuição de $(X, X)$, apesar de que esses vetores possuem as mesmas marginais.
+\end{example}
+
+\begin{exercise}
+  Mostre que se $X$ e $Y$ são independentes, então $P_{(X,Y)} = P_X \otimes P_Y$.
+\end{exercise}
+
+\begin{exercise}
+  Sejam $X, Y$ \iid com distribuição $U_{[0,1]}$ e calcule $P_{(X, X + Y)}$.
+\end{exercise}
+
+Note que a discussão acima se extende naturalmente para coleções maiores de elementos aleatórios.
+Mais precisamente, considere um conjunto $I$ qualquer (finito, enumerável ou não enumerável) de índices e seja $(X_i)_{i \in I}$ uma coleção de elementos aleatórios tomando valores em $(E_i)_{i \in I}$.
+Então a distribuição conjunta destes elementos aleatórios é $P_{(X_i)_{i \in I}}$.
+
+\begin{exercise}
+  Mostre que no caso acima, se $P_{(X_i)_{i \in J}} = P_{(X'_i)_{i \in J}}$ para todo $J \subseteq I$ finito, então $P_{(X_i)_{i \in I}} = P_{(X'_i)_{i \in I}}$.
+\end{exercise}
+
+\section{Probabilidades condicionais}
+
+Uma outra maneira de se construir espaços de probabilidade é através de condicionamento, como mostra a seguinte definição.
+\begin{definition}
+  Se $(\Omega, \mathcal{F}, P)$ é espaço de probabilidade e $B \in \mathcal{F}$ é tal que $P(B) > 0$, então definimos a probabilidade \index{probabilidade!condicional} $P(\cdot | B): \mathcal{F} \to [0,1]$ por
+  \begin{equation}
+    \label{e:P_condicional}
+    P(A | B) = \frac{P(A \cap B)}{P(B)},
+  \end{equation}
+  chamada probabilidade condicional dado o evento $B$.
+\end{definition}
+
+Obviamente $P(\cdot | B)$ é uma probabilidade em $(\Omega, \mathcal{F})$ e podemos entendê-la de duas formas: como uma normalização ou como uma tentativa de sucesso.
+Explicaremos abaixo cada uma dessas interpretações.
+
+Quando restringimos o espaço amostral $\Omega$ ao conjunto $B$ (e associamos a $A \in \mathcal{F}$ o valor $P(A \cap B)$), temos uma sub-probabilidade, isto é, possivelmente $P(\Omega \cap B) < 1$.
+Logo podemos entender o denominador de \eqref{e:P_condicional} como uma normalização para obtermos novamente uma probabilidade.
+
+Mas a interpretação mais natural de \eqref{e:P_condicional} é dada pela seguinte proposição.
+Para enunciá-la, considere $(\Omega, \mathcal{F}, P)$ um espaço de probabilidade e defina o produto infinito
+\begin{equation}
+  \widebar{\Omega} =\Omega^{\mathbb{N}}, \qquad \widebar{\mathcal{F}} = \mathcal{F}^{\otimes \mathbb{N}} \quad \text{e} \quad \widebar P =  P^{\otimes \mathbb{N}}.
+\end{equation}
+Na verdade somente definimos esse produto para $\Omega = \mathbb{R}$, mas como mencionamos abaixo do Teorema da Extensão de Kolmogorov, isso pode ser facilmente generalizado e o faremos posteriormente.
+
+\begin{proposition}
+  Na situação acima, seja $B \in \mathcal{F}$ com $P(B) > 0$ e defina $T:\widebar{\Omega} \to \mathbb{N}$ por $T(\omega) = \inf \{n \geq 1\, : \, X_n(\omega) \in B\}$, onde os $X_n$ são as coordenadas canônicas. Então $T < \infty$ quase certamente e
+  \begin{equation}
+    \text{$X_{T(\omega)}(\omega)$ é um elemento aleatório em $\Omega$ com distribuição $P(\cdot | B)$.}
+  \end{equation}
+\end{proposition}
+
+A intuição desta proposição é que se repetimos o experimento $(\Omega, \mathcal{F}, P)$ independentemente até obter uma amostra em $B$, essa terá a distribuição condicional.
+
+\begin{proof}
+  Sejam os eventos $A_n = [X_n \in B]$, $n \geq 1$ que são claramente independentes segundo $\widebar{P}$.
+  Logo, como $\sum_n \widebar{P}(A_n) = \sum_n P(B) = \infty$, temos pelo Lema de Borel-Cantelli (segunda parte) que $\widebar{P}(\text{$A_n$ infinitas vezes}) = 1$, logo $T < \infty$ quase certamente.
+
+  Para ver que $X_{T(\omega)}(\omega)$ é um elemento aletório, basta escrever
+  \begin{equation}
+    [X_{T} \in A] = \mcup_{t=1}^\infty [X_t \in A, T = t],
+  \end{equation}
+  e observar que tanto $[X_t \in A]$ quanto $[T = t] = [X_1 \not \in B, \dots, X_{t-1} \not \in B, X_t \in B]$ são mensuráveis.
+
+  Finalmente podemos usar a decomposição (disjunta) acima para calcular
+  \begin{equation}
+    \begin{split}
+      \widebar{P}[X_T \in A] & = \sum_{t=1}^\infty \widebar{P} [X_t \in A, T = t]\\
+      & = \sum_{t=1}^\infty \widebar{P} [X_t \in A, X_t \in B, X_s \not \in B \text{ for $s < t$}]\\
+      & = \sum_{t=1}^\infty P(A \cap B) P(B^c)^{t-1} = \frac{P(A \cap B)}{1-P(B^c)} = P(A | B),
+    \end{split}
+  \end{equation}
+  terminando a prova da proposição.
+\end{proof}
+
+\begin{exercise}
+  Sejam $\lambda > 0$ e $X \distr \Exp(\lambda)$ (lembrando a definição da distribuição exponencial: $\Exp(\lambda)(\d x) = \lambda \exp\{- \lambda x\} \d x$).
+  Mostre que as variáveis com distribuição exponencial não possuem memória, ou seja:
+  \begin{equation}
+    \label{e:sem_memoria}
+    P[X > t + s\, |\, X > t] = P [X > s], \text{ para todo $s, t > 0$}.
+  \end{equation}
+  Ou em outras palavras, sabendo que $X$ é maior que $t$, a distribuição condicional de $X - t$ ainda é $\Exp(\lambda)$.
+\end{exercise}
+
+Definimos a distribuição geométrica \index{distribuicao@distribuição!geometrica@geométrica} de parâmetro $p \in (0,1]$ por
+\begin{equation}
+  \Geo(p) = \sum_{i = 1}^\infty (1-p)^{i-1} p \delta_i.
+\end{equation}
+
+\begin{exercise}
+  Inspirado no exercício anterior, mostre que a distribuição geométrica $\Geo(p)$ também satisfaz \eqref{e:sem_memoria} para todos $t, s \in \mathbb{N}$.
+  Mostre que essas são as únicas distribuições com suporte em $\mathbb{N}$ satisfazendo tal propriedade
+\end{exercise}
+
+\begin{exercise}
+  \label{x:geo_time}
+  Sejam $Y_i$, para $i \geq 1$, \iid com distribuição $\Ber(p)$ e defina
+  \begin{equation}
+    T = \inf\{i\, : \, Y_i = 1\}.
+  \end{equation}
+  Mostre que $T \overset{d}\sim \Geo(p)$.
+\end{exercise}
+
+\begin{exercise}
+  Barry James: Cap. 2-5, Ex: 5, 10, 21, 22 (a) e (b).
+\end{exercise}
+
+\begin{exercise}[Porta dos desesperados]
+  Nas tardes da década de 80, as crianças tinham poucas opções de entretenimento além de assistir Sérgio Malandro, que todos os dias apresentava o seguinte jogo.
+  O participante era apresentado a três portas ($\Omega = \{1,2,3\}$) e apenas uma delas (chamada de $X$) continha um prêmio $X \distr U_{\Omega}$ e o jogo seguia três fases:
+  \begin{enumerate}[\quad a)]
+  \item O participante escolhia uma porta arbitrariamente (digamos $y \in \Omega$),
+  \item o Sérgio Malandro abria uma porta $X'$ que não fosse a escolhida nem a premiada ($X' \distr U_{\Omega \setminus \{y, X\}}$)
+  \item ao participante era dada a oportunidade de trocar sua porta $X$ pela porta restante em $\Omega \setminus \{X, X'\}$.
+  \end{enumerate}
+  Mostre que o participante sempre aumenta suas chances ao trocar sua escolha.
+  Tente interpretar esse aparente paradoxo tomando o número de portas para infinito.
+\end{exercise}
+
+\begin{exercise}
+  Emílio e Cristina tiveram dois filhos cujos sexos $X, X'$ são \iid e distribuidos como $U_{\{\male, \female\}}$.
+Enunciando hipóteses adequadas se for necessario,  calcule
+  \begin{enumerate}[\quad a)]
+  \item $P[X, X' = \male | \text{ pelo menos um é $\male$}]$ e
+  \item $P[X, X' = \male | \text{ pelo menos um é $\male$ e nasceu em uma segunda-feira}]$.
+  \end{enumerate}
+  Interprete esses resultados trocando ``segunda-feira'' por ``primeiro de abril''.
+  \footnote{Gratos ao Ricardo Misturini por sugerir esse problema}
+\end{exercise}
+
+\begin{exercise}
+  Supondo que $P(A \cap B) > 0$, mostre que ``$P(\cdot|A|B) = P(\cdot|B|A)$''.
+  Mais precisamente, podemos condicionar $P$ em $B$ e depois a probabilidade resultante em $A$ ou vice-versa.
+\end{exercise}
+
+\begin{exercise}
+  Sejam $X, Y$ vari\'aveis aleat\'orias em um espaço $(\Omega, \mathcal{F}, P)$, independentes e com distribuição $U_{[0,1]}$.
+  \begin{enumerate}[\quad a)]
+  \item Calcule $ P_{X+Y}$.
+  \item Considere $P'(\cdot) = P\big(\cdot \, | \, X + Y \leq 1 \big)$ e calcule $X_* P'$.
+  \end{enumerate}
+\end{exercise}
+
+\todo{Falar de Lei da Probabilidade Total, com exemplos.}
+
+\subsection{Regra de Bayes}
+
+Frequentemente definimos um espaço de probabilidade através de probabilidades condicionais.
+Consideramos por exemplo um exame médico para detectar uma doença, caso em que temos
+\begin{equation}
+  \Omega = \{(\text{doente}, +), (\text{doente}, -), (\text{saudável}, +), (\text{saudável}, -)\},
+\end{equation}
+com obviamente a $\sigma$-álgebra das partes.
+
+Contudo, ao contrário do que fizemos anteriormente, não daremos probabilidades $p_\omega \in [0,1]$ para cada $\omega \in \Omega$.
+Poderíamos por exemplo fornecer
+\begin{equation}
+  \label{e:exame_medico}
+  P(\text{doente}) = 0.005, \quad P( + | \text{saudável}) = 0.01, \quad P( - | \text{doente}) = 0.05.
+\end{equation}
+Obviamente podemos obter as probabilidades dos complementos dos eventos acima.
+As probabilidades acima podem ser facilmente estimadas num laboratório e as duas últimas são chamadas respectivamente de probabilidades de \emph{falso positivo} e \emph{falso negativo}.
+Outra vantagem da representação em \eqref{e:exame_medico} é que as probabilidades descritas são mais ``compartimentadas'' no seguinte sentido.
+Note que $P(\text{doente})$ somente depende da população em questão, enquanto as outras duas dependem apenas do exame e não da população.
+Isso não pode ser dito das probabilidades de pontos individuais em $\Omega$.
+
+Agora fica fácil construir nosso espaço de probabilidade escrevendo, para $r \in \{+, -\}$ e $e \in \{\text{saudável}, \text{doente}\}$,
+\begin{equation}
+  P(r \cap e) = P(r | e) P(e).
+\end{equation}
+E as probabilidades do lado direito da equação acima estão todas determinadas em \eqref{e:exame_medico} (possivelmente tomando complementos).
+
+Contudo, o que estamos interessado muitas vezes é em como interpretar resultados de um exame.
+Por exemplo, quanto vele $P(\text{doente} | +)$?
+Isso nos é fornecido em geral pela regra de Bayes enunciada na seguinte proposição.
+
+\begin{proposition}
+  Se $(A_j)_{j\in I}$ formam uma partição (finita o enumeável) de $\Omega$ e $B \in \mathcal{F}$ tem probabilidade positiva, então
+  \begin{equation}
+    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{\sum_{j\in I} P(A_j) P(B | A_j)}.
+  \end{equation}
+\end{proposition}
+
+\begin{proof}
+  Basta notar que
+  \begin{equation}
+    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{P(B)} = \frac{P(A_i) P(B | A_i)}{\sum_{j\in I} P(B \cap A_j)} = \frac{P(A_i) P(B | A_i)}{\sum_{j\in I} P(A_j) P(B | A_j)}.
+  \end{equation}
+\end{proof}
+
+\begin{exercise}
+  Utilize a fórmula acima para calcular $P(\text{doente} | +)$ com os dados em \eqref{e:exame_medico}.
+  Comente o resultado.
+\end{exercise}
+
+\begin{exercise}
+  Barry James: Cap. 1, Ex: 18 e 19.
+\end{exercise}
+
+\todosec{Tópico: Distribuições de Extremos}{fazer...}
+
+\todosec{Acoplamentos}{Talvez valha a pena escrever sobre acoplamentos de maneira geral. Talvez pegando algo do Pascal Massart. Vale a pena tentar escrever algo sobre: composiçao de acoplamentos, quando um acoplamento ``dá errado''...}
 
 
 
 \section{Espaços produto finito}
 
-Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebras $\mathcal{F}_1, \dots, \mathcal{F}_n$, podemos definir o espaço mensurável produto 
+Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebras $\mathcal{F}_1, \dots, \mathcal{F}_n$, podemos definir o espaço mensurável produto
 $(\widebar{\Omega}, \widebar{\mathcal{F}})$ da seguinte forma
 \begin{equation}
-  \widebar{\Omega} = \prod_{i=1}^n \Omega_i \quad \text{e} \quad \widebar{\mathcal{F}} = \sigma \Big( \{  
+  \widebar{\Omega} = \prod_{i=1}^n \Omega_i \quad \text{e} \quad \widebar{\mathcal{F}} = \sigma \Big( \{
   A_1 \times \cdots \times A_n  \, : \,  \forall i \in \{1,\dots,n\},\ A_i \in \mathcal{F}_i \} \Big).
 \end{equation}
 Essa $\sigma$-álgebra e chamada de $\sigma$-álgebra produto e denotaremos ela por $\bigotimes_{i=1}^n \cF_i$,
 o $\cF_1\otimes \cF_2$ quando $n=2$.
 
 \begin{proposition}
-  Se $(\Omega_1, \mathcal{F}_1, P_1), \dots, (\Omega_n, \mathcal{F}_n, P_n)$ são espaços de probabilidade, então existe uma única probabilidade 
+  Se $(\Omega_1, \mathcal{F}_1, P_1), \dots, (\Omega_n, \mathcal{F}_n, P_n)$ são espaços de probabilidade, então existe uma única probabilidade
   $\widebar{P}$ no espaço mensurável $(\widebar{\Omega}, \widebar{\mathcal{F}})$ tal que
   \begin{equation}
     \widebar{P}(A_1 \times \cdots \times A_n) = \prod_{i=1}^n P_i(A_i), \text{ para todos $A_i \in \mathcal{F}_i$, $i \leq n$.}
@@ -380,10 +661,10 @@ Note que a unicidade do produto pode ser concluída por exemplo usando o Corolá
 
 
 \begin{proposition}
-Se  $\gO:=\prod_{i=1}^n \Omega_i$ e $P:=\bigotimes_{i=1}^n P_i$ então os elementos aleatórios 
-$X_i$ definidos pelas projeções sob as coordenadas $X_i(\go)=\go_i$ são independentes 
+Se  $\gO:=\prod_{i=1}^n \Omega_i$ e $P:=\bigotimes_{i=1}^n P_i$ então os elementos aleatórios
+$X_i$ definidos pelas projeções sob as coordenadas $X_i(\go)=\go_i$ são independentes
 de distribuição respectivas $P_i$
- 
+
 \end{proposition}
 
 
@@ -454,8 +735,8 @@ No caso $\phi(x)=|x|$, o resultado da a desigualdade triangular generalizada (qu
   \begin{equation}
     \d P = \rho(x,y) \d (\mu_1 \otimes \mu_2).
   \end{equation}
-  Mostre nesse caso que as coordenadas canônicas $X_1$ e $X_2$ são independentes se e somente se existem 
-  $\rho_1$ e $\rho_2$ em $\Omega_1$ e $\Omega_2$ respectivamente, tais que $\rho(x,y) = \rho_1(x) \rho_2(y)$ 
+  Mostre nesse caso que as coordenadas canônicas $X_1$ e $X_2$ são independentes se e somente se existem
+  $\rho_1$ e $\rho_2$ em $\Omega_1$ e $\Omega_2$ respectivamente, tais que $\rho(x,y) = \rho_1(x) \rho_2(y)$
   quase certamente com respeito a $\mu_1 \otimes \mu_2$.
 \end{exercise}
 
@@ -464,7 +745,7 @@ No caso $\phi(x)=|x|$, o resultado da a desigualdade triangular generalizada (qu
 \begin{exercise}
   Sejam $(X_i)_{i \geq 1}$  elementos aleatórios independentes. Definimos $Y_i:=(X_{2i-1},X_{2i}$.
   Mostrar que os elementos $(Y_i)_{i\ge 1}$ são independentes
-  
+
   \end{exercise}
 
 
@@ -618,8 +899,8 @@ Em particular se $\mu_1, \mu_2, \nu_1, \nu_2$ são distribuições em $\mathbb{Z
 \end{lemma}
 
 \begin{proof}
-O segundo ponto segue do primeiro aplicado ao caso $\gO=\bbZ^2$, $E=\bbZ$ e $X:\ (x,y) \mapsto (x+y)$. 
-Pelo primeiro, observamos 
+O segundo ponto segue do primeiro aplicado ao caso $\gO=\bbZ^2$, $E=\bbZ$ e $X:\ (x,y) \mapsto (x+y)$.
+Pelo primeiro, observamos
 \begin{equation}
   \begin{split}
     2\lVert X_*\mu - X_*\nu\rVert_{\VT} &= \sum_{x \in E} \Big| \mu(X(\go)=x) - \nu(X(\go)=x) \Big|\\
@@ -992,13 +1273,13 @@ $i=1,\dots,n$ independentes, tais que $(X_i)_*P$ (a escolha canônica sendo de e
 
 \medskip
 
-Por essa razão, faz sentido de falar ``consideramos $X_1,\dots,X_n$ independentes de distribuição respetivas $\mu_i$ '', e 
+Por essa razão, faz sentido de falar ``consideramos $X_1,\dots,X_n$ independentes de distribuição respetivas $\mu_i$ '', e
 no futuro faremos isso sem nem sempre cuidar do
 espaço de probabilidade subjacente.
 
 \medskip
 
-Queremos obter a mesma liberdade para coleções infinitas de elementos aleatórios 
+Queremos obter a mesma liberdade para coleções infinitas de elementos aleatórios
 (a utilidade sendo de poder considerar, por exemplo limites de somas de variáveis independentes).
 
 \medskip
@@ -1065,7 +1346,7 @@ descreve totalmente a distribuição imagem de sequência aleatória $(X_n)_{n\g
 
 \begin{proof}
  Sabemos que $\cF$ e gerada pelos eventos cilíndricos que formam um $\pi$-sistema.
- Como, por definição, duas probabilidade produtos tem que coincidir neste $\pi$-sistema, podemos concluir usando 
+ Como, por definição, duas probabilidade produtos tem que coincidir neste $\pi$-sistema, podemos concluir usando
  o Teorema $\pi$-$\gl$.
 \end{proof}
 
@@ -1080,8 +1361,8 @@ Mostrar que a sequência de elementos $(Y_n)_{n\ge 1}$ definida por $Y_n:=(X_{n,
 \subsection{Construção de uma sequência de variáveis $\Ber(1/2)$ independentes}
 
  Consideramos $\gO=[0,1]$ e $P=U_{[0,1]}$.
- Para $\go\in[0,1]$, definimos $(X_n)_{n\ge 1}$ a sequencia de $\{0,1\}^{\bbN}$ tal que 
- 
+ Para $\go\in[0,1]$, definimos $(X_n)_{n\ge 1}$ a sequencia de $\{0,1\}^{\bbN}$ tal que
+
  \begin{equation}\label{eq:deco}
  \go:= \sum_{n=1} X_n(\go)2^{-n}.
  \end{equation}
@@ -1090,7 +1371,7 @@ Mostrar que a sequência de elementos $(Y_n)_{n\ge 1}$ definida por $Y_n:=(X_{n,
  \begin{proposition}
 
  As variáveis $(X_n)_{n\ge 1}$ são independentes, com distribuição $\Ber(1/2)$.
- 
+
  \end{proposition}
 
 
@@ -1100,7 +1381,7 @@ Verificamos que para qualquer $q\in \bbN$ e$\gep=(\gep_1,\dots,\gep_q)\in \{0,1\
     \begin{equation}\label{bassico}
    P[X_{1}=\gep_1\ ;\dots; \ X_{q}=\gep_q]=2^{-q}.
   \end{equation}
-Podemos mesmo verificar que dado uma família de eventos $A_i\subset \{0,1\}$, somando probabilidade usando união disjunta \eqref{bassico} tem como consequência 
+Podemos mesmo verificar que dado uma família de eventos $A_i\subset \{0,1\}$, somando probabilidade usando união disjunta \eqref{bassico} tem como consequência
    \begin{equation}
    P[X_{1}\in A_1 \ ;\dots; \ X_{q}\in A_q]=2^{-q} \prod_{i=1}^q \# A_q,
   \end{equation}
@@ -1108,62 +1389,62 @@ Podemos mesmo verificar que dado uma família de eventos $A_i\subset \{0,1\}$, s
 Para mostrar \eqref{bassico} observamos que
   $$ \{ \go \ | \ X_{1}=\gep_1\ ;\dots; \ X_{q}=\gep_q \}= [x(q,\gep),x(q,\gep)+2^{-q}),$$
   onde $x(q,\gep):=\sum_{n=1}^q \gep_n 2^{-n}$, pois
-a definição da medida de Lebesgue permite de concluir. 
-  
-  
+a definição da medida de Lebesgue permite de concluir.
+
+
   \end{proof}
 
-  
-  
-  
-  
+
+
+
+
  \subsection{Construção de uma sequência de variáveis independentes com distribuições marginais qualquer}
 
 Seja $(\mu_n)_{n\ge 1}$ uma sequência de medida de probabilidade em $\bbR$ (com a $\sigma$ álgebra de Borel).
-Queremos construir um espaço de probabilidade e uma sequência de variáveis independentes $X_n(\go)$ tal que que para todo $n\in\bbN$ 
+Queremos construir um espaço de probabilidade e uma sequência de variáveis independentes $X_n(\go)$ tal que que para todo $n\in\bbN$
 $(X_n)_*P=\mu_n$.
 
 
 \medskip
 
-Definimos $\gO:=\{0,1\}^{\bbN}$ e $P$ sendo a medida definida na secção anterior para qual 
+Definimos $\gO:=\{0,1\}^{\bbN}$ e $P$ sendo a medida definida na secção anterior para qual
 as coordenadas $Y_n(\go)$, $n\ge 1$  são Bernoulli independentes de parâmetro $1/2$.
-Consideramos $m: \bbN\to \bbN^2$ a bijecção definida por 
+Consideramos $m: \bbN\to \bbN^2$ a bijecção definida por
 
 $m(p,q):= \frac{(p+q)^2}{2}+\frac{p-q}{2}.$
 
-e definimos 
+e definimos
 
 $Z_n:=\sum_{q=1}^{\infty} 2^{-n} Y_{m(n,q)} $
 
 \begin{lemma}
 As variáveis aleatórias $(Z_n)_{n\ge 1}$ são independentes, de distribuição $U[0,1]$.
 \end{lemma}
- 
+
  \begin{proof}
-Para identificar a distribuição de $Z_n$, observamos que por unicidade da probabilidade produto em $\{0,1\}^{\bbN}$, $Z_n$ tem que ter a mesma distribuição que 
+Para identificar a distribuição de $Z_n$, observamos que por unicidade da probabilidade produto em $\{0,1\}^{\bbN}$, $Z_n$ tem que ter a mesma distribuição que
 $\go$ em \eqref{eq:deco}.
 Segundo, observamos que pelo Exercício \ref{ex:duplo} as sequências $W_n:=(Y_{m(n,q)})_{q\ge 1}$.
 Pelo Exercício \ref{ex:indepfun}, os $Z_n$ o são também.
 \end{proof}
 
 
-Para concluir, $F_n$ sendo a a função de distribuição associada a $\mu_n$ e 
+Para concluir, $F_n$ sendo a a função de distribuição associada a $\mu_n$ e
 $$S_n(u):=\sup\{\ x  \ : \ F_n(x)<u \}$$
 definimos $X_n:=F_n(Z_n)$.
 
 \begin{proposition}
- As variáveis $(X_n)_{n\ge 1}$ são independentes e 
+ As variáveis $(X_n)_{n\ge 1}$ são independentes e
  para cada $n$, $(X_n)_* P=\mu_n$.
  \end{proposition}
 
  \begin{proof}
   Independência vem do Exercício \ref{ex:indepfunc}. A distribuição das marginais segue da prova to Teorema \ref{t:existe_prob_R}.
-  
+
  \end{proof}
 
- 
- 
+
+
 \begin{exercise}
   Marcelo coleciona figurinhas de futebol.
   O álbum completo conter\'a $N$ figurinhas. No $i$-ésimo dia, ele compra uma nova carta $X_i \in \{1, \dots, N\}$.
@@ -1194,7 +1475,7 @@ Ao estudarmos o Lema de Borel-Cantelli, vimos que se os eventos $(A_i)_{i \geq 1
 Nessa seção iremos estudar outros tipos de evento que assumem apenas esses dois valores.
 Esperamos que esse fenômeno se torne intuitivo ao final dessa discussão.
 
-No que se segue, consideraremos um espaço mensurável $\Omega = \prod_{i=1}^\infty E$, com a $\sigma$-álgebra canônica $\mathcal{F}$, 
+No que se segue, consideraremos um espaço mensurável $\Omega = \prod_{i=1}^\infty E$, com a $\sigma$-álgebra canônica $\mathcal{F}$,
 isto é a $\sigma$-álgebra gerada pelas coordenadas canõnicas $(X_i)_{i=1}^\infty$.
 \begin{definition}
   Dizemos que um evento $A \in \mathcal{F}$ é caudal se
@@ -1275,7 +1556,7 @@ Uma outra maneira de enunciar a conclusão do teorema acima é dizer que a $\sig
 Imagine que gostaríamos de modelar o movimento de um líquido em um meio poroso, como uma rocha ou uma esponja.
 A primeira tarefa nesse estudo seria modelar esse meio poroso de maneira matematicamente rigorosa, que é o que faremos a seguir.
 
-Fixamos uma dimensão $d \geq 1$ e consideramos o seguinte grafo $(\mathbb{Z}^d, E)$, 
+Fixamos uma dimensão $d \geq 1$ e consideramos o seguinte grafo $(\mathbb{Z}^d, E)$,
 onde a rede quadrada $\mathbb{Z}^d$ é o conjunto de vértices e o conjunto de elos é dado por
 \begin{equation*}
   E = \big\{ \{x, y\} \subset \mathbb{Z}^d \, : \,  |x - y| = 1 \},
@@ -1288,10 +1569,10 @@ Até agora nosso grafo é apenas uma rede periódica, mas as coisas começam a f
 Imaginamos que nosso material poroso está sujeito a variações durante sua formação.
 Isso se reflete no fato que alguns elos de $E$ podem estar abertos ou não aleatoriamente.
 
-Para o nosso modelos, o espaço amostral vai ser $\gO:= \{0,1\}^E$ considerado com a $\sigma$-algebra produto. 
+Para o nosso modelos, o espaço amostral vai ser $\gO:= \{0,1\}^E$ considerado com a $\sigma$-algebra produto.
 Fixamos um $p \in [0,1]$ e definimos uma coleção de variáveis aleatórias $\go_e$, para $e \in E$, que sejam \iid e com distribuição $\Ber(p)$.
 Chamamos $P_p$ a probabilidade corespondente.
-Essas variáveis aleatórias induzem um grafo aleatorio $G(\go)=(\mathbb{Z}^d, \mathcal{E}(\go))$, subgrafo do grafo original,  
+Essas variáveis aleatórias induzem um grafo aleatorio $G(\go)=(\mathbb{Z}^d, \mathcal{E}(\go))$, subgrafo do grafo original,
 que corresponde a incluir apenas os elos $e$ com $\go_e = 1$.
 Mais precisamente
 \begin{equation}
@@ -1330,7 +1611,7 @@ Sendo esse um modelo por a passagem de fluido, as primeiras perguntas que faremo
   Mais precisamente, mostre que existem quase certamente infinitos vértices isolados em $G(\go)$.
 \end{exercise}
 
-Como não podemos esperar que $G(\go)$ seja conexo, podemos nos perguntar algo mais fraco, como por exemplo se a 
+Como não podemos esperar que $G(\go)$ seja conexo, podemos nos perguntar algo mais fraco, como por exemplo se a
 componente conexa da origem $0 \in \mathbb{Z}^d$ em $G(\go)$ é infinita.
 
 Voltando à Figura~\ref{f:percola} vemos que, dependendo do valor de $p \in [0,1]$, pode ser bem difícil ou bem fácil encontrar um caminho longo à partir da origem.
@@ -1366,7 +1647,7 @@ A nossa intuição diz que quanto maior o valor de $p$, mais elos serão abertos
 
 \begin{exercise}
   Construiremos nosso modelo de uma maneira alternativa num espaço de probabilidade maior.
-  Definimos $\gO_0:=[0,1]^E$ (com a $\sigma$-álgebra produto correspondente), e $(U_e)_{e\in E}$ 
+  Definimos $\gO_0:=[0,1]^E$ (com a $\sigma$-álgebra produto correspondente), e $(U_e)_{e\in E}$
   uma coleção de variáveis aleatórias \iid com distribuição $U[0,1]$, e  $\mathbb{P}$ a probabilidade corespondente.
   Definimos para cada $p \in [0,1]$, $X^p : \gO_0 \to \gO$ do jeito seguinte
   \begin{equation}
@@ -1433,3 +1714,8 @@ De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2
 
 
 \end{topics}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../Notas_de_aula"
+%%% End:

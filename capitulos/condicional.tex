@@ -416,6 +416,256 @@ Obviamente $E(Z_n|\mathcal{F})$ é uma sequência positiva e não-crescente, log
   Como $E(Z_n)$ vai a zero pelo Teorema da Convergência Dominada, temos que $Z = 0$ quase certamente como gostaríamos.
 \end{proof}
 
+\section{Núcleos de transição}
+
+Já focamos bastante energia em variáveis aleatórias independentes.
+Por exemplo, estudamos em detalhes o que acontece com a soma de tais variáveis.
+Agora passaremos a estudar elementos aleatórios dependentes e o primeiro passo para isso é obter um método geral de construí-los.
+
+Definiremos agora um núcleo de transição.
+Intuitivamente, ele nos dá uma maneira de usar um elemento aleatório em um espaço para induzir uma probabilidade em outro espaço.
+Um exemplo em que poderíamos utilizar essa construção seria o seguinte.
+
+Digamos que estamos preocupados com a possibilidade de um deslizamento de terra em uma determinada região.
+A ocorrência desse deslizamento é algo aleatório, mas que certamente depende da quantidade de chuva no período, que também podemos modelar como sendo aleatória.
+
+Após estudarmos alguns trabalhos anteriores, descobrimos uma função $F:\mathbb{R}_+ \to [0,1]$ que nos dá a probabilidade de um deslizamento ocorrer, como função da quantidade de chuva em milímetros.
+
+Lendo o histórico pluvial da região, podemos estimar a distribuição $Q$ em $\mathbb{R}_+$ correspondente à quantidade de chuva naquele período.
+A lei $F_* Q$ (também chamada de $Q_F$) é uma lei em $[0,1]$ que nos dá a distribuição da probabilidade de deslizamento, mas como seguimos em frente para obter a probabilidade de deslizamento (um número entre zero e um)?
+Saberemos como fazer isso ao terminar essa seção.
+
+Sejam $(E_1, \mathcal{A}_1)$ e $(E_2, \mathcal{A}_2)$ espaços mensuráveis.
+\begin{definition}
+  Um núcleo de transição entre $E_1$ e $E_2$ é uma função \index{nucleo de transicao@núcleo de transição}
+  \begin{equation}
+    K: E_1 \times \mathcal{A}_2 \to [0,1],
+  \end{equation}
+  tal que
+  \begin{enumerate}[\quad a)]
+  \item para todo $y \in E_1$, $K(y,\cdot)$ é uma probabilidade em $(E_2, \mathcal{A}_2)$ e
+  \item para todo $A \in \mathcal{A}_2$, a função $K(\cdot, A): E_1 \to [0,1]$ é $\mathcal{A}_1$-mensurável.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  \label{x:chance_deslizamento}
+  Daremos agora o exemplo da probabilidade de deslizamento como função de $F$ (que será possivelmente uma variável aleatória).
+  Nesse caso, seja $E_1 = [0,1]$ e $E_2 = \{0,1\}$ com as $\sigma$-álgebras naturais e defina
+  \begin{equation}
+    K(p, A) = \big( (1-p)\delta_0 + p \delta_1 \big) (A).
+  \end{equation}
+\end{example}
+
+Vamos verificar que $K$ definido acima é um núcleo de transição.
+De fato,
+\begin{enumerate}[\quad i)]
+\item $K(p, \cdot)$ é a distribuição Bernoulli com parâmetro $p$, que obviamente é uma probabilidade,
+\item além disso, $K(\cdot, \Omega) = 1$, $K(\cdot, \varnothing) = 1$ e $K(\cdot, \{0\}) = 1-p = 1 - K(\cdot,\{1\})$, que obviamente são mensuráveis.
+\end{enumerate}
+
+Isso prova que esse $K$ específico é um núcleo de transição
+
+\begin{example}[Caso discreto]
+  \label{x:nucleo_discreto}
+  Sejam $E_1$ e $E_2$ espaços finitos ou enumeráveis.
+  Se $p: E_1 \times E_2 \to [0,1]$ é tal que para todo $y \in E_1$ temos $\sum_{z\in E_2} p(y, z) = 1$, então
+  \begin{equation}
+    K(y, A) := \sum_{z \in A} p(y, z) \text{ é um núcleo de transição entre $E_1$ e $E_2$.}
+  \end{equation}
+  Nesse caso $p(y,z)$ representa a probabilidade que a segunda coordenada seja $z$, se a primeira é $y$.
+\end{example}
+
+\begin{exercise}
+  Mostre que se $E_1$ e $E_2$ são enumeráveis então todo núcleo entre $E_1$ e $E_2$ pode ser escrito na forma do exemplo acima.
+\end{exercise}
+
+\begin{example}[Caso absolutamente contínuo]
+  Digamos que $E_1$ e $E_2$ sejam dotados de medidas $\mu_1$ e $\mu_2$ $\sigma$-finitas.
+  Seja $\rho: E_1 \times E_2 \to \mathbb{R}_+$ mensurável e tal que para $\mu_1$-quase todo $y \in E_1$, tenhamos $\int_{E_2} \rho(y, z) \mu_2(\d z) = 1$.
+  Então
+  \begin{equation}
+    K(y, A) := \int_A \rho(y, z) \mu_2(\d z) \text{ é um núcleo de transição entre $E_1$ e $E_2$.}
+  \end{equation}
+  Note que $K(\cdot, A)$ está bem definido para $\mu_2$-quase todo ponto pelo Teorema de Fubini.
+\end{example}
+
+\begin{exercise}
+  Prove que os dois exemplos acima de fato definem um núcleo.
+\end{exercise}
+
+Tipicamente, definimos os núcleos de transição introduzindo $K(y, \cdot)$ como sendo uma medida que depende de $y$.
+Nesse caso, uma das condições para que $K$ seja um núcleo está automaticamente satisfeita, restando apenas mostrar que $K(\cdot, A)$ é mensurável para quaisquer $A \in \mathcal{A}_2$.
+Mas obviamente o conjunto $\mathcal{A}_2$ pode ser muito complexo, então gostaríamos de apenas verificar que $K(\cdot, A)$ é mensurável para os conjuntos $A$ em uma classe rica o suficiente.
+
+\begin{proposition}
+  \label{p:K_nucleo_na_classe}
+  Seja $K:E_1 \times \mathcal{A}_2 \to [0,1]$, tal que $K(y, \cdot)$ é uma medida para todo $y \in E_1$.
+  Se $K(\cdot, A)$ é mensurável para todo $A \in \mathcal{G}$, onde $\mathcal{G}$ é um $\pi$-sistema que gera $\mathcal{A}_2$, então $K$ é um núcleo de transição.
+\end{proposition}
+
+\begin{proof}
+  Como de costume, vamos definir
+  \begin{equation}
+    \mathcal{B} = \{B \in \mathcal{A}_2\, : \, K(\cdot, B) \text{ é $\mathcal{A}_1$-mensurável}\}.
+  \end{equation}
+  Obviamente, como $K(y, \cdot)$ é uma probabilidade, vale que
+  \begin{enumerate}[\quad a)]
+  \item $\Omega \in \mathcal{B}$, pois a função constante igual a um é mensurável.
+  \item Se $B \in \mathcal{B}$, então $B^c \in \mathcal{B}$, pois $1 - f$ é mensurável se $f$ o é.
+  \item E se $B_1, B_2,\dots, B_n \in \mathcal{B}$ são disjuntos, então $\mcup_{i=1}^n B_i \in \mathcal{B}$, pois a soma de funções mensuráveis também é mensurável.
+  \end{enumerate}
+
+  A discussão acima mostra que $\mathcal{B}$ é um $\lambda$-sistema que contém o $\pi$-sistema $\mathcal{G}$.
+  Daí, vemos pelo Teorema~\ref{t:dynkin} que $\mathcal{A}_2 = \sigma(\mathcal{G}) \subseteq \mathcal{B}$, provando a proposição.
+\end{proof}
+
+\begin{exercise}
+  Seja $K:\mathbb{R} \times \mathcal{B}(\mathbb{R}) \to [0,1]$ dada por $K(y, \cdot) = U_{[y - 1,y + 1]}$.
+  Mostre que $K$ define um núcleo de transição.
+\end{exercise}
+
+Apesar de interessante, a definição acima ainda não nos permitiu definir espaços de probabilidade novos.
+Isso será possibilitado pelo próximo resultado, que pode ser visto como uma generalização do Teorema de Fubini.
+
+\chooseoptpar{
+\begin{theorem}[Fubini para Núcleos de Transição]
+  \index{Teorema!de Fubini para Nucleos@de Fubini para Núcleos}
+  \label{t:fubini}
+  Dado um núcleo \opt{}{de transição} $K$ de $(E_1, \mathcal{A}_1)$ para $(E_2, \mathcal{A}_2)$ e uma probabilidade $P_1$ em $E_1$, existe uma única probabilidade $P$ em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$ tal que
+  \begin{equation}
+    \label{e:fubini}
+    \int_{E_1 \times E_2} f dP = \int_{E_1} \int_{E_2} f(y,z) K(y, \d z) P_1 (\d y),
+  \end{equation}
+  para toda $f:E_1 \times E_2 \to \mathbb{R}_+$.
+  Em particular, $P(A_1 \times A_2) = \int_{A_1} K(y, A_2) P_1 (\d y)$.
+  Nesse caso escrevemos $P = P_1 \star K$.
+\end{theorem}
+}
+
+Antes de iniciar a prova do teorema, vamos ver que as integrais do lado direito de \eqref{e:fubini} estão bem definidas.
+Para isso, definimos para $y \in E_1$ a função fatiadora $\phi_y: E_2 \to E_1 \times E_2$ dada por $\phi_y(z) = (y, z)$.
+Obviamente essa função é mensurável, pois
+\begin{equation}
+  \phi_y^{-1}(A_1 \times A_2) =
+  \begin{cases}
+    \varnothing, \quad & \text{ se $y \not \in A_1$ e}\\
+    A_2, & \text{ se $y \in A_1$}.
+  \end{cases}
+\end{equation}
+Dessa forma, para definirmos $\int f(y,z) K(y, \d z)$, introduzimos $f_y: A_2 \to \mathbb{R}_+$ dada por $f_y(z) = f(y,z)$, que é mensurável pois $f_y = f \circ \phi_y$.
+
+Assim, gostaríamos de integrar a função $y \mapsto \int f_y(z) K(y, \d z)$, que está obviamente bem definida.
+Porém resta a pergunta, será que essa expressão define uma função mensurável de $y$?
+
+\begin{lemma}
+  Se $K$ é um núcleo de transição, então para toda $f: E_1 \times E_2 \to \mathbb{R}_+$ que seja $\mathcal{A}_1 \otimes \mathcal{A}_2$ mensurável, temos que $g^f:A_1 \to \mathbb{R}_+$ dada por
+  \begin{equation}
+    g^f(y) = \int f_y(z) K(y, \d z)
+  \end{equation}
+  é $\mathcal{A}_1$-mensurável.
+\end{lemma}
+
+\begin{proof}
+  Se $f = \1_{A_1 \times A_2}$ para $A_i \in \mathcal{A}_i$, $i = 1,2$, então temos que $g^f(y) = K(y, A_2) \1_{A_1}$, que obviamente é mensurável pois $K$ é um núcleo.
+
+  Definimos $\mathcal{D} = \{B \in \mathcal{A}_1 \otimes \mathcal{A}_2\, : \, g^{\1_B} \text{ é $\mathcal{A}_1$-mensurável}\}$.
+  É fácil ver que $\mathcal{D}$ é um $\lambda$-sistema que contém o $\pi$-sistema dos retângulos, logo $\mathcal{D} = \mathcal{A}_1 \otimes \mathcal{A}_2$.
+
+  Acabamos de ver que $g^f$ é mensurável para toda $f$ indicadora, donde o mesmo vale para $f$ simples por linearidade e para toda $f$ positiva pelo Teorema da Convergência Monótona (lembre que limite de funções mensuráveis é mensurável).
+\end{proof}
+
+Estamos prontos agora para fornecer a
+\begin{proof}[Demonstração do Teorema~\ref{t:fubini}]
+  Já sabemos que a integral do lado direito de \eqref{e:fubini} está bem definida (assumindo possivelmente o valor infinito).
+  A unicidade vale obviamente pois \eqref{e:fubini} aplicado a funções indicadoras temos necessariamente para todos $B$
+\begin{equation}
+    P(B) = \int_{E_1} \int_{E_2} \1_{B} K(y, \d z) P_1 (\d y).
+  \end{equation}
+  Só temos que verificar a fórmula acima nos define uma probabilidade em $(E_1 \times E_2, \mathcal{A}_1 \otimes \mathcal{A}_2)$.
+
+  De fato,
+  \begin{enumerate}[\quad a)]
+  \item obviamente $P(\Omega) = \int_{E_1} \int_{E_2}  K(y, \d z) P_1(\d y) = 1$ e
+  \item se $(B_i)_{i\in I}$ e uma família finita ou enumerável de eventos disjuntos (em $\mathcal{A}_1 \otimes \mathcal{A}_2$) então
+  $\1_{\bigcup_{i\in I} B_i}=\sum_{i\in I} \1_{B_i}$ a $\sigma$-aditividade de $P$ segue das propriedades básicas
+  (linearidade e Teorema de convergência monótona) da integração.
+  \end{enumerate}
+  Isto demonstra o teorema.
+\end{proof}
+
+\begin{exercise}
+  \label{x:nucleo_constante}
+  Considere duas probabilidades $P_i$ em $(E_i, \mathcal{A}_i)$ para $i = 1,2$ e $K:E_1 \times \mathcal{A}_2 \to [0,1]$ dado por $K(y,A) = P_2(A)$.
+  Mostre que $K$ é núcleo e que $P_1 \star K = P_1 \otimes P_2$.
+  Relacione esse resultado ao Teorema de Fubini clássico para produtos de medidas.
+\end{exercise}
+
+\begin{exercise}
+  Considere o núcleo do Exemplo~\ref{x:chance_deslizamento} e calcule:
+  \begin{enumerate}[\quad a)]
+  \item $U_{[0,1]} \star K [X_2 = 1]$,
+  \item $P_1 \star K [X_2 = 1]$, onde $\d P_1 = 2x \d x$ e
+  \item encontre a distribuição de $(X_1)_* \big( U_{[0,1]} \star K [\; \cdot \; | X_2 = 1] \big)$. Interprete o resultado.
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Seja $P = P_1 \star K$ como acima e $Q(\cdot) = P[\cdot | X_2 = 1]$.
+  Calcule
+  \begin{equation}
+    \int_{[0,1] \times \{0,1\}} X_1 \d Q
+  \end{equation}
+\end{exercise}
+
+\begin{exercise}
+  Para $0 \leq a < b \leq 1$, definimos a probabilidade $U_{[a,b]}$ em $([0,1], \mathcal{B}([0,1]))$ através da seguinte fórmula $U_{[a,b]}(B) = \mathcal{L}(B \cap [a,b])/(b-a)$.
+  Consideramos também a função $K:[0,1] \times \mathcal{B}([0,1]) \to [0,1]$ dada por $K(x, \cdot) = U_{[0,x]} (\cdot)$, se $x > 0$ e $K(0, \cdot) = \delta_0(\cdot)$.
+  \begin{enumerate}[\quad a)]
+  \item Mostre que $K$ é um núcleo de transição.
+  \item Calcule $U_{[0,1]} \star K [X_1 < 1/2]$ e $U_{[0,1]} \star K [X_2 < 1/2]$, onde $X_1$ e $X_2$ são as projeções canônicas em $[0,1]^2$.
+  \item Mostre que $U_{[0,1]} \star K$ é absolutamente contínua com respeito à medida de Lebesgue em $[0,1]^2$ e calcule sua densidade.
+\end{enumerate}
+
+\end{exercise}
+
+\begin{exercise}
+  Considere $K:E_1 \times \mathcal{A}_2 \to [0,1]$ dada por $K(p, \cdot) = \Exp(p)$.
+  Mostre que $K$ é núcleo de transição e calcule $U_{[0,1]} \star K [X_2 > 1]$.
+\end{exercise}
+
+\begin{exercise}
+  Se $K$ é um núcleo de transição entre $E_1$ e $E_2$ e $\{y\} \in \mathcal{A}_1$ satisfaz $P_1(\{y\}) > 0$, mostre que
+  \begin{equation}
+    P_1 \star K [X_2 \in \cdot | X_1 = y] = K(y, \cdot).
+  \end{equation}
+  Ou em outras palavras, $K$ nos dá a distribuição condicional de $X_2$ dado $X_1 = y$.
+\end{exercise}
+
+Posteriormente extenderemos o resultado acima para o caso $P_1(\{y\}) = 0$, mas isso demandará algum esforço.
+
+Vamos introduzir uma última notação com respeito a núcleos de transição.
+Muitas vezes, não estamos interessados na distribuição conjunta de $P_1 \star K$ em $E_1 \times E_2$, mas apenas na distribuição marginal da segunda coordenada.
+No nosso problema da chuva por exemplo, talvez poderíamos estar interessados apenas na probabilidade final de ocorrer um deslizamento.
+Nesse caso, é conveniente escrever
+\begin{equation}
+  \label{e:P1_K}
+  P_1 K := (X_2)_*(P_1 \star K) = (P_1 \star K)_{X_2}.
+\end{equation}
+
+\begin{exercise}
+  Seja $K:\mathbb{R}_+ \times \mathcal{B}(\mathbb{R}_+) \to [0,1]$ dada pela equação $K(x,A) = \int_A x \exp\{-x t\} \d t$.
+  \begin{enumerate}[\quad a)]
+  \item Prove que $K$ \'e um n\'ucleo de transi\c{c}\~ao.
+  \item Seja $P$ dada por $P = \textnormal{Exp}(1) \star K$.
+    Obtenha $P[X_2 > x_2]$ para todo $x_2 \geq 0$ (lembrando que $X_2$ denota a segunda coordenada no espa\c{c}o produto onde est\'a definida $P$).
+    Compare a probabilidade acima com $K(1,[x_2, \infty))$.
+  \item Mostre que $P[X_1 + X_2 \geq z] = \int_0^z \exp \{-x(z-x+1)\} \d x + \exp\{-z\}$.
+  \end{enumerate}
+\end{exercise}
+
+\vfill
+\pagebreak
 
 
 \subsection{Condicionamento com respeito a um elemento aleatorio.}
@@ -525,6 +775,407 @@ $$g(x)=E[Y \, | \, X = x]= \frac{E[Y\1_{\{X=x\}}]}{P[X=x]}$$
 \todosec{Tópico: Propriedade fraca de Markov}{mostrar que cadeias = processos...}
 
 \todosec{Tópico: Recorrência e transiência}{markov recorrência/transiência + periodicidade...}
+
+\section{Espaços canônicos}
+
+Em várias áreas da matemática, existe um importante conceito de equivalência entre duas estruturas, como por exemplo: homeomorfismos, isometrias e isomorfismos.
+Nessa seção estudaremos o caso análogo para espaços mensuráveis, que nos trará uma grande surpresa.
+
+\begin{definition}
+  Uma função $\phi:E \to E'$ entre dois espaços mensuráveis é dita bi-mensurável \index{bi-mensuravel@bi-mensurável} quando $\phi$ é uma bijeção mensurável, com inversa mensurável.
+%mensurável, injetiva, sua imagem $\phi(E)$ for mensurável e a sua inversa $\phi^{-1}:\phi(E) \to E$ também for mensurável.
+\end{definition}
+
+Vamos agora tentar classificar os espaços a menos de bi-mensurabilidade.
+Descobriremos que na verdade os borelianos da reta incluem praticamente tudo em que podemos estar interessados.
+Começamos com a seguinte definição.
+
+\begin{definition}
+  Dizemos que o espaço mensurável $(E, \mathcal{A})$ é canônico \index{espaco@espaço!canonico@canônico} se existe uma função $\phi: E \to B$ bi-mensurável para algum $B \in \mathcal{B}(\mathbb{R})$.
+\end{definition}
+
+Antes de mostrar que essa classe de espaços canônicos inclui muitíssimos exemplos, vamos motivar a definição acima exemplificando como esse conceito pode ser utilizado.
+
+\begin{theorem}[Extensão de Kolmogorov Extendida]
+  \index{Teorema!da Extensao de Kolmogorov@da Extensão}
+  Se $(E_1,\mathcal{F}_1), (E_2,\mathcal{F}_2), \dots$ são espaços mensuráveis canônicos, então o Teorema~\ref{t:extens_kolmog} (da extensão de Kolmogorov)
+  também é válido no espaço produto $\Omega = E_1 \times E_2 \times \dots$: \\
+  Se a seguinte condição de consistência for válida
+  \begin{equation}
+   \forall n\ge 0, \forall A \in \bigotimes_{i=1}^n \mathcal{F}_i,\quad P_{n+1}(A\times E_{n+1})=P_n(A).
+  \end{equation}
+então existe uma probabilidade $P$ em $\Omega$ tal que
+  a chamada esperança de $X$. \index{esperanca@esperança}
+  Nesse caso também dizemos que $X \in \mathcal{L}^1(P)$.
+
+  \medskip
+
+  Dizemos que um vector aleatório ${\bf X}=(X_1,\dots,X_d)$ é integrável se todas coordenadas dele são integráveis e definimos a esperança de ${\bf X}$ por
+
+    \begin{equation}
+    E({\bf X}) = (E(X_1),\dots, E(X_d)).
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  Sejam $\phi_i: E_i \to B_i \in \mathcal{B}(\mathbb{R})$ bijeções bi-mensuráveis e defina $\widebar{\phi}_n:
+  E_1 \times \dots \times E_n \to \mathbb{R}^n$ por $\widebar{\phi}_n(\omega_1, \dots, \omega_n) = \big(\phi_1(\omega_1), \dots, \phi_n(\omega_n)\big)$.
+  Assim podemos introduzir as medidas de probabilidade
+  \begin{equation}
+    \widebar{P}_n = (\widebar{\phi}_n)_* P_n, \text{ em $\mathbb{R}^n$}.
+  \end{equation}
+  É fácil verificar que as $\widebar{P}_n$ são consistentes como em \eqref{e:consist_kolmog}.
+  Logo, existe $\widebar{P}$ em $(\mathbb{R}^\mathbb{N}, \mathcal{F})$ extendendo $\widebar{P}_n$.
+
+  Vamos agora definir uma medida em $\prod_{i=1}^{\infty} E_i$.
+  Para tanto, primeiramente fixamos para cada $i \geq 1$ um elemento arbitrário $w_i$ de $E_i$ e definimos $\psi_i :\mathbb{R} \to E_i$ por
+  \begin{equation*}
+    \psi_i(x) =
+    \begin{cases}
+      \phi_i^{-1}(x), \quad & \text{se $x \in B_i$,}\\
+      w_i & \text{no caso contrário}.
+    \end{cases}
+  \end{equation*}
+  Como $B_i \in \mathcal{B}(\mathbb{R})$, concluimos que $\psi_i$ é mensurável.
+
+  Finalmente, consideramos o mapa $\Psi: \mathbb{R}^\mathbb{N} \to \Omega$ dado por
+  \begin{equation}
+    \Psi(x_1, x_2, \dots) = (\psi_1(x_1), \psi_2(x_2), \dots).
+  \end{equation}
+  Resta mostrar que a medida $P = \Psi_* \widebar{P}$ estende as probabilidades $P_n$.
+  Observe que
+  \begin{equation*}
+    \begin{split}
+      P\big(A_1 \times \dots \times A_n \times & E_{n+1} \times \dots\big) = \widebar{P} \big(\Psi^{-1}(A_1 \times \dots \times A_n \times E_{n+1} \times \dots)\big)\\
+      & = \widebar{P} \big( \psi^{-1}_1(A_1) \times \dots \times \psi^{-1}_n(A_n) \times \mathbb{R} \times \dots \big)\\
+      & = \widebar{P}_n (\psi^{-1}_1(A_1) \times \dots \times \psi^{-1}_n(A_n))\\
+      & = P_n \big(\phi^{-1}_1\big(\psi^{-1}_1(A_1)) \times \dots \times \phi^{-1}_n\big(\psi_n^{-1}(A_n)\big)\big)\\
+      & = P_n(A_1 \times \dots \times A_n),
+    \end{split}
+  \end{equation*}
+  concluindo a prova do teorema.
+\end{proof}
+
+Uma ferramenta importante para construirmos espaços canônicos é a seguinte.
+
+\begin{lemma}
+  \label{l:mensur_de_canonico}
+  Seja $(E, \mathcal{A})$ é um espaço canônico e $A \in \mathcal{A}$, então $A$ também é canônico quando dotado da $\sigma$-álgebra $\{A \cap C\, : \, C \in \mathcal{A}\}$ induzida por $\mathcal{A}$ em $A$.
+\end{lemma}
+
+\begin{proof}
+  Seja $\phi: E \to B \in \mathcal{B}(\mathbb{R})$ uma função bi-mensurável que mostra que $E$ é canônico.
+  Consideramos $\phi': A \to \mathbb{R}$ dada pela restrição de $\phi$ a $A$ e precisamos mostrar as seguintes afirmativas:
+  \begin{enumerate}[\quad a)]
+  \item $\phi'$ é injetiva.
+  \item $\phi'$ é mensurável.
+  \item $\phi(A)\in \mathcal{B}(\mathbb{R})$.
+  \item A inversa de $\phi'$ (chamada $\psi'$) de $\phi'(A)$ em $A$ é mensurável.
+  \end{enumerate}
+  Vejamos,
+  \begin{enumerate}[\quad a)]
+  \item $\phi$ ser injetiva implica que $\phi'$ também o é.
+  \item Dado $D \in \mathcal{B}(\mathbb{R})$, $(\phi')^{-1}(D) = A \cap \phi^{-1}(D)$ which is of the form $A\cap C$ with $C\in \mathcal{B}(\mathbb{R}^d)$.
+  \item Denotando por $\psi: B \to E$ a inversa de $\phi$, temos que $\phi(A) = \psi^{-1}(A) \in \mathcal{B}(B)$ pois $\psi$ é mensurável.
+  \item Finalmente, se $D \in \mathcal{B}(A)$, então $(\psi')^{-1}(D) = \psi^{-1}(D) \in \mathcal{B}(B)$, novamente pela mensurabilidade de $\psi$.
+  \end{enumerate}
+  Concluindo portanto a bi-mensurabilidade de $\phi'$ quando o seu contra-domínio é restrito a sua imagem.
+\end{proof}
+
+A seguir daremos um exemplo de espaço canônico que será importante na seção seguinte.
+
+\begin{lemma}
+  \label{l:NN_canonico}
+  O espaço produto $E = \mathbb{N} \times \mathbb{N} \times \dots$, dotado da $\sigma$-álgebra produto é canônico.
+\end{lemma}
+
+\begin{proof}
+  Primeiramente definimos em $E$ a Métrica de Hamming:
+  \begin{equation}
+    \label{e:hamming_distance}
+    d_H(x,y) = \sum_{i \geq 1} \frac{1}{2^{i + 1}} \1_{\{x_i \neq y_i\}}.
+  \end{equation}
+  Fica como exercício mostrar que a $\sigma$-álgebra dos borelianos induzida por essa métrica coincide com a $\sigma$-álgebra produto em $E$.
+  Definimos agora o mapa $\phi:E \to \mathbb{R}$ dado por
+  \begin{equation}
+    \phi(n_1, n_2, \dots) = 2^{-n_1} + 2^{-1 - n_1 - n_2} + \dots + 2^{-k - \sum_{i=1}^k n_i} + \dots
+  \end{equation}
+  Também deixamos a cargo do leitor mostrar que $\phi$ define um homeomorfismo entre $(E,d_H)$ e um boreliano de $\mathbb{R}$.
+\end{proof}
+
+\subsection{Espaços poloneses}
+
+Nessa seção mostraremos que todos espaços chamados poloneses são canônicos.
+
+\begin{definition}
+  Um espaço métrico $(E,d)$ é dito polonês \index{espaco@espaço!polones@polonês} se é separável e completo.
+\end{definition}
+
+
+\begin{proof}
+  Obtemos através da separabilidade de $E$, uma coleção de bolas $(B_i)_{i \geq 1}$ com diâmetros limitados por $r$ e cobrindo $E$.
+  Então definimos
+  \begin{equation}
+    A_1 = B_1, \quad \text{e} \quad A_n = B_n \setminus \mcup_{i=0}^{n-1} B_i \quad \text{para $n \geq 1$.}
+  \end{equation}
+
+  Agora podemos dotar cada um dos $A_i$ com a métrica $d_i$ obtida através do Lema~\ref{l:sub_polones} (observe para tanto que os $A_i$ são dados por interseções de um aberto com um fechado).
+  As propriedades enunciadas no lema são trivialmente satisfeitas.
+\end{proof}
+
+
+  Vamos definir borelianos $A_m$ de $E$ e métricas $d_m$ em $A_m$ para cada $m \in M$.
+  Faremos isso da seguinte forma:
+  \begin{enumerate}[\quad a)]
+  \item se $m = i \in M_1$, então definimos $A_1, A_2, A_3, \dots$ e $d_1, d_2, d_3, \dots$ como no Lema~\ref{l:particao_polones} com $r = 1$,
+  \item se $(A_m, d_m)$ já foi definido para algum $m \in M_n$, então utilizamos também o Lema~\ref{l:particao_polones} com $r = 1/n$ para particionar o conjunto $A_m$ (com a métrica $d_m$) em $A_{(m,1)}, A_{(m,2)}, \dots$ com suas respectivas métricas $d_{(m,1)}, d_{(m,2)}, \dots$
+  \end{enumerate}
+  Obviamente suporemos que são válidas as propriedades de tais métricas garantidas pelo Lema~\ref{l:particao_polones}.
+
+  Podemos desde já definir $\phi:E \to \mathbb{N}^\mathbb{N}$ e para tanto, considere $x \in E$.
+  Indutivamente
+  \begin{enumerate}[\quad a)]
+  \item como $\{A_m\}_{m \in M_1}$ formam uma partição de $E$, definimos $\phi_1(x)$ como o único índice tal que $x \in A_{\phi_1(x)}$,
+  \item se já encontramos $\phi_1(x), \dots, \phi_n(x)$ tal que $x \in A_{(\phi_1(x), \dots, \phi_n(x))}$, então o fato que particionamos o último conjunto na definição de $A_m$, $m \in M_{n+1}$ nos garante que podemos definir unicamente $\phi_{n+1}(x)$ de forma a continuar a indução.
+  \end{enumerate}
+  Da maneira acima já obtivemos $\phi(x) = (\phi_1(x), \phi_2(x), \dots)$.
+  Para terminar, devemos mostrar que $\phi$ é bi-mensurável quando seu contra-domínio é restrito à sua imagem.
+
+  Isso começa com a prova de que $\phi$ é injetiva.
+  Se $\phi(x) = \phi(y)$, então existe uma sequência $m_n \in M_n$ tal que $x, y \in A_{m_n}$ para todo $n$.
+  Mas isso não é possível dado que o diâmetro de $A_{m_{n+1}}$ é menor ou igual a $1/n$ na métrica $d_{m_n} \geq d$.
+  Isso mostra que $x = y$.
+
+  Vejamos agora que $\phi$ é mensurável.
+  %Lembramos que em $\mathbb{N}^\mathbb{N}$ colocamos a métrica de Hamming definida em \eqref{e:hamming_distance}).
+  Seja $w \in \mathbb{N}^\mathbb{N}$ tal que $\phi(x) = w$ e tome $G \subseteq \mathbb{N}^\mathbb{N}$ com $G = \{(w_1, \dots, w_l)\} \times \mathbb{N}^\mathbb{N}$ (esses conjuntos geram a $\sigma$-álgebra canônica em $\mathbb{N}^\mathbb{N}$).
+  Claramente, $\phi^{-1}(G) = A_{(\phi_1(x), \dots, \phi_l(x))}$, de forma que mostramos que $\phi$ é mensurável.
+
+  Para mostrar que sua inversa $\psi:\phi(E) \to E$ é mensurável, veremos que ela é de fato contínua com respeito à Métrica de Hamming definida em \eqref{e:hamming_distance}.
+  Dado $n \geq 1$, tomamos $\delta < 2^{-n}$.
+  Se $w, w' \in \phi(E)$ são tais que $d_H(w, w') < \delta$ em $\mathbb{N}^\mathbb{N}$, então $w_i = w'_i$ para todo $i \leq n$, de forma que $\phi^{-1}(w)$ e $\phi^{-1}(w')$ pertencem a $A_{(w_1, \dots, w_n)}$.
+  A continuidade de $\phi^{-1}$ segue do fato que o diâmetro de $A_{(w_1, \dots, w_n)}$ é no máximo $1/n$ (com respeito a $d_{(w_1, \dots, w_{n-1})}$ e portanto com respeito a $d$).
+
+  Mas atenção, apesar de que parece que provamos o teorema, ainda falta mostrar que $\phi(E)$ é mensurável.
+  Para tanto, afirmamos que
+  \begin{equation}
+    \label{e:phiE_mensur}
+    \phi(E) = \mathbb{N}^\mathbb{N} \setminus \Big( \bigcup_{(w_1, \dots, w_k)\in \mathcal{E}} \{w_1\} \times \{w_k\} \times \mathbb{N} \times \dots \Big),
+  \end{equation}
+  onde
+  \begin{equation*}
+   \mathcal{E}:=\{ (w_1, \dots, w_k)\in \bigcup_{n\ge 1} \mathbb{N}^n \, : \, A_{\omega_1,\dots,\omega_k}=\emptyset \}.
+  \end{equation*}
+
+  A igualdade acima será mostrada no que segue.
+
+  Dado $w \in \phi(E)$ existe $x \in E$ tal que $\phi(x) = w$.
+  Como $x \in A_{w_1, \dots, w_n}$ para todo $n \geq 1$, esses conjuntos não são vazios.
+  Logo $w$ não pertence à união em \eqref{e:phiE_mensur}, mostrando o lado ($\subseteq$) da equalidade.
+  Finalmente, suponha que $w = (w_1, w_2, \dots)$ é tal que para todo $k \geq 1$, $A_{w_1, \dots, w_k} \neq \varnothing$.
+  Tomamos portanto para todo $k \geq 1$ um ponto $x_k \in A_{w_1, \dots, w_k}$.
+
+  Afirmamos que
+  \begin{equation}
+    \text{para todo $n$, $(x_k)_{k \geq n}$ é Cauchy em $(A_{w_1, \dots, w_n}, d_{w_1, \dots, w_n})$,}
+  \end{equation}
+ o que segue logo do fato que por $k \geq n+1$, $x_k \in A_{w_1, \dots, w_{k}}$ cujo $d_{w_1, \dots, w_{n}}$-diâmetro é menor que $1/k$.
+
+ \medskip
+
+ Consideramos $x^n$ o limite de $(x_k)_{k\ge n}$ em $(A_{w_1, \dots, w_n}, d_{w_1, \dots, w_n})$.
+ É fácil de mostrar que $x^n=x^0:=x$ (o limite da sequência em $(E,d)$) para todo valor de $n$.
+ É suficiente ver que  $d(x^n,x_k)\le d_{w_1, \dots, w_n}(x^n,x_k)$, para todo $k\ge n$, o que implica que $x^n$ é o limite em $(E,d)$.
+
+ \medskip
+
+ Como consequência podemos concluir que $x\in A_{w_1, \dots, w_n}$ para todo $n$ e então que $\phi(x)=\omega$, o que conclui a prova do teorema.
+  que termina a prova.
+
+
+O próximo exemplo serve muito bem para mostrar porque estamos interessados em desigualdades como a do Teorema~\ref{t:markov} acima.
+
+Em vários exemplos importantes, podemos ter dificuldade de calcular probabilidades explicitamente.
+Nesses casos, poderíamos gastar nossas energias tentando calculá-las a qualquer custo,
+ou podemos nos contentar em obter cotas superiores e inferiores para as probabilidades nas quais estamos interessados.
+
+Em vários casos, a segunda estratégia tem uma grande vantagem sobre a primeira, por possibilitar que estudemos problemas mais complexos
+(e consequentemente mais importantes/interessantes) e muitas vezes sem nos afastarmos da realidade
+(em vários exemplos as cotas superiores e inferiores são próximas o suficiente para que não nos preocupemos).
+
+
+
+
+
+Um exemplo de como usar núcleos de transição é a construção de Cadeias de Markov.
+Esse tipo de processo é bastante útil em diversas aplicações, desde a biologia até a computação.
+
+Considere um espaço mensurável canônico fixo $(E, \mathcal{A})$ e seja $K$ um núcleo de $E$ nele mesmo.
+Seria bastante intuitivo agora iterar $K$ (já que ele está no mesmo espaço)
+e obter uma medida em $\Omega =E^{\mathbb{N}}$ com a $\sigma$-álgebra canônica.
+
+Para começar esse procedimento, seja $\mu_0$ uma medida inicial em $(E, \mathcal{A})$.
+Podemos então definir $\mu_1 = \mu_0 \star K$ o que é o primeiro passo da nossa construção, porém observe que não podemos escrever ``$\mu_2 = \mu_1 \star K$'', pois $\mu_1 \star K$ é uma medida em $(E^2, \mathcal{A}^{\otimes 2})$.
+Vamos com calma então.
+
+Observe que
+\begin{equation}
+  \mu_1(A_0 \times A_1) = \int_{A_0} \int_{A_1} K(x_0, \d x_1) \mu_0(\d x_0),
+\end{equation}
+ou em outras palavras o valor de $x_0$ determina a distribuição de $x_1$.
+Gostaríamos agora que $x_1$ determinasse a distribuição de $x_2$ via $K$, como por exemplo assim
+\begin{equation}
+  \mu_2(A_0 \times A_1 \times A_2) = \int_{A_0} \int_{A_1} \int_{A_2} K(x_1, \d x_2) K(x_0, \d x_1) \mu_0 (\d x_0).
+\end{equation}
+Mas essa notação fica bastante carregada à medida que iteramos.
+
+Para tornar essa notação mais simples, definimos a projeção $\phi_n:E^n \to E$ por $\phi_n(x_0, \dots, x_{n-1}) = x_{n-1}$.
+Também precisamos de $K_n: E^n \times \mathcal{A} \to [0,1]$ dado por
+\begin{equation}
+  K_n(\vec{x},A) = K\big(\phi_n(\vec{x}), A\big) \quad \big(= K(x_{n-1},A) \big).
+\end{equation}
+O fato de $K_n$ ser um núcleo de transição segue imediatamente dessa propriedade para $K$.
+
+Note que, nessa notação, estamos dizendo que para irmos de $E^n$ para $E^{n+1}$ iremos olhar apenas para a última coordenada, na qual aplicaremos o núcleo $K$.
+Isso é o ponto mais importante que caracteriza uma Cadeia de Markov: a distribuição do estado futuro da cadeia depende apenas do estado atual e não do passado.
+Em alguns contextos essa propriedade é chamada de ausência de memória.
+
+Podemos finalmente definir
+\begin{equation}
+  \label{e:Pn_Markov}
+  \mu_{n+1} = \mu_n \star K_n, \text{ para todo $n \geq 1$}.
+\end{equation}
+Mas resta a questão sobre a existência de uma $\mu^\infty$ que será respondida com ajuda do próximo resultado.
+
+\begin{lemma}
+  As probabilidades $\mu_n$ definidas em \eqref{e:Pn_Markov} são compatíveis, mais precisamente $\mu_{n+1}(A \times E) = \mu_n(A)$ para todo $A \in \mathcal{A}^{\otimes n}$.
+\end{lemma}
+
+\begin{proof}
+  Basta observar que
+  \begin{equation}
+    \mu_{n+1}(A \times E) = \mu_n \star K (A \times E) = \int_{A} \underbrace{K_n (\vec{x}, E)}_1 \mu_n(\d \vec{x}) = \mu_n(A),
+  \end{equation}
+  provando o lema.
+\end{proof}
+
+Logo, o Teorema da Extensão de Kolmogorov (lembre que $(E, \mathcal{A})$ foi suposto canônico) nos fornece uma única $P$ em $(\Omega, \mathcal{F})$ tal que
+\begin{equation}
+   P_{(X_0, \dots, X_n)} = \mu_n, \text{ para todo $n \geq 0$}.
+\end{equation}
+Lembramos que $X_i$ denotam as projeções canônicas em $\Omega = \prod_{i=1}^\infty E$.
+
+Chamamos o processo $X_1, X_2, \dots$ sob a lei $P$ da Cadeia de Markov \index{Cadia de Markov} com distribuição inicial $\mu_0$ e núcleo de transição $K$.
+
+\begin{example}
+  \label{x:Markov_p_xy}
+  Suponha que $E$ seja enumerável.
+  Nesse caso recordamos do Exemplo~\ref{x:nucleo_discreto} que o núcleo pode ser representado por uma matriz $\big(p(x,y)\big)_{x,y \in E}$ que nos retorna a probabilidade de saltar de $x$ a $y$.
+  Além disso, a distribuição inicial $\mu_0$ é determinada por $P(\{x\}) = p_0(x)$, para alguma sequência $\big(p_0(x)\big)_{x \in E}$.
+\end{example}
+
+\begin{exercise}
+  Mostre que no exemplo acima temos
+  \begin{equation}
+    P(X_0 = x_0, \dots, X_n = x_n) = p_0(x_0) p(x_0, x_1) \dots p(x_{n-1}, x_n).
+  \end{equation}
+\end{exercise}
+
+\begin{exercise}
+  Defina $K:\mathbb{R}^2 \times \mathcal{B}(\mathbb{R}^2) \to [0,1]$ dada por
+  \begin{equation}
+    K(x, A) = U_{S^1}(A - x).
+  \end{equation}
+  Nesse contexto,
+  \begin{enumerate}[\quad a)]
+  \item mostre que $K$ é um núcleo de transição e,
+  \item considerando a cadeia com distribuição inicial $\mu_0 = \delta_0$ em $\mathbb{R}^2$ e núcleo $K$, mostre que $X_2$ tem distribuição absolutamente contínua com respeito a Lebesgue e calcule sua densidade.
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Mostre que para qualquer núcleo de transição $K$ entre $E$ e $E$, existe um núcleo de transição
+  $\widebar{K}$ entre $E$ e $\Omega = E^{\mathbb{N}}$, tal que para toda medida inicial $\mu_0$, temos que $\mu_0 \star K$ é a distribuição de uma Cadeia de Markov começando de $\mu_0$ e com transição dada por $K$.
+  Esse núcleo é útil se quisermos mudar a distribuição inicial $\mu_0$ e uma notação bastante comum para esse núcleo é $P_{x}(\cdot) = \widebar{K}(x, \cdot)$.
+\end{exercise}
+
+Vamos terminar essa seção dando uma interpretação bastante interessante para os núcleos de transição em analogia à álgebra linear.
+Fixe um núcleo de transição $K$ entre $E$ e $E$, uma medida inicial $\mu$ e uma função limitada $f: E \to \mathbb{R}$.
+Relembre a notação em \eqref{e:P1_K} e defina $K f: E \to \mathbb{R}$ dada por
+\begin{equation}
+  K f(x):= \int f(y) K(x, \d y),
+\end{equation}
+que é obviamente limitada e já vimos ser mensurável no Teorema de Fubini.
+
+Então temos dois operadores definidos para núcleos, a multiplicação à esquerda por uma medida em $E$ ($\mu K$ que também é uma medida em $E$) e a multiplicação à direita por uma função limitada e mensurável ($K f$ que também é uma função limitada e mensurável).
+Podemos pensar em $f$ como um vetor coluna e $\mu$ como um vetor linha, nesse caso $K$ faria o papel de uma matriz.
+Essa analogia é real se $E$ for um espaço enumerável.
+
+\begin{exercise}
+  No contexto de cadeias de Markov,
+  \begin{enumerate}[\quad a)]
+  \item mostre a relação de associatividade $\mu (K f) = (\mu K) f$,
+  \item defina para todo $n$ o núcleo $K^{(n)}$ iterado (de $E$ em $E$), de forma que $\mu K^{(n)} f$ ainda seja associativa.
+  \item Mostre que a medida $\mu K^{(n)}$ é a distribuição de $X_n$ se começamos de $\mu$,
+  \item que a função $K^{(n)} f (\cdot)$ é o valor esperado de $f$ no tempo $n$ se começamos no zero do ponto $\cdot$ e finalmente que
+  \item o número real $\mu K^{(n)} f$ é a esperança de $f$ no tempo $n$ se começamos de $\mu$.
+  \end{enumerate}
+\end{exercise}
+
+Vamos agora dar um exemplo simples de Cadeia de Markov que poderemos analisar em detalhes.
+
+Seja $E = \mathbb{Z}$ e considere $K: \mathbb{Z} \times \mathcal{P}(\mathbb{Z}) \to [0,1]$ dado por
+\begin{equation}
+  K(x, \cdot) = \frac{\delta_{x-1} + \delta_{x+1}}{2},
+\end{equation}
+que obviamente define um núcleo pois toda função em $\mathbb{Z}$ é mensurável na $\sigma$-álgebra das partes.
+
+Podemos portanto construir $P$ em $\mathbb{Z}^{\mathbb{N}}$ que nos fornece a lei de uma Cadeia de Markov em $\mathbb{Z}$ com distribuição inicial $\delta_0$ e núcleo de transição $K$.
+Chamamos esse processo de passeio aleatório simples simétrico. \index{passeio aleatorio simples@passeio aleatório simples}
+
+Poderíamos estar interessados em várias perguntas sobre esse processo, como por exemplo quão longe esperamos que o passeio aleatório pode ir depois de um determinado tempo?
+Para responder essa e várias outras questões, iremos mostrar outra construção do passeio simples simétrico através de uma soma de variáveis aleatórias.
+
+Introduzimos um espaço de probabilidade $\tilde P$, variáveis $Y_1, Y_2, \dots$ \iid com distribuição $(\delta_{-1} + \delta_{1})/2$ e definimos $S_0 = 0$ e $S_n = Y_1 + \dots + Y_n$.
+
+\begin{lemma}
+  A distribuição da sequência infinita $(X_0, X_1, \dots)$ sob a lei $P$ do passeio aleatório simples e simétrico é igual à distribuição de $(S_0, S_1, \dots)$ sob $\tilde P$.
+\end{lemma}
+
+\begin{proof}
+  Observamos primeiramente que basta mostrar a igualdade de distribuições para cilindros do tipo $\{x_1\} \times \dots \times \{x_n\} \times \mathbb{Z}^\mathbb{N}$, pois tais eventos compõem um $\pi$-sistema que gera a $\sigma$-álgebra produto em $\mathbb{Z}^\mathbb{N}$.
+  Calculamos portanto
+  \begin{equation*}
+    \begin{split}
+      \qquad P & [X_1 = x_1, \dots, X_n = x_n]
+      \intertext{pela definição de Cadeia de Markov (via extensão de Kolmogorov),}
+      & = \mu_n [X_1 = x_1, \dots, X_n = x_n]\\
+      & = \mu_{n-1} \star K_n [X_1 = x_1, \dots, X_n = x_n]
+      \intertext{por Fubini para núcleos (Teorema~\ref{t:fubini}),}
+      & = \mu_{n-1}[X_1 = x_1, \dots, X_{n-1} = x_{n-1}] K_n\big( (x_1, \dots, x_{n-1}), \{x_n\} \big)\\
+      & = \mu_{n-1}[X_1 = x_1, \dots, X_{n-1} = x_{n-1}] K\big( x_{n-1}, \{x_n\} \big)\\
+      & = \frac 12 \mu_{n-1}[X_1 = x_1, \dots, X_{n-1} = x_{n-1}] \1_{\{|x_{n-1} - x_n| = 1\}}\\
+      & = \dots = 2^{-n} \prod_{i=1}^n \1_{\{|x_{i-1} - x_i| = 1\}}.
+    \end{split}
+  \end{equation*}
+  Faremos agora esse cálculo para a distribuição de $S_i$'s:
+  \begin{equation*}
+    \begin{split}
+      \qquad \tilde P & [S_1 = x_1, \dots, S_n = x_n]\\
+      & = \mu_n [Y_1 = x_1 - x_0, Y_2 = x_2 - x_1 \dots, Y_n = x_n - x_{n-1}]\\
+      & = \prod_{i = 1}^n \tilde P [Y_i = x_i - x_{i-1}] = 2^{-n} \prod_{i=1}^n \1_{\{|x_{i-1} - x_i| = 1\}}.
+    \end{split}
+  \end{equation*}
+  Isso mostra o enunciado do lemma.
+\end{proof}
+
+Podemos agora por exemplo estimar
+\begin{equation}
+  P[|X_n| \geq \varepsilon n] = \tilde P [|S_n| \geq \varepsilon n] \leq 2 \exp \{- \psi_{(\delta_{-1} + \delta_1)/2}(\varepsilon) n\},
+\end{equation}
+que responde nossa pergunta sobre a probabilidade de um passeio aleatório se distanciar muito da origem.
+
+
 
 \section{Probabilidade Condicional Regular}
 
