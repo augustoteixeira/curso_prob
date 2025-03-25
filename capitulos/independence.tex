@@ -914,16 +914,21 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
 \end{theorem}
 
 \begin{proof}
-  Considere a classe de conjuntos
+  Considere a familia de caixas de $\mathbb{R}^l$
   \begin{equation*}
-    \mathcal{S}_l = \Big\{ \mcup_{j=1}^k [a_{1,j}, b_{1,j}) \times \dots \times [a_{l,j}, b_{l,j}) \subseteq \mathbb{R}^l \, : \,
-    a_{i,j} \in \mathbb{R} \cup \{-\infty\},\ b_{i,j} \in \mathbb{R} \cup \{\infty\} \Big\}.
+    \bar{\mathcal{S}}_l = \Big\{ \bigtimes_{i = 1}^l I_i; I_i
+    \text{ intervalo em $\mathbb{R}$} \Big\}.
   \end{equation*}
-  Que é obviamente uma álgebra em $\mathbb{R}^l$ e seja também
+  Além disso, defina a classe
+  \begin{equation*}
+    \mathcal{S}_l = \Big\{ \mcup_{j=1}^k A_j; A_j \in \bar{\mathcal{S}}_l \Big\}.
+  \end{equation*}
+  Que é obviamente uma álgebra em $\mathbb{R}^l$.
+  Finalmente, seja
   \begin{equation}
-    \mathcal{S} = \big\{ A \times \mathbb{R} \times \dots\, : \, \text{ onde } l \geq 1 \text{ e } A \in \mathcal{S}_l \big\}.
+    \mathcal{S} = \big\{ A \times \mathbb{R} \times \dots\, : \, \text{ onde } l \geq 1 \text{ e } A \in \mathcal{S}_l \big\},
   \end{equation}
-  Claramente, $\mathcal{S}$ também é uma álgebra.
+  que é uma álgebra em $\mathbb{R}^\mathbb{N}$.
 
   Se $B = A \times \mathbb{R} \times \dots \in \mathcal{S}$ com $A \in \mathcal{S}_l$ como acima, definimos
   \begin{equation}
