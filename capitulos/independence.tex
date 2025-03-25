@@ -59,15 +59,28 @@ Mais precisamente
   \end{enumerate}
 \end{example}
 
+Providenciamos agora um exemplo que da uma aplicação da desigualdade de Markov, Teorema~\ref{t:markov}.
+
+Em vários exemplos importantes, podemos ter dificuldade de calcular probabilidades explicitamente.
+Nesses casos, poderíamos gastar nossas energias tentando calculá-las a qualquer custo, ou podemos nos contentar em obter cotas superiores e inferiores para as probabilidades nas quais estamos interessados.
+
+Em vários casos, a segunda estratégia tem uma grande vantagem sobre a primeira, por possibilitar que estudemos problemas mais complexos (e consequentemente mais importantes/interessantes) e muitas vezes sem nos afastarmos da realidade (em vários exemplos as cotas superiores e inferiores são próximas o suficiente para que não nos preocupemos).
+
 \begin{example}
   Sejam $n$ patos e $m$ caçadores.
   Cada caçador escolhe um pato aleatoriamente e uniformemente e atira (abatendo-o com probabilidade $p$).
   Seja $X = \# \{\text{patos vivos}\}$, que pode ter uma distribuição complicada de calcular, mas
   \begin{equation}
     \begin{split}
-      E(X) &= E \Big( \sum_{i=1}^n \1_{[\text{pato $i$ vive}]} \Big) = \sum_{i=1}^n P[\text{pato $i$ vive}]\\
-      &= n P[\text{pato $1$ vive}] = P\Big( \mcap_{j=1}^m [\text{caçador $j$ não mata pato $1$}] \Big)\\
-      &= n P[\text{caçador $j$ não mata pato $1$}]^m = n \Big(1 - \frac{p}{n}\Big).
+      E(X)
+      & = E \Big( \sum_{i=1}^n \1_{[\text{pato $i$ vive}]} \Big)
+        = \sum_{i=1}^n P[\text{pato $i$ vive}]\\
+      & = n P[\text{pato $1$ vive}]
+        = n P\Big(
+        \mcap_{j=1}^m [\text{caçador $j$ não mata pato $1$}]
+        \Big)\\
+      & = n P[\text{caçador $j$ não mata pato $1$}]^m
+        = n \Big(1 - \frac{p}{n}\Big)^m.
     \end{split}
   \end{equation}
   Observe que
@@ -290,7 +303,6 @@ Provamos agora uma propriedade fundamental de variáveis aleatórias independent
   \end{equation}
 \end{proposition}
 
-
 \begin{proof}
 Começamos para verificar o resultado para  funções simples. Se $\alpha_1,\dots,\alpha_n$ e $\gb_1,\dots,\gb_m$ são os possíveis valores de $X$ e $Y$
 temos
@@ -346,16 +358,13 @@ usando o resultado para $n=2$ que e de novo a hipótese de recorrência, conclu�
 \end{equation}
 
 
-  \end{proof}
+\end{proof}
 
-
-
-\begin{topics}
-\section{Tópico: Distribução marginal de um vector aleatório}
+\section{Distribução marginal de um vector aleatório}
 
 Considermos $P$ uma probabilidade definida sobre o espaço $\gO=\bbR^d$, os elementos de $\gO$ sendo denotado por $x:=(\go_1,\dots,\go_d)$.
 denotamos por $X_i : \gO \to \bbR$ a projecção na $i$-esima coordenada definida por $X_i(\go)=\go_i$.
-A variável $X_i$ se chama \emph{$i$-esima} marginal do vector aleatório $\go$.
+A variável $X_i$ se chama \emph{$i$-esima} marginal do vector aleatório $\go$. \index{distribuicao@distribuição!marginal}
 
 \medskip
 
@@ -394,7 +403,7 @@ o que termina a demostração.
 
 \end{remark}
 
-\end{topics}
+
 
 
 \section{Distribuições conjuntas}
@@ -436,192 +445,6 @@ Então a distribuição conjunta destes elementos aleatórios é $P_{(X_i)_{i \i
   Mostre que no caso acima, se $P_{(X_i)_{i \in J}} = P_{(X'_i)_{i \in J}}$ para todo $J \subseteq I$ finito, então $P_{(X_i)_{i \in I}} = P_{(X'_i)_{i \in I}}$.
 \end{exercise}
 
-\section{Probabilidades condicionais}
-
-Uma outra maneira de se construir espaços de probabilidade é através de condicionamento, como mostra a seguinte definição.
-\begin{definition}
-  Se $(\Omega, \mathcal{F}, P)$ é espaço de probabilidade e $B \in \mathcal{F}$ é tal que $P(B) > 0$, então definimos a probabilidade \index{probabilidade!condicional} $P(\cdot | B): \mathcal{F} \to [0,1]$ por
-  \begin{equation}
-    \label{e:P_condicional}
-    P(A | B) = \frac{P(A \cap B)}{P(B)},
-  \end{equation}
-  chamada probabilidade condicional dado o evento $B$.
-\end{definition}
-
-Obviamente $P(\cdot | B)$ é uma probabilidade em $(\Omega, \mathcal{F})$ e podemos entendê-la de duas formas: como uma normalização ou como uma tentativa de sucesso.
-Explicaremos abaixo cada uma dessas interpretações.
-
-Quando restringimos o espaço amostral $\Omega$ ao conjunto $B$ (e associamos a $A \in \mathcal{F}$ o valor $P(A \cap B)$), temos uma sub-probabilidade, isto é, possivelmente $P(\Omega \cap B) < 1$.
-Logo podemos entender o denominador de \eqref{e:P_condicional} como uma normalização para obtermos novamente uma probabilidade.
-
-Mas a interpretação mais natural de \eqref{e:P_condicional} é dada pela seguinte proposição.
-Para enunciá-la, considere $(\Omega, \mathcal{F}, P)$ um espaço de probabilidade e defina o produto infinito
-\begin{equation}
-  \widebar{\Omega} =\Omega^{\mathbb{N}}, \qquad \widebar{\mathcal{F}} = \mathcal{F}^{\otimes \mathbb{N}} \quad \text{e} \quad \widebar P =  P^{\otimes \mathbb{N}}.
-\end{equation}
-Na verdade somente definimos esse produto para $\Omega = \mathbb{R}$, mas como mencionamos abaixo do Teorema da Extensão de Kolmogorov, isso pode ser facilmente generalizado e o faremos posteriormente.
-
-\begin{proposition}
-  Na situação acima, seja $B \in \mathcal{F}$ com $P(B) > 0$ e defina $T:\widebar{\Omega} \to \mathbb{N}$ por $T(\omega) = \inf \{n \geq 1\, : \, X_n(\omega) \in B\}$, onde os $X_n$ são as coordenadas canônicas. Então $T < \infty$ quase certamente e
-  \begin{equation}
-    \text{$X_{T(\omega)}(\omega)$ é um elemento aleatório em $\Omega$ com distribuição $P(\cdot | B)$.}
-  \end{equation}
-\end{proposition}
-
-A intuição desta proposição é que se repetimos o experimento $(\Omega, \mathcal{F}, P)$ independentemente até obter uma amostra em $B$, essa terá a distribuição condicional.
-
-\begin{proof}
-  Sejam os eventos $A_n = [X_n \in B]$, $n \geq 1$ que são claramente independentes segundo $\widebar{P}$.
-  Logo, como $\sum_n \widebar{P}(A_n) = \sum_n P(B) = \infty$, temos pelo Lema de Borel-Cantelli (segunda parte) que $\widebar{P}(\text{$A_n$ infinitas vezes}) = 1$, logo $T < \infty$ quase certamente.
-
-  Para ver que $X_{T(\omega)}(\omega)$ é um elemento aletório, basta escrever
-  \begin{equation}
-    [X_{T} \in A] = \mcup_{t=1}^\infty [X_t \in A, T = t],
-  \end{equation}
-  e observar que tanto $[X_t \in A]$ quanto $[T = t] = [X_1 \not \in B, \dots, X_{t-1} \not \in B, X_t \in B]$ são mensuráveis.
-
-  Finalmente podemos usar a decomposição (disjunta) acima para calcular
-  \begin{equation}
-    \begin{split}
-      \widebar{P}[X_T \in A] & = \sum_{t=1}^\infty \widebar{P} [X_t \in A, T = t]\\
-      & = \sum_{t=1}^\infty \widebar{P} [X_t \in A, X_t \in B, X_s \not \in B \text{ for $s < t$}]\\
-      & = \sum_{t=1}^\infty P(A \cap B) P(B^c)^{t-1} = \frac{P(A \cap B)}{1-P(B^c)} = P(A | B),
-    \end{split}
-  \end{equation}
-  terminando a prova da proposição.
-\end{proof}
-
-\begin{exercise}
-  Sejam $\lambda > 0$ e $X \distr \Exp(\lambda)$ (lembrando a definição da distribuição exponencial: $\Exp(\lambda)(\d x) = \lambda \exp\{- \lambda x\} \d x$).
-  Mostre que as variáveis com distribuição exponencial não possuem memória, ou seja:
-  \begin{equation}
-    \label{e:sem_memoria}
-    P[X > t + s\, |\, X > t] = P [X > s], \text{ para todo $s, t > 0$}.
-  \end{equation}
-  Ou em outras palavras, sabendo que $X$ é maior que $t$, a distribuição condicional de $X - t$ ainda é $\Exp(\lambda)$.
-\end{exercise}
-
-Definimos a distribuição geométrica \index{distribuicao@distribuição!geometrica@geométrica} de parâmetro $p \in (0,1]$ por
-\begin{equation}
-  \Geo(p) = \sum_{i = 1}^\infty (1-p)^{i-1} p \delta_i.
-\end{equation}
-
-\begin{exercise}
-  Inspirado no exercício anterior, mostre que a distribuição geométrica $\Geo(p)$ também satisfaz \eqref{e:sem_memoria} para todos $t, s \in \mathbb{N}$.
-  Mostre que essas são as únicas distribuições com suporte em $\mathbb{N}$ satisfazendo tal propriedade
-\end{exercise}
-
-\begin{exercise}
-  \label{x:geo_time}
-  Sejam $Y_i$, para $i \geq 1$, \iid com distribuição $\Ber(p)$ e defina
-  \begin{equation}
-    T = \inf\{i\, : \, Y_i = 1\}.
-  \end{equation}
-  Mostre que $T \overset{d}\sim \Geo(p)$.
-\end{exercise}
-
-\begin{exercise}
-  Barry James: Cap. 2-5, Ex: 5, 10, 21, 22 (a) e (b).
-\end{exercise}
-
-\begin{exercise}[Porta dos desesperados]
-  Nas tardes da década de 80, as crianças tinham poucas opções de entretenimento além de assistir Sérgio Malandro, que todos os dias apresentava o seguinte jogo.
-  O participante era apresentado a três portas ($\Omega = \{1,2,3\}$) e apenas uma delas (chamada de $X$) continha um prêmio $X \distr U_{\Omega}$ e o jogo seguia três fases:
-  \begin{enumerate}[\quad a)]
-  \item O participante escolhia uma porta arbitrariamente (digamos $y \in \Omega$),
-  \item o Sérgio Malandro abria uma porta $X'$ que não fosse a escolhida nem a premiada ($X' \distr U_{\Omega \setminus \{y, X\}}$)
-  \item ao participante era dada a oportunidade de trocar sua porta $X$ pela porta restante em $\Omega \setminus \{X, X'\}$.
-  \end{enumerate}
-  Mostre que o participante sempre aumenta suas chances ao trocar sua escolha.
-  Tente interpretar esse aparente paradoxo tomando o número de portas para infinito.
-\end{exercise}
-
-\begin{exercise}
-  Emílio e Cristina tiveram dois filhos cujos sexos $X, X'$ são \iid e distribuidos como $U_{\{\male, \female\}}$.
-Enunciando hipóteses adequadas se for necessario,  calcule
-  \begin{enumerate}[\quad a)]
-  \item $P[X, X' = \male | \text{ pelo menos um é $\male$}]$ e
-  \item $P[X, X' = \male | \text{ pelo menos um é $\male$ e nasceu em uma segunda-feira}]$.
-  \end{enumerate}
-  Interprete esses resultados trocando ``segunda-feira'' por ``primeiro de abril''.
-  \footnote{Gratos ao Ricardo Misturini por sugerir esse problema}
-\end{exercise}
-
-\begin{exercise}
-  Supondo que $P(A \cap B) > 0$, mostre que ``$P(\cdot|A|B) = P(\cdot|B|A)$''.
-  Mais precisamente, podemos condicionar $P$ em $B$ e depois a probabilidade resultante em $A$ ou vice-versa.
-\end{exercise}
-
-\begin{exercise}
-  Sejam $X, Y$ vari\'aveis aleat\'orias em um espaço $(\Omega, \mathcal{F}, P)$, independentes e com distribuição $U_{[0,1]}$.
-  \begin{enumerate}[\quad a)]
-  \item Calcule $ P_{X+Y}$.
-  \item Considere $P'(\cdot) = P\big(\cdot \, | \, X + Y \leq 1 \big)$ e calcule $X_* P'$.
-  \end{enumerate}
-\end{exercise}
-
-\todo{Falar de Lei da Probabilidade Total, com exemplos.}
-
-\subsection{Regra de Bayes}
-
-Frequentemente definimos um espaço de probabilidade através de probabilidades condicionais.
-Consideramos por exemplo um exame médico para detectar uma doença, caso em que temos
-\begin{equation}
-  \Omega = \{(\text{doente}, +), (\text{doente}, -), (\text{saudável}, +), (\text{saudável}, -)\},
-\end{equation}
-com obviamente a $\sigma$-álgebra das partes.
-
-Contudo, ao contrário do que fizemos anteriormente, não daremos probabilidades $p_\omega \in [0,1]$ para cada $\omega \in \Omega$.
-Poderíamos por exemplo fornecer
-\begin{equation}
-  \label{e:exame_medico}
-  P(\text{doente}) = 0.005, \quad P( + | \text{saudável}) = 0.01, \quad P( - | \text{doente}) = 0.05.
-\end{equation}
-Obviamente podemos obter as probabilidades dos complementos dos eventos acima.
-As probabilidades acima podem ser facilmente estimadas num laboratório e as duas últimas são chamadas respectivamente de probabilidades de \emph{falso positivo} e \emph{falso negativo}.
-Outra vantagem da representação em \eqref{e:exame_medico} é que as probabilidades descritas são mais ``compartimentadas'' no seguinte sentido.
-Note que $P(\text{doente})$ somente depende da população em questão, enquanto as outras duas dependem apenas do exame e não da população.
-Isso não pode ser dito das probabilidades de pontos individuais em $\Omega$.
-
-Agora fica fácil construir nosso espaço de probabilidade escrevendo, para $r \in \{+, -\}$ e $e \in \{\text{saudável}, \text{doente}\}$,
-\begin{equation}
-  P(r \cap e) = P(r | e) P(e).
-\end{equation}
-E as probabilidades do lado direito da equação acima estão todas determinadas em \eqref{e:exame_medico} (possivelmente tomando complementos).
-
-Contudo, o que estamos interessado muitas vezes é em como interpretar resultados de um exame.
-Por exemplo, quanto vele $P(\text{doente} | +)$?
-Isso nos é fornecido em geral pela regra de Bayes enunciada na seguinte proposição.
-
-\begin{proposition}
-  Se $(A_j)_{j\in I}$ formam uma partição (finita o enumeável) de $\Omega$ e $B \in \mathcal{F}$ tem probabilidade positiva, então
-  \begin{equation}
-    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{\sum_{j\in I} P(A_j) P(B | A_j)}.
-  \end{equation}
-\end{proposition}
-
-\begin{proof}
-  Basta notar que
-  \begin{equation}
-    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{P(B)} = \frac{P(A_i) P(B | A_i)}{\sum_{j\in I} P(B \cap A_j)} = \frac{P(A_i) P(B | A_i)}{\sum_{j\in I} P(A_j) P(B | A_j)}.
-  \end{equation}
-\end{proof}
-
-\begin{exercise}
-  Utilize a fórmula acima para calcular $P(\text{doente} | +)$ com os dados em \eqref{e:exame_medico}.
-  Comente o resultado.
-\end{exercise}
-
-\begin{exercise}
-  Barry James: Cap. 1, Ex: 18 e 19.
-\end{exercise}
-
-\todosec{Tópico: Distribuições de Extremos}{fazer...}
-
-\todosec{Acoplamentos}{Talvez valha a pena escrever sobre acoplamentos de maneira geral. Talvez pegando algo do Pascal Massart. Vale a pena tentar escrever algo sobre: composiçao de acoplamentos, quando um acoplamento ``dá errado''...}
-
-
-
 \section{Espaços produto finito}
 
 Dados espaços $\Omega_1, \dots, \Omega_n$ com suas respectivas $\sigma$-álgebras $\mathcal{F}_1, \dots, \mathcal{F}_n$, podemos definir o espaço mensurável produto
@@ -652,66 +475,14 @@ o $\cF_1\otimes \cF_2$ quando $n=2$.
 \end{proof}
 
 \begin{notation}
-  Usaremos a notação $\bigotimes_{i=1}^n P_i$ o $P_1\otimes P_2 \otimes \dots \otimes P_n$.
+  Usaremos a notação $\bigotimes_{i=1}^n P_i$ para $P_1\otimes P_2 \otimes \dots \otimes P_n$.
 \end{notation}
-
-
 
 Note que a unicidade do produto pode ser concluída por exemplo usando o Corolário~\ref{c:produto_e_unico}.
 
-
-\begin{proposition}
-Se  $\gO:=\prod_{i=1}^n \Omega_i$ e $P:=\bigotimes_{i=1}^n P_i$ então os elementos aleatórios
-$X_i$ definidos pelas projeções sob as coordenadas $X_i(\go)=\go_i$ são independentes
-de distribuição respectivas $P_i$
-
-\end{proposition}
-
-
-\begin{proof}
-Exercício.
-\end{proof}
-
-
-
-Providenciamos agora um exemplo que da uma aplicação da desigualdade de Markov, Teorema~\ref{t:markov}.
-
-Em vários exemplos importantes, podemos ter dificuldade de calcular probabilidades explicitamente.
-Nesses casos, poderíamos gastar nossas energias tentando calculá-las a qualquer custo, ou podemos nos contentar em obter cotas superiores e inferiores para as probabilidades nas quais estamos interessados.
-
-Em vários casos, a segunda estratégia tem uma grande vantagem sobre a primeira, por possibilitar que estudemos problemas mais complexos (e consequentemente mais importantes/interessantes) e muitas vezes sem nos afastarmos da realidade (em vários exemplos as cotas superiores e inferiores são próximas o suficiente para que não nos preocupemos).
-
-\begin{example}
-  Sejam $n$ patos e $m$ caçadores.
-  Cada caçador escolhe um pato aleatoriamente e uniformemente e atira (abatendo-o com probabilidade $p$).
-  Seja $X = \# \{\text{patos vivos}\}$, que pode ter uma distribuição complicada de calcular, mas
-  \begin{equation}
-    \begin{split}
-      E(X) &= E \Big( \sum_{i=1}^n \1_{[\text{pato $i$ vive}]} \Big) = \sum_{i=1}^n P[\text{pato $i$ vive}]\\
-      &= n P[\text{pato $1$ vive}] = P\Big( \mcap_{j=1}^m [\text{caçador $j$ não mata pato $1$}] \Big)\\
-      &= n P[\text{caçador $j$ não mata pato $1$}]^m = n \Big(1 - \frac{p}{n}\Big).
-    \end{split}
-  \end{equation}
-  Observe que
-  \begin{enumerate}[\quad a)]
-  \item acima obtivemos uma igualdade e
-  \item $[\text{pato $i$ vive}]$, $i = 1, \dots, n$ não são independentes.
-  \end{enumerate}
-
-  Finalmente estimamos (digamos para $n$ par)
-  \begin{equation}
-    \begin{split}
-      & P[\text{patos para o jantar} < n/2] = P[X \geq n/2] \leq \frac{E(X)}{n/2}\\
-      & \qquad = 2 \frac{n}{n} \Big( 1 - \frac{p}{n}\Big)^m \leq 2 \exp \{- \frac{pm}{n}\}.
-    \end{split}
-  \end{equation}
-\end{example}
-\begin{remark}
-No caso onde $P_X$ tem suporte em $\{a,b\}$ o resultado e simplesmente a definição da convexidade.
-No caso $\varphi(x)=|x|^p$, $p>1$, o resultado pode ser considerado e uma consequência imediata da desigualdade de H\"older.
-No caso $\phi(x)=|x|$, o resultado da a desigualdade triangular generalizada (que e valida para integrais com respeito a medidas positivas).
-\end{remark}
-
+\begin{exercise}
+  Se $\gO:=\prod_{i=1}^n \Omega_i$ então os elementos aleatórios $X_i$ definidos pelas projeções canônicas $X_i(\go)=\go_i$ são independentes se e somente se $P = \bigotimes_{i=1}^n P_i$, onde $P_i = (X_i)_\star P$ são as distribuições marginais.
+\end{exercise}
 
 \begin{exercise}
   Mostre que o produto de $n$ cópias de $(\{0,1\}, \mathcal{P}(\{0,1\}), \Ber(1/2))$ é a distribuição uniforme em $\{0,1\}^n$.
@@ -1037,7 +808,7 @@ Uma família $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ é dita uma álgebra de
   Seja $\mathcal{G} \subseteq \mathcal{P}(\Omega)$ uma álgebra de conjuntos em $\Omega$ e suponha que $\mu: \mathcal{G} \to \mathbb{R}_+$ satisfaça a seguinte propriedade:
   \begin{display}
     \label{e:aditiva_na_algebra}
-    Se $(A_i)_{i\in I}$ e uma familia finita ou enumerável de elementos disjuntos de $\mathcal G$ tal que $\cup_{i\in I} A_i \in \mathcal{G}$,\\
+    Se $(A_i)_{i\in I}$ e uma familia finita ou enumerável de elementos disjuntos de $\mathcal G$ tal que $\cup_{i\in I} A_i \in \mathcal{G}$,
   temos $\mu(\cup_{i\in I} A_i) = \sum_{i\in I} \mu(A_i)$.
   \end{display}
   Então existe uma medida $\widebar{\mu}: \sigma(\mathcal{G}) \to \mathbb{R}_+$ tal que $\widebar{\mu}(A) = \mu(A)$ para todo $A \in \mathcal{G}$.
@@ -1062,7 +833,7 @@ Mas no contexto de medidas infinitas, não é de se esperar que $B_i \downarrow 
 Portanto resolvemos escrever o enunciado com probabilidades.
 
 \begin{exercise}
-  Dê um exemplo de medida que não satisfaz a terceira hipótese do Lema~\ref{l:extensao_vazio}.
+  Dê um exemplo de função sobre uma álgebra que satisfaça as primeiras duas hipóteses do Lema~\ref{l:extensao_vazio}, mas não a terceira.
 \end{exercise}
 
 \begin{proof}
@@ -1095,7 +866,7 @@ O objetivo desta seção é provar um resultado que nos permitirá construir pro
 Antes precisaremos de introduzir algumas notações.
 Dada uma coleção de espaços $(E_i)_{i\in \mathbb{N}}$, definimos o espaço produto
 \begin{equation}
-  \Omega = \prod_{i=1}^{\infty} E_i = \big\{(\omega_i)_{i\in \mathbb{N}} \, : \,  \omega_i \in E_i \text{ para todo $i \geq 1$}\big\}
+  \Omega = \bigtimes_{i=1}^{\infty} E_i = \big\{(\omega_i)_{i\in \mathbb{N}} \, : \,  \omega_i \in E_i \text{ para todo $i \geq 1$}\big\}
 \end{equation}
 e os mapas $X_i:\Omega \to E_i$, definidos para $i = 1, 2, \dots$ por
 \begin{equation}
@@ -1130,12 +901,6 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
   conhecidos como eventos cilíndricos.
   \end{enumerate}
 \end{exercise}
-
-\begin{definition}
-  \label{d:marginal}
-  Seja $\Omega = \prod_{i\in I} E_i$ um espaço produto (infinito ou finito) dotado de uma probabilidade $P$.
-  Se $X_i$ é uma coordenada canônica, então chamamos a probabilidade $(X_i)_*  P$ de \emph{distribuição marginal} \index{distribuicao@distribuição!marginal} de $P$ na coordenada $i$.
-\end{definition}
 
 \begin{theorem}[Extensão de Kolmogorov]
   \index{Teorema!da Extensao de Kolmogorov@da Extensão}
@@ -1214,7 +979,7 @@ Chamamos $\mathcal{F}$ de $\sigma$-álbegra canônica.
   \begin{equation*}
 \omega = (\omega_1, \omega_2, \dots) \in C_n.
   \end{equation*}
-  O que e equivalente a $(\omega_1, \omega_2, \dots, \omega_n) \in C^*_n$, que vale por compacidade.
+  O que e equivalente a $(\omega_1, \omega_2, \dots, \omega_{l_n}) \in C^*_n$, que vale por compacidade.
 \end{proof}
 
 Observe que usamos muito poucos atributos de $\mathbb{R}$ na prova.
@@ -1709,6 +1474,189 @@ De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2
 
 \todosec{Tópico: Teorema de Uma Série}{fazer...}
 
+\section{Probabilidades condicionais}
+
+Uma outra maneira de se construir espaços de probabilidade é através de condicionamento, como mostra a seguinte definição.
+\begin{definition}
+  Se $(\Omega, \mathcal{F}, P)$ é espaço de probabilidade e $B \in \mathcal{F}$ é tal que $P(B) > 0$, então definimos a probabilidade \index{probabilidade!condicional} $P(\cdot | B): \mathcal{F} \to [0,1]$ por
+  \begin{equation}
+    \label{e:P_condicional}
+    P(A | B) = \frac{P(A \cap B)}{P(B)},
+  \end{equation}
+  chamada probabilidade condicional dado o evento $B$.
+\end{definition}
+
+Obviamente $P(\cdot | B)$ é uma probabilidade em $(\Omega, \mathcal{F})$ e podemos entendê-la de duas formas: como uma normalização ou como uma tentativa de sucesso.
+Explicaremos abaixo cada uma dessas interpretações.
+
+Quando restringimos o espaço amostral $\Omega$ ao conjunto $B$ (e associamos a $A \in \mathcal{F}$ o valor $P(A \cap B)$), temos uma sub-probabilidade, isto é, possivelmente $P(\Omega \cap B) < 1$.
+Logo podemos entender o denominador de \eqref{e:P_condicional} como uma normalização para obtermos novamente uma probabilidade.
+
+Mas a interpretação mais natural de \eqref{e:P_condicional} é dada pela seguinte proposição.
+Para enunciá-la, considere $(\Omega, \mathcal{F}, P)$ um espaço de probabilidade e defina o produto infinito
+\begin{equation}
+  \widebar{\Omega} =\Omega^{\mathbb{N}}, \qquad \widebar{\mathcal{F}} = \mathcal{F}^{\otimes \mathbb{N}} \quad \text{e} \quad \widebar P =  P^{\otimes \mathbb{N}}.
+\end{equation}
+Na verdade somente definimos esse produto para $\Omega = \mathbb{R}$, mas como mencionamos abaixo do Teorema da Extensão de Kolmogorov, isso pode ser facilmente generalizado e o faremos posteriormente.
+
+\begin{proposition}
+  Na situação acima, seja $B \in \mathcal{F}$ com $P(B) > 0$ e defina $T:\widebar{\Omega} \to \mathbb{N}$ por $T(\omega) = \inf \{n \geq 1\, : \, X_n(\omega) \in B\}$, onde os $X_n$ são as coordenadas canônicas. Então $T < \infty$ quase certamente e
+  \begin{equation}
+    \text{$X_{T(\omega)}(\omega)$ é um elemento aleatório em $\Omega$ com distribuição $P(\cdot | B)$.}
+  \end{equation}
+\end{proposition}
+
+A intuição desta proposição é que se repetimos o experimento $(\Omega, \mathcal{F}, P)$ independentemente até obter uma amostra em $B$, essa terá a distribuição condicional.
+
+\begin{proof}
+  Sejam os eventos $A_n = [X_n \in B]$, $n \geq 1$ que são claramente independentes segundo $\widebar{P}$.
+  Logo, como $\sum_n \widebar{P}(A_n) = \sum_n P(B) = \infty$, temos pelo Lema de Borel-Cantelli (segunda parte) que $\widebar{P}(\text{$A_n$ infinitas vezes}) = 1$, logo $T < \infty$ quase certamente.
+
+  Para ver que $X_{T(\omega)}(\omega)$ é um elemento aletório, basta escrever
+  \begin{equation}
+    [X_{T} \in A] = \mcup_{t=1}^\infty [X_t \in A, T = t],
+  \end{equation}
+  e observar que tanto $[X_t \in A]$ quanto $[T = t] = [X_1 \not \in B, \dots, X_{t-1} \not \in B, X_t \in B]$ são mensuráveis.
+
+  Finalmente podemos usar a decomposição (disjunta) acima para calcular
+  \begin{equation}
+    \begin{split}
+      \widebar{P}[X_T \in A] & = \sum_{t=1}^\infty \widebar{P} [X_t \in A, T = t]\\
+      & = \sum_{t=1}^\infty \widebar{P} [X_t \in A, X_t \in B, X_s \not \in B \text{ for $s < t$}]\\
+      & = \sum_{t=1}^\infty P(A \cap B) P(B^c)^{t-1} = \frac{P(A \cap B)}{1-P(B^c)} = P(A | B),
+    \end{split}
+  \end{equation}
+  terminando a prova da proposição.
+\end{proof}
+
+\begin{exercise}
+  Sejam $\lambda > 0$ e $X \distr \Exp(\lambda)$ (lembrando a definição da distribuição exponencial: $\Exp(\lambda)(\d x) = \lambda \exp\{- \lambda x\} \d x$).
+  Mostre que as variáveis com distribuição exponencial não possuem memória, ou seja:
+  \begin{equation}
+    \label{e:sem_memoria}
+    P[X > t + s\, |\, X > t] = P [X > s], \text{ para todo $s, t > 0$}.
+  \end{equation}
+  Ou em outras palavras, sabendo que $X$ é maior que $t$, a distribuição condicional de $X - t$ ainda é $\Exp(\lambda)$.
+\end{exercise}
+
+Definimos a distribuição geométrica \index{distribuicao@distribuição!geometrica@geométrica} de parâmetro $p \in (0,1]$ por
+\begin{equation}
+  \Geo(p) = \sum_{i = 1}^\infty (1-p)^{i-1} p \delta_i.
+\end{equation}
+
+\begin{exercise}
+  Inspirado no exercício anterior, mostre que a distribuição geométrica $\Geo(p)$ também satisfaz \eqref{e:sem_memoria} para todos $t, s \in \mathbb{N}$.
+  Mostre que essas são as únicas distribuições com suporte em $\mathbb{N}$ satisfazendo tal propriedade
+\end{exercise}
+
+\begin{exercise}
+  \label{x:geo_time}
+  Sejam $Y_i$, para $i \geq 1$, \iid com distribuição $\Ber(p)$ e defina
+  \begin{equation}
+    T = \inf\{i\, : \, Y_i = 1\}.
+  \end{equation}
+  Mostre que $T \overset{d}\sim \Geo(p)$.
+\end{exercise}
+
+\begin{exercise}
+  Barry James: Cap. 2-5, Ex: 5, 10, 21, 22 (a) e (b).
+\end{exercise}
+
+\begin{exercise}[Porta dos desesperados]
+  Nas tardes da década de 80, as crianças tinham poucas opções de entretenimento além de assistir Sérgio Malandro, que todos os dias apresentava o seguinte jogo.
+  O participante era apresentado a três portas ($\Omega = \{1,2,3\}$) e apenas uma delas (chamada de $X$) continha um prêmio $X \distr U_{\Omega}$ e o jogo seguia três fases:
+  \begin{enumerate}[\quad a)]
+  \item O participante escolhia uma porta arbitrariamente (digamos $y \in \Omega$),
+  \item o Sérgio Malandro abria uma porta $X'$ que não fosse a escolhida nem a premiada ($X' \distr U_{\Omega \setminus \{y, X\}}$)
+  \item ao participante era dada a oportunidade de trocar sua porta $X$ pela porta restante em $\Omega \setminus \{X, X'\}$.
+  \end{enumerate}
+  Mostre que o participante sempre aumenta suas chances ao trocar sua escolha.
+  Tente interpretar esse aparente paradoxo tomando o número de portas para infinito.
+\end{exercise}
+
+\begin{exercise}
+  Emílio e Cristina tiveram dois filhos cujos sexos $X, X'$ são \iid e distribuidos como $U_{\{\male, \female\}}$.
+Enunciando hipóteses adequadas se for necessario,  calcule
+  \begin{enumerate}[\quad a)]
+  \item $P[X, X' = \male | \text{ pelo menos um é $\male$}]$ e
+  \item $P[X, X' = \male | \text{ pelo menos um é $\male$ e nasceu em uma segunda-feira}]$.
+  \end{enumerate}
+  Interprete esses resultados trocando ``segunda-feira'' por ``primeiro de abril''.
+  \footnote{Gratos ao Ricardo Misturini por sugerir esse problema}
+\end{exercise}
+
+\begin{exercise}
+  Supondo que $P(A \cap B) > 0$, mostre que ``$P(\cdot|A|B) = P(\cdot|B|A)$''.
+  Mais precisamente, podemos condicionar $P$ em $B$ e depois a probabilidade resultante em $A$ ou vice-versa.
+\end{exercise}
+
+\begin{exercise}
+  Sejam $X, Y$ vari\'aveis aleat\'orias em um espaço $(\Omega, \mathcal{F}, P)$, independentes e com distribuição $U_{[0,1]}$.
+  \begin{enumerate}[\quad a)]
+  \item Calcule $ P_{X+Y}$.
+  \item Considere $P'(\cdot) = P\big(\cdot \, | \, X + Y \leq 1 \big)$ e calcule $X_* P'$.
+  \end{enumerate}
+\end{exercise}
+
+\todo{Falar de Lei da Probabilidade Total, com exemplos.}
+
+\subsection{Regra de Bayes}
+
+Frequentemente definimos um espaço de probabilidade através de probabilidades condicionais.
+Consideramos por exemplo um exame médico para detectar uma doença, caso em que temos
+\begin{equation}
+  \Omega = \{(\text{doente}, +), (\text{doente}, -), (\text{saudável}, +), (\text{saudável}, -)\},
+\end{equation}
+com obviamente a $\sigma$-álgebra das partes.
+
+Contudo, ao contrário do que fizemos anteriormente, não daremos probabilidades $p_\omega \in [0,1]$ para cada $\omega \in \Omega$.
+Poderíamos por exemplo fornecer
+\begin{equation}
+  \label{e:exame_medico}
+  P(\text{doente}) = 0.005, \quad P( + | \text{saudável}) = 0.01, \quad P( - | \text{doente}) = 0.05.
+\end{equation}
+Obviamente podemos obter as probabilidades dos complementos dos eventos acima.
+As probabilidades acima podem ser facilmente estimadas num laboratório e as duas últimas são chamadas respectivamente de probabilidades de \emph{falso positivo} e \emph{falso negativo}.
+Outra vantagem da representação em \eqref{e:exame_medico} é que as probabilidades descritas são mais ``compartimentadas'' no seguinte sentido.
+Note que $P(\text{doente})$ somente depende da população em questão, enquanto as outras duas dependem apenas do exame e não da população.
+Isso não pode ser dito das probabilidades de pontos individuais em $\Omega$.
+
+Agora fica fácil construir nosso espaço de probabilidade escrevendo, para $r \in \{+, -\}$ e $e \in \{\text{saudável}, \text{doente}\}$,
+\begin{equation}
+  P(r \cap e) = P(r | e) P(e).
+\end{equation}
+E as probabilidades do lado direito da equação acima estão todas determinadas em \eqref{e:exame_medico} (possivelmente tomando complementos).
+
+Contudo, o que estamos interessado muitas vezes é em como interpretar resultados de um exame.
+Por exemplo, quanto vele $P(\text{doente} | +)$?
+Isso nos é fornecido em geral pela regra de Bayes enunciada na seguinte proposição.
+
+\begin{proposition}
+  Se $(A_j)_{j\in I}$ formam uma partição (finita o enumeável) de $\Omega$ e $B \in \mathcal{F}$ tem probabilidade positiva, então
+  \begin{equation}
+    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{\sum_{j\in I} P(A_j) P(B | A_j)}.
+  \end{equation}
+\end{proposition}
+
+\begin{proof}
+  Basta notar que
+  \begin{equation}
+    P(A_i | B) = \frac{P(A_i) P(B | A_i)}{P(B)} = \frac{P(A_i) P(B | A_i)}{\sum_{j\in I} P(B \cap A_j)} = \frac{P(A_i) P(B | A_i)}{\sum_{j\in I} P(A_j) P(B | A_j)}.
+  \end{equation}
+\end{proof}
+
+\begin{exercise}
+  Utilize a fórmula acima para calcular $P(\text{doente} | +)$ com os dados em \eqref{e:exame_medico}.
+  Comente o resultado.
+\end{exercise}
+
+\begin{exercise}
+  Barry James: Cap. 1, Ex: 18 e 19.
+\end{exercise}
+
+\todosec{Tópico: Distribuições de Extremos}{fazer...}
+
+\todosec{Acoplamentos}{Talvez valha a pena escrever sobre acoplamentos de maneira geral. Talvez pegando algo do Pascal Massart. Vale a pena tentar escrever algo sobre: composiçao de acoplamentos, quando um acoplamento ``dá errado''...}
 
 
 
