@@ -1025,6 +1025,13 @@ Mais adiante no texto daremos outros exemplos bastante interessantes do uso do T
 \end{exercise}
 
 \begin{exercise}
+  Mostre que se $\mathbb{P} = \bigotimes_{i \geq 1} \Exp(1)$ em $\mathbb{R}^\mathbb{N}$, então
+  \begin{equation}
+    \text{$\limsup_{n\to \infty} X_n = \infty$ quase certamente.}
+  \end{equation}
+\end{exercise}
+
+\begin{exercise}
   Mostre que se $\mathbb{P} = \bigotimes_{i \geq 1} \Exp(i)$ em $\mathbb{R}^\mathbb{N}$, então
   \begin{equation}
     \text{$\limsup_{n\to \infty} X_n < \infty$ quase certamente.}
@@ -1254,9 +1261,9 @@ isto é a $\sigma$-álgebra gerada pelas coordenadas canõnicas $(X_i)_{i=1}^\in
   \end{equation}
   Também introduzimos a classe $\mathcal{F}_\infty$ de tais eventos, que claramente é uma $\sigma$-álgebra, pois pode ser escrita como
   \begin{equation}
-    \mathcal{F}_\infty = \mcap_{n \geq 1} \sigma\big( X_i \ : \ i \geq n\big).
+    \mathcal{F}_c = \mcap_{n \geq 1} \sigma\big( X_i \ : \ i \geq n\big).
   \end{equation}
-  Chamamos $\mathcal{F}_\infty$ de $\sigma$-álgebra caudal. \index{sigma-algebra@$\sigma$-álgebra!caudal}
+  Chamamos $\mathcal{F}_c$ de $\sigma$-álgebra caudal. \index{sigma-algebra@$\sigma$-álgebra!caudal}
 \end{definition}
 
 Vejamos que, dados $A_i \in \sigma(X_i)$, $i \geq 1$, temos que $[A_i \text{ infinitas vezes}]$ é caudal.
@@ -1279,20 +1286,20 @@ Podemos agora enunciar o pricipal teorema dessa seção
 
 \begin{theorem}[Lei $\{0,1\}$ de Kolmogorov]
   \index{Lei!0,1 de Kolmogorov@$\{0,1\}$ de Kolmogorov}
-  Se $\Omega = E^{\bbN}$, onde $E$ é um espaço canônico, for provido de uma lei produto $P = \otimes_{i=1}^\infty P_i$, então todo evento caudal tem probabilidade $0$ ou $1$ sob $P$.
+  Se $\Omega = E^{\bbN}$, onde $E$ é um espaço canônico, for provido de uma lei produto $P = \otimes_{i=1}^\infty Q$ (com $Q$ probabilidade em $E$), então todo evento caudal tem probabilidade $0$ ou $1$ sob $P$.
 \end{theorem}
 
 Quando uma $\sigma$-álgebra $\mathcal{F}$ satisfaz $P(A) \in \{0,1\}$ para todo $A \in \mathcal{F}$, dizemos que $\mathcal{F}$ é trivial. \index{sigma-algebra@$\sigma$-álgebra!trivial}
-Uma outra maneira de enunciar a conclusão do teorema acima é dizer que a $\sigma$-álgebra caudal $\mathcal{F}_\infty$ é trivial.
+Uma outra maneira de enunciar a conclusão do teorema acima é dizer que a $\sigma$-álgebra caudal $\mathcal{F}_c$ é trivial.
 
 \begin{proof}
-  A idéia da prova, apesar de soar um pouco estranha, é mostrar que se $A \in \mathcal{F}_\infty$, então $A$ é independente de si mesmo.
+  A idéia da prova, apesar de soar um pouco estranha, é mostrar que se $A \in \mathcal{F}_c$, então $A$ é independente de si mesmo.
   Em outras palavras, $P(A) = P(A \cap A) = P(A)^2$, donde $P(A) \in \{0,1\}$.
   Mas vamos com calma.
 
-  Fixe $k \geq 1$, $A \in \mathcal{F}_\infty$ e $B \in \sigma(X_1, \dots, X_k)$.
+  Fixe $k \geq 1$, $A \in \mathcal{F}_c$ e $B \in \sigma(X_1, \dots, X_k)$.
   Nesse caso, como o evento $A$ pertence a $\sigma(X_{k+1}, X_{k+2}, \dots)$, temos que $A$ e $B$ são independentes.
-  Fixe agora $A \in \mathcal{F}_\infty$ e considere a classe
+  Fixe agora $A \in \mathcal{F}_c$ e considere a classe
   \begin{equation}
     \mathcal{B}_A = \{B \in \mathcal{F}\, : \, \text{ $B$ é independente de $A$}\}.
   \end{equation}
@@ -1313,7 +1320,12 @@ Uma outra maneira de enunciar a conclusão do teorema acima é dizer que a $\sig
 \begin{exercise}
   Dizemos que uma probabilidade $P$ no espaço produto $\Omega = E^{\bbN}$ (com a $\sigma$-álgebra canônica) é fortemente misturadora se, para todo $k \geq 1$, temos
   \begin{equation}
-    \lim_{n \to \infty} \sup \{ \big| P(A \cap B) - P(A) P(B) \big| \, : \, A \in \sigma(X_1, \dots, X_k), \ B \in \sigma(X_n, X_{n+1}, \dots) \}= 0.
+    \begin{split}
+      \lim_{n \to \infty} \sup \Big\{
+      & \big| P(A \cap B) - P(A) P(B) \big|;\\
+      & A \in \sigma(X_1, \dots, X_k),
+        \ B \in \sigma(X_n, X_{n+1}, \dots) \Big\} = 0.
+    \end{split}
   \end{equation}
   Mostre que nesse caso, a $\sigma$-álgebra dos eventos caudais é trivial.
 \end{exercise}
@@ -1479,7 +1491,7 @@ De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2
 
 \todosec{Tópico: Teorema de Uma Série}{fazer...}
 
-\section{Probabilidades condicionais}
+\chapter{Probabilidades condicionais}
 
 Uma outra maneira de se construir espaços de probabilidade é através de condicionamento, como mostra a seguinte definição.
 \begin{definition}
