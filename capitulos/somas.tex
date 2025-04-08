@@ -708,9 +708,6 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
 \todosec{Tópico: Método Probabilístico Revisitado}{usando segundo momento agora}
 
 
-
-
-
 \section{Lei forte dos grandes números}
 
 \begin{theorem}[Lei Forte dos Grandes Números]
@@ -723,99 +720,98 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
   \end{equation}
 \end{theorem}
 
-Começamos com uma prova do teorema no caso simples onde as variáveis estão em $\mathcal L^4$, que providencia um exemplo de uso do metodo dos momentos.
+Começamos com uma prova do teorema no caso simples, onde as variáveis estão em $\mathcal L^4$, que nos fornece mais um exemplo do uso do metodo de momentos.
 
 \begin{proof}[Demostração no caso $\mathcal L^4$]
-Podemos supor que $E(X_i)=0$ (se não for o caso, considera $Y_i=X_i-E(X_i)$).
-Podemos calcular o momento de ordem $4$ da soma expandido ela
+Podemos supor que $E(X_i) = 0$ (se esse não for o caso, consideramos $Y_i = X_i - E(X_i)$).
+Podemos calcular o momento de ordem $4$ da soma a expandido.
 Temos
-
 \begin{equation*}
-  E \left[ \left(\frac{1}{n} \sum_{i=1}^n X_n \right)^4 \right]= \frac{1}{n^4} \sum_{i_1,i_2,i_3,i_4=1}^n E[X_{i_1}X_{i_2}X_{i_3}X_{i_4}].
+  E \bigg[ \bigg(\frac{1}{n} \sum_{i=1}^n X_n \bigg)^4 \Bigg]
+  = \frac{1}{n^4} \sum_{i_1,i_2,i_3,i_4=1}^n
+  E[X_{i_1}X_{i_2}X_{i_3}X_{i_4}].
 \end{equation*}
-Pois usando independência, e $E(X_i)=0$ vemos que so os termos onde os $X_{k}$ apparecem pelo menos duas vezes não são nulos e
+Usando independência e o fato que $E(X_i) = 0$, vemos que só os termos onde os $X_{k}$ apparecem pelo menos duas vezes não são nulos e
 então que a soma acima vale
-$$\frac{1}{n^4}\left( n E(X^4_1)-3n(n-1) E(X^2_1) \right)\le \frac{C}{n^2}.$$
-Então temos
+$$\frac{1}{n^4}\left( n E(X^4_1) - 3n(n-1) E(X^2_1)^2 \right)\le \frac{C}{n^2}.$$
+\todo{checar a fórmula acima.}
+Dessa forma, temos que
 \begin{equation}
- \sum_{n=1}^{\infty} E \left[ \left(\frac{1}{n} \sum_{i=1}^n X_n \right)^4 \right]<\infty.
+  \sum_{n=1}^{\infty} E \bigg[
+  \Big(\frac{1}{n} \sum_{i=1}^n X_n \Big)^4
+  \bigg] < \infty.
 \end{equation}
-Usando Fubini e equivalente a
+Usando Fubini, isso equivale a
 \begin{equation}
- E \left[  \sum_{n=1}^{\infty} \left(\frac{1}{n} \sum_{i=1}^n X_n \right)^4 \right]<\infty.
+ E \bigg[  \sum_{n=1}^{\infty} \bigg(\frac{1}{n} \sum_{i=1}^n X_n \bigg)^4 \bigg]<\infty.
 \end{equation}
-E em particular que quase certamente
+E em particular que, quase certamente,
 \begin{equation}
- \sum_{n=1}^{\infty} \left(\frac{1}{n} \sum_{i=1}^n X_n \right)^4<\infty.
+  \sum_{n=1}^{\infty} \bigg(\frac{1}{n} \sum_{i=1}^n X_n \bigg)^4
+  < \infty.
 \end{equation}
-
+Finalmente, para que a soma acima seja finita, seus termos tem que convergir a zero quase certamente.
 \end{proof}
 
-
 \begin{remark}
- Se as variáveis são positivas quase-certamente, então, usando o resultado para $\min(X_n,M)$ e o limite $M\to \infty$
- podemos concluir que $n^{-1}\sum_{i=1}^n X_i$ vai para infinito quase certamente.
- \end{remark}
+  Se as variáveis são positivas quase-certamente, então, usando o resultado para $\min(X_n,M)$ e o limite $M\to \infty$ podemos concluir que $n^{-1}\sum_{i=1}^n X_i$ vai para infinito quase certamente.
+\end{remark}
 
- Se as variáveis não são integráveis, então podemos concluir que
- $n^{-1}\sum_{i=1}^n X_i$ não converge quase certamente.
- E uma consequência do resultado seguinte
+Se as variáveis não são integráveis, então podemos concluir que $n^{-1}\sum_{i=1}^n X_i$ não converge quase certamente.
+E uma consequência do resultado seguinte
 
- \begin{proposition}
+\begin{proposition}
+  Se $(X_n)_{n\ge 1}$ e uma sequência de variáveis IID com $X_1\notin \cL_1$ então quase-certamente
+  \begin{equation}
+    \limsup_{n\to \infty} \frac{|X_n|}{n}=\infty.
+  \end{equation}
+\end{proposition}
 
- Se $(X_n)_{n\ge 1}$ e uma sequência de variáveis IID com $X_1\notin \cL_1$ então quase-certamente
- \begin{equation}
-  \limsup_{n\to \infty} \frac{|X_n|}{n}=\infty.
- \end{equation}
+\begin{proof}
+  Temos para qualquer $M>0$
+  \begin{equation}
+    E[|X_1|]=\int_0^{\infty} P[X_1\ge x] \dd x \le  M
+    \bigg(1+ \sum_{n\ge 1} P[X_1\ge Mn]\bigg).
+  \end{equation}
+  Em particular, se $X_1 \notin \cL_1$, a soma à direita é infinita.
 
-
- \end{proposition}
-
- \begin{proof}
- Temos para qualquer $M>0$
- $$E[|X_1|]=\int_0^{\infty} P[X_1\ge x] \dd x \le  M\left(1+ \sum_{n\ge 1} P[X_1\ge Mn]\right).$$
-  Em particular se $X_1\notin \cL_1$ a soma a direita e infinita.
-
-  \medskip
-
-  Agora definimos o evento $A_n:= [X_n\ge nM]$.  Os $A_n$ são independente e
- $$\sum_{n\ge 1} P(A_n) = \sum_{n\ge 1} P[X_1\ge Mn]=\infty.$$
- Como temos
- $$ \left\{ \limsup_{n\to \infty} \frac{X_n}{n}\ge M \right\} \supset \left\{  \bigcap_{k\ge 1} \bigcup_{n\ge k} A_n \right\},$$
-podemos concluir usando o Lema de Borel-Cantelli.
-$$ P\left[ \limsup_{n\to \infty} \frac{X_n}{n}\ge M\right]\ge P \left[ \bigcap_{k\ge 1} \bigcup_{n\ge k} A_n  \right] =1.$$
-Como $M$ e arbitrário podemos concluir.
-
- \end{proof}
-
-
-
-
-
+  Agora definimos o evento $A_n:= [X_n\ge nM]$.
+  Os $A_n$ são independentes e
+  \begin{equation}
+    \sum_{n\ge 1} P(A_n) = \sum_{n\ge 1} P[X_1\ge Mn]=\infty.
+  \end{equation}
+  Como temos
+  \begin{equation}
+    \bigg\{ \limsup_{n\to \infty} \frac{X_n}{n}\ge M \bigg\} \supset \bigg\{  \bigcap_{k\ge 1} \bigcup_{n\ge k} A_n \bigg\},
+  \end{equation}
+  podemos concluir usando o Lema de Borel-Cantelli que
+  \begin{equation}
+    P\bigg[ \limsup_{n\to \infty} \frac{X_n}{n}\ge M\bigg]\ge P \bigg[ \bigcap_{k\ge 1} \bigcup_{n\ge k} A_n  \bigg] =1.
+  \end{equation}
+  Como $M$ é arbitrário, isso termina a prova da proposição.
+\end{proof}
 
 \subsection{Demostração da Lei Fortes dos Grandes Números}
 
-Vamos provar que para todo $a>E[X_1]$ temos quase certamente
+Vamos provar que para todo $a>E[X_1]$ temos que quase certamente
 \begin{equation}\label{lesup}
-M:=\sup_{n\ge 0} S_n-n a <\infty
+M := \sup_{n\ge 0} \big\{ S_n - an \big\} < \infty
 \end{equation}
-onde $S_n:=\sum_{i=1}^n X_i$, $S_0=0$.
-
-\medskip
-
-A desigualdade \eqref{lesup} implica que
+onde $S_0 = 0$ e $S_n := \sum_{i = 1}^n X_i$ para $n \geq 1$.
+Note que a desigualdade \eqref{lesup} implica que
 \begin{equation*}
- \limsup_{n\ge 0} \frac{S_n}{n}\le a,
+  \limsup_{n\ge 0} \frac{S_n}{n}\le a,
 \end{equation*}
-e como $a$ pode ser arbitrariamente perto de $E[X_1]$,  $\limsup_{n\ge 0} \frac{S_n}{n}\le E[X_1]$.
-A cota inferior pode ser obtido usando a desigualdade \eqref{lesup} para $-S_n$ (que também e uma soma de variáveis IID).
-
+e como $a$ pode ser tomado arbitrariamente perto de $E[X_1]$,  $\limsup_{n\ge 0} \frac{S_n}{n}\le E[X_1]$.
+A cota inferior pode ser obtida usando a desigualdade \eqref{lesup} para $-S_n$ (que também e uma soma de variáveis i.i.d).
 
 \medskip
 
 Agora consideramos $a$ fixo.
-Uma primeira coisa que podemos verificar e que coincide para qualquer $k\in \bbN$ temos
-$$\{M<\infty\}=\{ \sup_{n\ge k} S_n-n a<\infty \}= \{\sup_{n\ge k} S_n-S_k-na \}$$
+Uma primeira coisa que podemos verificar e que coincide para qualquer $k \in \bbN$ temos
+\begin{equation}
+  \{M<\infty\}=\{ \sup_{n\ge k} S_n-n a<\infty \}= \{\sup_{n\ge k} S_n-S_k-na \}
+\end{equation}
 Em particular $\{M<\infty\}\in \sigma(X_{k+1},X_{k+2},\dots )$ para $k$ arbitrário, e por entanto pertencia na $\sigma$ álgebra caudal.
 Em consequência da lei do $\{0,1\}$, temos $P[M<\infty]\in \{0,1\}$ e fica suficiente de provar $P[M<\infty]>0$ o de jeito equivalente
 $P[M=\infty]<1$. Vamos prosseguir por contradição.
@@ -823,21 +819,24 @@ $P[M=\infty]<1$. Vamos prosseguir por contradição.
 \medskip
 
 Definimos
-\begin{equation*}\begin{split}
-                  M_k&:= \max_{1\le n \le k} (S_n-na)\\
-                 M'_k&:= \max_{1\le n \le k} (S_{n+1}-S_n-na)
-                 \end{split}
+\begin{equation*}
+  \begin{split}
+    M_k &:= \max_{0 \le n \le k} (S_n - an)\\
+    M'_k &:= \max_{0 \le n \le k} (S_{n+1} - S_1 - an)
+  \end{split}
 \end{equation*}
-Essas duas sequências tem a mesma distribuição: Existe uma função $F$ tal que
-$M_k=F(X_1,\dots,X_k)$ e $M'_k=F(X_2,\dots,X_{k+1})$ e os vetores $(X_1,\dots,X_k)$ e $(X_2,\dots,X_{k+1})$ tem a mesma distribuição.
+Essas duas sequências tem a mesma distribuição: Existe uma função $F$ tal que $M_k = F(X_1, \dots, X_k)$ e $M'_k = F(X_2, \dots, X_{k+1})$ e os vetores $(X_1, \dots, X_k)$ e $(X_2, \dots, X_{k+1})$ tem a mesma distribuição.
 
 \medskip
 
-As sequências convergem de jeito crescente para $M$ e $M'$ respetivamente que são também identicamente distribuída
-(observe que $P(M\le x)=\lim_{k\to \infty} P(M_k\le x)$).
+As sequências convergem de jeito crescente para $M$ e $M'$ respetivamente que são também identicamente distribuidas (basta notar que $P(M \le x) = \lim_{k \to \infty} P(M_k \le x)$).
 Usando as definições temos
 \begin{equation*}
- M_{k+1}=\max(0,M'_k+X_1-a)=M'_k-\min(M'_k,a-X_1).
+  \begin{split}
+    M_{k+1}
+    & = \max \Big\{ 0, \max_{0 \leq n \leq k} (S_{n + 1} - a(n + 1)) \Big\}\\
+    & = \max(0, M'_k + X_1 - a) = M'_k - \min(M'_k, a - X_1).
+  \end{split}
 \end{equation*}
 Usando o fato que $M_k$ e $M'_k$ tem mesma distribuição obtemos
 
@@ -858,38 +857,6 @@ o que e impossível com a nossa escolha de $a$.
 \todosec{Tópico: Entropia de Shannon}{fazer...}
 
 \todosec{Tópico: Processos de renovação}{fazer...}
-
-
-\begin{exercise}[Depende de \nameref{s:percolacao}]
-  Considere o grafo $G = (\mathbb{Z}^2, E)$, onde $E = \big\{ \{x,y\}; |x - y|_1 = 1 \big\}$.
-  Dotamos agora o espaço $\{0,1\}^E$ com a $\sigma$-álgebra $\mathcal{A}$ gerada pelas projeções canônicas $Y_e(\omega) = \omega(e)$, onde $\omega \in \{0,1\}^E$ e $e \in E$.
-  Definimos o conjunto $A \subseteq \{0,1\}^E$ por
-  \begin{equation}
-    A = \Big[
-    \begin{array}{c}
-      \text{Existe uma sequência $(x_i)_{i\ge 0}$  de elementos distintos de $\mathbb{Z}^2$,}\\
-      \text{tais que $e_i = \{x_i, x_{i+1}\} \in E$ e $Y_{e_i} = 1$ para cada $i \geq 0$}
-    \end{array}
-    \Big].
-  \end{equation}
-  \begin{enumerate}[\quad a)]
-  \item Mostre que $A$ é mensurável com respeito a $\mathcal{A}$.
-  \item Mostre que $A$ é um evento caudal, ou seja
-    \begin{equation}
-      A \in \bigcap_{\{K \subseteq E,\, K \text{ finito}\}} \sigma\big( Y_e; e \not \in K \big).
-    \end{equation}
-  \item Conclua que $P(A) \in \{0,1\}$.
-  \end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-  Seja $\Omega = E^\mathbb{Z}$ um espaço produto infinito, dotado da $\sigma$-álgebra $\mathcal{A}$ gerada pelas projeções canônicas $(X_i)_{i \in \mathbb{Z}}$.
-  Consideramos agora em $(\Omega, \mathcal{A})$ a medida produto $\mathbb{P} = P^{\otimes \mathbb{Z}}$, onde $P$ é uma probabilidade fixada no espaço polonês $(E, \mathcal{B}(E))$.
-  \begin{enumerate}[\quad a)]
-  \item Mostre que para qualquer evento $A \in \mathcal{A}$ e qualquer $\varepsilon > 0$, existe um $k \in \mathbb{Z}_+$ e um evento $A_k \in \sigma(X_i, |i| \leq k)$ tais que $\mathbb{P}[(A \setminus A_k) \cup (A_k \setminus A)] < \varepsilon$.
-  \item Considere o shift $\theta:\Omega \to \Omega$ dado por $\theta(\omega)(i) = \omega(i-1)$ e mostre que se $A = \theta(A)$, então $P(A) \in \{0,1\}$.
-  \end{enumerate}
-\end{exercise}
 
 \subsection{Lei dos grandes números em $\cL^1$}
 
@@ -1326,19 +1293,19 @@ Abaixo, desenvolveremos um método mais eficiente para responder a essa pergunta
   \label{p:propried_phi}
   Se $E(\ex{\delta |X|}) < \infty$, então
   \begin{enumerate}[\quad a)]
-  \item $X \in \mathcal{L}^p$ para todo $1 \leq p < \infty$,
-  \item $\phi_X(s) < \infty$ para todo $s \in (-\delta, \delta)$,
-  \item $\phi_X(s)$ é $C^\infty$ em $(-\delta, \delta)$ e
-  \item $\phi_X^{(n)}(s) = E(X^n \ex{sX})$.
-  \item $s\mapsto \log \phi_{X_1}(s)$ e convexa no interval onde esta definida.
+  \item \label{e:propried_phi_Lp} $X \in \mathcal{L}^p$ para todo $1 \leq p < \infty$,
+  \item \label{e:propried_phi_finita} $\phi_X(s) < \infty$ para todo $s \in (-\delta, \delta)$,
+  \item \label{e:propried_phi_suave} $\phi_X(s)$ é $C^\infty$ em $(-\delta, \delta)$ e
+  \item \label{e:propried_phi_momentos} $\phi_X^{(n)}(s) = E(X^n \ex{sX})$.
+  \item \label{e:propried_phi_convexa} $s \mapsto \log \phi_{X_1}(s)$ é convexa no intervalo onde está definida.
   \end{enumerate}
 \end{proposition}
 
-A última conclusão da proposição acima justifica a nomenclatura função geradora de momentos pois $\phi_X^{(n)}(0) = E(X^n)$.
+A penúltima conclusão da proposição acima justifica a nomenclatura função geradora de momentos pois $\phi_X^{(n)}(0) = E(X^n)$.
 
 \begin{proof}
-  Obviamente, para todo $p \geq 1$ existe $c > 0$ tal que $\ex{\delta |x|} \geq c |x|^p$, donde $X \in \mathcal{L}^p$.
-  Além disso, para todo $s \in (-\delta, \delta)$, temos $\phi_X(s) = E(\ex{s X}) \leq E(\ex{\delta |X|}) < \infty$, donde \textit{2.} segue imediatamente.
+  Obviamente, para todo $p \geq 1$ existe $c > 0$ tal que $\ex{\delta |x|} \geq c |x|^p$, donde $X \in \mathcal{L}^p$, concluindo \ref{e:propried_phi_Lp}).
+  Além disso, para todo $s \in (-\delta, \delta)$, temos $\phi_X(s) = E(\ex{s X}) \leq E(\ex{\delta |X|}) < \infty$, donde \ref{e:propried_phi_finita}) segue imediatamente.
 
   Fixando $s \in \mathbb{R}$, vamos agora calcular
   \begin{equation}

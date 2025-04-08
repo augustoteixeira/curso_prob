@@ -1330,8 +1330,17 @@ Uma outra maneira de enunciar a conclusão do teorema acima é dizer que a $\sig
   Mostre que nesse caso, a $\sigma$-álgebra dos eventos caudais é trivial.
 \end{exercise}
 
+\begin{exercise}
+  Seja $\Omega = E^\mathbb{Z}$ um espaço produto infinito, dotado da $\sigma$-álgebra $\mathcal{A}$ gerada pelas projeções canônicas $(X_i)_{i \in \mathbb{Z}}$.
+  Consideramos agora em $(\Omega, \mathcal{A})$ a medida produto $\mathbb{P} = P^{\otimes \mathbb{Z}}$, onde $P$ é uma probabilidade fixada no espaço polonês $(E, \mathcal{B}(E))$.
+  \begin{enumerate}[\quad a)]
+  \item Mostre que para qualquer evento $A \in \mathcal{A}$ e qualquer $\varepsilon > 0$, existe um $k \in \mathbb{Z}_+$ e um evento $A_k \in \sigma(X_i, |i| \leq k)$ tais que $\mathbb{P}[(A \setminus A_k) \cup (A_k \setminus A)] < \varepsilon$.
+  \item Considere o shift $\theta:\Omega \to \Omega$ dado por $\theta(\omega)(i) = \omega(i-1)$ e mostre que se $A = \theta(A)$, então $P(A) \in \{0,1\}$.
+  \end{enumerate}
+\end{exercise}
+\todo{trocar polones por $\mathbb{R}$}
 
- \begin{topics}
+\begin{topics}
 \section{Tópico: Percolação}
 \label{s:percolacao}
 
@@ -1488,6 +1497,28 @@ Na verdade, é possível mostrar que para $d = 2$,
 \end{equation}
 como foi mostrado por Harris e Kesten, veja por exemplo \cite{Gri99} e \cite{bollobas2006percolation}.
 De fato, algo bastante interessante está acontecendo nesse modelo para $p = 1/2$, como nos mostrou o trabalho de grandes matemáticos, como: Oded Schramm, Wendelin Werner, Stanislav Smirnov, entre outros.
+
+\begin{exercise}
+  Considere o grafo $G = (\mathbb{Z}^2, E)$, onde $E = \big\{ \{x,y\}; |x - y|_1 = 1 \big\}$.
+  Dotamos agora o espaço $\{0,1\}^E$ com a $\sigma$-álgebra $\mathcal{A}$ gerada pelas projeções canônicas $Y_e(\omega) = \omega(e)$, onde $\omega \in \{0,1\}^E$ e $e \in E$.
+  Definimos o conjunto $A \subseteq \{0,1\}^E$ por
+  \begin{equation}
+    A = \Big[
+    \begin{array}{c}
+      \text{Existe uma sequência $(x_i)_{i\ge 0}$  de elementos distintos de $\mathbb{Z}^2$,}\\
+      \text{tais que $e_i = \{x_i, x_{i+1}\} \in E$ e $Y_{e_i} = 1$ para cada $i \geq 0$}
+    \end{array}
+    \Big].
+  \end{equation}
+  \begin{enumerate}[\quad a)]
+  \item Mostre que $A$ é mensurável com respeito a $\mathcal{A}$.
+  \item Mostre que $A$ é um evento caudal, ou seja
+    \begin{equation}
+      A \in \bigcap_{\{K \subseteq E,\, K \text{ finito}\}} \sigma\big( Y_e; e \not \in K \big).
+    \end{equation}
+  \item Conclua que $P(A) \in \{0,1\}$.
+  \end{enumerate}
+\end{exercise}
 
 \todosec{Tópico: Teorema de Uma Série}{fazer...}
 
