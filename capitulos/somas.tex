@@ -1291,13 +1291,13 @@ Abaixo, desenvolveremos um método mais eficiente para responder a essa pergunta
 
 \begin{proposition}
   \label{p:propried_phi}
-  Se $E(\ex{\delta |X|}) < \infty$, então
+  Se para algum $\delta > 0$ temos $E(\ex{\delta |X|}) < \infty$, então
   \begin{enumerate}[\quad a)]
   \item \label{e:propried_phi_Lp} $X \in \mathcal{L}^p$ para todo $1 \leq p < \infty$,
   \item \label{e:propried_phi_finita} $\phi_X(s) < \infty$ para todo $s \in (-\delta, \delta)$,
   \item \label{e:propried_phi_suave} $\phi_X(s)$ é $C^\infty$ em $(-\delta, \delta)$ e
   \item \label{e:propried_phi_momentos} $\phi_X^{(n)}(s) = E(X^n \ex{sX})$.
-  \item \label{e:propried_phi_convexa} $s \mapsto \log \phi_{X_1}(s)$ é convexa no intervalo onde está definida.
+  \item \label{e:propried_phi_convexa} $s \mapsto \log \phi_{X}(s)$ é convexa no intervalo onde está definida.
   \end{enumerate}
 \end{proposition}
 
@@ -1325,9 +1325,9 @@ A penúltima conclusão da proposição acima justifica a nomenclatura função 
   O ultimo ponto e simplesmente uma consequencia da desigualdade de H\"older. Para $\gl\in (0,1)$ temos
   \begin{multline}
    \phi_X( \gl a +(1-\gl)b)= E[e^{\gl a X} e^{(1-\gl)b X}] \\
-   \le E[e^{a X}]^\gl E[ e^{b X}]^{(1-\gl)}=  (\phi_X(a))^{\gl}  (\phi_X(b))^{1-\gl}.
+   \le E[e^{a X}]^\gl E[ e^{b X}]^{(1-\gl)}=  (\phi_X(a))^{\gl}  (\phi_X(b))^{1-\gl}
   \end{multline}
-
+  e o resultado segue tomando o logarítmo de cada um dos lados.
 \end{proof}
 
 Lembramos que ao usar o método do segundo momento, nos foi bastante útil o fato que a variância se comporta bem com relação a somas independentes.
@@ -1342,11 +1342,11 @@ Uma outra propriedade importante da função geradora de momentos é que ela tam
 \end{proposition}
 
 \begin{proof}
-  Basta observar que
+  Basta observar que, como $E[e^{s X_i}] < \infty$ para todo $i \leq k$,
   \begin{equation}
     \begin{split}
-      E[\exp & \{s(X_1 + \dots + X_k)\}) = E[(\ex{sX_1} \dotsm \ex{sX_k})]\\
-      & = E\big[\ex{sX_1}) \dotsm E(\ex{sX_k}\big] = \phi_{X_1}(s) \dotsm \phi_{X_k}(s),
+      E (\exp & \{s(X_1 + \dots + X_k)\}) = E(\ex{sX_1} \dotsm \ex{sX_k})\\
+      & = E \big( \ex{sX_1} \big) \dotsm E \big( \ex{sX_k} \big) = \phi_{X_1}(s) \dotsm \phi_{X_k}(s),
     \end{split}
   \end{equation}
   usando Fubini.
