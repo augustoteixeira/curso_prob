@@ -722,7 +722,7 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
 
 Começamos com uma prova do teorema no caso simples, onde as variáveis estão em $\mathcal L^4$, que nos fornece mais um exemplo do uso do metodo de momentos.
 
-\begin{proof}[Demostração no caso $\mathcal L^4$]
+\begin{proof}[Demonstração no caso $\mathcal L^4$]
 Podemos supor que $E(X_i) = 0$ (se esse não for o caso, consideramos $Y_i = X_i - E(X_i)$).
 Podemos calcular o momento de ordem $4$ da soma a expandido.
 Temos
@@ -791,7 +791,9 @@ E uma consequência do resultado seguinte
   Como $M$ é arbitrário, isso termina a prova da proposição.
 \end{proof}
 
-\subsection{Demostração da Lei Fortes dos Grandes Números}
+\subsection{Demonstração da Lei Fortes dos Grandes Números}
+
+\todo{Melhorar a intuição da prova: 1) passo de redução para $E(X) < 0$, $a = 0$, $M < \infty$ q.c. 2) Falar sobre o desejo de escrever $M_{k + 1}$ em termos de $M_k'$, para enfatizar a ergodicidade. 3) mencionar que $E(\min(M'_k, -X_1)) \leq 0$ indica que $M'_k$ deve atuar para baixar a esperança de $-X_1$ a valores negativos 4) lei $\{0, 1\}$ impede que $M'$ atue nesse sentido.}
 
 Vamos provar que para todo $a>E[X_1]$ temos que quase certamente
 \begin{equation}\label{lesup}
