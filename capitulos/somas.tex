@@ -1422,17 +1422,23 @@ Futuramente no curso estudaremos as probabilidades de que esse desvio seja de or
   \end{equation}
 \end{theorem}
 
-Podemos reparar que
+\begin{remark}
+  Observamos que
   \begin{equation}
-    \psi_{X_1}(x) = \begin{cases}
-                     \sup_{s \ge 0} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\}, \text{ se } x\le m \\
-                      \sup_{s \ge 0} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\}, \text{ se } x\ge m.
-                    \end{cases}
-   \end{equation}
-Isso e uma consequencia simples to fato que a função $s\mapsto xs - \log \big( \phi_{X_1}(s) \big)$ e concava e que a derivada em $0$ vale
-$$x- \partial_s \big(\log  E[e^s X] \big)=x-m.$$ Então dependendo do sinal de $(x-m)$ o supremo e atingido a direito o a esqueirda de zero.
-
-
+    \psi_{X_1}(x) =
+    \begin{cases}
+      \sup_{s \geq 0} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\},
+      \text{ se } x\le m \\
+      \sup_{s \leq 0} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\},
+      \text{ se } x\ge m.
+    \end{cases}
+  \end{equation}
+  Isso e uma consequencia simples to fato que a função $s\mapsto xs - \log \big( \phi_{X_1}(s) \big)$ e concava e que a derivada em zero vale
+  \begin{equation}
+    x- \partial_s \big(\log  E[e^s X] \big) = x - m.
+  \end{equation}
+  Então, dependendo do sinal de $(x-m)$, o supremo é atingido à direita ou à esqueirda de zero.
+\end{remark}
 
 %Antes de provar o teorema, vamos fazer uma breve observação sobre como a função geradora de momentos se comporta com respeito a soma de constantes.
 %Isso nos permitirá centrar as variáveis para nossas estimativas.
@@ -1493,8 +1499,8 @@ Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid com distribuição $\Ber(1/2
 \begin{equation}
   \phi_{X_1}(s) = \frac{1}{2} (1 + e^s) \quad \text{e} \quad \psi_{X_1}(x) = \sup_{s \geq 0} \{xs - \log(1 + e^s) + \log(2) \}.
 \end{equation}
-Um cálculo simples nos mostra que, se $x < 1$, o mínimo acima é atingido no único ponto $s_{\text{max}} = \log(\tfrac{x}{1-x})$.
-Portanto, podemos concluir do Teorema~\ref{t:PGDleq} que
+Um cálculo simples nos mostra que, se $x < 1$, o máximo acima é atingido no único ponto $s_{\text{max}} = \log(\tfrac{x}{1-x})$.
+Portanto, podemos concluir do Teorema~\ref{t:PGDleq} que, se $b = 1/2 + a$,
 \begin{equation}
   \begin{split}
     P[X_1 + \dots & + X_n > 1/2 + a] \leq \ex{- \psi_{X_1}(s_{\text{max}})n}\\
@@ -1539,17 +1545,19 @@ Certamente, esse nem sempre é o caso, por exemplo se $X = m$ quase certamente, 
 \end{lemma}
 
 \begin{proof}
-Para mostrar que o minimo e atingido e em ponto e suficiente mostrar que
-$$ \lim_{s\to \infty} (m + a)s - \log\big(\phi_X(s)\big)=\infty,$$
-pois a função e continua.
+Para mostrar que o máximo é atingido em um ponto, é suficiente mostrar que
+\begin{equation}
+  \lim_{s\to \infty} (m + a)s - \log\big(\phi_X(s)\big) = -\infty,
+\end{equation}
+pois a função é continua.
 Por hipótese, existe $x > m + a$ tal que $p = P[X \geq x] > 0$, donde $\phi_X(s) \geq p e^{sx}$ e portanto podemos concluir por que
-$$(m + a)s - \log\big(\phi_X(s)\big)\ge (x-m+a)s -\log p.$$
-
+$$(m + a)s - \log\big(\phi_X(s)\big) \leq -(x - m + a)s - \log p.$$
+Isso termina a prova.
 \end{proof}
 
 \begin{lemma}
   Seja $X$ uma variável aleatória tal que $\phi_X(s) < \infty$ para todo $s \in (-\delta, \delta)$.
-  Então o conjunto onde a função $\psi_X(s)$ é finita é um intervalo, na qual $\psi_X$ é convexa e portanto contínua.
+  Então o conjunto onde a função $\psi_X(x)$ é finita é um intervalo, na qual $\psi_X$ é convexa e portanto contínua.
 \end{lemma}
 
 \begin{proof}
@@ -1636,7 +1644,7 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
   pelo Teorema da Convergência Dominada, demonstrando o teorema nesse caso especial.
 
   Suponhamos agora que $P[X_1 > m + a] > 0$, o que implica que para $b > m + a$ suficientemente próximo de $m + a$, temos $P[X_1 > b] > 0$.
-  Observe que basta mostrar que para todo $b > a$ satisfazendo $P[X_1 > b] > 0$ e para todo $\delta > 0$, temos
+  Observe que basta mostrar que para todo $b > m + a$ satisfazendo $P[X_1 > b] > 0$ e para todo $\delta > 0$, temos
   \begin{equation}
     \label{e:PGD_perto_b}
     \liminf_n \frac{1}{n} \log \Big(P\Big[\frac{X_1 + \dots + X_n}{n} \in (b - \delta, b + \delta) \Big]\Big) \geq -\psi_{X_1}(b),
