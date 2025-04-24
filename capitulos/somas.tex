@@ -895,9 +895,9 @@ Em particular  o termo a direita em \eqref{eq:hop} vai para zero quando $M\to \i
 
 \newpage
 \begin{topics}
-\section[Tópico:Séries de Kolmogorov]{Tópico: Convergência de series aleatórias,\\
+  \section[Tópico: Séries de Kolmogorov]
+  {Tópico: Convergência de séries aleatórias,\\
 Teoremas de Uma, Duas e Três séries de Kolmogorov}
-
 
 \subsection{Um criterio geral básico}
 
@@ -916,18 +916,22 @@ Em particular a suma converge quase certamente.
 
 O objetivo desse tópico e de presentar uns critérios mais eficaz no caso de soma de variáveis independente.
 
+\begin{exercise}
+  Mostre que se $X_i$ são i.i.d., então $S_n$ converge se e somente se $X_1 = 0$ quase certamente.
+\end{exercise}
+
 \medskip
 
 \subsection{Caso de variáveis independentes: Os resultados}
 
-Vamos começar com um exemplo para ilustrar o caso:\
-Consideramos $(\gep_n)_{n\ge 1}$ uma sequencia de sinais aleatórios: são variáveis independente cuja distribuição e dada por
-$$P[\gep_n=\pm 1]=1/2.$$
-Queremos saber para quais valor de $p$ a soma $\sum_{n=1}^{\infty} \gep_n n^{-p}$ converge.
+Vamos começar com um exemplo para ilustrar nossas perguntas:\
+Consideramos $(Y_n)_{n\ge 1}$ uma sequencia de sinais aleatórios: são variáveis independente cuja distribuição e dada por
+$$P[Y_n=\pm 1]=1/2.$$
+Queremos saber para quais valor de $p$ a soma $\sum_{n=1}^{\infty} Y_n n^{-p}$ converge.
 
 \medskip
 
-E bastante fácil reparar (podemos por exemple usar o critério precedente) que temos convergência para $p>1$.
+E bastante fácil reparar que temos convergência para $p > 1$, mesmo convergência absoluta.
 
 \medskip
 
@@ -937,35 +941,43 @@ $\sum_{n=1}^{\infty}(-1)^n n^{-p}$ converge (a seria satisfaz o teste da série 
 
 \medskip
 
-Uma consequência dos resultados presentado abaixo e que no caso de sinais aleatórios, a convergência ocorre se $p>1/2$
-(veremos mais tarde que esse resultado e o melhor possível).
-
-
-
+Uma consequência do resultado abaixo que no caso de sinais aleatórios, a convergência ocorre se $p > 1/2$ (veremos mais tarde que esse resultado é o melhor possível).
 
 \begin{theorem}[Uma serie]
- Sejà $(X_i)_{i\in \bbN}$ uma sequencia de variáveis independente tal que $E[X_i]=0$ para todo $i$,
- e que satisfaz também
- $$ \sum_{i=1}^\infty \Var X_i<\infty.$$
-Temos então
-\begin{equation}
-P\left[\sum_{i=1}^{\infty} X_i \text{ converge } \right]=1.
+  Sejà $(X_i)_{i\in \bbN}$ uma sequencia de variáveis independente tal que $E[X_i]=0$ para todo $i$, e que satisfaz também
+  \begin{equation}
+    \sum_{i=1}^\infty \Var X_i<\infty.
+  \end{equation}
+  Temos então
+  \begin{equation}
+    P \Big[ \sum_{i=1}^{\infty} X_i \text{ converge } \Big] = 1.
 \end{equation}
 \end{theorem}
 
-\medskip
+O teorema acima é uma consequência óbvia do teorema de duas séries abaixo.
 
 \begin{theorem}[Duas Series]
- Sejà $(X_i)_{i\in \bbN}$ uma sequencia de variáveis independente
-satisfaz
- $$ \sum_{i=1}^\infty \Var X_i<\infty.$$
-Temos então
-\begin{equation}
-P[\sum_{i=1}^{\infty} X_i \text{ converge } ]=\begin{cases} 1 \quad \text{ se } \sum_{i=1}^\infty E[X_i] \text{ converge },\\
-                                                0   \quad \text{ se } \sum_{i=1}^\infty E[X_i] \text{ não converge }.
-                                              \end{cases}
-\end{equation}
+  Sejà $(X_i)_{i\in \bbN}$ uma sequencia de variáveis independente satisfaz
+  \begin{equation}
+    \sum_{i=1}^\infty \Var X_i<\infty.
+  \end{equation}
+  Temos então
+  \begin{equation}
+    P[\sum_{i=1}^{\infty} X_i \text{ converge } ] =
+    \begin{cases}
+      1 \quad \text{ se } \sum_{i=1}^\infty E[X_i] \text{ converge },\\
+      0 \quad \text{ se } \sum_{i=1}^\infty E[X_i] \text{ não converge }.
+    \end{cases}
+  \end{equation}
 \end{theorem}
+
+\begin{proof}[Prova to Teorema de Duas Series]
+  Definimos $Z_i = X_i - E[X_i]$ e usando o Teorema de Uma Serie, concluimos que $\sum_{i=1}^{\infty} Z_i$ converge com probabilidade $1$.
+
+  \medskip
+
+  Pois usando propriedades basicas de limites, vemos que $$\sum_{i=1}^n X_i=\sum_{i=1}^n Z_i+ \sum_{i=1}^n E[X_i]$$ converge se e sò se a segunda sequência converge.
+\end{proof}
 
 As vezes a variância pode não ser um bom criterio para avaliar convergência: $\Var(X_i)$ pode ser grande por causa de um evento que
 acontece com pouca probabilidade. O teorema seguinte permite de tratar uns desses casos:
@@ -989,27 +1001,15 @@ Então
 $$ P[\sum_{i=1}^{\infty} X_i \text{ converge } ]= 1 $$
 \end{theorem}
 
-
-
 \begin{exercise}
-Mostrar que para uma sequencia de variáveis independente $X=(X_i)_{i\in \bbN}$, com as notaçoes do teorema acíma,
-$$ \exists c>0,\ \quad X \text{verifica $(i)-(ii)-(iii)$}  \quad \Leftrightarrow \quad \forall c>0,\ \quad X \text{verifica $(i)-(ii)-(iii)$}.$$
-
+  Mostrar que para uma sequencia de variáveis independente $X=(X_i)_{i\in \bbN}$, com as notaçoes do teorema acíma,
+  \begin{equation}
+    \exists c>0,\ \quad X \text{verifica $(i)-(ii)-(iii)$}
+    \quad \Leftrightarrow \quad \forall c>0,\ \quad X \text{verifica $(i)-(ii)-(iii)$}.
+  \end{equation}
 \end{exercise}
 
-
-Os segundo a terceiro resultado são consequencia relativamente simples do primeiro.
-Vamos dar uma prova deles logo
-\begin{proof}[Prova to Teorema de Duas Series]
- Definimos $Z_i=X_i-E[X_i]$ e usando o Teorema de Uma Serie, concluimos que $\sum_{i=1}^{\infty} Z_i$ converge com probabilidade $1$.
-
- \medskip
-
- Pois usando propriedades basicas de limites, vemos que $$\sum_{i=1}^n X_i=\sum_{i=1}^n Z_i+ \sum_{i=1}^n E[X_i]$$ converge se e sò se
- a segunda sequência converge.
- \end{proof}
-
- \begin{proof}[Prova to Teorema de Tres Series]
+\begin{proof}[Prova to Teorema de Tres Series]
 Essa vez definimos $Y_i:= X_i \1_{\{|X_i| > c\}}$
 Temos
 \begin{equation}
