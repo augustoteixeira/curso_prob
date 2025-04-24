@@ -897,9 +897,9 @@ Em particular  o termo a direita em \eqref{eq:hop} vai para zero quando $M\to \i
 
 \newpage
 \begin{topics}
-\section[Tópico:Séries de Kolmogorov]{Tópico: Convergência de series aleatórias,\\
+  \section[Tópico: Séries de Kolmogorov]
+  {Tópico: Convergência de séries aleatórias,\\
 Teoremas de Uma, Duas e Três séries de Kolmogorov}
-
 
 \subsection{Um criterio geral básico}
 
@@ -918,18 +918,22 @@ Em particular a suma converge quase certamente.
 
 O objetivo desse tópico e de presentar uns critérios mais eficaz no caso de soma de variáveis independente.
 
+\begin{exercise}
+  Mostre que se $X_i$ são i.i.d., então $S_n$ converge se e somente se $X_1 = 0$ quase certamente.
+\end{exercise}
+
 \medskip
 
 \subsection{Caso de variáveis independentes: Os resultados}
 
-Vamos começar com um exemplo para ilustrar o caso:\
-Consideramos $(\gep_n)_{n\ge 1}$ uma sequencia de sinais aleatórios: são variáveis independente cuja distribuição e dada por
-$$P[\gep_n=\pm 1]=1/2.$$
-Queremos saber para quais valor de $p$ a soma $\sum_{n=1}^{\infty} \gep_n n^{-p}$ converge.
+Vamos começar com um exemplo para ilustrar nossas perguntas:\
+Consideramos $(Y_n)_{n\ge 1}$ uma sequencia de sinais aleatórios: são variáveis independente cuja distribuição e dada por
+$$P[Y_n=\pm 1]=1/2.$$
+Queremos saber para quais valor de $p$ a soma $\sum_{n=1}^{\infty} Y_n n^{-p}$ converge.
 
 \medskip
 
-E bastante fácil reparar (podemos por exemple usar o critério precedente) que temos convergência para $p>1$.
+E bastante fácil reparar que temos convergência para $p > 1$, mesmo convergência absoluta.
 
 \medskip
 
@@ -939,35 +943,42 @@ $\sum_{n=1}^{\infty}(-1)^n n^{-p}$ converge (a seria satisfaz o teste da série 
 
 \medskip
 
-Uma consequência dos resultados presentado abaixo e que no caso de sinais aleatórios, a convergência ocorre se $p>1/2$
-(veremos mais tarde que esse resultado e o melhor possível).
+Uma consequência do resultado abaixo que no caso de sinais aleatórios, a convergência ocorre se $p > 1/2$ (veremos mais tarde que esse resultado é o melhor possível).
 
-
-
-
-\begin{theorem}[Uma serie]
- Sejà $(X_i)_{i\in \bbN}$ uma sequencia de variáveis independente tal que $E[X_i]=0$ para todo $i$,
- e que satisfaz também
- $$ \sum_{i=1}^\infty \Var X_i<\infty.$$
-Temos então
-\begin{equation}
-P\left[\sum_{i=1}^{\infty} X_i \text{ converge } \right]=1.
+\begin{theorem}[Uma Série]
+  Sejà $(X_i)_{i\in \bbN}$ uma sequencia de variáveis independente tal que $E[X_i]=0$ para todo $i$, e que satisfaz também
+  \begin{equation}
+    \sum_{i=1}^\infty \Var X_i<\infty.
+  \end{equation}
+  Temos então
+  \begin{equation}
+    P \Big[ \sum_{i=1}^{\infty} X_i \text{ converge } \Big] = 1.
 \end{equation}
 \end{theorem}
-
-\medskip
 
 \begin{theorem}[Duas Series]
- Sejà $(X_i)_{i\in \bbN}$ uma sequencia de variáveis independente
-satisfaz
- $$ \sum_{i=1}^\infty \Var X_i<\infty.$$
-Temos então
-\begin{equation}
-P[\sum_{i=1}^{\infty} X_i \text{ converge } ]=\begin{cases} 1 \quad \text{ se } \sum_{i=1}^\infty E[X_i] \text{ converge },\\
-                                                0   \quad \text{ se } \sum_{i=1}^\infty E[X_i] \text{ não converge }.
-                                              \end{cases}
-\end{equation}
+  Sejà $(X_i)_{i\in \bbN}$ uma sequencia de variáveis independente satisfaz
+  \begin{equation}
+    \sum_{i=1}^\infty \Var X_i<\infty.
+  \end{equation}
+  Temos então
+  \begin{equation}
+    P[\sum_{i=1}^{\infty} X_i \text{ converge } ] =
+    \begin{cases}
+      1 \quad \text{ se } \sum_{i=1}^\infty E[X_i] \text{ converge },\\
+      0 \quad \text{ se } \sum_{i=1}^\infty E[X_i] \text{ não converge }.
+    \end{cases}
+  \end{equation}
 \end{theorem}
+
+\begin{proof}[Prova to Teorema de Duas Series]
+  Vamos por enquanto assumir a validade do Teorema de Uma Série.
+  Definimos $Z_i = X_i - E[X_i]$ e usando o Teorema de Uma Serie, concluimos que $\sum_{i=1}^{\infty} Z_i$ converge com probabilidade $1$.
+
+  \medskip
+
+  Pois usando propriedades basicas de limites, vemos que $$\sum_{i=1}^n X_i=\sum_{i=1}^n Z_i+ \sum_{i=1}^n E[X_i]$$ converge se e sò se a segunda sequência converge.
+\end{proof}
 
 As vezes a variância pode não ser um bom criterio para avaliar convergência: $\Var(X_i)$ pode ser grande por causa de um evento que
 acontece com pouca probabilidade. O teorema seguinte permite de tratar uns desses casos:
@@ -991,39 +1002,31 @@ Então
 $$ P[\sum_{i=1}^{\infty} X_i \text{ converge } ]= 1 $$
 \end{theorem}
 
-
-
 \begin{exercise}
-Mostrar que para uma sequencia de variáveis independente $X=(X_i)_{i\in \bbN}$, com as notaçoes do teorema acíma,
-$$ \exists c>0,\ \quad X \text{verifica $(i)-(ii)-(iii)$}  \quad \Leftrightarrow \quad \forall c>0,\ \quad X \text{verifica $(i)-(ii)-(iii)$}.$$
-
+  Mostrar que para uma sequencia de variáveis independente $X=(X_i)_{i\in \bbN}$, com as notaçoes do teorema acíma,
+  \begin{equation*}
+    \exists c>0,\ X \text{ verifica $(i)-(ii)-(iii)$}
+    \quad \Leftrightarrow \quad
+    \forall c>0,\ X \text{ verifica $(i)-(ii)-(iii)$}.
+  \end{equation*}
 \end{exercise}
 
-
-Os segundo a terceiro resultado são consequencia relativamente simples do primeiro.
-Vamos dar uma prova deles logo
-\begin{proof}[Prova to Teorema de Duas Series]
- Definimos $Z_i=X_i-E[X_i]$ e usando o Teorema de Uma Serie, concluimos que $\sum_{i=1}^{\infty} Z_i$ converge com probabilidade $1$.
-
- \medskip
-
- Pois usando propriedades basicas de limites, vemos que $$\sum_{i=1}^n X_i=\sum_{i=1}^n Z_i+ \sum_{i=1}^n E[X_i]$$ converge se e sò se
- a segunda sequência converge.
- \end{proof}
-
- \begin{proof}[Prova to Teorema de Tres Series]
-Essa vez definimos $Y_i:= X_i \1_{\{|X_i| > c\}}$
-Temos
-\begin{equation}
- \sum_{i=1}^n X_i =  \sum_{i=1}^n X_i^c + \sum_{i=1}^n Y_i
-\end{equation}
-Usando o Teorema de Duas Series para $X_i^c$, jà podemos dizer que o primeiro termo converge com probabilidade $1$.
-Pelo segundo termo, temos
-\begin{equation}
- \sum_{i=1}^{\infty} P[Y_i\ne 0]=   \sum_{i=1}^{\infty} P[ X_i>c ]< \infty,
-\end{equation}
-e então pelo Lemma de Borel Cantelli, $$P[ Y_i \ne 0 \text{ infinitas vezes}]=0.$$
- o que permite de concluir.
+\begin{proof}[Prova to Teorema de Tres Series]
+  Essa vez definimos $Y_i:= X_i \1_{\{|X_i| > c\}}$
+  Temos
+  \begin{equation}
+    \sum_{i=1}^n X_i =  \sum_{i=1}^n X_i^c + \sum_{i=1}^n Y_i
+  \end{equation}
+  Usando o Teorema de Duas Series para $X_i^c$, jà podemos dizer que o primeiro termo converge com probabilidade $1$.
+  Quanto ao segundo termo, temos
+  \begin{equation}
+    \sum_{i = 1}^{\infty} P[Y_i\ne 0]=   \sum_{i=1}^{\infty} P[ X_i>c ]< \infty,
+  \end{equation}
+  e então pelo Lemma de Borel Cantelli,
+  \begin{equation}
+    P[ Y_i \ne 0 \text{ infinitas vezes}]=0.
+  \end{equation}
+  o que permite de concluir.
 \end{proof}
 
 
@@ -1064,43 +1067,49 @@ Então temos
 
 
 \begin{proof}
- Susbstituindo $X_i$ por $X_i-E[X_i]$ se for necessário, podemos supor que a esperança das variáveis vale zero.
- Vamos decompor o evento
- $$\left\{ \max_{1\le k\le n} |S_k|>\gep \right\}$$ com respeito ao primeiro valor de $k$ por qual $|S_k|>\gep$.
+  Susbstituindo $X_i$ por $X_i-E[X_i]$ se for necessário, podemos supor que a esperança das variáveis vale zero.
+  Vamos decompor o evento
+  \begin{equation}
+    \bigg[ \max_{1\le k\le n} |S_k|>\gep \bigg]
+  \end{equation}
+  com respeito ao primeiro valor de $k$ por qual $|S_k|>\gep$.
  \begin{equation}
-  \begin{split}
-E_1&:=\{|S_1|\ge \gep  \},\\
-E_k&:=\{|S_1|<\gep;\, \dots ;\,  |S_{k-1}|<\gep\, ;  \, |S_k|\ge \gep  \}, \quad 2\le k\le n.
+   \begin{split}
+     E_1 & := [|S_1|\ge \gep ],\\
+     E_k & := \big[|S_1|<\gep;\, \dots ;\,  |S_{k-1}|<\gep\, ;  \, |S_k|\ge \gep \big],
+           \quad 2\le k\le n.
    \end{split}
-\end{equation}
-Obviamente temos $$\left\{\max_{1\le k\le n} |S_k|>\gep\right\}=\bigcup_{i=1}^n E_i.$$
-A união sendo disjunta temos
-\begin{equation}
-P\left(\max_{1\le k\le n} |S_k|>\gep \right) \le  \sum_{i=1}^n P(E_i)\le  \sum_{i=1}^n E\left[  \frac{S^2_i}{\gep^2}\1_{E_i}\right].
-\end{equation}
-Vamos poder concluir a prova se mostramos para todo $k$
-\begin{equation}\label{therest}
- E[S^2_k\1_{E_k}]\le E[S^2_n\1_{E_k}].
-\end{equation}
-Isso implica que
-\begin{equation}
-  \sum_{i=1}^n E\left[  \frac{S^2_i}{\gep^2}\1_{E_i}\right]\le E\left [  \frac{S^2_n}{\gep^2}  \sum_{i=1}^n \1_{E_i}\right]= \frac{\Var(S_n)}{\gep^2}.
-\end{equation}
-Para mostrar \eqref{therest}, definimos $\Delta_{k,n}= S_n-S_k$.
-Temos
-\begin{equation}
-  E[S^2_n\1_{E_k}]= E[(S_k+\Delta_{k,n})^2\1_{E_k}]= E[S_k^2\1_{E_k}]+2 E[ \Delta_{k,n} S_k \1_{E_k}]+  E[ \Delta^2_{k,n}\1_{E_k}].
-\end{equation}
-O terceiro termo e obviamente positivo, então podemos concluir se mostramos  que $E[ \Delta_{k,n} S_k \1_{E_k}]=0$.
-Lembramos que $S_k\1_{E_k}$ e uma funções das $k$ primeiras variáveis e $\Delta_{k,n}$ so depende das outras $n-k$
-\begin{equation}
- S_k \1_{E_k}=f(X_1,\dots,X_k) \quad \text{ e } \quad \Delta_{k,n}=g(X_{k+1},\dots,X_{n}),
-\end{equation}
-Como os $X_i$ são independente, concluímos que  $S_k \1_{E_k}$ e $\Delta_{k,n}$ o são, e então
+ \end{equation}
+ Obviamente temos $$\left\{\max_{1\le k\le n} |S_k|>\gep\right\}=\bigcup_{k=1}^n E_k,$$
+ a união sendo disjunta.
+ Observando que $\1_{E_k} \leq \tfrac{S_k}{\gep^2} \1_{E_k}$,
+ \begin{equation}
+   P \bigg[ \max_{1\le k\le n} |S_k|>\gep \bigg] \le  \sum_{k=1}^n P(E_k)\le  \sum_{k=1}^n E\left[  \frac{S^2_k}{\gep^2}\1_{E_k}\right].
+ \end{equation}
+ Vamos poder concluir a prova se mostramos para todo $k$
+ \begin{equation}\label{therest}
+   E[S^2_k\1_{E_k}]\le E[S^2_n\1_{E_k}].
+ \end{equation}
+ Isso implica que
+ \begin{equation}
+   \sum_{k=1}^n E\left[  \frac{S^2_k}{\gep^2}\1_{E_k}\right]\le E\left [  \frac{S^2_n}{\gep^2}  \sum_{k=1}^n \1_{E_k}\right]= \frac{\Var(S_n)}{\gep^2}.
+ \end{equation}
+ Para mostrar \eqref{therest}, definimos $\Delta_{k,n}= S_n-S_k$.
+ Temos
+ \begin{equation}
+   E[S^2_n\1_{E_k}]= E[(S_k+\Delta_{k,n})^2\1_{E_k}]= E[S_k^2\1_{E_k}]+2 E[ \Delta_{k,n} S_k \1_{E_k}]+  E[ \Delta^2_{k,n}\1_{E_k}].
+ \end{equation}
+ O terceiro termo e obviamente positivo, então podemos concluir se mostramos  que $E[ \Delta_{k,n} S_k \1_{E_k}]=0$.
+ Lembramos que $S_k\1_{E_k}$ e uma funções das $k$ primeiras variáveis e $\Delta_{k,n}$ so depende das outras $n-k$
+ \begin{equation}
+   S_k \1_{E_k}=f(X_1,\dots,X_k) \quad \text{ e } \quad \Delta_{k,n}=g(X_{k+1},\dots,X_{n}),
+ \end{equation}
+ Como os $X_i$ são independente, concluímos que  $S_k \1_{E_k}$ e $\Delta_{k,n}$ o são, e então
 
-\begin{equation}
- E[ \Delta_{k,n} S_k \1_{E_k}]=E[\Delta_{n,k}S_k \1_{E_k}]=E[\Delta_{n,k}]E[S_k \1_{E_k}]=0.
-\end{equation}
+ \begin{equation}
+   E[ \Delta_{k,n} S_k \1_{E_k}]=E[\Delta_{n,k}S_k \1_{E_k}]=E[\Delta_{n,k}]E[S_k \1_{E_k}]=0.
+ \end{equation}
+ Isso conclui a prova do teorema.
 \end{proof}
 
 \subsection{Prova to Teorema de Uma Serie}
@@ -1111,20 +1120,31 @@ E obtida simplesmente pegando o limite quando $n$ vai para infinito da desiguald
 
 \medskip
 
-Vamos applicar essa formula pelo resto da soma. Definimos $n_k$ do jeito seguinte
-
+Vamos applicar essa formula para resto da soma.
+Definimos $n_k$ da seguinte forma
 \begin{equation}
- n_k:= \inf\left\{ n \sum_{i=n}^{\infty} \Var X_i \right\}<2^{-3k}.
+  n_k:= \inf \Big\{ n; \sum_{i=n}^{\infty} \Var X_i < 2^{-3k} \Big\}.
 \end{equation}
 Aplicando a desigualdade de Kolmogorov temos
-$$ P\left[ \exists r\ge n_k,  |\sum_{i=n_k}^r X_i| \ge 2^{-k} \right]\le 2^{-k}.$$
+\begin{equation}
+  P \Big[ \exists n \ge n_k,  \Big| \sum_{i=n_k}^n X_i \Big| \ge 2^{-k} \Big] \le 2^{-k}.
+\end{equation}
 Então pelo Lema de Borel-Cantelli,
 \begin{equation}
- P\left[ \exists k_0 \ \forall k\ge k_0, \forall r\ge n_k, \left|\sum_{i=n_k}^r X_i\right|\le 2^{-k} \right]=1.
+  P \Big[
+  \exists k_0; \forall k\ge k_0, \forall n \ge n_k, \Big| \sum_{i = n_k}^n X_i \Big| \le 2^{-k}
+  \Big]=1.
 \end{equation}
-Agora nota que o evento  $$\{\exists k_0 \ \forall k\ge k_0, \forall r\ge n_k, |\sum_{i=n_k}^r X_i|\le 2^{-k}\}$$
-implica  $$ \forall k\ge k_0,\, \forall m,p\ge n_k, \,
-|S_m-S_p|\le 2^{-k+1}.$$
+Agora note que o evento
+\begin{equation}
+  \Big[ \exists k_0; \forall k\ge k_0, \forall r\ge n_k,
+  \Big| \sum_{i=n_k}^r X_i \Big|
+  \le 2^{-k} \Big]
+\end{equation}
+implica
+\begin{equation}
+  \exists k_0; \forall k \ge k_0,\, \forall m, n \ge n_k, \, |S_m - S_n| \le 2^{-k+1}.
+\end{equation}
 Então a sequencia e de Cauchy com probabilidade $1$ o que permite de concluir a prova. \qed
 
 
