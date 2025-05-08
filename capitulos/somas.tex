@@ -1115,40 +1115,28 @@ Então temos
 \subsection{Prova to Teorema de Uma Serie}
 
 Uma consequência imediata da desigualdade de Kolmogorov e que se \\ $\sum_{i=1}^{\infty} \Var X_i<\infty$ e $E[X_i]=0$
-$$P\left[ \exists n\in \bbN,  |S_n| \ge A \right] \le \frac{\sum_{i=1}^{\infty} \Var X_i}{A^2}.$$
+\begin{equation}
+  \label{e:kolmogorov_var_somavel}
+  P\left[ \exists n\in \bbN,  |S_n| \ge A \right]
+  \le \frac{\sum_{i=1}^{\infty} \Var X_i}{A^2}.
+\end{equation}
 E obtida simplesmente pegando o limite quando $n$ vai para infinito da desigualdade.
 
-\medskip
 
-Vamos applicar essa formula para resto da soma.
-Definimos $n_k$ da seguinte forma
-\begin{equation}
-  n_k:= \inf \Big\{ n; \sum_{i=n}^{\infty} \Var X_i < 2^{-3k} \Big\}.
-\end{equation}
-Aplicando a desigualdade de Kolmogorov temos
-\begin{equation}
-  P \Big[ \exists n \ge n_k,  \Big| \sum_{i=n_k}^n X_i \Big| \ge 2^{-k} \Big] \le 2^{-k}.
-\end{equation}
-Então pelo Lema de Borel-Cantelli,
-\begin{equation}
-  P \Big[
-  \exists k_0; \forall k\ge k_0, \forall n \ge n_k, \Big| \sum_{i = n_k}^n X_i \Big| \le 2^{-k}
-  \Big]=1.
-\end{equation}
-Agora note que o evento
-\begin{equation}
-  \Big[ \exists k_0; \forall k\ge k_0, \forall r\ge n_k,
-  \Big| \sum_{i=n_k}^r X_i \Big|
-  \le 2^{-k} \Big]
-\end{equation}
-implica
-\begin{equation}
-  \exists k_0; \forall k \ge k_0,\, \forall m, n \ge n_k, \, |S_m - S_n| \le 2^{-k+1}.
-\end{equation}
-Então a sequencia e de Cauchy com probabilidade $1$ o que permite de concluir a prova. \qed
+\url{https://www.math.hkust.edu.hk/~makchen/MATH5411/Chap1Sec6.pdf}
 
-
-
+Seja $A_m^\epsilon := [ \max_{i \geq m} |S_i - S_m| \leq \epsilon ]$.
+Para mostrar que $\sum_{i} X_i$ converge, basta mostrar que essa sequência é Cauchy, ou seja, precisamos verificar que
+\begin{equation}
+  P \big[ \cap_{\epsilon > 0} \cup_{m \geq 1} A_m^\epsilon \big] = 1.
+\end{equation}
+Para tanto, basta ver que para todo $\epsilon > 0$, temos $P [\cup_{m \geq 1} A_m^\epsilon] = 1$.
+Como em \eqref{e:kolmogorov_var_somavel}, temos
+\begin{equation}
+  P \big( (A_m^\epsilon)^c \big) \leq \frac{\sum_{i \geq m} \Var(X_i)}{\epsilon^2},
+\end{equation}
+que converge para zero com $m$.
+Logo $\lim_m P(A_m^\epsilon) = 1$, donde $P(\cup_m A_m^\epsilon) = 1$, concluindo a prova.
 
 \subsection{Demostração da LGN usando o Teorema das Três Séries}
 
