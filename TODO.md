@@ -1,0 +1,4 @@
+- Olhar se Jensen está com a desigualdade trocada
+- Fazer aproximadamente uma seção por aula, para o índice ser mais proporcional
+- Intuição da desigualdade de Kolmogorov: se algo vale para o S_n, algo parecido pode valer para o máximo (vários teoremas são assim). Frequentemente o truque é decompor no tempo em que o máximo é atingido.
+- Mostrar que `X_i = Y_i/i^r` com `Y_i` Radamacher não é somável se `r <= 1/2`. No fundo é a volta das três séries.
