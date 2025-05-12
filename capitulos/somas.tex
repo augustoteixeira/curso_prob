@@ -722,7 +722,7 @@ que cresce como $n^3$, e $\Var^n(T_n) \leq c n^5$, logo
 
 Começamos com uma prova do teorema no caso simples, onde as variáveis estão em $\mathcal L^4$, que nos fornece mais um exemplo do uso do metodo de momentos.
 
-\begin{proof}[Demostração no caso $\mathcal L^4$]
+\begin{proof}[Demonstração no caso $\mathcal L^4$]
 Podemos supor que $E(X_i) = 0$ (se esse não for o caso, consideramos $Y_i = X_i - E(X_i)$).
 Podemos calcular o momento de ordem $4$ da soma a expandido.
 Temos
@@ -791,7 +791,9 @@ E uma consequência do resultado seguinte
   Como $M$ é arbitrário, isso termina a prova da proposição.
 \end{proof}
 
-\subsection{Demostração da Lei Fortes dos Grandes Números}
+\subsection{Demonstração da Lei Fortes dos Grandes Números}
+
+\todo{Melhorar a intuição da prova: 1) passo de redução para $E(X) < 0$, $a = 0$, $M < \infty$ q.c. 2) Falar sobre o desejo de escrever $M_{k + 1}$ em termos de $M_k'$, para enfatizar a ergodicidade. 3) mencionar que $E(\min(M'_k, -X_1)) \leq 0$ indica que $M'_k$ deve atuar para baixar a esperança de $-X_1$ a valores negativos 4) lei $\{0, 1\}$ impede que $M'$ atue nesse sentido.}
 
 Vamos provar que para todo $a>E[X_1]$ temos que quase certamente
 \begin{equation}\label{lesup}
@@ -1113,40 +1115,28 @@ Então temos
 \subsection{Prova to Teorema de Uma Serie}
 
 Uma consequência imediata da desigualdade de Kolmogorov e que se \\ $\sum_{i=1}^{\infty} \Var X_i<\infty$ e $E[X_i]=0$
-$$P\left[ \exists n\in \bbN,  |S_n| \ge A \right] \le \frac{\sum_{i=1}^{\infty} \Var X_i}{A^2}.$$
+\begin{equation}
+  \label{e:kolmogorov_var_somavel}
+  P\left[ \exists n\in \bbN,  |S_n| \ge A \right]
+  \le \frac{\sum_{i=1}^{\infty} \Var X_i}{A^2}.
+\end{equation}
 E obtida simplesmente pegando o limite quando $n$ vai para infinito da desigualdade.
 
-\medskip
 
-Vamos applicar essa formula para resto da soma.
-Definimos $n_k$ da seguinte forma
-\begin{equation}
-  n_k:= \inf \Big\{ n; \sum_{i=n}^{\infty} \Var X_i < 2^{-3k} \Big\}.
-\end{equation}
-Aplicando a desigualdade de Kolmogorov temos
-\begin{equation}
-  P \Big[ \exists n \ge n_k,  \Big| \sum_{i=n_k}^n X_i \Big| \ge 2^{-k} \Big] \le 2^{-k}.
-\end{equation}
-Então pelo Lema de Borel-Cantelli,
-\begin{equation}
-  P \Big[
-  \exists k_0; \forall k\ge k_0, \forall n \ge n_k, \Big| \sum_{i = n_k}^n X_i \Big| \le 2^{-k}
-  \Big]=1.
-\end{equation}
-Agora note que o evento
-\begin{equation}
-  \Big[ \exists k_0; \forall k\ge k_0, \forall r\ge n_k,
-  \Big| \sum_{i=n_k}^r X_i \Big|
-  \le 2^{-k} \Big]
-\end{equation}
-implica
-\begin{equation}
-  \exists k_0; \forall k \ge k_0,\, \forall m, n \ge n_k, \, |S_m - S_n| \le 2^{-k+1}.
-\end{equation}
-Então a sequencia e de Cauchy com probabilidade $1$ o que permite de concluir a prova. \qed
+\url{https://www.math.hkust.edu.hk/~makchen/MATH5411/Chap1Sec6.pdf}
 
-
-
+Seja $A_m^\epsilon := [ \max_{i \geq m} |S_i - S_m| \leq \epsilon ]$.
+Para mostrar que $\sum_{i} X_i$ converge, basta mostrar que essa sequência é Cauchy, ou seja, precisamos verificar que
+\begin{equation}
+  P \big[ \cap_{\epsilon > 0} \cup_{m \geq 1} A_m^\epsilon \big] = 1.
+\end{equation}
+Para tanto, basta ver que para todo $\epsilon > 0$, temos $P [\cup_{m \geq 1} A_m^\epsilon] = 1$.
+Como em \eqref{e:kolmogorov_var_somavel}, temos
+\begin{equation}
+  P \big( (A_m^\epsilon)^c \big) \leq \frac{\sum_{i \geq m} \Var(X_i)}{\epsilon^2},
+\end{equation}
+que converge para zero com $m$.
+Logo $\lim_m P(A_m^\epsilon) = 1$, donde $P(\cup_m A_m^\epsilon) = 1$, concluindo a prova.
 
 \subsection{Demostração da LGN usando o Teorema das Três Séries}
 
@@ -1440,17 +1430,23 @@ Futuramente no curso estudaremos as probabilidades de que esse desvio seja de or
   \end{equation}
 \end{theorem}
 
-Podemos reparar que
+\begin{remark}
+  Observamos que
   \begin{equation}
-    \psi_{X_1}(x) = \begin{cases}
-                     \sup_{s \ge 0} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\}, \text{ se } x\le m \\
-                      \sup_{s \ge 0} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\}, \text{ se } x\ge m.
-                    \end{cases}
-   \end{equation}
-Isso e uma consequencia simples to fato que a função $s\mapsto xs - \log \big( \phi_{X_1}(s) \big)$ e concava e que a derivada em $0$ vale
-$$x- \partial_s \big(\log  E[e^s X] \big)=x-m.$$ Então dependendo do sinal de $(x-m)$ o supremo e atingido a direito o a esqueirda de zero.
-
-
+    \psi_{X_1}(x) =
+    \begin{cases}
+      \sup_{s \geq 0} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\},
+      \text{ se } x\le m \\
+      \sup_{s \leq 0} \big\{ xs - \log \big( \phi_{X_1}(s) \big) \big\},
+      \text{ se } x\ge m.
+    \end{cases}
+  \end{equation}
+  Isso e uma consequencia simples to fato que a função $s\mapsto xs - \log \big( \phi_{X_1}(s) \big)$ e concava e que a derivada em zero vale
+  \begin{equation}
+    x- \partial_s \big(\log  E[e^s X] \big) = x - m.
+  \end{equation}
+  Então, dependendo do sinal de $(x-m)$, o supremo é atingido à direita ou à esqueirda de zero.
+\end{remark}
 
 %Antes de provar o teorema, vamos fazer uma breve observação sobre como a função geradora de momentos se comporta com respeito a soma de constantes.
 %Isso nos permitirá centrar as variáveis para nossas estimativas.
@@ -1511,8 +1507,8 @@ Sejam $X_1, X_2, \dots$ variáveis aleatórias \iid com distribuição $\Ber(1/2
 \begin{equation}
   \phi_{X_1}(s) = \frac{1}{2} (1 + e^s) \quad \text{e} \quad \psi_{X_1}(x) = \sup_{s \geq 0} \{xs - \log(1 + e^s) + \log(2) \}.
 \end{equation}
-Um cálculo simples nos mostra que, se $x < 1$, o mínimo acima é atingido no único ponto $s_{\text{max}} = \log(\tfrac{x}{1-x})$.
-Portanto, podemos concluir do Teorema~\ref{t:PGDleq} que
+Um cálculo simples nos mostra que, se $x < 1$, o máximo acima é atingido no único ponto $s_{\text{max}} = \log(\tfrac{x}{1-x})$.
+Portanto, podemos concluir do Teorema~\ref{t:PGDleq} que, se $b = 1/2 + a$,
 \begin{equation}
   \begin{split}
     P[X_1 + \dots & + X_n > 1/2 + a] \leq \ex{- \psi_{X_1}(s_{\text{max}})n}\\
@@ -1557,17 +1553,19 @@ Certamente, esse nem sempre é o caso, por exemplo se $X = m$ quase certamente, 
 \end{lemma}
 
 \begin{proof}
-Para mostrar que o minimo e atingido e em ponto e suficiente mostrar que
-$$ \lim_{s\to \infty} (m + a)s - \log\big(\phi_X(s)\big)=\infty,$$
-pois a função e continua.
+Para mostrar que o máximo é atingido em um ponto, é suficiente mostrar que
+\begin{equation}
+  \lim_{s\to \infty} (m + a)s - \log\big(\phi_X(s)\big) = -\infty,
+\end{equation}
+pois a função é continua.
 Por hipótese, existe $x > m + a$ tal que $p = P[X \geq x] > 0$, donde $\phi_X(s) \geq p e^{sx}$ e portanto podemos concluir por que
-$$(m + a)s - \log\big(\phi_X(s)\big)\ge (x-m+a)s -\log p.$$
-
+$$(m + a)s - \log\big(\phi_X(s)\big) \leq -(x - m + a)s - \log p.$$
+Isso termina a prova.
 \end{proof}
 
 \begin{lemma}
   Seja $X$ uma variável aleatória tal que $\phi_X(s) < \infty$ para todo $s \in (-\delta, \delta)$.
-  Então o conjunto onde a função $\psi_X(s)$ é finita é um intervalo, na qual $\psi_X$ é convexa e portanto contínua.
+  Então o conjunto onde a função $\psi_X(x)$ é finita é um intervalo, na qual $\psi_X$ é convexa e portanto contínua.
 \end{lemma}
 
 \begin{proof}
@@ -1654,7 +1652,7 @@ Finalmente, o preço pago para que as variáveis $X_i$ se comportem como as $X'_
   pelo Teorema da Convergência Dominada, demonstrando o teorema nesse caso especial.
 
   Suponhamos agora que $P[X_1 > m + a] > 0$, o que implica que para $b > m + a$ suficientemente próximo de $m + a$, temos $P[X_1 > b] > 0$.
-  Observe que basta mostrar que para todo $b > a$ satisfazendo $P[X_1 > b] > 0$ e para todo $\delta > 0$, temos
+  Observe que basta mostrar que para todo $b > m + a$ satisfazendo $P[X_1 > b] > 0$ e para todo $\delta > 0$, temos
   \begin{equation}
     \label{e:PGD_perto_b}
     \liminf_n \frac{1}{n} \log \Big(P\Big[\frac{X_1 + \dots + X_n}{n} \in (b - \delta, b + \delta) \Big]\Big) \geq -\psi_{X_1}(b),
