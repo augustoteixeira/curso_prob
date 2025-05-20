@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathabx}
+\usepackage{calc}
+\usepackage{fullpage}
+
+\usepackage{dsfont} % includes bb 1
+\newcommand*\1{\mathds{1}}
+\usepackage[brazil]{babel}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{corollary}[theorem]{Corolário}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{proposition}[theorem]{Proposição}
+\newtheorem{definition}[theorem]{Definição}
+\newtheorem{notation}[theorem]{Notação}
+
+\DeclareMathOperator{\Var}{Var}
+\def\d{\mathrm{d}}
+
+\begin{document}
+
+\title{Probabilidade I}
+\author{Segunda Prova}
+
+\maketitle
+
+\noindent Observa\c{c}\~oes:
+\begin{itemize}
+\item A prova terá duração de $3$ horas e meia.
+\item Questões deverão ser respondidas de maneira matematicamente rigorosa e clara.
+\item Todos os resultados provados em aula (exceto exercícios) poderão ser utilizados, salvo quando a questão pedir que algum destes seja provado. Nesse caso, todos os resultados anteriores poderão ser utilizados.
+\item Caso uma questão seja composta de vários itens, cada um poderá ser resolvido independentemente, supondo a validade dos anteriores.
+\end{itemize}
+
+\vspace{4mm}
+\noindent {\bf 1)} Para cada uma das afirmações abaixo, mostre ou dê um contra-exemplo:
+\begin{enumerate}[\quad a)]
+\item Se $X$ é uma variável aleatória com $P[X > 0] > 0$, então existe $\delta > 0$ tal que $P[X > \delta] > 0$.
+\item No espaço $([0, 1], \mathcal{B}([0, 1]))$, dotado da medida de Lebesgue, os eventos $A = (1/2, 3/4)$ e $B = (0, 2/3)$ são independentes.
+\item Sejam $X_1, X_2, \dots$ variáveis aleatórias em $(\Omega, \mathcal{F}, P)$ com esperança nula. Se $\lim_{n \to \infty} \Var(X_n) = 0$, então $X_n$ converge para zero em probabilidade.
+\item Sejam $X_1, X_2, \dots$ variáveis aleatórias em $(\Omega, \mathcal{F}, P)$ com esperança nula. Se $\lim_{n \to \infty} \Var(X_n) = 0$, então $X_n$ converge para zero quase certamente.
+\end{enumerate}
+
+\vspace{4mm}
+\noindent {\bf 2)} Definimos o conjunto de Cantor como
+\begin{equation*}
+  K = \big\{ x \in [0, 1]; \text{ $x$ possui uma decomposição na base $3$ que não utiliza o dígito $1$} \big\}.
+\end{equation*}
+Definimos a distribuição $\mu$ uniforme em $K$ como a lei de uma variável aleatória $X \in [0, 1]$ tal que sua decomposição $X = 0,X_1 X_2 X_2 \dots$ na base $3$, possui dígitos $(X_i)_{i \geq 1}$ i.i.d. e com lei dada por
+\begin{equation*}
+  P[X_1 = 0] = P[X_1 = 2] = \frac{1}{2}.
+\end{equation*}
+Nesse caso, mostre que
+\begin{enumerate}[\quad a)]
+\item $\mu$ é singular com respeito à distribuição de Lebesgue em $[0, 1]$.
+\item Calcule $E(X)$.
+\item Calcule $\Var(X)$.
+\end{enumerate}
+
+\vspace{4mm}
+\noindent {\bf 3)} Sejam $X_1, X_2, \dots$ variáveis aleatórias i.i.d. com $E(X) = m$ e $E(X^2) = a$.
+Considere também uma variável aleatória $N$ tomando valores em $\{1, 2, \dots\}$ com $E(N) = n$ e $E(N^2) = b$ e tal que $N$ seja independente de $(X_i)_{i \geq 1}$.
+Calcule a esperança e a variância de
+\begin{equation*}
+  S = \sum_{i = 1}^N X_i
+\end{equation*}
+em termos de $m$, $a$, $n$ e $b$.
+
+\vspace{4mm}
+\noindent {\bf 4)} Sejam variáveis aleatórias $X_1, X_2, \dots$ i.i.d. com distribuição dada por
+\begin{equation*}
+  P[X_1 = -1] = \frac{3}{4}, \quad P[X_1 = 1] = \frac{1}{4}.
+\end{equation*}
+Considere também as somas
+\begin{equation*}
+  S_0 = 0, \quad \text{e} \quad S_n = \sum_{i = 1}^n X_i,
+\end{equation*}
+assim como a variável aleatória $N$ definida por
+\begin{equation*}
+  N = \inf \Big\{ n \geq 0; S_n \leq -1 \Big\}.
+\end{equation*}
+Mostre que
+\begin{enumerate}[\quad a)]
+\item $N$ está bem definida (no sentido que o ínfimo acima é tomado sobre um conjunto quase certamente não vazio).
+\item $\limsup_n \tfrac{1}{n} \log \big( P[N > n] \big) < 0$.
+\item $(\star)$ $\lim_n \tfrac{1}{n} \log \big( P[N > n] \big) = a$ e obtenha o valor de $a < 0$.
+\end{enumerate}
+
+\end{document}
