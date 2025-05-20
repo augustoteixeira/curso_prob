@@ -728,6 +728,8 @@ Isso será possibilitado pelo próximo resultado, que pode ser visto como uma ge
 \end{theorem}
 }
 
+\todo{Trocar $y, z$ por $x, y$.}
+
 Antes de iniciar a prova do teorema, vamos ver que as integrais do lado direito de \eqref{e:fubini} estão bem definidas.
 Para isso, definimos para $y \in E_1$ a função fatiadora $\phi_y: E_2 \to E_1 \times E_2$ dada por $\phi_y(z) = (y, z)$.
 Obviamente essa função é mensurável, pois
@@ -771,7 +773,7 @@ Estamos prontos agora para fornecer a
 
   De fato,
   \begin{enumerate}[\quad a)]
-  \item obviamente $P(\Omega) = \int_{E_1} \int_{E_2}  K(y, \d z) P_1(\d y) = 1$ e
+  \item obviamente $P(E_1 \times E_2) = \int_{E_1} \int_{E_2}  K(y, \d z) P_1(\d y) = 1$ e
   \item se $(B_i)_{i\in I}$ e uma família finita ou enumerável de eventos disjuntos (em $\mathcal{A}_1 \otimes \mathcal{A}_2$) então
   $\1_{\bigcup_{i\in I} B_i}=\sum_{i\in I} \1_{B_i}$ a $\sigma$-aditividade de $P$ segue das propriedades básicas
   (linearidade e Teorema de convergência monótona) da integração.
@@ -960,6 +962,367 @@ $$g(x)=E[Y \, | \, X = x]= \frac{E[Y\1_{\{X=x\}}]}{P[X=x]}$$
 \todosec{Tópico: Propriedade fraca de Markov}{mostrar que cadeias = processos...}
 
 \todosec{Tópico: Recorrência e transiência}{markov recorrência/transiência + periodicidade...}
+
+\begin{topics}
+\section{Tópico: Cadeias de Markov}
+\label{s:cadeias_Markov}
+
+Um exemplo de como usar núcleos de transição é a construção de Cadeias de Markov.
+Esse tipo de processo é bastante útil em diversas aplicações, desde a biologia até a computação.
+
+Considere um espaço mensurável canônico fixo $(E, \mathcal{A})$ e seja $K$ um núcleo de $E$ nele mesmo.
+Seria bastante intuitivo agora iterar $K$ (já que ele está no mesmo espaço) 
+e obter uma medida em $\Omega =E^{\bbN}$ com a $\sigma$-álgebra canônica.
+
+Para começar esse procedimento, seja $\mu_0$ uma medida inicial em $(E, \mathcal{A})$.
+Podemos então definir $\mu_1 = \mu_0 \star K$ o que é 
+o primeiro passo da nossa construção, porém observe que não podemos escrever 
+``$\mu_2 = \mu_1 \star K$'', pois $\mu_1 \star K$ é uma medida em $(E^2, \mathcal{A}^{\otimes 2})$.
+Vamos com calma então.
+
+Observe que
+\begin{equation}
+  \mu_1(A_0 \times A_1) = \int_{A_0} \int_{A_1} K(x_0, \d x_1) \mu_0(\d x_0),
+\end{equation}
+ou em outras palavras o valor de $x_0$ determina a distribuição de $x_1$.
+Gostaríamos agora que $x_1$ determinasse a distribuição de $x_2$ via $K$, como por exemplo assim
+\begin{equation}
+  \mu_2(A_0 \times A_1 \times A_2) = \int_{A_0} \int_{A_1} \int_{A_2} K(x_1, \d x_2) K(x_0, \d x_1) \mu_0 (\d x_0).
+\end{equation}
+Mas essa notação fica bastante carregada à medida que iteramos.
+
+Para tornar essa notação mais simples, definimos a projeção $\phi_n:E^n \to E$ por $\phi_n(x_0, \dots, x_{n-1}) = x_{n-1}$.
+Também precisamos de $K_n: E^n \times \mathcal{A} \to [0,1]$ dado por
+\begin{equation}
+  K_n(\vec{x},A) = K\big(\phi_n(\vec{x}), A\big) \quad \big(= K(x_{n-1}),A) \big).
+\end{equation}
+O fato de $K_n$ ser um núcleo de transição segue imediatamente dessa propriedade para $K$.
+
+Note que, nessa notação, estamos dizendo que para irmos de $E^n$ para $E^{n+1}$ iremos olhar apenas para a última coordenada, na qual aplicaremos o núcleo $K$.
+Isso é o ponto mais importante que caracteriza uma Cadeia de Markov: a distribuição do estado futuro da cadeia depende apenas do estado atual e não do passado.
+Em alguns contextos essa propriedade é chamada de ausência de memória.
+
+Podemos finalmente definir
+\begin{equation}
+  \label{e:Pn_Markov}
+  \mu_{n+1} = \mu_n \star K_n, \text{ para todo $n \geq 1$}.
+\end{equation}
+Mas resta a questão sobre a existência de uma $\mu^\infty$ que será respondida com ajuda do próximo resultado.
+
+\begin{lemma}
+  As probabilidades $\mu_n$ definidas em \eqref{e:Pn_Markov} são compatíveis, mais precisamente $\mu_{n+1}(A \times E) = \mu_n(A)$ para todo $A \in \mathcal{A}^{\otimes n}$.
+\end{lemma}
+
+\begin{proof}
+  Basta observar que
+  \begin{equation}
+    \mu_{n+1}(A \times E) = \mu_n \star K (A \times E) = \int_{A} \underbrace{K_n (\vec{x}, E)}_1 \mu_n(\d \vec{x}) = \mu_n(A).
+  \end{equation}
+  Provando o lema.
+\end{proof}
+
+Logo, o Teorema da Extensão de Kolmogorov (lembre que $(E, \mathcal{A})$ foi suposto canônico) nos fornece uma única $P$ em $(\Omega, \mathcal{F})$ tal que
+\begin{equation}
+   P_{(X_0, \dots, X_n)} = \mu_n, \text{ para todo $n \geq 0$}.
+\end{equation}
+Lembramos que $X_i$ denotam as projeções canônicas em $\Omega = \mtimes_{i=1}^\infty E$.
+
+Chamamos o processo $X_1, X_2, \dots$ sob a lei $P$ da Cadeia de Markov \index{Cadia de Markov} com distribuição inicial $\mu_0$ e núcleo de transição $K$.
+
+\begin{example}
+  \label{x:Markov_p_xy}
+  Suponha que $E$ seja enumerável.
+  Nesse caso recordamos do Exemplo~\ref{x:nucleo_discreto} que o núcleo pode ser representado por uma matriz $\big(p(x,y)\big)_{x,y \in E}$ que nos retorna a probabilidade de saltar de $x$ a $y$.
+  Além disso, a distribuição inicial $\mu_0$ é determinada por $P(\{x\}) = p_0(x)$, para alguma sequência $\big(p_0(x)\big)_{x \in E}$.
+\end{example}
+
+\begin{exercise}
+  Mostre que no exemplo acima temos
+  \begin{equation}
+    P(X_0 = x_0, \dots, X_n = x_n) = p_0(x_0) p(x_0, x_1) \dots p(x_{n-1}, x_n).
+  \end{equation}
+\end{exercise}
+
+\begin{exercise}
+  Defina $K:\mathbb{R}^2 \times \mathcal{B}(\mathbb{R}^2) \to [0,1]$ dada por
+  \begin{equation}
+    K(x, A) = U_{S^1}(A - x).
+  \end{equation}
+  Nesse contexto,
+  \begin{enumerate}[\quad a)]
+  \item mostre que $K$ é um núcleo de transição e,
+  \item considerando a cadeia com distribuição inicial $\mu_0 = \delta_0$ em $\mathbb{R}^2$ e núcleo $K$, mostre que $X_2$ tem distribuição absolutamente contínua com respeito a Lebesgue e calcule sua densidade.
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Mostre que para qualquer núcleo de transição $K$ entre $E$ e $E$, existe um núcleo de transição 
+  $\widebar{K}$ entre $E$ e $\Omega = E^{\bbN}$, tal que para toda medida inicial $\mu_0$, temos que $\mu_0 \star K$ é a distribuição de uma Cadeia de Markov começando de $\mu_0$ e com transição dada por $K$.
+  Esse núcleo é útil se quisermos mudar a distribuição inicial $\mu_0$ e uma notação bastante comum para esse núcleo é $P_{x}(\cdot) = \widebar{K}(x, \cdot)$.
+\end{exercise}
+
+Vamos terminar essa seção dando uma interpretação bastante interessante para os núcleos de transição em analogia à álgebra linear.
+Fixe um núcleo de transição $K$ entre $E$ e $E$, uma medida inicial $\mu$ e uma função limitada $f: E \to \mathbb{R}$.
+Relembre a notação em \eqref{e:P1_K} e defina $K f: E \to \mathbb{R}$ dada por
+\begin{equation}
+  K f(x):= \int f(y) K(x, \d y),
+\end{equation}
+que é obviamente limitada e já vimos ser mensurável no Teorema de Fubini.
+
+Então temos dois operadores definidos para núcleos, a multiplicação 
+à esquerda por uma medida em $E$ ($\mu K$ que também é uma medida em $E$)
+e a multiplicação à direita por uma função limitada e mensurável 
+($K f$ que também é uma função limitada e mensurável).
+Podemos pensar em $f$ como um vetor coluna e $\mu$ como um vetor linha, 
+nesse caso $K$ faria o papel de uma matriz.
+Essa analogia é real se $E$ for um espaço enumerável.
+
+\begin{exercise}
+  No contexto de cadeias de Markov,
+  \begin{enumerate}[\quad a)]
+  \item mostre a relação de associatividade $\mu (K f) = (\mu K) f$,
+  \item defina para todo $n$ o núcleo $K^{(n)}$ iterado (de $E$ em $E$), de forma que $\mu K^{(n)} f$ ainda seja associativa.
+  \item Mostre que a medida $\mu K^{(n)}$ é a distribuição de $X_n$ se começamos de $\mu$,
+  \item que a função $K^{(n)} f (\cdot)$ é o valor esperado de $f$ no tempo $n$ se começamos no zero do ponto $\cdot$ e finalmente que
+  \item o número real $\mu K^{(n)} f$ é a esperança de $f$ no tempo $n$ se começamos de $\mu$.
+  \end{enumerate}
+\end{exercise}
+
+Vamos agora dar um exemplo simples de Cadeia de Markov que poderemos analisar em detalhes.
+
+Seja $E = \mathbb{Z}$ e considere $K: \mathbb{Z} \times \mathcal{P}(\mathbb{Z}) \to [0,1]$ dado por
+\begin{equation}
+  K(x, \cdot) = \frac{\delta_{x-1} + \delta_{x+1}}{2},
+\end{equation}
+que obviamente define um núcleo pois toda função em $\mathbb{Z}$ é mensurável na $\sigma$-álgebra das partes.
+
+Podemos portanto construir $P$ em $\mathbb{Z}^{\mathbb{N}}$ que nos fornece a lei de uma Cadeia de Markov em $\mathbb{Z}$ com distribuição inicial $\delta_0$ e núcleo de transição $K$.
+Chamamos esse processo de passeio aleatório simples simétrico. \index{passeio aleatorio simples@passeio aleatório simples}
+
+Poderíamos estar interessados em várias perguntas sobre esse processo, como por exemplo quão longe esperamos que o passeio aleatório pode ir depois de um determinado tempo?
+Para responder essa e várias outras questões, iremos mostrar outra construção do passeio simples simétrico atravéz de uma soma de variáveis aleatórias.
+
+Introduzimos um espaço de probabilidade $\tilde P$, variáveis $Y_1, Y_2, \dots$ \iid com distribuição $(\delta_{-1} + \delta_{1})/2$ e definimos $S_0 = 0$ e $S_n = Y_1 + \dots + Y_n$.
+
+\begin{lemma}
+  A distribuição da sequência infinita $(X_0, X_1, \dots)$ sob a lei $P$ do passeio aleatório simples e simétrico é igual à distribuição de $(S_0, S_1, \dots)$ sob $\tilde P$.
+\end{lemma}
+
+\begin{proof}
+  Observamos primeiramente que basta mostrar a igualdade de distribuições para cilindros do tipo $\{x_1\} \times \dots \times \{x_n\} \times \mathbb{Z}^\mathbb{N}$, pois tais eventos compõem um $\pi$-sistema que gera a $\sigma$-álgebra produto em $\mathbb{Z}^\mathbb{N}$.
+  Calculamos portanto
+  \begin{equation*}
+    \begin{split}
+      \qquad P & [X_1 = x_1, \dots, X_n = x_n]
+      \intertext{pela definição de Cadeia de Markov (via extensão de Kolmogorov),}
+      & = \mu_n [X_1 = x_1, \dots, X_n = x_n]\\
+      & = \mu_{n-1} \star K_n [X_1 = x_1, \dots, X_n = x_n]
+      \intertext{por Fubini para núcleos (Teorema~\ref{t:fubini}),}
+      & = \mu_{n-1}[X_1 = x_1, \dots, X_{n-1} = x_{n-1}] K_n\big( (x_1, \dots, x_{n-1}), \{x_n\} \big)\\
+      & = \mu_{n-1}[X_1 = x_1, \dots, X_{n-1} = x_{n-1}] K\big( x_{n-1}, \{x_n\} \big)\\
+      & = \frac 12 \mu_{n-1}[X_1 = x_1, \dots, X_{n-1} = x_{n-1}] \1_{\{|x_{n-1} - x_n| = 1\}}\\
+      & = \dots = 2^{-n} \prod_{i=1}^n \1_{\{|x_{i-1} - x_i| = 1\}}.
+    \end{split}
+  \end{equation*}
+  Faremos agora esse cálculo para a distribuição de $S_i$'s:
+  \begin{equation*}
+    \begin{split}
+      \qquad \tilde P & [S_1 = x_1, \dots, S_n = x_n]\\
+      & = \mu_n [Y_1 = x_1 - x_0, Y_2 = x_2 - x_1 \dots, Y_n = x_n - x_{n-1}]\\
+      & = \prod_{i = 1}^n \tilde P [Y_i = x_i - x_{i-1}] = 2^{-n} \prod_{i=1}^n \1_{\{|x_{i-1} - x_i| = 1\}}.
+    \end{split}
+  \end{equation*}
+  Isso mostra o enunciado do lemma.
+\end{proof}
+
+Podemos agora por exemplo estimar
+\begin{equation}
+  P[|X_n| \geq \varepsilon n] = \tilde P [|S_n| \geq \varepsilon n] \leq 2 \exp \{- \psi_{(\delta_{-1} + \delta_1)/2}(\varepsilon) n\},
+\end{equation}
+que responde nossa pergunta sobre a probabilidade de um passeio aleatório se distanciar muito da origem.
+
+\end{topics}
+
+\begin{topics}
+
+\section{Tópico: Urna de Pólya}
+\label{s:urna_polya}
+
+Um excelente exemplo de como Cadeias de Markov podem gerar interessantes modelos de situações reais são as chamadas Urnas de Pólya.
+Esse processo modela sistemas de física, biologia, computação e economia que apresentam o que chamamos de reforço.
+
+Tome por exemplo duas empresas que competem pelo mercado de aviões.
+Inicialmente, não temos nenhuma razão para escolher uma em detrimento da outra, portanto compramos nosso primeiro avião de cada empresa com probabilidade meio.
+Porém, depois que já compramos diversos aviões de uma determinada empresa, ela já recebeu bastante dinheiro que pode ser reinvestido para gerar melhor tecnologia e aumentar as chances que ela seja escolhida novamente no futuro.
+Isso é o que chamamos de reforço.
+
+Vamos agora apresentar rigorosamente um modelo para situações desse tipo.
+O nosso modelo começa com uma urna contendo duas bolas, uma vermelha e uma azul.
+No cada passo do processo, escolheremos uma bola da urna ao acaso, olharemos sua cor e retornaremos essa bola para dentro urna junto com mais uma bola da mesma cor.
+Isso pode será formalizado à seguir.
+
+Vamos construir uma medida em $\{0, 1\}^\mathbb{N}$, dotado da $\sigma$-álgebra produto.
+Fixada uma sequência finita $w_1, \dots, w_n$ em $\{0,1\}$, definimos
+\begin{equation}
+  N_x (w_1, \dots, w_n) = \# \big\{ j \in \{1, \dots, n\}\, : \, w_j = x \big\} + 1,
+\end{equation}
+que nada mais é que o número de bolas do tipo $x$ que se encontram na urna no tempo $n$.
+Quando tivermos uma sequência infinita de $w_i$'s, escreveremos $N^n_x$ para denotar $N_x(w_1, \dots, w_n)$.
+
+Para cada $n \geq 1$, definimos $K_n:\{0,1\}^n \times \mathcal{P}(\{0,1\})$ por
+\begin{equation}
+  K_n(w_1, \dots, w_n) = \Ber\big( \tfrac{N_1}{n} \big).
+\end{equation}
+Ou seja, dadas cores $w_1, \dots, w_n$, escolheremos uma bola de cor $1$ proporcionalmente ao número $N_1$ de bolas de cor $1$ que já foram sorteadas.
+
+\begin{exercise}
+  \label{x:constr_Polya}
+  Mostre que todos $K_n$ acima definem núcleos de transição.
+  Além disso a seguinte sequência de medidas é compatível no sentido de Kolmogorov:
+  \begin{itemize}
+  \item $P_1 = \Ber(1/2)$,
+  \item $P_2 = P_1 \star K_1$,
+  \item $P_3 = P_2 \star K_2, \dots$
+  \end{itemize}
+  Conclua que existe a medida $P$ em $\{0,1\}^\mathbb{N}$ que define o modelo de Pólya.
+\end{exercise}
+
+Podemos agora fazer perguntas como por exemplo: será que escolheremos bolas de ambas as cores para sempre, ou a partir de um certo momento escolheremos bolas de apenas uma cor com certa probabilidade.
+Mais precisamente, qual é a probabilidade de $[X_i = 1, \text{ infinitas vezes}]$?
+
+
+Para responder perguntas desse tipo, iremos mostrar algo muito curioso, que pode ser entendido como uma outra maneira de representar o modelo descrito acima.
+Mas antes, vamos colecionar alguns fatos sobre o modelo da Urna de Pólya.
+
+Primeiramente vamos olhar para os seguintes eventos.
+Fixamos $n \geq 1$ e uma sequência $w_1, \dots, w_n \in \{0,1\}$ e seja $A$ o evento $\{w_1\} \times \dots \times \{w_n\} \times \{0,1\} \times \dots$
+Note que os eventos desse tipo (junto com o evento $\varnothing$) formam um $\pi$-sistema que gera a $\sigma$-álgebra canônica de $\{0,1\}^\mathbb{N}$, portanto essa coleção é bastante completa para identificar a distribuição da Urna de Pólya.
+
+Podemos calcular a probabilidade do evento $A$ acima
+\begin{equation}
+  \begin{split}
+    P(A) & = \frac{N^1_{w_1}}2 \frac{N^2_{w_1}}3 \dots \frac{N^n_{w_n}}{n+1} = \frac{1}{(n+1)!} \prod_{i=1}^n N^i_{w_i}\\
+    & = \frac{N^n_1! (n - N^n_1)!}{(n+1)!} = \frac{1}{(n+1)} \binom{n}{N^n_1}^{-1}.
+  \end{split}
+\end{equation}
+O que é muito interessante sobre a equação acima é que ela nos remete a problemas combinatórios ao notarmos o fator binomial acima.
+
+Vamos portanto construir um processo completamente diferente que apresenta as mesmas probabilidades que o anterior.
+Seja $\cS_N$ o conjunto de todas as permutações $\sigma$ de $\{1,\dots,N\}$.
+É fácil ver que
+\begin{equation*}
+  \frac{1}{(n+1)} \binom{n}{j}^{-1} = U_{\cS_{n+1}} \Big[ \sigma(n+1) =j+1, \sigma(i) \leq j \text{ se e só se } \; i \leq j \Big].
+\end{equation*}
+
+Um método muito interessante de se produzir uma permutação uniforme é dado pelos seguintes exercícios.
+
+\begin{exercise}
+  Seja $n \geq 1$ um inteiro, $P$ uma probabilidade em $(E, \mathcal{A})$, $\sigma$ uma permutação fixa em $\cS_n$.
+  Então
+  \begin{equation}
+    \label{e:intercambiavel}
+    (X_1, \dots, X_n) \distr (X_{\sigma(1)}, \dots, X_{\sigma(n)}),
+  \end{equation}
+  onde $X_i$ como sempre representam as coordenadas canônicas em $(E^{n}, \mathcal{A}^{\otimes n}, P^{\otimes n})$.
+\end{exercise}
+
+Ou em outras palavras, aplicar uma permutação fixa a uma sequência \iid não altera sua distribuição.
+Sequências de elementos aleatórios (não necessariamente \iid's) que satisfazem \eqref{e:intercambiavel} são ditas intercambiáveis. \index{sequencias@sequências!intercambiaveis@intercambiáveis}
+
+Um outro exercício interessante nesse tópico é o seguinte
+\begin{exercise}
+  Seja $n \geq 1$ e $F:[0,1]^n \to \cS_n$ dada por
+  \begin{equation*}
+    F(x_1, \dots, x_n) =
+    \begin{cases}
+      (1, 2, \dots, n), \quad & \text{se existe $i \neq j$ tal que $x_i = x_j$, }\\
+      \text{o único $\sigma$ tal que $x_{\sigma(1)} < \dots < x_{\sigma(n)}$,} & \text{caso contrário.}
+    \end{cases}
+  \end{equation*}
+  Mostre que $F_*(U_{[0,1]}^{\otimes n}) = U_{\cS_n}$.
+\end{exercise}
+
+Ou seja, ordenar uma sequência de uniformes independentes nos fornece uma permutação uniforme.
+Como prometido, isso nos dá uma maneira de construir uma permutação uniforme de $\{1, \dots, n\}$ à partir de uma sequência \iid (que é algo que já estamos começando a entender melhor).
+
+Podemos agora escrever nossa probabilidade de observar uma sequência no modelo da 
+Urna de Pólya em termos de uma sequência \iid de variáveis aleatórias.
+\begin{equation*}
+  \begin{split}
+    \frac{1}{(n+1)} \binom{n}{N^n_1}^{\mathclap{\;-1}} & =
+    F_{*} U_{[0,1]}^{\otimes n+1} \Big[ \sigma(n+1) = N^n_1 + 1, \sigma(i) \leq N^n_1 \text{ se e só se } i \leq N^n_1 \Big]\\
+    & =  U^{\otimes n+1}_{[0,1]} \Big[ \text{$X_i < X_{n+1}$, para $i \leq N^n_1$ e $X_i > X_{n+1}$, para $i \ge N^n_1+1$} \Big].
+  \end{split}
+\end{equation*}
+Agora estamos prontos para provar o resultado principal que nos ajudará a calcular probabilidades no modelo da Urna de Pólya.
+
+Dado $u \in [0,1]$, seja $P_u = \Ber(u)^{\otimes \bbN}$, ou seja a probabilidade que nos dá uma sequência infinita de moedas independentes com probabilidade $u$ de sucesso.
+Definimos agora $\widebar{K}: [0,1] \times (\mathcal{P}(\{0,1\})^{\otimes \bbN}) \to [0,1]$ dada por
+\begin{equation}
+  \widebar{K}(u,A) = P_u(A).
+\end{equation}
+
+\begin{lemma}
+  A função $\widebar{K}$ definida acima é um núcleo entre $[0,1]$ e $\{0,1\}^{\mathbb{N}}$.
+\end{lemma}
+
+\begin{proof}
+  Usando a Proposição~\ref{p:K_nucleo_na_classe}, basta ver que
+  \begin{display}
+    para todo $k \geq 1$ e $w_1, \dots, w_k \in \{0,1\}$, temos que $P_u(X_1 = w_1, \dots, X_k = w_k)$ é uma função mensurável de $u \in [0,1]$.
+  \end{display}
+  Mas é fácil ver que
+  \begin{equation}
+    \label{e:Polya_binomial}
+    P_u(X_1 = w_1, \dots, X_k = w_k) = u^{N_1(w_1, \dots, w_k)} (1 - u)^{N_0(w_1, \dots, w_k)},
+  \end{equation}
+  que obviamente é mensurável, provando assim o lema.
+\end{proof}
+
+O resultado muito curioso a qual nos referimos é o seguinte.
+
+\begin{lemma}
+  A lei $P$ definida no Exercício~\ref{x:constr_Polya} é igual a $U_{[0,1]} \widebar{K}$.
+\end{lemma}
+
+Em outras palavras, digamos que realizamos os seguintes experimentos.
+Primeiramente João realiza o processo da Urna de Pólya e anota a sequência das cores obtidas.
+Depois Maria sorteia uma variável aleatória $X$ de distribuição uniforme em $[0,1]$ e depois joga infinitas vezes uma moeda com probabilidade $X$ de obter vermelho e $(1-X)$ de obter azul, anotando também quais cores foram obtidas.
+Finalmente, não seríamos capazes de distinguir essas duas sequências (mesmo que pudéssemos repetir várias vezes esse experimento) pois elas tem a mesma distribuição em $\{0,1\}^{\mathbb{N}}$.
+
+\begin{proof}
+  Já sabemos que basta mostrar a igualdade para eventos do tipo $A = \{w_1\} \times \dots \times \{w_n\} \times \{0,1\}^\mathbb{N}$.
+  Sabemos pelo Teorema de Fubini para Núcleos que
+  \begin{equation}
+    U_{[0,1]} \widebar{K}(A) = \int_0^1 K(u, A) \d u \overset{\eqref{e:Polya_binomial}}= \int_0^1 u^{N_1(w_1, \dots, w_k)} (1 - u)^{N_0(w_1, \dots, w_k)} \d u.
+  \end{equation}
+
+  Por outro lado , sabemos (usando simetria entre $0$ e $1$)que
+  \begin{equation}
+    P[A]=U^{\otimes n+1}_{[0,1]} \Big[ \text{$X_i < X_{n+1}$, para $i \leq N^n_0$ e $X_i > X_0$, para $i \ge N^n_0+1$} \Big]
+  \end{equation}
+
+  Se definirmos $\tilde{K}:[0,1] \times \mathcal{B}([0,1]^n)$, dado por $\tilde{K}(u,B) =  U^{\otimes n}_{[0,1]}$, sabemos que isso define um núcleo pelo Exercício~\ref{x:nucleo_constante}.
+  Mais ainda, esse mesmo exercício nos diz que $U_{[0,1]} \star \tilde{K} = 
+   U^{\otimes}_{[0,1]}$, de forma que
+  \begin{equation*}
+    \begin{split}
+      P(A) & = U_{[0,1]} \star \tilde{K} \Big[ \text{$X_i < X_0$, para $i \leq N^n_0$ e $X_i > X_0$, para $i\ge N^n_0+1$} \Big]\\
+      & = \int_0^1  U^{\otimes n}_{[0,1]} \Big[ \text{$X_i < u$, para $i \leq N^n_0$ e $X_i > u$, para $i \ge N^n_0+1$} \Big] \d u\\
+      & = \int_0^1 u^{N^n_0} (1-u)^{n - N^n_0} \d u,
+    \end{split}
+  \end{equation*}
+  que coincide com $U_{[0,1]} \widebar{K}(A)$, provando o lema.
+\end{proof}
+
+\begin{exercise}
+  Mostre que a probabilidade, segundo o modelo da Urna de Pólya, de que observemos infinitas bolas de ambas as cores é um.
+\end{exercise}
+
+
+
+\end{topics}
+
 
 \section{Espaços canônicos}
 
