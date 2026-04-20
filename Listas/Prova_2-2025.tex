@@ -1,0 +1,120 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathabx}
+\usepackage{calc}
+\usepackage{fullpage}
+
+\usepackage{dsfont} % includes bb 1
+\newcommand*\1{\mathds{1}}
+\usepackage[brazil]{babel}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{corollary}[theorem]{Corolário}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{proposition}[theorem]{Proposição}
+\newtheorem{definition}[theorem]{Definição}
+\newtheorem{notation}[theorem]{Notação}
+
+\DeclareMathOperator{\Var}{Var}
+\def\d{\mathrm{d}}
+
+\begin{document}
+
+\title{Probabilidade I}
+\author{Segunda Prova}
+
+\maketitle
+
+\noindent Observa\c{c}\~oes:
+\begin{itemize}
+\item A prova terá duração de $3$ horas e meia.
+\item Questões deverão ser respondidas de maneira matematicamente rigorosa e clara.
+\item Todos os resultados provados em aula (exceto exercícios) poderão ser utilizados, salvo quando a questão pedir que algum destes seja provado. Nesse caso, todos os resultados anteriores poderão ser utilizados.
+\item Caso uma questão seja composta de vários itens, cada um poderá ser resolvido independentemente, supondo a validade dos anteriores.
+\end{itemize}
+
+\vspace{4mm}
+\noindent {\bf 1)} Sejam $X_1, X_2, \dots$ variáveis aleatórias independentes com distribuição Poisson de parâmetros $\lambda_1, \lambda_2, \dots$.
+Definindo $S_n = X_1 + \dots + X_n$, mostre que
+\begin{equation}
+  \frac{S_n - E(S_n)}{\sqrt{\Var(S_n)}} \Rightarrow \mathcal{N}(0, 1)
+\end{equation}
+se e somente se $\sum_n \lambda_n = \infty$.
+
+\vspace{2mm}
+\noindent
+Dica: Lembre que $P[\text{Poisson}(\lambda) = k] = \lambda^k e^{-\lambda}/k!$ e que se $X, Y$ são independentes e com distribuições Poisson($\lambda_1$) e Poisson($\lambda_2$) respectivamente, então $X + Y$ tem distribuição Poisson($\lambda_1 + \lambda_2$).
+
+\vspace{4mm}
+\noindent {\bf 2)} Sejam $X_1, X_2, \dots$ variáveis aleatórias i.i.d. e defina
+\begin{equation}
+  S_n = \sum_{i = 1}^n X_i, \text{ para $n \geq 1$}.
+\end{equation}
+\begin{enumerate}[\quad a)]
+\item (Propriedade de Markov) Mostre que para quaisquer $k, n \geq 1$ e qualquer função $f: \mathbb{R}^k \to \mathbb{R}_+$ limitada,
+  \begin{equation}
+    E \big[ f(S_{n + 1}, \dots, S_{n + k}) | S_1, \dots, S_n \big]
+    = E \big[ f(S_{n + 1}, \dots, S_{n + k}) | S_n \big].
+  \end{equation}
+\item (Martingal com respeito à filtração canônica) Mostre que se $X_i \in \mathcal{L}^1$ então, para qualquer $n \geq 1$,
+  \begin{equation}
+    E \big[ S_{n + 1} | S_n \big] = S_n.
+  \end{equation}
+\end{enumerate}
+
+\pagebreak
+
+\vspace{4mm}
+\noindent {\bf 3)} Considere $f: \mathbb{R} \to \mathbb{R}_+$ contínua e de suporte compacto, que determine uma densidade na reta, ou seja, tal que $\int f(x) dx = 1$.
+Gostaríamos de estimar o valor de $f$ em um ponto $x$ fixo, tendo acesso a apenas a amostras $X_1, \dots, X_N$ i.i.d. com distribuição $f(x) dx$.
+
+Para isso, fixamos uma função $k: \mathbb{R} \to \mathbb{R}_+$ contínua e de suporte compacto, tal que $\int k(u) du = 1$ e, fixado $\theta > 0$, definimos o estimador
+\begin{equation}
+  F_\theta^N(x) := \frac{1}{N} \sum_{i = 1}^N \frac{1}{\theta}
+  k \Big( \frac{x - X_i}{\theta} \Big),
+\end{equation}
+que é uma variável aleatória.
+Nosso objetivo é estimar, para $x$ fixado,
+\begin{equation}
+  P \big[ \big| F_\theta^N(x) - f(x) \big| \geq t \big].
+\end{equation}
+\begin{enumerate}[\quad a)]
+\item Mostre que
+  \begin{equation}
+    P \big[ \big| F_\theta^N(x) - f(x) \big| \geq t \big]
+    \leq \frac{E \big( ( F_\theta^N(x) - f(x) )^2 \big)}{t^2}.
+  \end{equation}
+\item Mostre que
+  \begin{equation}
+    E \big( ( F_\theta^N(x) - f(x) )^2 \big)
+    = \big( E (F_\theta^N(x) - f(x)) \big)^2
+    + \Var(F_\theta^N).
+  \end{equation}
+\item Lembrando que $k$ é contínua e de suporte compacto e supondo ainda que $\int u k(u) du = 0$ e que $f \in C^1$, mostre que
+  \begin{equation}
+    \big| E (F_\theta^N(x) - f(x)) \big|
+    \leq \frac{\theta^2}{2} \lVert f'' \rVert_\infty \int u^2 k(u) du.
+  \end{equation}
+  Dica: desenvolva a série de Taylor para $f$ em torno de $x$.
+\item Ainda assumindo que $k$ é contínua e de suporte compacto, mostre que
+  \begin{equation}
+    \Var(F_\theta^N(x)) \leq \frac{1}{N \theta^2}
+    \Var \Big( k \Big( \frac{x - X_1}{\theta} \Big) \Big)
+    \leq \frac{1}{N \theta^2}
+    E \Big( k \Big( \frac{x - X_1}{\theta} \Big)^2 \Big)
+    \leq \frac{\lVert f \rVert_\infty}{N \theta} \int k^2(u) du.
+  \end{equation}
+\end{enumerate}
+
+
+\end{document}
