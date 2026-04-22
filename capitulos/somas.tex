@@ -790,30 +790,34 @@ E uma consequência do resultado seguinte
 
 \subsection{Demonstração da Lei Fortes dos Grandes Números}
 
-\todo{Melhorar a intuição da prova: 1) passo de redução para $E(X) < 0$, $a = 0$, $M < \infty$ q.c. 2) Falar sobre o desejo de escrever $M_{k + 1}$ em termos de $M_k'$, para enfatizar a ergodicidade. 3) mencionar que $E(\min(M'_k, -X_1)) \leq 0$ indica que $M'_k$ deve atuar para baixar a esperança de $-X_1$ a valores negativos 4) lei $\{0, 1\}$ impede que $M'$ atue nesse sentido.}
-
-Vamos provar que para todo $a>E[X_1]$ temos que quase certamente
-\begin{equation}\label{lesup}
-M := \sup_{n\ge 0} \big\{ S_n - an \big\} < \infty
+\begin{proof}[Prova do Teorema~\ref{t:LFGN}]
+Sem perda de generalidade, podemos supor que temos $E(X_1) = 0$, pois tanto a esperança quanto a média de $(X_1, \dots, X_n)$ são lineares.
+Vamos provar que para todo $a > 0$ temos que quase certamente
+\begin{equation}
+  \label{lesup}
+  M := \sup_{n\ge 0} \big\{ S_n - an \big\} < \infty
 \end{equation}
 onde $S_0 = 0$ e $S_n := \sum_{i = 1}^n X_i$ para $n \geq 1$.
-Note que a desigualdade \eqref{lesup} implica que
+Note que a desigualdade \eqref{lesup} implica
 \begin{equation*}
   \limsup_{n\ge 0} \frac{S_n}{n}\le a,
 \end{equation*}
-e como $a$ pode ser tomado arbitrariamente perto de $E[X_1]$,  $\limsup_{n\ge 0} \frac{S_n}{n}\le E[X_1]$.
-A cota inferior pode ser obtida usando a desigualdade \eqref{lesup} para $-S_n$ (que também e uma soma de variáveis i.i.d).
+e como $a > 0$ é arbitrário, temos que $\limsup_{n\ge 0} \frac{S_n}{n} \le 0$.
+A cota inferior pode ser obtida usando a desigualdade \eqref{lesup} para $-S_n$ (que também e uma soma de variáveis i.i.d de média zero).
+Portanto basta provar \cref{lesup}.
 
 \medskip
 
-Agora consideramos $a$ fixo.
-Uma primeira coisa que podemos verificar e que coincide para qualquer $k \in \bbN$ temos
+Agora consideramos $a > 0$ fixo.
+Uma primeira coisa que podemos verificar é que os três eventos abaixo coincidem para qualquer $k \in \bbN$:
 \begin{equation}
-  \{M<\infty\}=\{ \sup_{n\ge k} S_n-n a<\infty \}= \{\sup_{n\ge k} S_n-S_k-na \}
+  \{M<\infty\} = \Big\{ \sup_{n\ge k} S_n-n a<\infty \Big\}
+  = \Big\{\sup_{n\ge k} S_n-S_k-na \Big\}
 \end{equation}
-Em particular $\{M<\infty\}\in \sigma(X_{k+1},X_{k+2},\dots )$ para $k$ arbitrário, e por entanto pertencia na $\sigma$ álgebra caudal.
-Em consequência da lei do $\{0,1\}$, temos $P[M<\infty]\in \{0,1\}$ e fica suficiente de provar $P[M<\infty]>0$ o de jeito equivalente
-$P[M=\infty]<1$. Vamos prosseguir por contradição.
+Em particular $\{M<\infty\}\in \sigma(X_{k+1},X_{k+2},\dots )$ para $k$ arbitrário, e por entanto pertence à $\sigma$-álgebra caudal.
+Em consequência da lei $\{0,1\}$ de Kolmogorov, temos $P[M < \infty] \in \{0,1\}$ e será suficiente provar que $P[M < \infty] > 0$, ou equivalentemente que
+$P[M = \infty] < 1$.
+Vamos prosseguir por contradição.
 
 \medskip
 
@@ -825,28 +829,33 @@ Definimos
   \end{split}
 \end{equation*}
 Essas duas sequências tem a mesma distribuição: Existe uma função $F$ tal que $M_k = F(X_1, \dots, X_k)$ e $M'_k = F(X_2, \dots, X_{k+1})$ e os vetores $(X_1, \dots, X_k)$ e $(X_2, \dots, X_{k+1})$ tem a mesma distribuição.
+Além disso, essas sequências convergem de maneira crescente para $M$ e $M'$ respetivamente que são também identicamente distribuidas (basta notar que $P(M \le x) = \lim_{k \to \infty} P(M_k \le x)$).
 
 \medskip
 
-As sequências convergem de jeito crescente para $M$ e $M'$ respetivamente que são também identicamente distribuidas (basta notar que $P(M \le x) = \lim_{k \to \infty} P(M_k \le x)$).
-Usando as definições temos
+Vamos agora tentar relacionar as sequências $M_{k + 1}$ e $M'_k$, para explorar a invariância por translações:
 \begin{equation*}
   \begin{split}
     M_{k+1}
-    & = \max \Big\{ 0, \max_{0 \leq n \leq k} (S_{n + 1} - a(n + 1)) \Big\}\\
+    & \overset{S_0 = 0}= \max \Big\{
+      0, \max_{1 \leq n \leq k} (S_{n + 1} - a(n + 1))
+      \Big\}\\
     & = \max(0, M'_k + X_1 - a) = M'_k - \min(M'_k, a - X_1).
   \end{split}
 \end{equation*}
 Usando o fato que $M_k$ e $M'_k$ tem mesma distribuição obtemos
-
-$$E[\min(M'_k,a-X_1)]=E[M'_{k}]-E[M_{k+1}]=E[M_{k}-M_{k+1}]\le 0.$$
-Usando o teorema de convergência dominada, ($0\le \min(M'_k,a-X_1)\le |X_1-a|$) obtemos que
+\begin{equation}
+  E[\min(M'_k,a-X_1)]=E[M'_{k}]-E[M_{k+1}]=E[M_{k}-M_{k+1}]\le 0.
+\end{equation}
+A desigualdade acima é bastante contra-intuitiva, pois $a - X_1$ tem esperança estritamente positiva e $M_k' \geq 0$ cresce para $M'$.
+Mas para concluir precisamos de tomar o limite de $M'_k$.
+Pelo teorema de convergência dominada, (observando que $0 \le |\min(M'_k, a - X_1)| \le |a - X_1|$) obtemos
 $$E[\min(M',a-X_1)]\le 0.$$
-Agora para concluir, se tivermos $P(M'=\infty)=P(M=\infty)=1$, implicaria
+Agora, note que a hipótese de contradição $P(M'=\infty)=P(M=\infty)=1$ implicaria
 $E[a-X_1]\le 0$,
-o que e impossível com a nossa escolha de $a$.
+o que é uma contradição pois $E(X_1) = 0$ e $a > 0$.
+\end{proof}
 
-\qed
 
 
 
@@ -860,7 +869,7 @@ o que e impossível com a nossa escolha de $a$.
 \subsection{Lei dos grandes números em $\cL^1$}
 
 Acabamos de provar convergência das somas de variáveis independentes no sentido quase certo.
-Vamos ver agora que a convergência ocorre também em $\cL^1$.
+Vamos ver agora que a convergência ocorre também em~$\cL^1$.
 
 \begin{theorem}
  Se $(X_n)_{n\ge 0}$ é uma sequência de variáveis independentes e de mesma distribuição com $X_1\in \cL^1$ então
@@ -1047,17 +1056,17 @@ Discute da convergência da serie seguinte em função do valor de $\alpha, \bet
 
 \subsection{A desigualdade de Kolmogorov}
 
-Para provar o Teorema, vamos precisar de uma feramenta util tambem em outro contexto.
-E uma versão mais forte de desigualdade de Chebychev.
+Para provar o Teorema, vamos precisar de uma feramenta ótil também em outros contextos.
+É uma versão mais forte de desigualdade de Chebychev.
 
 \medskip
 
-
 \begin{theorem}[Desigualdade de Kolmogorov]
-Suponhamos que $X_i$ são variáveis independente tal que $\Var X_i<\infty$ para todos $i$.
+Suponhamos que $X_i$ são variáveis independentes, tais que $\Var X_i < \infty$ para todos $i$.
 Então temos
 \begin{equation}
- P[\max_{1\le k\le n} |S_k-E[S_k]|>\gep ]\le  \frac{\Var S_n}{\gep^2}.
+  P \Big[ \max_{1\le k\le n} |S_k-E[S_k]|>\gep \Big]
+  \le \frac{\Var S_n}{\gep^2}.
 \end{equation}
 
 \end{theorem}
@@ -1067,34 +1076,49 @@ Então temos
   Susbstituindo $X_i$ por $X_i-E[X_i]$ se for necessário, podemos supor que a esperança das variáveis vale zero.
   Vamos decompor o evento
   \begin{equation}
-    \bigg[ \max_{1\le k\le n} |S_k|>\gep \bigg]
+    \Big[ \max_{1\le k\le n} |S_k|>\gep \Big]
   \end{equation}
-  com respeito ao primeiro valor de $k$ por qual $|S_k|>\gep$.
+  com respeito ao primeiro valor de $k$ para o qual $|S_k|>\gep$.
  \begin{equation}
    \begin{split}
      E_1 & := [|S_1|\ge \gep ],\\
-     E_k & := \big[|S_1|<\gep;\, \dots ;\,  |S_{k-1}|<\gep\, ;  \, |S_k|\ge \gep \big],
-           \quad 2\le k\le n.
+     E_k & := \big[
+           |S_1|<\gep;\, \dots ;\,  |S_{k-1}|<\gep\, ;  \, |S_k|\ge \gep
+           \big], \quad 2\le k\le n.
    \end{split}
  \end{equation}
- Obviamente temos $$\left\{\max_{1\le k\le n} |S_k|>\gep\right\}=\bigcup_{k=1}^n E_k,$$
- a união sendo disjunta.
- Observando que $\1_{E_k} \leq \tfrac{S_k}{\gep^2} \1_{E_k}$,
+ Obviamente temos
  \begin{equation}
-   P \bigg[ \max_{1\le k\le n} |S_k|>\gep \bigg] \le  \sum_{k=1}^n P(E_k)\le  \sum_{k=1}^n E\left[  \frac{S^2_k}{\gep^2}\1_{E_k}\right].
+   \label{eq:1}
+   \Big\{\max_{1 \le k\le n} |S_k|>\gep \Big\} = \bigcup_{k=1}^n E_k,
+ \end{equation}
+a união sendo disjunta.
+ Observando que $\1_{E_k} \leq \tfrac{S_k^2}{\gep^2} \1_{E_k}$, temos
+ \begin{equation}
+   P \Big[
+   \max_{1\le k\le n} |S_k|>\gep
+   \Big]
+   \le \sum_{k=1}^n P(E_k)\le  \sum_{k=1}^n E \bigg[
+   \frac{S^2_k}{\gep^2}\1_{E_k}
+   \bigg].
  \end{equation}
  Vamos poder concluir a prova se mostramos para todo $k$
  \begin{equation}\label{therest}
    E[S^2_k\1_{E_k}]\le E[S^2_n\1_{E_k}].
  \end{equation}
- Isso implica que
+ Isso implicaria que
  \begin{equation}
-   \sum_{k=1}^n E\left[  \frac{S^2_k}{\gep^2}\1_{E_k}\right]\le E\left [  \frac{S^2_n}{\gep^2}  \sum_{k=1}^n \1_{E_k}\right]= \frac{\Var(S_n)}{\gep^2}.
+   \sum_{k=1}^n E \bigg[ \frac{S^2_k}{\gep^2}\1_{E_k} \bigg]
+   \le E \bigg[ \frac{S^2_n}{\gep^2}  \sum_{k=1}^n \1_{E_k} \bigg]
+   = \frac{\Var(S_n)}{\gep^2}.
  \end{equation}
  Para mostrar \eqref{therest}, definimos $\Delta_{k,n}= S_n-S_k$.
  Temos
  \begin{equation}
-   E[S^2_n\1_{E_k}]= E[(S_k+\Delta_{k,n})^2\1_{E_k}]= E[S_k^2\1_{E_k}]+2 E[ \Delta_{k,n} S_k \1_{E_k}]+  E[ \Delta^2_{k,n}\1_{E_k}].
+   E \big[ S^2_n\1_{E_k} \big]
+   = E \big[ (S_k + \Delta_{k,n})^2\1_{E_k} \big]
+   = E[S_k^2\1_{E_k}]+2 E[ \Delta_{k,n} S_k \1_{E_k}]
+     + E[ \Delta^2_{k,n}\1_{E_k}].
  \end{equation}
  O terceiro termo e obviamente positivo, então podemos concluir se mostramos  que $E[ \Delta_{k,n} S_k \1_{E_k}]=0$.
  Lembramos que $S_k\1_{E_k}$ e uma funções das $k$ primeiras variáveis e $\Delta_{k,n}$ so depende das outras $n-k$
@@ -1109,18 +1133,15 @@ Então temos
  Isso conclui a prova do teorema.
 \end{proof}
 
-\subsection{Prova to Teorema de Uma Serie}
+\subsection{Prova do Teorema de Uma Série}
 
-Uma consequência imediata da desigualdade de Kolmogorov e que se \\ $\sum_{i=1}^{\infty} \Var X_i<\infty$ e $E[X_i]=0$
+Uma consequência imediata da desigualdade de Kolmogorov é que se tivermos $\sum_{i=1}^{\infty} \Var X_i<\infty$ e $E[X_i]=0$, então
 \begin{equation}
   \label{e:kolmogorov_var_somavel}
-  P\left[ \exists n\in \bbN,  |S_n| \ge A \right]
-  \le \frac{\sum_{i=1}^{\infty} \Var X_i}{A^2}.
+  P \big[ \exists n\in \bbN,  |S_n| \ge \varepsilon \big]
+  \le \frac{\sum_{i=1}^{\infty} \Var X_i}{\varepsilon^2}.
 \end{equation}
-E obtida simplesmente pegando o limite quando $n$ vai para infinito da desigualdade.
-
-
-\url{https://www.math.hkust.edu.hk/~makchen/MATH5411/Chap1Sec6.pdf}
+Essa desigualdade é obtida simplesmente tomando o limite quando $n$ vai para infinito da desigualdade de Kolmogorov.
 
 Seja $A_m^\epsilon := [ \max_{i \geq m} |S_i - S_m| \leq \epsilon ]$.
 Para mostrar que $\sum_{i} X_i$ converge, basta mostrar que essa sequência é Cauchy, ou seja, precisamos verificar que
