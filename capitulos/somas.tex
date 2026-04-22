@@ -392,7 +392,7 @@ Corresponde a distancia quadrada ao subespaço das constantes no espaço $\cL^2$
 \begin{definition}
   Dada uma variável aleatória $X \in \mathcal{L}^2$, definimos sua variância \index{variancia@variância} como
   \begin{equation}
-    \Var(X) = E \Big( \big(X - E(X)\big)^2 \Big) = E(X^2) - E(X)^2.
+    \Var(X) = E \Big( \big(X - E(X)\big)^2 \Big) = E(X^2) - \big( E(X) \big)^2.
   \end{equation}
 \end{definition}
 
@@ -441,10 +441,9 @@ A seguinte aplicação da propridade de Markov usa a variância para  estimar o 
   Isso demostra a proposição.
 \end{proof}
 
-Mais geralmente, podemos usar a  desigualdade de Markov que para qualquer $X \in \cL^p$
-
+Mais geralmente, podemos usar a  desigualdade de Markov que para qualquer $X \in \cL^p$ e $x > 0$:
 \begin{equation}
-  P[|X| \geq x] = P [X^p \geq x^p] \leq \frac{E(|X|^p)}{x^p}, \text{ para quaisquer $k \geq 1$.}
+  P[|X| \geq x] = P [|X|^p \geq x^p] \leq \frac{E(|X|^p)}{x^p}, \text{ para quaisquer $k \geq 1$.}
 \end{equation}
 Mas o caso $\cL^2$ é particularmente útil, como veremos posteriormente.
 Isso por que  $\cL^2$ possui uma estrutura natural de espaço de Hilbert, e nesse contexto independência está relacionada a ortogonalidade.
@@ -561,8 +560,6 @@ O objetivo desta seção é confirmar a validade desse experimento de maneira qu
   \end{equation}
   Ou seja, $\tfrac{S_n}{n} \to E(X_1)$ em probabilidade.
 \end{theorem}
-
-
 
 \begin{proof}
   Sabemos que
