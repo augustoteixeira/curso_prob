@@ -704,6 +704,8 @@ $$g(x)=E[Y \, | \, X = x]= \frac{E[Y\1_{\{X=x\}}]}{P[X=x]}$$
 
 \section{Núcleos de transição}
 
+\todo{uma aula certinha}
+
 Já focamos bastante energia em variáveis aleatórias independentes.
 Por exemplo, estudamos em detalhes o que acontece com a soma de tais variáveis.
 Agora passaremos a estudar elementos aleatórios dependentes e o primeiro passo para isso é obter um método geral de construí-los.
@@ -1320,10 +1322,9 @@ Finalmente, não seríamos capazes de distinguir essas duas sequências (mesmo q
 \end{exercise}
 \end{topics}
 
-
-
-
 \section{Espaços canônicos}
+
+\todo{uma aula certinha}
 
 Em várias áreas da matemática, existe um importante conceito de equivalência entre duas estruturas, como por exemplo: homeomorfismos, isometrias e isomorfismos.
 Nessa seção estudaremos o caso análogo para espaços mensuráveis, que nos trará uma grande surpresa.
@@ -1384,13 +1385,25 @@ então existe uma probabilidade $P$ em $\gO$ tal que
     \Psi(x_1, x_2, \dots) = (\psi_1(x_1), \psi_2(x_2), \dots).
   \end{equation}
   Resta mostrar que a medida $P = \Psi_* \widebar{P}$ extende as probabilidades $P_n$.
-  Observe que
+  Usando a notação $f^{-1}$ para a inversa e $f^{(-1)}$ para a pré-imagem para evitar ambiguidades, temos
   \begin{equation*}
     \begin{split}
-      P\big(A_1 \times \dots \times A_n \times & E_{n+1} \times \dots\big) = \widebar{P} \big(\Psi^{-1}(A_1 \times \dots \times A_n \times E_{n+1} \times \dots)\big)\\
-      & = \widebar{P} \big( \psi^{-1}_1(A_1) \times \dots \times \psi^{-1}_n(A_n) \times \mathbb{R} \times \dots \big)\\
-      & = \widebar{P}_n (\psi^{-1}_1(A_1) \times \dots \times \psi^{-1}_n(A_n))\\
-      & = P_n \big(\phi^{-1}_1\big(\psi^{-1}_1(A_1)) \times \dots \times \phi^{-1}_n\big(\psi_n^{-1}(A_n)\big)\big)\\
+      P\big(A_1 \times \dots \times A_n \times
+      & E_{n+1} \times \dots\big) = \widebar{P}
+        \big(\Psi^{(-1)}(A_1 \times \dots \times
+        A_n \times E_{n+1} \times \dots)\big)\\
+      & = \widebar{P} \big( \psi^{(-1)}_1(A_1)
+        \times \dots \times \psi^{(-1)}_n(A_n)
+        \times \mathbb{R} \times \dots \big)\\
+      & = \widebar{P}_n (\psi^{(-1)}_1(A_1) \times
+        \dots \times \psi^{(-1)}_n(A_n))\\
+      \intertext{pela definição de $\widebar{P}_n$,}
+      & = P_n \Big( \phi^{(-1)}_1\big(\psi^{(-1)}_1(A_1))
+        \times \dots \times \phi^{(-1)}_n
+        \big(\psi_n^{(-1)}(A_n)\big) \Big)\\
+      \intertext{mas $x \in \phi^{(-1)}(\psi^{(-1)}(A))$
+      se e só se $\phi_i(x) \in \psi^{(-1)}(A)$, que é equivalente a
+      $\psi(\phi(x)) \in A$ e a $x \in A$, logo}
       & = P_n(A_1 \times \dots \times A_n),
     \end{split}
   \end{equation*}
