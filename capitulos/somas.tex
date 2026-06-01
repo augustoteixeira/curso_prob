@@ -101,7 +101,7 @@ definida em $\cL^0$ por
   \end{equation}
 \end{remark}
 
-\subsection{Convergência quase certamente}
+\subsection{Convergência quase certa}
 
 Falamos que $X_n$ converge quase certamente par $X$ se
 existe $\bar \gO\subset \gO$ de probabilidade $1$ tal que para todos $\go\in \bar \gO$
@@ -634,6 +634,41 @@ Além disso, obtivemos o seguinte resultado quantitativo que vale mesmo para val
       P \Big[ \Big| \frac{1}{n} \sum_{i=1}^n R_i - E(R_0) \Big| > a \Big].
     \end{equation}
   \end{enumerate}
+\end{exercise}
+
+
+\begin{exercise}
+  O grafo aleatório de Erdős--Rényi $G(n,p)$ é o grafo com conjunto de vértices
+\begin{equation}
+\{1,2,\dots,n\},
+\end{equation}
+em que cada aresta é incluída independentemente das demais com probabilidade $p$.
+Um vértice é dito \emph{isolado} se não existe nenhuma aresta incidente a ele.
+Seja $I_n$ o número de vértices isolados em $G(n,p)$ e
+\begin{enumerate}[\quad a)]
+    \item Calcule $\mathbb E[I_n]$.
+
+    \item Mostre que para todo $\varepsilon > 0$, se
+    \begin{equation}
+    p_n = (1 + \varepsilon) \frac{\log n}{n},
+    \end{equation}
+    então
+    \begin{equation}
+    \mathbb P(I_n=0)\to1.
+    \end{equation}
+  \item Seja \(X\ge0\) uma variável aleatória com variância finita e tal que $\mathbb E[X] > 0$.
+Mostre que
+\begin{equation}
+\mathbb P(X=0)
+\le
+\frac{\mathrm{Var}(X)}{\mathbb E[X]^2}.
+\end{equation}
+    \item Mostre que, para todo $\varepsilon > 0$, se
+    \begin{equation}
+    p_n = (1 - \varepsilon) \frac{\log n}{n},
+    \end{equation}
+    então $\mathbb P(I_n>0)\to1$.
+\end{enumerate}
 \end{exercise}
 
 
@@ -1957,6 +1992,53 @@ F_n(x)\le \int g^{+}(u) \mu_n(\dd x)\le \int g^{+}(u) \mu(\dd x)+(\gep/2) \le F(
  onde a segunda desigualdade pode se deduzir da convergência fraca e vale para $n$ grande suficiente.
 Usando $g^-$ podemos provar do mesmo jeito que $F_n(u)\ge F(x)-\gep$, o que acaba a demostração $\gep$ sendo arbitrário.
 \end{proof}
+
+
+\begin{exercise}
+A distribuição de Fréchet é frequentemente utilizada para modelar extremos, como máximos anuais de vazão de rios ou cargas máximas em estruturas.
+\begin{enumerate}[\quad a)]
+  \item Sejam $W_1$ e $W_2$ variáveis aleatórias independentes com distribuição de Fréchet de parâmetros $(\alpha,s,m)$, cuja função acumulada de distribuição é dada por
+\begin{equation}
+  F(x)=
+  \begin{cases}
+    \quad
+    \displaystyle
+    \exp\bigg\{
+    -\left(\frac{x-m}{s}\right)^{-\alpha}
+    \bigg\},
+    & x>m,\\
+    \\
+    \quad
+    0, & x \le m.
+  \end{cases}
+\end{equation}
+Defina
+\[
+Y=\max\{W_1, W_2\}.
+\]
+ Determine a função acumulada de distribuição de $Y$, mostre que $Y$ também possui distribuição de Fréchet e identifique seus parâmetros.
+\item Sejam $X_1,X_2,\dots$ variáveis aleatórias iid com função acumulada de distribuição
+\begin{equation}
+F(x)=
+\begin{cases}
+0, & x<1,\\
+1-x^{-\alpha}, & x\ge 1,
+\end{cases}
+\end{equation}
+onde $\alpha>0$ e defina
+  \begin{equation}
+    M_n=\max\{X_1,\dots,X_n\}.
+  \end{equation}
+  e mostre que
+  \begin{equation}
+    \frac{M_n}{n^{1/\alpha}}
+    \overset{d}{\Longrightarrow}
+    Y,
+  \end{equation}
+  onde $Y$ possui distribuição de Fréchet com parâmetros $(\alpha,1,0)$.
+\end{enumerate}
+\end{exercise}
+
 
 \begin{topics}
   \section{Tópico: O Teorema de Portmanteau}
