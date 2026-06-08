@@ -312,7 +312,7 @@ Além caso trivial dado acima pelo Exemplo~\ref{x:EXF_trivial}, quando podemos e
   Como $P(A) = 0$ implica que $\mu(A) = 0$, temos que $\mu \ll P$ e podemos aplicar o Teorema de Radon-Nikodim para obter uma derivada $Y:\Omega \to \mathbb{R}$ tal que
   \begin{enumerate}[\quad a)]
   \item $Y$ é $\mathcal{F}'$-mensurável e
-  \item $\mu(A) = \int_A Y \d P$.
+  \item $\mu(A) = \int_A Y \d P$ para todo $A \in \mathcal{F}'$.
   \end{enumerate}
   Agora é só observar que as afirmações acima correspondem às condições da Definição~\ref{d:esperanca_condicional}.
 \end{proof}
@@ -539,7 +539,7 @@ O próximo resultado tenta corroborar nossa afirmação que a esperança condici
 Vimos acima uma metodologia que se repete frequentemente.
 Digamos que queremos provar que uma determinada expressão nos dá a esperança condicional de algo.
 Podemos começar provando esse resultado para funções indicadoras, depois para funções simples usando a linearidade provada acima.
-Porém ainda falta um ingrediente bastante importante para construir ou verificar que determinadas variáveis são esperanças condicionais.
+Porém ainda falta um ingrediente bastante importante para construir ou verificar que determinadas variáveis são esperanças condicionais: limites de funções.
 
 \begin{theorem}[Convergência Monótona para Esperanças Condicionais]
   \index{esperanca@esperança!condicional!T.C.M.}
@@ -714,6 +714,16 @@ Informalmente, digamos que $X$ é uma variável aleatória com distribuição $U
 Seria possível definir uma variável $Y \in \{0, 1\}$ tal que o par $(X, Y)$ tenha distribuição ``$(U_{[0, 1], \Ber(X))}$''?
 Note que o parâmetro de $Y$ é dado por uma variável aleatória e não por um valor fixo $p \in [0, 1]$ como antes, por essa razão utilizamos as aspas.
 Nessa seção daremos sentido a tais definições.
+
+Para os leitores com experiência em computação, o que gostaríamos é de obter a distribuição resultante do seguinte pseudo-código:
+\begin{verbatim}
+function sample {
+  let p = random_real(0, 1)
+  let b = bernoulli(p)
+  return (p, b)
+}
+\end{verbatim}
+
 
 Vamos antes dar um exemplo mais concreto.
 Digamos que estamos preocupados com a possibilidade de um deslizamento de terra em uma determinada região.
