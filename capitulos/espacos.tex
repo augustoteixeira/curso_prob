@@ -310,7 +310,7 @@ Note que a unicidade do produto pode ser concluída por exemplo usando o Corolá
 \end{exercise}
 
 
-\subsection{Definição e propriedade básicas da esperança}
+\subsection{Definição e propriedades básicas da esperança}
 
 Uma noção central relacionada a distribuições em $\bbR$ e a de esperança.
 
@@ -331,18 +331,18 @@ Não demonstraremos algumas propriedades conhecidas de medida e integração que
 \begin{enumerate}[\quad a)]
 \item Linearidade: para qualquer $\alpha\in \bbR$, $X$ e $Y$ variável aleatórias temos (se estiverem bem definidas),
 $$E(X + \alpha Y) = E(X) + \alpha E(Y)$$
-\item (Teorema de convergência dominada) se $(X_n)_{n\ge 1}$ for uma sequencia de variáveis  aleatórias  tal que para todo $\go$
-$|X_n(\go)|\le Z(\go)$ onde $Z(\go)$ e integrável, e tal que $\lim_{n\to \infty} X_n(\go)=X(\go)$.
+\item (Integral em um conjunto de medida zero) se $A \in \mathcal{F}$ tem $P(A) = 0$, então $\int_A f = 0$ para toda $f$ mensurável.
+\item (Teorema de convergência dominada) se $(X_n)_{n\ge 1}$ for uma sequencia de variáveis  aleatórias  tal que para todo $\go$ temos $|X_n(\go)| \le Z(\go)$, onde $Z$ é integrável, e tal que $\lim_{n\to \infty} X_n(\go)=X(\go)$ q.c.
 Então $X$ e integrável e
 $$\lim_{n\to \infty} E[X_n]=E[X].$$
- \item (Troca soma/esperança)Se $(X_n)_{n\ge 1}$ e uma família de variáveis aleatórias  tal que $\sum_{n\ge 1} E[|X_n|]<\infty$,
- então $Z:=\sum_{n\ge 1} E[X_n]$ e integrável
+ \item (Troca soma/esperança) Se $(X_n)_{n\ge 1}$ é uma família de variáveis aleatórias tal que $\sum_{n\ge 1} E[|X_n|]<\infty$,
+ então $Z := \sum_{n \ge 1} X_n$ é integrável e $E(Z) = \sum_{n \geq 1} E(X_n)$.
 \item (Lema de Fatou)  se $(X_n)_{n\ge 1}$ for uma sequencia de variáveis  aleatórias  integráveis positivas ($\ge 0$), temos
 $$E[\liminf X_n]\le \liminf E[X_n].$$
-\item (Convergência Monótona)   se $(X_n)_{n\ge 1}$ for uma sequencia de variáveis  aleatórias  integráveis tal que
-para quase todos $\go$ a sequencia $(X_n(\go))_{n\ge 0}$ então  $X=\lim_{n\to \infty} X_n(\go)$, e integrável se $E[X]$ converge
-e
-$$\lim_{n\to \infty} E[X_n]=E[X].$$
+\item (Convergência Monótona) se $(X_n)_{n\ge 1}$ for uma sequencia de variáveis aleatórias  integráveis tais que para quase todos $\go$ a sequencia $(X_n(\go))_{n\ge 0}$ é crescente, então $X = \lim_{n \to \infty} X_n(\go)$ é integrável se $E[X_n]$ converge e nesse caso
+  \begin{equation}
+    \lim_{n \to \infty} E[X_n] = E[X].
+  \end{equation}
 \item (Desigualdade de H\"older) Se $X$ e $Y$ fossem tal que $|X|^p$ e $|Y|^q$ são integráveis com $p,q>0$ tais que $p^{-1}+q^{-1}=1$
 então $XY$  e integrável e
 $$E[XY]\le E[|X|^p]^{1/p} E[|X|^q]^{1/q}$$
@@ -442,9 +442,9 @@ Se $P_X(\d x) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), ent
   \begin{equation}
     E(X) = \int_0^\infty P[X > x] \d x = \int_0^\infty [1 - F(x)] \d x .
   \end{equation}
-  Se $g$ e diferenciável e tal que $E[|g'(X)|]<\infty$ então
+  Se $Y$ é uma variável aleatória e $f$ é diferenciável e tal que $E[|f'(Y)|] < \infty$ então
     \begin{equation}
-    E[f(X)] = \int_\bbR g'(x) [1 - F(x)] \d x .
+    E[f(Y)] = \int_\bbR f'(y) [1 - F(y)] \d y.
   \end{equation}
 \end{proposition}
 
@@ -457,8 +457,8 @@ Se $P_X(\d x) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), ent
   \end{equation}
     \begin{equation}
     \begin{split}
-      E[f(X)] & = - E \Big( \int_{-\infty}^X f'(t)  \dd t \Big) = E \Big( \int_\bbR f'(t) \1_{[X>t]} \d x \Big)\\
-      & \overset{\text{Fubini}}= \int_\bbR f'(t) E(\1_{[X>t]}) \d t = \int_\bbR f'(t) P[X>t] \d t.
+      E[f(Y)] & = - E \Big( \int_{-\infty}^Y f'(y)  \dd y \Big) = E \Big( \int_\bbR f'(y) \1_{[Y>y]} \d y \Big)\\
+      & \overset{\text{Fubini}}= \int_\bbR f'(y) E(\1_{[Y>y]}) \d y = \int_\bbR f'(y) P[Y>y] \d y.
     \end{split}
   \end{equation}
 \end{proof}
@@ -474,10 +474,6 @@ Se $P_X(\d x) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), ent
   \end{equation}
 \end{example}
 
-
-
-
-
 \begin{exercise}
   Se $X \in \mathcal{L}^1$ e $P[X \geq x] = P[X \leq -x]$ para todo $x \geq 0$, então $E(X) = 0$.
 \end{exercise}
@@ -492,16 +488,23 @@ Se $P_X(\d x) = \rho(x) \d x$ (com $\rho \geq 0$ e $\int \rho(x) \d x = 1$), ent
 Finalmente vamos acabar essa secção estudando variáveis  do tipo $\varphi(X)$ onde $X$ e uma variável o um vector aleatório.
 
 \begin{proposition}[Desigualdade de Jensen]
- Seja $\varphi:\bbR \to \bbR$ uma função convexa e $X$ uma variável  aleatória tal que $X$ e $\varphi(X)$ são integráveis.
- Temos
- \begin{equation}
-  E[ \varphi(X) ] \le \varphi(E[X]).
- \end{equation}
- Do mesmo jeito, se $\varphi:\bbR \to \bbR^d$ e convexa e ${\bf X}$ e um vector aleatório, sob hipóteses adequadas de integrabilidade temos
+  Seja $\varphi:\bbR \to \bbR$ uma função convexa e $X$ uma variável  aleatória tal que $X$ e $\varphi(X)$ são integráveis.
+  Temos
   \begin{equation}
-  E[ \varphi({\bf X}) ] \le \varphi(E[{\bf X}]).
- \end{equation}
+    E[ \varphi(X) ] \le \varphi(E[X]).
+  \end{equation}
+  Similarmente, se $\varphi: \bbR^d \to \bbR$ é convexa e ${\bf X}$ é um vector aleatório, sob hipóteses adequadas de integrabilidade temos
+  \todo{pensar nas hipóteses}
+  \begin{equation}
+    E[ \varphi({\bf X}) ] \le \varphi(E[{\bf X}]).
+  \end{equation}
 \end{proposition}
+
+\begin{proof}
+  Se, para alguma escolha de $a, b \in \mathbb{R}$, temos que $\varphi(x) \geq a x + b$ para todo $x \in \mathbb{R}$, então temos que $E(\varphi(X)) \geq a E(X) + b$ por linearidade e monotonicidade da esperança.
+  O resultado segue ao tomaramos o supremo sob todas as funções afins (isso é, da forma $a x + b$) abaixo de $\varphi$.
+  (O caso vectorial fica como exercício)
+\end{proof}
 
 \begin{remark}
   No caso onde $P_X$ tem suporte em $\{a,b\}$ o resultado e simplesmente a definição da convexidade.
@@ -530,14 +533,6 @@ Usando a noção e esperança, obtemos um jeito muito simples de obter tais cota
   \end{equation}
 \end{proof}
 
-
-
-Definimos $m=E[X]$.
-Sabemos por convexidade que
-$$\varphi(X)\ge \varphi(m)+ a(X-m),$$
-para qualquer $a\in [\varphi'_-(m), \varphi'_+(m)]$ (as derivas a esquerda e direita de $\phi$).
-O resultado segue considerando a esperança nos dois lados.
-(O caso vectorial fica de exercício)
 
 \begin{topics}
 

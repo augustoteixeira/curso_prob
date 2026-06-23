@@ -311,15 +311,15 @@ temos
  =  \sum_{i=1}^n \sum_{j=1}^m \alpha_i \gb_j P[ X=\alpha_i] P[Y=\gb_j]\\ = \left( \sum_{i=1}^n \alpha_i P[ X=\alpha_i]\right)
  \left( \sum_{j=1}^m \beta_j P[Y=\gb_j] \right)=E[X]E[Y],
 \end{multline}
-onde tenhamos usado independência de $X$ e $Y$ na segunda igualdade.
+onde utilizamos a independência de $X$ e $Y$ na segunda igualdade.
 Para funções positivas usamos Exercício \ref{ex:indepfunc} para ver que
 $$X_n= 2^{-n} \lfloor 2^n X \rfloor, \text{ e } Y_n= 2^{-n} \lfloor 2^n Y \rfloor $$
 são funções simples independentes e convergem monotonicamente para $X$ e $Y$.
-Por Convergência Monótona (usado duas vezes)temos
+Pelo Teorema da Convergência Monótona (usado duas vezes) temos
 \begin{equation}
  E[XY]=\lim_{n\to \infty} E[X_nY_n]=\lim_{n\to \infty} E[X_n] E[Y_n]=E[X]E[Y].
 \end{equation}
-Em particular $XY$ e integrável se $X$ e  $Y$ o são.
+Em particular $XY$ e integrável se $X$ e $Y$ o são.
 
 \medskip
 
@@ -338,7 +338,7 @@ em consequência $XY$ e integrável e podemos  concluir por linearidade.
 
 \end{remark}
 
-
+\todo{tópicos de GW?}
 
 \begin{corollary}
   Sejam $X_1,\dots,X_n$ variáveis aleatórias independentes e integráveis, então $\prod_{i=1}^n X_i$ e integrável e
@@ -356,9 +356,9 @@ usando o resultado para $n=2$ que e de novo a hipótese de recorrência, conclu�
 \begin{equation}
  E[\prod_{i=1}^{n+1} X_i]=E[Z_n]E[X_{n+1}]=\left(\prod_{i=1}^n E[X_i]\right) E[X_{n+1}].
 \end{equation}
-
-
 \end{proof}
+
+\todo{problema princesa/posto-de-gasolina? Aqui?}
 
 \section{Distribução marginal de um vector aleatório}
 
