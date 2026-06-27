@@ -1,0 +1,171 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathabx}
+\usepackage{calc}
+\usepackage{fullpage}
+
+\usepackage{dsfont} % includes bb 1
+\newcommand*\1{\mathds{1}}
+\usepackage[brazil]{babel}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{corollary}[theorem]{Corolário}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{proposition}[theorem]{Proposição}
+\newtheorem{definition}[theorem]{Definição}
+\newtheorem{notation}[theorem]{Notação}
+
+\DeclareMathOperator{\Var}{Var}
+\def\d{\mathrm{d}}
+
+\begin{document}
+
+\title{Probabilidade I}
+\author{Segunda Prova}
+
+\maketitle
+
+\noindent Observa\c{c}\~oes:
+\begin{itemize}
+\item A prova terá duração de $3$ horas e meia.
+\item Questões deverão ser respondidas de maneira matematicamente rigorosa e clara.
+\item Todos os resultados provados em aula (exceto exercícios) poderão ser utilizados, salvo quando a questão pedir que algum destes seja provado. Nesse caso, todos os resultados anteriores poderão ser utilizados.
+\item Caso uma questão seja composta de vários itens, cada um poderá ser resolvido independentemente, supondo a validade dos anteriores.
+\end{itemize}
+
+\vspace{4mm}
+\noindent {\bf 1)}
+Seja $(X,Y)$ um vetor aleatório em $\mathbb R^n\times\mathbb R^m$ com densidade conjunta
+\begin{equation}
+    \rho(x,y)
+\end{equation}
+em relação à medida de Lebesgue em $\mathbb R^n\times\mathbb R^m$.
+
+\begin{enumerate}[\quad a)]
+\item Mostre que $P_X$ e $P_Y$ possuem densidades
+\begin{equation}
+  \rho_X(x)=\int_{\mathbb R^m}\rho(x,y)\,dy,
+  \qquad
+  \rho_Y(y)=\int_{\mathbb R^n}\rho(x,y)\,dx.
+\end{equation}
+Em particular, para todo boreliano $A\subseteq \mathbb R^n$,
+  \begin{equation}
+    \mathbb P(X\in A) = \int_A \rho_X(x)\,dx.
+  \end{equation}
+\item Defina
+  \begin{equation}
+    \rho_{X \mid Y}(x, y)
+    = \begin{cases}
+        \frac{\rho(x,y)}{\rho_Y(y)} & \qquad \text{se $\rho_Y(y) > 0$.}\\
+        \rho_X(x) & \text{caso contrário}
+      \end{cases}.
+    \end{equation}
+Mostre que $\rho_{X \mid Y}(x, y) dx$ é a probabilidade condicional regular $P[X \in \cdot | Y = y]$.
+
+    \item Deduza a fórmula de Bayes para densidades:
+    \begin{equation}
+    \rho_{X \mid Y}(x, y)
+    =
+    \frac{\rho_{Y \mid X}(x, y)\rho_X(x)}
+    {\int_{\mathbb R^n}\rho_{Y\mid X}(z, y)\rho_X(z) \, dz}.
+    \end{equation}
+\end{enumerate}
+
+\pagebreak
+
+\noindent {\bf 2)} Seja $(\lambda_i)_{i \ge 0}$ uma sequência de números positivos tal que
+\begin{equation}
+\sup_{m \ge 0} \lambda_m = \Lambda < \infty.
+\end{equation}
+
+Considere o seguinte candidato a processo de Markov em tempo contínuo $(X_t)_{t \ge 0}$ em $\mathbb N$ que, quando está no estado $m$, salta para $m + 1$ com taxa $\lambda_m$.
+
+Fixado um inteiro $n \geq 0$, vamos definir um espaço de probabilidade denotado por $\mathbb{P}_n$.
+Para isso, sejam $E_0, E_1, E_2, \dots$ variáveis aleatórias independentes tais que
+\begin{equation}
+  E_k \sim \mathrm{Exp}(\lambda_{n + k}), \text{ para $k \geq 0$}.
+\end{equation}
+Defina
+\begin{equation}
+  T_0 = 0,
+  \qquad
+  T_k = E_0 + \cdots + E_{k - 1}, \quad \text{ para $k \ge 1$}
+\end{equation}
+e
+\begin{equation}
+  X_t = n + k
+  \quad
+  \text{se}
+  \quad
+  T_k\le t<T_{k+1}.
+\end{equation}
+
+\begin{enumerate}[\quad a)]
+\item Mostre que, sob $\mathbb{P}_n$, $(X_t)_{t \ge 0}$ está bem definido para todo $t \ge 0$, isto é, que
+  \begin{equation}
+    T_k\to+\infty
+    \quad
+    \text{q.c.}
+  \end{equation}
+  Sugestão: use que $\lambda_n\le \Lambda$ para todo $n$.
+
+\item Mostre que, sob $\mathbb{P}_n$, para qualquer $m \geq n$, condicionalmente a $X_t = m$, o tempo restante até o próximo salto tem distribuição exponencial de parâmetro $\lambda_m$.
+
+\item Fixado $n \geq 0$, gostaríamos de concluir que, sob a lei $\mathbb{P}_0$ condicionada a $X_t = n$, o processo futuro
+  \begin{equation}
+    (X_{t + s})_{s \ge 0}
+  \end{equation}
+  tem a mesma lei que o processo iniciado em $n$.
+  Mas por simplicidade, mostre que $(X_t)_{t\ge 0}$ satisfaz uma versão bastante fraca da propriedade de Markov:
+  \begin{equation}
+    \mathbb P_0(X_{t + s} = m \mid X_t = n)
+    =
+    \mathbb P_n(X_s = m),
+    \qquad s, t \ge 0.
+  \end{equation}
+\end{enumerate}
+
+\vspace{4mm}
+\noindent {\bf 3)} Sejam $X_1,X_2,\dots$ variáveis aleatórias iid tais que
+\begin{equation}
+\mathbb P(X_1=1)=p,
+\qquad
+\mathbb P(X_1=-1)=q,
+\end{equation}
+onde $p<q$ e $p+q=1$.
+
+Defina
+\begin{equation}
+S_n=X_1+\cdots+X_n,
+\qquad
+\mathcal F_n=\sigma(X_1,\dots,X_n).
+\end{equation}
+Dizemos que uma família de variáveis aleatórias $Y_n \in \mathcal{L}^1$ é um martingal com respeito a $\mathcal{F}_n$ se
+\begin{equation}
+  \mathbb{E}[Y_{n + 1} | \mathcal{F}_n] = Y_n, \quad \text{para todo $n \geq 0$}.
+\end{equation}
+
+\begin{enumerate}
+    \item Mostre que
+    \begin{equation}
+    M_n=S_n-(p-q)n
+    \end{equation}
+    é uma martingal.
+
+    \item Encontre uma constante $r>1$ tal que
+    \begin{equation}
+    Z_n=r^{S_n}
+    \end{equation}
+    seja uma martingal.
+\end{enumerate}
+\end{document}
